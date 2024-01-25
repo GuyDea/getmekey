@@ -1,0 +1,13 @@
+{
+  "name": "GetMeKey",
+  "description": "Password generating utility",
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "permissions": [],
+  "action": {
+    "default_title": "GetMeKey",
+    "default_icon": "gmk_icon_128.png",
+    "default_popup": "index.html"
+  }
+  
+}
