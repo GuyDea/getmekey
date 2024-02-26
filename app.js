@@ -1,3 +1,3 @@
-import {Listeners} from "./src/listeners.js";
+import {Bootstrap} from "./src/bootstrap.js";
 
-Listeners.initialize();
+Bootstrap.runBootstrap();

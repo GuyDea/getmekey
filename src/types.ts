@@ -1,3 +1,3 @@
 export interface SubPage{
-    getContent(): string;
+    getContent(...props: any): string;
 }

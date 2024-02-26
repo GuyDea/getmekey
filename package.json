@@ -1,15 +1,15 @@
 {
   "name": "get-me-key",
   "author": "GuyDea",
-  "description": "Tool for fast and unique password generation",
+  "description": "Tool for quick generating of unique passwords",
   "private": false,
   "homepage": "https://getmekey.com",
   "version": "1.0.0",
   "type": "module",
   "main": "index.html",
   "scripts": {
-    "build": "rm -rdf dist && tsc -b && node build.cjs",
-    "serve": "npm run build && live-server ./dist --port=9000",
+    "build": "tsc -b && node build.cjs",
+    "serve": "npm run build && live-server --port=9000 ./dist",
     "watch": "chokidar src static app.js index.html -c 'npm run build'",
     "dev": "concurrently --kill-others 'npm run watch' 'npm run serve'"
   },
