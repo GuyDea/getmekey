@@ -7,3 +7,5 @@ export class Bootstrap {
         Listeners.initialize();
     }
 }
+
+Bootstrap.runBootstrap();

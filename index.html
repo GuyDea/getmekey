@@ -2,31 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/icons/gmk_icon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/static/icons/gmk_icon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GetMeKey</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Righteous&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Righteous&display=swap" rel="stylesheet">
 
     <style>
       @font-face {
         font-family: 'Comfortaa';
-        src: URL('static/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('truetype');
+        src: url(static/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf) format('truetype');
       }
       :root {
-        --app-width: 300px;
+        --app-width: 400px;
         --color-1-val: 0, 0, 0;
         --color-1: rgba(var(--color-1-val, 1));
         --color-1-neg-val: 255, 255, 255;
         --color-1-neg: rgba(var(--color-1-neg-val, 1));
         --color-2-val: 63, 0, 255;
         --color-2: rgba(var(--color-2-val, 1));
+        --color-2-neg-val: 255, 255, 255;
+        --color-2-neg: rgba(var(--color-2-neg-val, 1));
         --border-radius-1: 7px;
         --box-shadow-1: 0 4px 4px 0 rgba(var(--color-1-val), 0.2), 0 6px 20px 0 rgba(var(--color-1-val), 0.2);
         --box-shadow-2: 0 4px 4px 0 rgba(var(--color-2-val), 0.2), 0 6px 20px 0 rgba(var(--color-2-val), 0.2);
+        --input-width: 220px;
       }
       * {
         font-family: "Comfortaa", sans-serif;
@@ -35,7 +33,6 @@
       body {
         background: radial-gradient(circle, rgba(230,230,230,1) 0%, rgba(var(--color-2-val),0.15) 90%);
         height: 100dvh;
-        width: 100dvw;
         min-width: var(--app-width);
         margin: 0;
         display: flex;
@@ -44,10 +41,10 @@
       }
       button {
         border: none;
-        border-radius: var(--border-radius-1);
+        border-radius: 1em;
         padding: .5em 1em;
-        background: var(--color-1);
-        color: var(--color-1-neg);
+        background: var(--color-2);
+        color: var(--color-2-neg);
         box-shadow: var(--box-shadow-1);
         transition: opacity .3s, transform .3s;
       }
@@ -56,7 +53,7 @@
         transition: none;
       }
       button:hover{
-        transform: scale(1.1);
+        transform: scale(1.05);
       }
       button:focus-visible {
         outline: 2px solid var(--color-2);
@@ -70,8 +67,10 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 20px;
-        padding: 20px;
+        gap: 10px;
+        padding: 10px 0;
+        width: var(--app-width);
+
       }
       .labelInput{
         display: flex;
@@ -80,22 +79,24 @@
         color: var(--color-1);
       }
       .input {
-        width: 150px;
-        min-width: 150px;
+        width: var(--input-width);
         border-radius: var(--border-radius-1);
         text-align: center;
-        padding: .5em 1em;
+        padding: .5em .5em;
         border: none;
         box-shadow: var(--box-shadow-1);
         transition: box-shadow .3s, transform .3s;
-        /*outline: 1px solid var(--color-1);*/
+      }
+      .shortInput{
+        width: 30px;
       }
       .input:focus{
         outline: 2px solid var(--color-2);
         box-shadow: none;
+        transform: scale(1) !important;
       }
       .input:hover{
-        transform: scale(1.1);
+        transform: scale(1.05);
       }
       .labelInput{
         transition: transform .3s;
@@ -105,9 +106,10 @@
       }
       .label{
         margin-bottom: 4px;
+        font-size: 12px;
       }
       .iconPanel{
-        --icon-height: 50px;
+        --icon-height: 40px;
         height: var(--icon-height);
       }
       .icon{
@@ -119,6 +121,14 @@
       .icon:hover{
         transform: scale(1.2);
         box-shadow: var(--box-shadow-2);
+      }
+      .encodeManual {
+        border-radius: 10px;
+        border: 1px solid var(--color-2);
+        padding: 1em .5em;
+        text-align: center;
+        width: var(--input-width);
+        font-size: 12px;
       }
       #jsError {
         position: absolute;
@@ -136,26 +146,115 @@
         padding: 20px;
         box-sizing: border-box;
       }
+      #finalPassword{
+        background: none;
+        border: 1px solid black;
+        text-align: center;
+        border-radius: 1em;
+        font-size: 20px;
+        width: var(--input-width);
+      }
+      #finalPassword:focus {
+        outline: 2px solid var(--color-2);
+      }
+      .reqPanel{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 5px;
+        width: var(--input-width);
+      }
+      .req {
+        font-size: 10px;
+        padding: .5em 1em;
+      }
+      .req.ok{
+        font-weight: bolder;
+        color: var(--color-2);
+      }
+      .useDisclaimer{
+        font-size: 12px;
+        text-align: center;
+      }
+      .footer{
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 10px;
+      }
+      .footerItem {
+        font-size: 12px;
+        text-decoration: underline;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+      .footerItem:hover {
+        color: var(--color-2)
+      }
+      .appVersion{
+        font-size: 10px;
+      }
     </style>
   </head>
   <body>
   <div class="allContent">
     <noscript>
-      <div id="jsError">You must have Javascript enabled for this application to work</div>
+      <div id="jsError">You must have JavaScript enabled for this application to work</div>
     </noscript>
     <div id="mainPage">
       <div class="iconPanel">
         <img class="icon" src="./static/icons/gmk_icon.svg" alt="Get Me Key icon"/>
       </div>
       <div class="labelInput">
-        <label class="label" for="passwordInput">Master Password</label>
-        <input id="passwordInput" class="input" type="password" placeholder="Your Secret" />
+        <label class="label" for="passwordInput">Enter Your Secret</label>
+        <input id="passwordInput" class="input" type="password" placeholder="Keep It Safe!" autocomplete="off"/>
+        <div class="reqPanel">
+          <div class="req" id="passReqLength">length</div>
+          <div class="req" id="passReqSpecial">special</div>
+          <div class="req" id="passReqUppercase">uppercase</div>
+          <div class="req" id="passReqNumber">number</div>
+        </div>
       </div>
       <div class="labelInput">
-        <label class="label" for="siteInput">Site / Service</label>
-        <input id="siteInput" class="input" type="password" placeholder="To Salt Your Password" />
+        <label class="label" for="siteInput">Set App Name</label>
+        <input id="siteInput" class="input" type="password" placeholder='To "Salt" Your Secret' autocomplete="off"/>
+        <div class="reqPanel">
+          <div class="req" id="appReqLength">length</div>
+        </div>
       </div>
-      <button>Disclaimer</button>
+      <div class="encodeManual">"Password + App" <strong>SHA-256</strong> Encoded</div>
+      <div class="labelInput">
+        <label class="label" for="takeFirstInput">Shorten Result To First 20 Characters</label>
+        <input id="takeFirstInput" class="input shortInput" type="number" placeholder="#" value="20"  autocomplete="off"/>
+      </div>
+      <div class="labelInput">
+        <label class="label" for="prefix">Add Security Prefix</label>
+        <input id="prefix" class="input" type="password" placeholder="To Match App Requirements" autocomplete="off"/>
+        <div class="reqPanel">
+          <div class="req" id="secReqSpecial">special</div>
+          <div class="req" id="secReqUppercase">uppercase</div>
+          <div class="req" id="secReqNumber">number</div>
+        </div>
+      </div>
+      <div class="labelInput">
+        <label class="label" for="finalPassword">Generated Password</label>
+        <input id="finalPassword" type="password" value="fdsfdfds12fdsfdfds12321" autocomplete="off"/>
+        <div style="margin-top: 10px; display: flex; gap: 10px;">
+          <button>Copy</button>
+          <button>Copy & Save</button>
+        </div>
+      </div>
+      <div class="useDisclaimer">
+        <strong>Disclaimer:</strong> Use GetMeKey At Own Risk
+      </div>
+      <div class="footer">
+        <div class="footerItem">Disclaimer</div>
+        <div class="footerItem">How This Works</div>
+        <div class="footerItem">About GetMeKey</div>
+      </div>
+      <div class="appVersion">{{appVersion}}</div>
     </div>
 
     <div id="subPageContainer">
@@ -165,5 +264,5 @@
     </div>
   </div>
   </body>
-  <script type="module" src="/app.js"></script>
+  <script type="module" src="/src/bootstrap.js"></script>
 </html>

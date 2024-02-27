@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc -b && node build.cjs",
     "serve": "npm run build && live-server --port=9000 ./dist",
-    "watch": "chokidar src static app.js index.html -c 'npm run build'",
+    "watch": "chokidar src static index.html -c 'npm run build'",
     "dev": "concurrently --kill-others 'npm run watch' 'npm run serve'"
   },
   "devDependencies": {

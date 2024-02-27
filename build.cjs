@@ -21,7 +21,6 @@ const destinationDirectory = `${__dirname}/dist/static`;
 async function copyOtherAssets(){
     await fs.copyFile(`${__dirname}/package.json`, `${__dirname}/dist/package.json`);
     await fs.copyFile(`${__dirname}/index.html`, `${__dirname}/dist/index.html`);
-    await fs.copyFile(`${__dirname}/app.js`, `${__dirname}/dist/app.js`);
 }
 
 copyDir(sourceDirectory, destinationDirectory)
