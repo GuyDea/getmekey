@@ -1,0 +1,32 @@
+button:active:not([disabled]) {
+    opacity: .5;
+    transition: none;
+}
+button:hover:not([disabled]) {
+    transform: scale(1.05);
+}
+button:focus-visible {
+    outline: 2px solid var(--color-1);
+}
+.input:focus {
+    outline: 2px solid var(--color-1);
+    box-shadow: none;
+    transform: scale(1) !important;
+}
+
+.input:hover {
+    transform: scale(1.05);
+}
+.logo:hover {
+    transform: scale(1.2);
+    box-shadow: var(--box-shadow-2);
+}
+#finalPassword:focus {
+    outline: 2px solid var(--color-1);
+}
+.footerItem:hover {
+    color: var(--color-1)
+}
+.sideIcon:hover {
+    transform: scale(1.2);
+}
