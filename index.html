@@ -4,8 +4,7 @@
     <meta charset="UTF-8"/>
     <link rel="icon" type="image/svg+xml" href="/static/icons/gmk_icon.svg"/>
 <!--    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>-->
-    <meta name="viewport"
-          content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>GetMeKey</title>
     <link rel="stylesheet" href="/static/interactions.css">
     <style>
@@ -16,6 +15,7 @@
 
         :root {
             --app-width: 400px;
+            --color-text: rgb(210, 34, 34);
             --color-1-val: 63, 0, 255;
             --color-1: rgba(var(--color-1-val, 1));
             --color-1-neg-val: 255, 255, 255;
@@ -77,6 +77,7 @@
         }
 
         #mainPage {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -84,6 +85,37 @@
             gap: 1rem;
             padding: 1rem 0;
             max-width: var(--app-width);
+        }
+        .arrows {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .arrow {
+            --arrow-left: 60px;
+            --arrow-height: 70px;
+            --arrow-width: 30px;
+            --arrow-top-start: 120px;
+            position: absolute;
+            height: var(--arrow-height);
+            width: var(--arrow-width);
+            color: var(--color-1);
+
+        }
+        .arrow[off] {
+            color: var(--color-disabled);
+        }
+        #arrow1 {
+            top: var(--arrow-top-start);
+            left: var(--arrow-left);
+        }
+        #arrow2 {
+            top: calc(var(--arrow-top-start) + var(--arrow-height) + 10px);
+            left: var(--arrow-left);
+        }
+        #arrow3 {
+            top: calc(var(--arrow-top-start) + ((var(--arrow-height) + 10px) * 2));
+            left: var(--arrow-left);
         }
 
         .labelInput {
@@ -111,6 +143,7 @@
 
         input::placeholder {
             color: rgba(var(--color-2-val), .6);
+            font-size: .8em;
         }
 
         .label {
@@ -123,13 +156,12 @@
             height: var(--logo-height);
             display: flex;
             flex-direction: row;
-            justify-content: start;
+            justify-content: center;
             gap: 5px;
             align-items: end;
             text-align: end;
             width: 100%;
             box-sizing: border-box;
-            padding-left: var(--side-width);
             margin-bottom: .5rem;
         }
 
@@ -143,10 +175,13 @@
         .encodeManual {
             border-radius: 10px;
             border: 1px solid var(--color-1);
-            padding: 1em .5em;
+            padding: .5em;
             text-align: center;
             width: var(--input-width);
             font-size: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: .3em;
         }
 
         #jsError {
@@ -250,6 +285,12 @@
             height: 100%;
             width: 100%;
         }
+        .manualStep{
+            text-align: start;
+        }
+        .color1 {
+            color: var(--color-1);
+        }
     </style>
 </head>
 <body>
@@ -270,14 +311,30 @@
                 <path d="M66 4.6H34a2 2 0 0 0-1.7.8A2 2 0 0 0 32 7c1 3.8 3.8 7.1 7.8 9.3v21.4A27.2 27.2 0 0 0 29 44.3a19 19 0 0 0-5.9 13.5c0 .5.3 1 .6 1.4.4.4 1 .6 1.4.6h20.4s3.7 35.6 4.1 35.6c.4 0 4.5-30.5 5-35.6h20.3a2 2 0 0 0 2-2c0-8.8-6.7-16.7-16.7-20V16.3c4-2 6.8-5.5 7.8-9.2a2 2 0 0 0-.3-1.8c-.4-.4-1-.7-1.6-.7Z" style="fill:none;stroke:currentColor;stroke-width:var(--side-icon-width);stroke-dasharray:none;stroke-opacity:1"></path>
             </symbol>
         </svg>
+        <svg style="display: none;">
+            <symbol id="arrow-svg" viewBox="0 0 13.6 39.2">
+                <path style="fill:currentColor" d="M10.1 38.6c-2-1-4.7-1.2-7.8-.8-2 .2-3-.1-1.8-.7 1.5-.8 6.4-1.3 6.8-.7.2.3.4.3.8 0 .3-.3.7-.4 1-.2l.3-.1c0-.2-.3-.6-2.4-2.7-.4-.5-.8-1.2-.8-1.6 0-.4-.2-.8-.4-1-.2 0-.3-.5-.2-.8.1-.4-.2-.8-.8-1.2-.8-.5-1.1-1-1.3-2-.1-.8-.3-1.5-.5-1.6-.2-.1-.3-.7-.3-1.3 0-.5-.2-1.3-.4-1.7-.6-1.1-.6-6 0-6.3.4-.2.4-.4.1-.8-.8-1-.7-3.5.2-3.5.5 0 .5 0 .1-.3-.3-.2-.3-.5-.2-.8.2-.2.3-.7.2-1 0-.7 1.3-3.1 1.8-3.1.2 0 .2-.4 0-.7-.2-.4-.3-.8 0-1l.8-1.4c.3-.6.7-1.1 1-1 0 0 .3-.1.4-.5.2-.4.5-.7.7-.7.3 0 .6-.3.7-.6.1-.3.6-.5 1.1-.5h1l-.9.9C8 2.3 7.6 2.8 7.6 3.2c0 .2-.2.3-.5.3s-.4.2-.3.6c.1.3 0 .7-.3.9-.3.1-.7 1-.8 1.9a5 5 0 0 1-.7 2c-.2.2-.4 1.2-.4 2l-.3 3.4c-.3 2.3-.3 2.3 0 3.3 0 .4 0 .7-.3.7s-.3.2 0 .4c.4.2.4.3.1.5-.2.1-.4.4-.4.6 0 .2.2.3.4.1.2 0 .3 0 .3.2s-.2.5-.5.6c-.7.3-.6.8.2.8s1 .6.6 1.9c-.3.8-.2 1.1.4 1.8.4.4.8 1 .8 1.5 0 .4.3 1 .8 1.5A6 6 0 0 1 8 30.6c.4 1.6 2 3.6 2.8 3.6.2 0 .3-.6.3-1.3 0-2.3.4-4.3 1-4.3.5 0 .5-.1.2-.3-.3-.2-.2-.6.4-1.3 1-1.2 1.1-1 .4 1.6-.4 1.6-.6 3.6-.5 7.5 0 .3.2.6.3.6.2 0 .4.5.4 1 0 1.6-1 1.9-3.2.9z"/>
+            </symbol>
+        </svg>
     </div>
     <noscript>
         <div id="jsError">You must have JavaScript enabled for this application to work</div>
     </noscript>
     <div id="mainPage">
+        <div class="arrows">
+            <svg class="arrow" id="arrow1" off>
+                <use xlink:href="#arrow-svg"></use>
+            </svg>
+            <svg class="arrow" id="arrow2" off>
+                <use xlink:href="#arrow-svg"></use>
+            </svg>
+            <svg class="arrow" id="arrow3" off>
+                <use xlink:href="#arrow-svg"></use>
+            </svg>
+        </div>
         <div class="logoPanel">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="logo">
-                <circle cx="50" cy="50" r="50" fill="#fe00fe" style="fill:#3f00ff;fill-opacity:1"/>
+                <circle cx="50" cy="50" r="50" fill="#fe00fe" style="fill:var(--color-1);fill-opacity:1"/>
                 <path d="M33.27 21.75a28.4 28.4 0 0 0-13.63 3.86A28.54 28.54 0 0 0 6.6 58.48a28.54 28.54 0 0 0 55.4-2.58h6.31V63a4.5 4.5 0 0 0 4.5 4.5 4.5 4.5 0 0 0 4.5-4.5v-7.1h2.4v3.2a4.5 4.5 0 0 0 4.5 4.5 4.5 4.5 0 0 0 4.5-4.5v-3.2h.3a4.5 4.5 0 0 0 4.5-4.5 4.5 4.5 0 0 0-4.5-4.5H45.8a4.5 4.5 0 0 0-4.5 4.5 4.5 4.5 0 0 0 4.5 4.5h6.93a19.45 19.45 0 0 1-17.75 14h-.02a19.46 19.46 0 0 1-19.74-13.97v-.01l-.01-.02a19.46 19.46 0 0 1 8.94-22.5l.02-.01a19.46 19.46 0 0 1 23.88 3.33 4.5 4.5 0 0 0 6.37.12 4.5 4.5 0 0 0 .12-6.36 28.51 28.51 0 0 0-21.27-8.73z"
                       style="fill:#fff;"/>
             </svg>
@@ -310,25 +367,20 @@
             </div>
             <div class="reqPanel">
                 <div class="req" id="passReqLength">length</div>
-                <div class="req" id="passReqSpecial">special</div>
-                <div class="req" id="passReqUppercase">uppercase</div>
                 <div class="req" id="passReqNumber">number</div>
+                <div class="req" id="passReqUppercase">uppercase</div>
+                <div class="req" id="passReqSpecial">special</div>
             </div>
         </div>
         <div class="withSides">
             <div class="side leftSide"></div>
-            <div class="encodeManual hideOverflow">"Secret & App" <strong>SHA-256</strong> Encoded</div>
-            <div class="side rightSide">
-                <div class="sideIcon">
-                    <svg off>
-                        <use xlink:href="#icon-question"></use>
-                    </svg>
+            <div>
+                <div class="encodeManual">
+                    <div style="color: var(--color-1)">GetMeKey</div>
+                    <div class="hideOverflow manualStep"><span class="color1">• </span>Encodes it via <strong class="color1">SHA-256</strong></div>
+                    <div class="hideOverflow manualStep"><span class="color1">• </span>Takes first <strong class="color1">20</strong> Characters</div>
                 </div>
             </div>
-        </div>
-        <div class="withSides">
-            <div class="side leftSide"></div>
-            <div class="encodeManual hideOverflow">Take first <strong>20</strong> Characters</div>
             <div class="side rightSide">
                 <div class="sideIcon">
                     <svg off>
@@ -341,7 +393,7 @@
             <label class="label" for="prefix">Add Security Prefix</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="prefix" class="input" type="password" placeholder="Match App Requirements"
+                <input id="prefix" class="input" type="password" placeholder="General App Requirements"
                        autocomplete="off"/>
                 <div class="side rightSide">
                     <div class="sideIcon">
@@ -362,9 +414,9 @@
                 </div>
             </div>
             <div class="reqPanel">
-                <div class="req" id="secReqSpecial">special</div>
-                <div class="req" id="secReqUppercase">uppercase</div>
                 <div class="req" id="secReqNumber">number</div>
+                <div class="req" id="secReqUppercase">uppercase</div>
+                <div class="req" id="secReqSpecial">special</div>
             </div>
         </div>
         <div class="labelInput">
