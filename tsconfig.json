@@ -6,7 +6,6 @@
     "skipLibCheck": true,
     "outDir": "dist/src",
     "useDefineForClassFields": false,
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

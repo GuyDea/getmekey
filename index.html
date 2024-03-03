@@ -29,9 +29,16 @@
             --box-shadow-2: 0 4px 4px 0 rgba(var(--color-1-val), 0.2), 0 6px 20px 0 rgba(var(--color-1-val), 0.2);
             --input-width: 220px;
             --input-height: 28px;
-            --side-width: 90px;
+            --right-side-width: 90px;
+            --left-side-width: 90px;
             --color-disabled: #aaaaaa;
             --side-icon-width: 6;
+        }
+        @media (max-width: 400px) {
+            :root {
+                --app-width: 350px;
+                --left-side-width: 40px;
+            }
         }
 
         * {
@@ -88,8 +95,10 @@
         }
         .arrows {
             position: absolute;
+            width: var(--left-side-width);
             top: 0;
             left: 0;
+            z-index: -1;
         }
         .arrow {
             --arrow-left: 60px;
@@ -99,23 +108,21 @@
             position: absolute;
             height: var(--arrow-height);
             width: var(--arrow-width);
-            color: var(--color-1);
+            color: var(--color-disabled);
+            right: 0;
 
         }
-        .arrow[off] {
-            color: var(--color-disabled);
+        .arrow[on] {
+            color: var(--color-1);
         }
         #arrow1 {
             top: var(--arrow-top-start);
-            left: var(--arrow-left);
         }
         #arrow2 {
             top: calc(var(--arrow-top-start) + var(--arrow-height) + 10px);
-            left: var(--arrow-left);
         }
         #arrow3 {
             top: calc(var(--arrow-top-start) + ((var(--arrow-height) + 10px) * 2));
-            left: var(--arrow-left);
         }
 
         .labelInput {
@@ -177,7 +184,6 @@
             border: 1px solid var(--color-1);
             padding: .5em;
             text-align: center;
-            width: var(--input-width);
             font-size: 12px;
             display: flex;
             flex-direction: column;
@@ -185,7 +191,7 @@
         }
 
         #jsError {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             height: 100%;
@@ -194,6 +200,7 @@
             place-items: center;
             z-index: 9999;
             color: white;
+            white-space: break-spaces;
             background: rgba(0, 0, 0, .8);
             font-size: 30px;
             text-align: center;
@@ -223,7 +230,7 @@
             padding: .5em 0;
         }
 
-        .req.ok {
+        .req[ok] {
             font-weight: bolder;
             color: var(--color-1);
         }
@@ -258,18 +265,23 @@
             width: var(--app-width);
         }
         .side {
-            width: var(--side-width);
             display: flex;
             flex-direction: row;
             gap: .2em;
             padding: 0 .2em;
             align-items: center;
+            flex: 0 0 var(--side-width);
         }
         .leftSide {
+            width: var(--left-side-width);
             justify-content: end;
         }
         .rightSide {
-
+            width: var(--right-side-width);
+        }
+        .middle {
+            flex: 1 1 var(--input-width);
+            min-width: 0;
         }
         .sideIcon{
             padding: 2px;
@@ -322,13 +334,13 @@
     </noscript>
     <div id="mainPage">
         <div class="arrows">
-            <svg class="arrow" id="arrow1" off>
+            <svg class="arrow" id="arrow1">
                 <use xlink:href="#arrow-svg"></use>
             </svg>
-            <svg class="arrow" id="arrow2" off>
+            <svg class="arrow" id="arrow2">
                 <use xlink:href="#arrow-svg"></use>
             </svg>
-            <svg class="arrow" id="arrow3" off>
+            <svg class="arrow" id="arrow3">
                 <use xlink:href="#arrow-svg"></use>
             </svg>
         </div>
@@ -350,9 +362,9 @@
             <label class="label" for="passwordInput">"Secret & App" Combined</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="passwordInput" class="input" type="password" placeholder="Make It Strong!"
+                <input id="passwordInput" class="input middle" type="password" placeholder="Make It Strong!"
                        autocomplete="off"/>
-                <div class="side">
+                <div class="side rightSide">
                     <div class="sideIcon">
                         <svg off>
                             <use xlink:href="#icon-question"></use>
@@ -374,11 +386,11 @@
         </div>
         <div class="withSides">
             <div class="side leftSide"></div>
-            <div>
+            <div class="middle">
                 <div class="encodeManual">
                     <div style="color: var(--color-1)">GetMeKey</div>
                     <div class="hideOverflow manualStep"><span class="color1">• </span>Encodes it via <strong class="color1">SHA-256</strong></div>
-                    <div class="hideOverflow manualStep"><span class="color1">• </span>Takes first <strong class="color1">20</strong> Characters</div>
+                    <div class="hideOverflow manualStep"><span class="color1">• </span>Takes first <strong class="color1">20</strong> characters</div>
                 </div>
             </div>
             <div class="side rightSide">
@@ -393,7 +405,7 @@
             <label class="label" for="prefix">Add Security Prefix</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="prefix" class="input" type="password" placeholder="General App Requirements"
+                <input id="prefix" class="input middle" type="password" placeholder="General App Requirements"
                        autocomplete="off"/>
                 <div class="side rightSide">
                     <div class="sideIcon">
@@ -423,7 +435,7 @@
             <label class="label" for="finalPassword">Generated Password</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="finalPassword" disabled type="password" value="" autocomplete="off"/>
+                <input id="finalPassword" class="middle" disabled type="password" value="" autocomplete="off"/>
                 <div class="side rightSide">
                     <div class="sideIcon" off>
                         <svg>
