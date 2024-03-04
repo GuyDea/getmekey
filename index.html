@@ -216,6 +216,9 @@
             font-size: 20px;
             width: var(--input-width);
         }
+        #finalPassword[disabled] {
+            border-color: var(--color-disabled);
+        }
 
         .reqPanel {
             display: flex;
@@ -258,6 +261,9 @@
 
         .appVersion {
             font-size: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .withSides{
             display: flex;
@@ -270,7 +276,6 @@
             gap: .2em;
             padding: 0 .2em;
             align-items: center;
-            flex: 0 0 var(--side-width);
         }
         .leftSide {
             width: var(--left-side-width);
@@ -302,6 +307,20 @@
         }
         .color1 {
             color: var(--color-1);
+        }
+        .lastLine {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            padding: 0 1rem;
+        }
+        .lastLineSpacer {
+            flex: 1 1 auto;
+        }
+        .socialIcon {
+            transition: transform .5s;
+            height: 30px;
+            width: 30px;
         }
     </style>
 </head>
@@ -402,10 +421,10 @@
             </div>
         </div>
         <div class="labelInput">
-            <label class="label" for="prefix">Add Security Prefix</label>
+            <label class="label" for="prefixInput">Add Security Prefix</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="prefix" class="input middle" type="password" placeholder="General App Requirements"
+                <input id="prefixInput" class="input middle" type="password" placeholder="General App Requirements"
                        autocomplete="off"/>
                 <div class="side rightSide">
                     <div class="sideIcon">
@@ -426,9 +445,9 @@
                 </div>
             </div>
             <div class="reqPanel">
-                <div class="req" id="secReqNumber">number</div>
-                <div class="req" id="secReqUppercase">uppercase</div>
-                <div class="req" id="secReqSpecial">special</div>
+                <div class="req" id="prefixReqNumber">number</div>
+                <div class="req" id="prefixReqUppercase">uppercase</div>
+                <div class="req" id="prefixReqSpecial">special</div>
             </div>
         </div>
         <div class="labelInput">
@@ -460,10 +479,25 @@
         </div>
         <div class="footer">
             <div class="footerItem">Full Disclaimer</div>
-            <div class="footerItem">How This Works</div>
             <div class="footerItem">About GetMeKey</div>
+            <div class="footerItem">How This Works</div>
         </div>
-        <div class="appVersion">{{appVersion}}</div>
+        <div class="lastLine">
+            <div class="appVersion">
+                <div><strong>Version</strong> {{APP_VERSION}}.{{GIT_COMMIT_ID}}</div>
+                <div><strong>Build at</strong> {{BUILD_AT}}</div>
+            </div>
+            <div class="lastLineSpacer"></div>
+            <div class="socialIcons">
+                <a href="https://github.com/GuyDea/get-me-key" target="_blank" >
+                    <div class="socialIcon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                            <path d="M50.5 0a49.8 49.8 0 0 0-15.7 97.2c2.3.5 4.2-2 4.2-4.1v-6.7c-13.9 3-18.2-6.7-18.2-6.7a15 15 0 0 0-5.1-7.3c-4.6-3.3.2-3 .2-3a10 10 0 0 1 7.6 4.6c4 6.7 12.7 6 15.5 4.8a12.4 12.4 0 0 1 1.1-6.7C24.5 69.4 16 60.1 16 47.7a24.7 24.7 0 0 1 6.7-17.5 14.3 14.3 0 0 1 .7-14.8A20.5 20.5 0 0 1 38 22.1a34.8 34.8 0 0 1 12.5-1.8 39.4 39.4 0 0 1 12.4 1.6 20.7 20.7 0 0 1 14.8-6.5 15 15 0 0 1 .9 14.8 24.7 24.7 0 0 1 6.5 17.5c0 12.4-8.6 21.7-24.2 24.4a12.4 12.4 0 0 1 1.1 6.7v14.3a4.1 4.1 0 0 0 4.4 4.1A50 50 0 0 0 50.4 0Z" />
+                        </svg>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
 
     <div id="subPageContainer">

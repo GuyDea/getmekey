@@ -30,3 +30,7 @@ button:focus-visible {
 .sideIcon:hover {
     transform: scale(1.2);
 }
+
+.socialIcon:hover {
+    transform: scale(1.2);
+}
