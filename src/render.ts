@@ -1,5 +1,6 @@
 import {Elements} from "./elements.js";
 import {StateSelectors} from "./stateSelectors.js";
+import {PasswordGenerator} from "./passwordGenerator.js";
 
 const setAttr = (el: HTMLElement, name: string, value?: string) => el.setAttribute(name, value ?? '');
 const rmAttr = (el: HTMLElement, name: string) => el.removeAttribute(name);
@@ -16,5 +17,11 @@ export class Render {
         setAttrIfTrue(StateSelectors.prefixContainsUppercase(), Elements.prefixReqUppercase(), 'ok');
         setAttrIfTrue(StateSelectors.prefixContainsSpecial(), Elements.prefixReqSpecial(), 'ok');
         setAttrIfTrue(StateSelectors.isPasswordOk() && StateSelectors.isPrefixOk(), Elements.arrow3(), 'on');
+        setAttrIfTrue(!StateSelectors.isPasswordOk() || !StateSelectors.isPrefixOk(), Elements.finalPassword(), 'disabled');
+        if(StateSelectors.isPasswordOk() && StateSelectors.isPrefixOk()){
+            Elements.finalPassword().value = await PasswordGenerator.generatePassword(Elements.passwordInput().value, 20, Elements.prefixInput().value);
+        } else {
+            Elements.finalPassword().value = '';
+        }
     }
 }

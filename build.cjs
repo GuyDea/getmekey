@@ -30,6 +30,7 @@ function formatDateTime (date){
 async function copyOtherAssets(){
     await fs.copyFile(`${__dirname}/package.json`, `${__dirname}/dist/package.json`);
     await fs.copyFile(`${__dirname}/index.html`, `${__dirname}/dist/index.html`);
+    await fs.copyFile(`${__dirname}/manifest.json`, `${__dirname}/dist/manifest.json`);
 }
 
 const sourceDirectory = `${__dirname}/static`;

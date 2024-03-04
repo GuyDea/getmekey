@@ -6,7 +6,7 @@
   "permissions": [],
   "action": {
     "default_title": "GetMeKey",
-    "default_icon": "gmk_icon_128.png",
+    "default_icon": "static/icons/gmk_icon_128.png",
     "default_popup": "index.html"
   }
   
