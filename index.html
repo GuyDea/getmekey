@@ -213,7 +213,6 @@
             border: 1px solid black;
             text-align: center;
             border-radius: 1em;
-            font-size: 20px;
             width: var(--input-width);
         }
         #finalPassword[disabled] {
@@ -233,7 +232,7 @@
             padding: .5em 0;
         }
 
-        .req[ok] {
+        *[ok] {
             font-weight: bolder;
             color: var(--color-1);
         }
@@ -288,12 +287,13 @@
             flex: 1 1 var(--input-width);
             min-width: 0;
         }
-        .sideIcon{
+        .sideIcon {
             padding: 2px;
             height: var(--input-height);
             width: var(--input-height);
             flex: 0 0 var(--input-height);
             transition: transform .5s;
+            color: var(--color-1);
         }
         .sideIcon[off] {
             color: var(--color-disabled);
@@ -378,10 +378,10 @@
         </div>
 
         <div class="labelInput">
-            <label class="label" for="passwordInput">"Secret & App" Combined</label>
+            <label class="label" for="secretInput">Secret & App Combined</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="passwordInput" class="input middle" type="password" placeholder="Make It Strong!"
+                <input id="secretInput" class="input middle" type="password" placeholder="Make It Strong!"
                        autocomplete="off"/>
                 <div class="side rightSide">
                     <div class="sideIcon">
@@ -389,7 +389,7 @@
                             <use xlink:href="#icon-question"></use>
                         </svg>
                     </div>
-                    <div class="sideIcon" off>
+                    <div class="sideIcon" off id="secretHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
                         </svg>
@@ -398,9 +398,9 @@
             </div>
             <div class="reqPanel">
                 <div class="req" id="passReqLength">length</div>
-                <div class="req" id="passReqNumber">number</div>
                 <div class="req" id="passReqUppercase">uppercase</div>
                 <div class="req" id="passReqSpecial">special</div>
+                <div class="req" id="passReqNumber">number</div>
             </div>
         </div>
         <div class="withSides">
@@ -432,12 +432,12 @@
                             <use xlink:href="#icon-question"></use>
                         </svg>
                     </div>
-                    <div class="sideIcon" off>
+                    <div class="sideIcon" off id="prefixHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
                         </svg>
                     </div>
-                    <div class="sideIcon" off>
+                    <div id="prefixPinToggle" class="sideIcon" off>
                         <svg>
                             <use xlink:href="#icon-pin"></use>
                         </svg>
@@ -445,18 +445,18 @@
                 </div>
             </div>
             <div class="reqPanel">
-                <div class="req" id="prefixReqNumber">number</div>
                 <div class="req" id="prefixReqUppercase">uppercase</div>
                 <div class="req" id="prefixReqSpecial">special</div>
+                <div class="req" id="prefixReqNumber">number</div>
             </div>
         </div>
         <div class="labelInput">
-            <label class="label" for="finalPassword">Generated Password</label>
+            <label id="finalPasswordLabel" class="label" for="finalPassword">Generated Password</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="finalPassword" class="middle" disabled type="password" value="" autocomplete="off"/>
+                <input id="finalPassword" readonly class="middle" disabled type="password" value="" autocomplete="off"/>
                 <div class="side rightSide">
-                    <div class="sideIcon" off>
+                    <div class="sideIcon" off id="passwordHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
                         </svg>
@@ -465,8 +465,8 @@
             </div>
             <div style="margin-top: 10px; display: flex; gap: 10px;">
                 <div class="sideIcon"></div>
-                <button disabled>Copy</button>
-                <button disabled>Copy & Save</button>
+                <button id="copyButton" disabled>Copy</button>
+                <button id="copySaveButton" disabled>Copy & Save</button>
                 <div class="sideIcon">
                     <svg off>
                         <use xlink:href="#icon-question"></use>

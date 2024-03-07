@@ -1,7 +1,10 @@
 const elById = <T extends HTMLElement>(id: string) => () => document.getElementById(id)! as T;
+/**
+ * Provides access to all elements available on the page
+ */
 export class Elements {
     public static siteInput = elById('siteInput');
-    public static passwordInput = elById<HTMLInputElement>('passwordInput');
+    public static secretInput = elById<HTMLInputElement>('secretInput');
     public static disclaimerContent = elById('disclaimerContent');
     public static subPageContainer = elById('subPageContainer');
     public static passReqLength = elById('passReqLength');
@@ -16,5 +19,11 @@ export class Elements {
     public static prefixReqUppercase = elById('prefixReqUppercase');
     public static prefixReqSpecial = elById('prefixReqSpecial');
     public static finalPassword = elById<HTMLInputElement>('finalPassword');
-
+    public static finalPasswordLabel = elById<HTMLLabelElement>('finalPasswordLabel');
+    public static secretHideToggle = elById('secretHideToggle');
+    public static prefixHideToggle = elById('prefixHideToggle');
+    public static passwordHideToggle = elById('passwordHideToggle');
+    public static copyButton = elById('copyButton');
+    public static copySaveButton = elById('copySaveButton');
+    public static prefixPinToggle = elById('prefixPinToggle');
 }
