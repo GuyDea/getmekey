@@ -5,7 +5,7 @@
     <link rel="icon" type="image/svg+xml" href="/static/icons/gmk_icon.svg"/>
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>GetMeKey</title>
-    <link rel="stylesheet" href="/static/interactions.css">
+    <link rel="stylesheet" href="/static/dynamic.css">
     <style>
         @font-face {
             font-family: 'Comfortaa';
@@ -107,12 +107,12 @@
             position: absolute;
             height: var(--arrow-height);
             width: var(--arrow-width);
-            color: var(--color-disabled);
+            color: var(--color-1);
             right: 10px;
         }
 
-        .arrow[on] {
-            color: var(--color-1);
+        .arrow[off] {
+            color: var(--color-disabled);
         }
         #arrow1 {
             top: var(--arrow-top-start);
@@ -212,8 +212,9 @@
             border: 1px solid black;
             text-align: center;
             border-radius: 1em;
-            width: var(--input-width);
+            width: 100%;
             font-size: 11px;
+            height: var(--input-height);
         }
         #finalPassword[disabled] {
             border-color: var(--color-disabled);
@@ -294,6 +295,7 @@
             flex: 0 0 var(--input-height);
             transition: transform .5s;
             color: var(--color-1);
+            cursor: pointer;
         }
         .sideIcon[off] {
             color: var(--color-disabled);
@@ -322,6 +324,30 @@
             height: 30px;
             width: 30px;
         }
+        .finalPasswordPanel {
+            position: relative;
+        }
+        #dotLoader{
+            position: absolute;
+            height: var(--input-height);
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        #dotLoader[off]{
+            display: none;
+        }
+        #settingsIcon{
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 1.5rem;
+            width: 1.5rem;
+            margin: 1rem;
+            transition: all .5s;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
@@ -338,8 +364,27 @@
             </symbol>
         </svg>
         <svg style="display: none;">
-            <symbol id="arrow-svg" viewBox="0 0 13.6 39.2">
+            <symbol id="arrow-svg" viewBox="0 0 13.6 39.2" >
                 <path style="fill:currentColor" d="M10.1 38.6c-2-1-4.7-1.2-7.8-.8-2 .2-3-.1-1.8-.7 1.5-.8 6.4-1.3 6.8-.7.2.3.4.3.8 0 .3-.3.7-.4 1-.2l.3-.1c0-.2-.3-.6-2.4-2.7-.4-.5-.8-1.2-.8-1.6 0-.4-.2-.8-.4-1-.2 0-.3-.5-.2-.8.1-.4-.2-.8-.8-1.2-.8-.5-1.1-1-1.3-2-.1-.8-.3-1.5-.5-1.6-.2-.1-.3-.7-.3-1.3 0-.5-.2-1.3-.4-1.7-.6-1.1-.6-6 0-6.3.4-.2.4-.4.1-.8-.8-1-.7-3.5.2-3.5.5 0 .5 0 .1-.3-.3-.2-.3-.5-.2-.8.2-.2.3-.7.2-1 0-.7 1.3-3.1 1.8-3.1.2 0 .2-.4 0-.7-.2-.4-.3-.8 0-1l.8-1.4c.3-.6.7-1.1 1-1 0 0 .3-.1.4-.5.2-.4.5-.7.7-.7.3 0 .6-.3.7-.6.1-.3.6-.5 1.1-.5h1l-.9.9C8 2.3 7.6 2.8 7.6 3.2c0 .2-.2.3-.5.3s-.4.2-.3.6c.1.3 0 .7-.3.9-.3.1-.7 1-.8 1.9a5 5 0 0 1-.7 2c-.2.2-.4 1.2-.4 2l-.3 3.4c-.3 2.3-.3 2.3 0 3.3 0 .4 0 .7-.3.7s-.3.2 0 .4c.4.2.4.3.1.5-.2.1-.4.4-.4.6 0 .2.2.3.4.1.2 0 .3 0 .3.2s-.2.5-.5.6c-.7.3-.6.8.2.8s1 .6.6 1.9c-.3.8-.2 1.1.4 1.8.4.4.8 1 .8 1.5 0 .4.3 1 .8 1.5A6 6 0 0 1 8 30.6c.4 1.6 2 3.6 2.8 3.6.2 0 .3-.6.3-1.3 0-2.3.4-4.3 1-4.3.5 0 .5-.1.2-.3-.3-.2-.2-.6.4-1.3 1-1.2 1.1-1 .4 1.6-.4 1.6-.6 3.6-.5 7.5 0 .3.2.6.3.6.2 0 .4.5.4 1 0 1.6-1 1.9-3.2.9z"/>
+            </symbol>
+        </svg>
+        <svg style="display: none;">
+            <symbol id="dots-loading" viewBox="0 0 24 24">
+                <circle cx="21" cy="12" r="0" fill="currentColor">
+                    <animate attributeName="r" begin=".67" calcMode="spline" dur="1.5s"
+                             keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite"
+                             values="0;3;0;0"></animate>
+                </circle>
+                <circle cx="12" cy="12" r="0" fill="currentColor">
+                    <animate attributeName="r" begin=".33" calcMode="spline" dur="1.5s"
+                             keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite"
+                             values="0;3;0;0"></animate>
+                </circle>
+                <circle cx="3" cy="12" r="0" fill="currentColor">
+                    <animate attributeName="r" begin="0" calcMode="spline" dur="1.5s"
+                             keySplines="0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8;0.2 0.2 0.4 0.8" repeatCount="indefinite"
+                             values="0;3;0;0"></animate>
+                </circle>
             </symbol>
         </svg>
     </div>
@@ -347,14 +392,20 @@
         <div id="jsError">You must have JavaScript enabled for this application to work</div>
     </noscript>
     <div id="mainPage">
+        <a id="settingsIcon" href="/settings">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="color: var(--color-1); width: 100%; height: 100%;" >
+                <path fill="currentColor"
+                      d="M2.2 34.6a49.9 49.9 0 0 1 10.5-18.1 3 3 0 0 1 3.2-.8l11.3 4a6 6 0 0 0 7.8-4.5l2.2-11.8a3 3 0 0 1 2.3-2.3 50.6 50.6 0 0 1 21 0 3 3 0 0 1 2.3 2.3L65 15.2a6 6 0 0 0 7.8 4.5l11.3-4a3 3 0 0 1 3.2.8 50 50 0 0 1 10.5 18.1 3 3 0 0 1-1 3.2l-9.1 7.7a5.9 5.9 0 0 0 0 9l9.2 7.7a3 3 0 0 1 .9 3.2 49.9 49.9 0 0 1-10.5 18.1 3 3 0 0 1-3.2.8l-11.3-4a6 6 0 0 0-7.8 4.5l-2.2 11.8a3 3 0 0 1-2.3 2.3 50.6 50.6 0 0 1-21 0 3 3 0 0 1-2.3-2.3L35 84.8a6 6 0 0 0-7.8-4.5l-11.3 4a3 3 0 0 1-3.2-.8A49.9 49.9 0 0 1 2.2 65.4a3 3 0 0 1 1-3.2l9.1-7.7a5.9 5.9 0 0 0 0-9l-9.2-7.7a3 3 0 0 1-.9-3.2ZM35.4 50a14.6 14.6 0 1 0 29.2 0 14.6 14.6 0 0 0-29.2 0z"/>
+            </svg>
+        </a>
         <div class="arrows">
-            <svg class="arrow" id="arrow1">
+            <svg class="arrow" id="arrow1" off>
                 <use xlink:href="#arrow-svg"></use>
             </svg>
-            <svg class="arrow" id="arrow2">
+            <svg class="arrow" id="arrow2" off>
                 <use xlink:href="#arrow-svg"></use>
             </svg>
-            <svg class="arrow" id="arrow3">
+            <svg class="arrow" id="arrow3" off>
                 <use xlink:href="#arrow-svg"></use>
             </svg>
         </div>
@@ -366,7 +417,6 @@
             </svg>
             <div>
                 <div style="font-weight: bolder; color: var(--color-1)">GetMeKey
-<!--                    <span style="font-size: .7em">.com</span>-->
                 </div>
                 <div style="font-size: 8px; color: var(--color-2)">by GuyDea</div>
             </div>
@@ -376,7 +426,7 @@
             <label class="label" for="secretInput">Your Secret</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="secretInput" class="input middle" type="password" placeholder="Make It Strong!"
+                <input id="secretInput" class="input middle" type="password" placeholder="Make It Strong!" required
                        autocomplete="off"/>
                 <div class="side rightSide">
                     <div class="sideIcon">
@@ -402,7 +452,7 @@
             <label class="label" for="saltInput">App Name Variation</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="saltInput" class="input middle" type="password" placeholder='To "Salt" Your Secret'
+                <input id="saltInput" class="input middle" type="password" placeholder='To "Salt" Your Secret' required
                        autocomplete="off"/>
                 <div class="side rightSide">
                     <div class="sideIcon">
@@ -444,7 +494,14 @@
             <label id="finalPasswordLabel" class="label" for="finalPassword">Generated Password</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="finalPassword" readonly class="middle" disabled type="password" value="" autocomplete="off"/>
+                <div class="finalPasswordPanel middle" >
+                    <div id="dotLoader" off>
+                        <svg style="height: var(--input-height); width: var(--input-height); color: var(--color-1);">
+                            <use xlink:href="#dots-loading"></use>
+                        </svg>
+                    </div>
+                    <input id="finalPassword" readonly disabled type="password" value="" autocomplete="off"/>
+                </div>
                 <div class="side rightSide">
                     <div class="sideIcon">
                         <svg off>
@@ -496,9 +553,6 @@
     </div>
 
     <div id="subPageContainer">
-        <div id="subPageContent">
-
-        </div>
     </div>
 </div>
 </body>

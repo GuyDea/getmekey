@@ -1,12 +1,16 @@
 import {Listeners} from "./listeners.js";
 import {Elements} from "./elements.js";
-import {Render} from "./render.js";
+import {Renderer} from "./renderer.js";
+import {SideEffects} from "./sideEffects.js";
+import {Router} from "./router.js";
 
 export class Bootstrap {
-    public static async runBootstrap(){
+    public static runBootstrap(){
         Elements.secretInput().focus();
         Listeners.initialize();
-        await Render.run();
+        SideEffects.initialize();
+        Renderer.run();
+        Router.initialize();
     }
 }
 

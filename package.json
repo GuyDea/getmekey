@@ -1,7 +1,7 @@
 {
   "name": "get-me-key",
   "author": "GuyDea",
-  "description": "Tool for quick generating of unique passwords",
+  "description": "Tool for quick generation of unique and reproducible passwords",
   "private": false,
   "homepage": "https://getmekey.com",
   "version": "1.0.0",

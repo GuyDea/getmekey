@@ -1,3 +1,1 @@
-export interface SubPage{
-    getContent(...props: any): string;
-}
+export type OutputFormat = 'hex' | 'base64';

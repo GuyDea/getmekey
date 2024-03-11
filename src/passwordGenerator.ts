@@ -1,6 +1,7 @@
 import {Pbkdf2} from "./hash-algorithms/pbkdf2.js";
 
 export class PasswordGenerator {
+    // TODO: remove once all algos are tested
     // static {
     //     let htmlButtonElement = document.createElement('button');
     //     htmlButtonElement.innerHTML='tests';

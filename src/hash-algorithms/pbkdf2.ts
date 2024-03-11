@@ -1,7 +1,8 @@
-import {IHashAlgorithm} from "./hashAlgorithmTypes";
+import {type IHashAlgorithm} from "./hashAlgorithmTypes.js";
+import {type OutputFormat} from "../types.js";
 
 export class Pbkdf2 implements IHashAlgorithm<Pbkdf2Options> {
-    async encode(secret: string, salt: string, outputFormat: 'hex' | 'base64', options: Pbkdf2Options): Promise<string> {
+    async encode(secret: string, salt: string, outputFormat: OutputFormat, options: Pbkdf2Options): Promise<string> {
         const k = await this._deriveKeyFromPassword(secret, salt, options);
         return await (outputFormat === "hex" ? this._keyToHexString(k) : this._keyToBase64String(k));
     }
@@ -18,7 +19,7 @@ export class Pbkdf2 implements IHashAlgorithm<Pbkdf2Options> {
             ['deriveBits', 'deriveKey']
         );
 
-        const derivedKey = await window.crypto.subtle.deriveKey(
+        return await window.crypto.subtle.deriveKey(
             {
                 name: 'PBKDF2',
                 salt: saltBuffer,
@@ -30,8 +31,6 @@ export class Pbkdf2 implements IHashAlgorithm<Pbkdf2Options> {
             true,
             ['encrypt', 'decrypt']
         );
-
-        return derivedKey;
     }
 
     private async _keyToBase64String(derivedKey: CryptoKey) {

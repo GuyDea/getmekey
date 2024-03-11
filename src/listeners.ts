@@ -5,7 +5,7 @@ export class Listeners{
     public static initialize(){
         function execute(toRun: () => void){
             toRun();
-            State.notify();
+            State.notifyChange();
         }
         Elements.secretInput().addEventListener('input', () => execute(() => State.value.secretValue = Elements.secretInput().value));
         Elements.saltInput().addEventListener('input', () => execute(() => State.value.saltValue = Elements.saltInput().value));
