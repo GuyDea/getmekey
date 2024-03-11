@@ -22,22 +22,21 @@ export class Render {
         setAttrIfTrue(StateSelectors.secretContainsUppercase(), Elements.passReqUppercase(), 'ok');
         setAttrIfTrue(StateSelectors.secretContainsSpecial(), Elements.passReqSpecial(), 'ok');
         setAttrIfTrue(StateSelectors.isPasswordOk(), Elements.arrow1(), 'on');
-        setAttrIfTrue(StateSelectors.isPasswordOk(), Elements.arrow2(), 'on');
 
-        Elements.prefixInput().value = State.value.prefixValue;
-        setAttrIfTrue(!State.value.prefixShow, Elements.prefixHideToggle(), 'off');
-        setAttrIfTrue(State.value.prefixShow, Elements.prefixInput(), 'type', 'text', 'password');
-        setAttrIfTrue(!State.value.prefixPin, Elements.prefixPinToggle(), 'off');
-        setAttrIfTrue(StateSelectors.prefixContainsNumber(), Elements.prefixReqNumber(), 'ok');
-        setAttrIfTrue(StateSelectors.prefixContainsUppercase(), Elements.prefixReqUppercase(), 'ok');
-        setAttrIfTrue(StateSelectors.prefixContainsSpecial(), Elements.prefixReqSpecial(), 'ok');
+        Elements.saltInput().value = State.value.saltValue;
+        setAttrIfTrue(!State.value.saltShow, Elements.saltHideToggle(), 'off');
+        setAttrIfTrue(State.value.saltShow, Elements.saltInput(), 'type', 'text', 'password');
+        setAttrIfTrue(StateSelectors.saltContainsNumber(), Elements.saltReqNumber(), 'ok');
+        setAttrIfTrue(StateSelectors.saltContainsUppercase(), Elements.saltReqUppercase(), 'ok');
+        setAttrIfTrue(StateSelectors.saltContainsSpecial(), Elements.saltReqSpecial(), 'ok');
 
         setAttrIfTrue(!State.value.passwordShow, Elements.passwordHideToggle(), 'off');
-        setAttrIfTrue(StateSelectors.isPasswordOk() && StateSelectors.isPrefixOk(), Elements.arrow3(), 'on');
-        setAttrIfTrue(!StateSelectors.isPasswordOk() || !StateSelectors.isPrefixOk(), Elements.finalPassword(), 'disabled');
+        setAttrIfTrue(StateSelectors.isPasswordOk() && StateSelectors.isSaltOk(), Elements.arrow2(), 'on');
+        setAttrIfTrue(StateSelectors.isPasswordOk() && StateSelectors.isSaltOk(), Elements.arrow3(), 'on');
+        setAttrIfTrue(!StateSelectors.isPasswordOk() || !StateSelectors.isSaltOk(), Elements.finalPassword(), 'disabled');
 
         setAttrIfTrue(State.value.passwordShow, Elements.finalPassword(), 'type', 'text', 'password');
-        if(StateSelectors.isPasswordOk() && StateSelectors.isPrefixOk()){
+        if(StateSelectors.isPasswordOk() && StateSelectors.isSaltOk()){
             Elements.copyButton().removeAttribute('disabled');
             Elements.copySaveButton().removeAttribute('disabled');
             Elements.finalPassword().value = await StateSelectors.passwordString();

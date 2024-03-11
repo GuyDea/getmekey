@@ -8,10 +8,9 @@ export class Listeners{
             State.notify();
         }
         Elements.secretInput().addEventListener('input', () => execute(() => State.value.secretValue = Elements.secretInput().value));
-        Elements.prefixInput().addEventListener('input', () => execute(() => State.value.prefixValue = Elements.prefixInput().value));
+        Elements.saltInput().addEventListener('input', () => execute(() => State.value.saltValue = Elements.saltInput().value));
         Elements.secretHideToggle().addEventListener('click', () => execute(() => State.value.secretShow = !State.value.secretShow));
-        Elements.prefixHideToggle().addEventListener('click', () => execute(() => State.value.prefixShow = !State.value.prefixShow));
+        Elements.saltHideToggle().addEventListener('click', () => execute(() => State.value.saltShow = !State.value.saltShow));
         Elements.passwordHideToggle().addEventListener('click', () => execute(() => State.value.passwordShow = !State.value.passwordShow));
-        Elements.prefixPinToggle().addEventListener('click', () => execute(() => State.value.prefixPin = !State.value.prefixPin));
     }
 }

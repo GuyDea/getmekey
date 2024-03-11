@@ -1,25 +1,16 @@
 enum Address {
-    PIN_ADDRESS = 'PIN_ADDRESS',
-    PREFIX = 'PREFIX'
+    SALT = 'SALT'
 }
 
 export class Persistence {
     private static readonly VERSION = 1;
 
-    public static setPrefixPin(enabled: boolean){
-        this.setItem(Address.PIN_ADDRESS, enabled ? '1' : '0');
+    public static getSalt(){
+        return this.getItem(Address.SALT) ?? '';
     }
 
-    public static getPrefixPin(){
-        return this.getItem(Address.PIN_ADDRESS) === '1';
-    }
-
-    public static getPrefix(){
-        return this.getItem(Address.PREFIX) ?? '';
-    }
-
-    public static setPrefixValue(value: string) {
-        this.setItem(Address.PREFIX, value);
+    public static setSaltValue(value: string) {
+        this.setItem(Address.SALT, value);
     }
 
     private static setItem(address: Address, value: string){

@@ -3,9 +3,8 @@ import {Persistence} from "./persistence.js";
 export type StateDef = {
     secretValue: string;
     secretShow: boolean;
-    prefixValue: string;
-    prefixShow: boolean;
-    prefixPin: boolean;
+    saltValue: string;
+    saltShow: boolean;
     passwordShow: boolean;
 }
 
@@ -16,9 +15,8 @@ export class State {
     public static value: StateDef = {
         secretValue: '',
         secretShow: false,
-        prefixPin: Persistence.getPrefixPin(),
-        prefixShow: false,
-        prefixValue: Persistence.getPrefix(),
+        saltShow: false,
+        saltValue: Persistence.getSalt(),
         passwordShow: false
     }
     private static subscribers: Subscriber[] = [];
@@ -32,14 +30,5 @@ export class State {
     }
 
     static {
-        State.subscribe(state => {
-            if(state.prefixPin){
-                Persistence.setPrefixPin(true);
-                Persistence.setPrefixValue(state.prefixValue);
-            } else {
-                Persistence.setPrefixPin(false);
-                Persistence.setPrefixValue('');
-            }
-        })
     }
 }

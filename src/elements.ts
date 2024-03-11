@@ -11,19 +11,18 @@ export class Elements {
     public static passReqNumber = elById('passReqNumber');
     public static passReqUppercase = elById('passReqUppercase');
     public static passReqSpecial = elById('passReqSpecial');
-    public static prefixInput = elById<HTMLInputElement>('prefixInput');
+    public static saltInput = elById<HTMLInputElement>('saltInput');
     public static arrow1 = elById('arrow1');
     public static arrow2 = elById('arrow2');
     public static arrow3 = elById('arrow3');
-    public static prefixReqNumber = elById('prefixReqNumber');
-    public static prefixReqUppercase = elById('prefixReqUppercase');
-    public static prefixReqSpecial = elById('prefixReqSpecial');
+    public static saltReqNumber = elById('saltReqNumber');
+    public static saltReqUppercase = elById('saltReqUppercase');
+    public static saltReqSpecial = elById('saltReqSpecial');
     public static finalPassword = elById<HTMLInputElement>('finalPassword');
     public static finalPasswordLabel = elById<HTMLLabelElement>('finalPasswordLabel');
     public static secretHideToggle = elById('secretHideToggle');
-    public static prefixHideToggle = elById('prefixHideToggle');
+    public static saltHideToggle = elById('saltHideToggle');
     public static passwordHideToggle = elById('passwordHideToggle');
     public static copyButton = elById('copyButton');
     public static copySaveButton = elById('copySaveButton');
-    public static prefixPinToggle = elById('prefixPinToggle');
 }
