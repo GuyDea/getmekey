@@ -1,12 +1,12 @@
-import {Settings} from "./components/settings.js";
 import {Elements} from "./elements.js";
+import './components/index.js';
 
 export class Router {
     private static _lastStateId = 0;
     private static _routes: Route[] = [
         {
             path: '/settings',
-            component: () => new Settings().create()
+            component: () => document.createElement('gmk-settings'),
         }
     ]
 
@@ -15,10 +15,10 @@ export class Router {
         window.addEventListener('click', ev => {
             const anchor = (ev.target as HTMLElement).closest('a');
             if (anchor) {
-                this.handleRoute(anchor.getAttribute('href') ?? '', true);
                 ev.preventDefault();
                 ev.stopPropagation();
                 ev.stopImmediatePropagation();
+                this.handleRoute(anchor.getAttribute('href') ?? '', true);
             }
         }, {capture: true});
     }

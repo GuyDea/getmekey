@@ -47,6 +47,7 @@ async function addVersion() {
 }
 
 copyDir(sourceDirectory, destinationDirectory)
+    .then(() => copyDir(`${__dirname}/lib`, `${__dirname}/dist/lib`))
     .then(() => copyOtherAssets())
     .then(() => addVersion())
     .then(() => console.log('Build finished successfully'))

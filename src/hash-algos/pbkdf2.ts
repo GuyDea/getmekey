@@ -1,5 +1,6 @@
-import {type IHashAlgorithm} from "./hashAlgorithmTypes.js";
+import {type IHashAlgorithm} from "./hashAlgosTypes.js";
 import {type OutputFormat} from "../types.js";
+import {ByteUtils} from "./byteUtils";
 
 export class Pbkdf2 implements IHashAlgorithm<Pbkdf2Options> {
     async encode(secret: string, salt: string, outputFormat: OutputFormat, options: Pbkdf2Options): Promise<string> {
@@ -34,24 +35,11 @@ export class Pbkdf2 implements IHashAlgorithm<Pbkdf2Options> {
     }
 
     private async _keyToBase64String(derivedKey: CryptoKey) {
-        const exportedKey = await window.crypto.subtle.exportKey("raw", derivedKey);
-        const byteArray = new Uint8Array(exportedKey);
-        let string = '';
-        for (let i = 0; i < byteArray.byteLength; i++) {
-            string += String.fromCharCode(byteArray[i]);
-        }
-        return btoa(string);
+        return ByteUtils.uint8ArrayToBase64String(new Uint8Array(await window.crypto.subtle.exportKey("raw", derivedKey)));
     }
 
     private async _keyToHexString(derivedKey: CryptoKey) {
-        const exportedKey = await window.crypto.subtle.exportKey("raw", derivedKey);
-        const byteArray = new Uint8Array(exportedKey);
-        let hexString = '';
-        for (let i = 0; i < byteArray.byteLength; i++) {
-            const hex = byteArray[i].toString(16).padStart(2, '0');
-            hexString += hex;
-        }
-        return hexString;
+        return ByteUtils.uint8ArrayToHexString(new Uint8Array(await window.crypto.subtle.exportKey("raw", derivedKey)));
     }
 }
 
