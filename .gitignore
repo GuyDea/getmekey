@@ -12,3 +12,5 @@ dist
 *.sln
 *.sw?
 *.iml
+
+.cert

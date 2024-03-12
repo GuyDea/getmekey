@@ -21,6 +21,11 @@ export class Router {
                 this.handleRoute(anchor.getAttribute('href') ?? '', true);
             }
         }, {capture: true});
+        this.handleRoute(location.pathname, false);
+    }
+
+    public static canGoBack(){
+        return history.state > 0;
     }
 
     public static handleRoute(route: string, addHistory?: boolean) {
