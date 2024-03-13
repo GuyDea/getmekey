@@ -19,7 +19,7 @@ button:focus-visible {
 }
 .logo:hover {
     transform: scale(1.2);
-    box-shadow: var(--box-shadow-2);
+    box-shadow: var(--box-shadow-1);
 }
 #finalPassword:focus {
     outline: 2px solid var(--color-1);

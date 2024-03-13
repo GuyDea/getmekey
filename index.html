@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8"/>
     <link rel="icon" type="image/svg+xml" href="/static/icons/gmk_icon.svg"/>
-    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="viewport"
+          content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <title>GetMeKey</title>
-    <link rel="stylesheet" href="/static/dynamic.css">
+    <link rel="stylesheet" href="/static/interactions.css">
     <style>
         @font-face {
             font-family: 'Comfortaa';
@@ -14,7 +15,7 @@
 
         :root {
             --app-width: 400px;
-            --color-text: rgb(210, 34, 34);
+            --color-1-hsl-val: 255;
             --color-1-val: 63, 0, 255;
             --color-1: rgba(var(--color-1-val, 1));
             --color-1-neg-val: 255, 255, 255;
@@ -24,8 +25,8 @@
             --color-2-neg-val: 255, 255, 255;
             --color-2-neg: rgba(var(--color-2-neg-val, 1));
             --border-radius-1: 7px;
-            --box-shadow-1: 0 4px 4px 0 rgba(var(--color-2-val), 0.2), 0 6px 20px 0 rgba(var(--color-2-val), 0.2);
-            --box-shadow-2: 0 4px 4px 0 rgba(var(--color-1-val), 0.2), 0 6px 20px 0 rgba(var(--color-1-val), 0.2);
+            --box-shadow-1: 0 4px 4px 0 rgba(var(--color-1-val), 0.2), 0 6px 20px 0 rgba(var(--color-1-val), 0.2);
+            --box-shadow-2: 0 4px 4px 0 rgba(var(--color-2-val), 0.2), 0 6px 20px 0 rgba(var(--color-2-val), 0.2);
             --input-width: 220px;
             --input-height: 28px;
             --right-side-width: 60px;
@@ -33,6 +34,7 @@
             --color-disabled: #aaaaaa;
             --side-icon-width: 6;
         }
+
         @media (max-width: 400px) {
             :root {
                 --app-width: 320px;
@@ -47,7 +49,7 @@
             white-space: nowrap;
         }
 
-        .hideOverflow{
+        .hideOverflow {
             overflow: hidden;
         }
 
@@ -67,12 +69,12 @@
             padding: .5em 1em;
             background: var(--color-1);
             color: var(--color-1-neg);
-            box-shadow: var(--box-shadow-1);
+            box-shadow: var(--box-shadow-2);
             transition: opacity .3s, transform .3s;
         }
 
-        button[disabled]{
-          background: var(--color-disabled);
+        button[disabled] {
+            background: var(--color-disabled);
         }
 
         .allContent {
@@ -91,6 +93,7 @@
             padding: 1rem 0;
             max-width: var(--app-width);
         }
+
         .arrows {
             position: absolute;
             width: var(--left-side-width);
@@ -114,12 +117,15 @@
         .arrow[off] {
             color: var(--color-disabled);
         }
+
         #arrow1 {
             top: var(--arrow-top-start);
         }
+
         #arrow2 {
             top: calc(var(--arrow-top-start) + var(--arrow-height) + 10px);
         }
+
         #arrow3 {
             top: calc(var(--arrow-top-start) + ((var(--arrow-height) + 10px) * 2));
         }
@@ -137,7 +143,7 @@
             text-align: center;
             padding: .5em .5em;
             border: none;
-            box-shadow: var(--box-shadow-1);
+            box-shadow: var(--box-shadow-2);
             transition: box-shadow .3s, transform .3s;
             height: var(--input-height);
             font-size: calc(var(--input-height) / 2)
@@ -216,6 +222,7 @@
             font-size: 11px;
             height: var(--input-height);
         }
+
         #finalPassword[disabled] {
             border-color: var(--color-disabled);
         }
@@ -265,11 +272,13 @@
             flex-direction: column;
             justify-content: center;
         }
-        .withSides{
+
+        .withSides {
             display: flex;
             flex-direction: row;
             width: var(--app-width);
         }
+
         .side {
             display: flex;
             flex-direction: row;
@@ -277,17 +286,21 @@
             padding: 0 .2em;
             align-items: center;
         }
+
         .leftSide {
             width: var(--left-side-width);
             justify-content: end;
         }
+
         .rightSide {
             width: var(--right-side-width);
         }
+
         .middle {
             flex: 1 1 var(--input-width);
             min-width: 0;
         }
+
         .sideIcon {
             padding: 2px;
             height: var(--input-height);
@@ -297,47 +310,58 @@
             color: var(--color-1);
             cursor: pointer;
         }
+
         .sideIcon[off] {
             color: var(--color-disabled);
         }
-        .sideIcon svg{
+
+        .sideIcon svg {
             height: 100%;
             width: 100%;
         }
-        .manualStep{
+
+        .manualStep {
             text-align: start;
         }
+
         .color1 {
             color: var(--color-1);
         }
+
         .lastLine {
             display: flex;
             flex-direction: row;
             width: 100%;
             padding: 0 1rem;
         }
+
         .lastLineSpacer {
             flex: 1 1 auto;
         }
+
         .socialIcon {
             transition: transform .5s;
             height: 30px;
             width: 30px;
         }
+
         .finalPasswordPanel {
             position: relative;
         }
-        #dotLoader{
+
+        #dotLoader {
             position: absolute;
             height: var(--input-height);
             width: 100%;
             display: flex;
             justify-content: center;
         }
-        #dotLoader[off]{
+
+        #dotLoader[off] {
             display: none;
         }
-        #settingsIcon{
+
+        #settingsIcon {
             position: absolute;
             right: 0;
             top: 0;
@@ -355,17 +379,25 @@
     <div>
         <svg style="display: none;">
             <symbol id="icon-eye" viewBox="0 0 100 100">
-                <path d="M62 50a12.1 12.1 0 0 1-12.2 12.1A12.1 12.1 0 0 1 37.7 50a12.1 12.1 0 0 1 12.1-12.1A12.1 12.1 0 0 1 62 50ZM49.6 24.8c31.1-.2 44.4 24.7 44.6 25-.2.5-13.4 25.4-44.4 25.4a51 51 0 0 1-44.4-25 51 51 0 0 1 44.2-25.4Z" style="fill:none;stroke:currentColor;stroke-width:var(--side-icon-width);"></path>
+                <path d="M62 50a12.1 12.1 0 0 1-12.2 12.1A12.1 12.1 0 0 1 37.7 50a12.1 12.1 0 0 1 12.1-12.1A12.1 12.1 0 0 1 62 50ZM49.6 24.8c31.1-.2 44.4 24.7 44.6 25-.2.5-13.4 25.4-44.4 25.4a51 51 0 0 1-44.4-25 51 51 0 0 1 44.2-25.4Z"
+                      style="fill:none;stroke:currentColor;stroke-width:var(--side-icon-width);"></path>
             </symbol>
         </svg>
         <svg style="display: none;">
             <symbol id="icon-question" viewBox="0 0 100 100">
-                <path d="M 94.956261,50 A 44.956261,44.956261 0 0 1 50,94.956261 44.956261,44.956261 0 0 1 5.0437393,50 44.956261,44.956261 0 0 1 50,5.0437393 44.956261,44.956261 0 0 1 94.956261,50 Z m -43.679069,26.504281 0.03653,-0.04056 M 36.300332,36.572688 c 0,-17.436038 27.399336,-17.435892 27.399336,3.6e-5 0,12.454078 -12.45426,9.962934 -12.45426,24.907974" style="fill: none; stroke:var(--color-1);stroke-width:var(--side-icon-width);stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"></path>
+                <path d="M 94.956261,50 A 44.956261,44.956261 0 0 1 50,94.956261 44.956261,44.956261 0 0 1 5.0437393,50 44.956261,44.956261 0 0 1 50,5.0437393 44.956261,44.956261 0 0 1 94.956261,50 Z m -43.679069,26.504281 0.03653,-0.04056 M 36.300332,36.572688 c 0,-17.436038 27.399336,-17.435892 27.399336,3.6e-5 0,12.454078 -12.45426,9.962934 -12.45426,24.907974"
+                      style="fill: none; stroke:var(--color-1);stroke-width:var(--side-icon-width);stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"></path>
             </symbol>
         </svg>
         <svg style="display: none;">
-            <symbol id="arrow-svg" viewBox="0 0 13.6 39.2" >
-                <path style="fill:currentColor" d="M10.1 38.6c-2-1-4.7-1.2-7.8-.8-2 .2-3-.1-1.8-.7 1.5-.8 6.4-1.3 6.8-.7.2.3.4.3.8 0 .3-.3.7-.4 1-.2l.3-.1c0-.2-.3-.6-2.4-2.7-.4-.5-.8-1.2-.8-1.6 0-.4-.2-.8-.4-1-.2 0-.3-.5-.2-.8.1-.4-.2-.8-.8-1.2-.8-.5-1.1-1-1.3-2-.1-.8-.3-1.5-.5-1.6-.2-.1-.3-.7-.3-1.3 0-.5-.2-1.3-.4-1.7-.6-1.1-.6-6 0-6.3.4-.2.4-.4.1-.8-.8-1-.7-3.5.2-3.5.5 0 .5 0 .1-.3-.3-.2-.3-.5-.2-.8.2-.2.3-.7.2-1 0-.7 1.3-3.1 1.8-3.1.2 0 .2-.4 0-.7-.2-.4-.3-.8 0-1l.8-1.4c.3-.6.7-1.1 1-1 0 0 .3-.1.4-.5.2-.4.5-.7.7-.7.3 0 .6-.3.7-.6.1-.3.6-.5 1.1-.5h1l-.9.9C8 2.3 7.6 2.8 7.6 3.2c0 .2-.2.3-.5.3s-.4.2-.3.6c.1.3 0 .7-.3.9-.3.1-.7 1-.8 1.9a5 5 0 0 1-.7 2c-.2.2-.4 1.2-.4 2l-.3 3.4c-.3 2.3-.3 2.3 0 3.3 0 .4 0 .7-.3.7s-.3.2 0 .4c.4.2.4.3.1.5-.2.1-.4.4-.4.6 0 .2.2.3.4.1.2 0 .3 0 .3.2s-.2.5-.5.6c-.7.3-.6.8.2.8s1 .6.6 1.9c-.3.8-.2 1.1.4 1.8.4.4.8 1 .8 1.5 0 .4.3 1 .8 1.5A6 6 0 0 1 8 30.6c.4 1.6 2 3.6 2.8 3.6.2 0 .3-.6.3-1.3 0-2.3.4-4.3 1-4.3.5 0 .5-.1.2-.3-.3-.2-.2-.6.4-1.3 1-1.2 1.1-1 .4 1.6-.4 1.6-.6 3.6-.5 7.5 0 .3.2.6.3.6.2 0 .4.5.4 1 0 1.6-1 1.9-3.2.9z"/>
+            <symbol id="arrow-svg" viewBox="0 0 13.6 39.2">
+                <path style="fill:currentColor"
+                      d="M10.1 38.6c-2-1-4.7-1.2-7.8-.8-2 .2-3-.1-1.8-.7 1.5-.8 6.4-1.3 6.8-.7.2.3.4.3.8 0 .3-.3.7-.4 1-.2l.3-.1c0-.2-.3-.6-2.4-2.7-.4-.5-.8-1.2-.8-1.6 0-.4-.2-.8-.4-1-.2 0-.3-.5-.2-.8.1-.4-.2-.8-.8-1.2-.8-.5-1.1-1-1.3-2-.1-.8-.3-1.5-.5-1.6-.2-.1-.3-.7-.3-1.3 0-.5-.2-1.3-.4-1.7-.6-1.1-.6-6 0-6.3.4-.2.4-.4.1-.8-.8-1-.7-3.5.2-3.5.5 0 .5 0 .1-.3-.3-.2-.3-.5-.2-.8.2-.2.3-.7.2-1 0-.7 1.3-3.1 1.8-3.1.2 0 .2-.4 0-.7-.2-.4-.3-.8 0-1l.8-1.4c.3-.6.7-1.1 1-1 0 0 .3-.1.4-.5.2-.4.5-.7.7-.7.3 0 .6-.3.7-.6.1-.3.6-.5 1.1-.5h1l-.9.9C8 2.3 7.6 2.8 7.6 3.2c0 .2-.2.3-.5.3s-.4.2-.3.6c.1.3 0 .7-.3.9-.3.1-.7 1-.8 1.9a5 5 0 0 1-.7 2c-.2.2-.4 1.2-.4 2l-.3 3.4c-.3 2.3-.3 2.3 0 3.3 0 .4 0 .7-.3.7s-.3.2 0 .4c.4.2.4.3.1.5-.2.1-.4.4-.4.6 0 .2.2.3.4.1.2 0 .3 0 .3.2s-.2.5-.5.6c-.7.3-.6.8.2.8s1 .6.6 1.9c-.3.8-.2 1.1.4 1.8.4.4.8 1 .8 1.5 0 .4.3 1 .8 1.5A6 6 0 0 1 8 30.6c.4 1.6 2 3.6 2.8 3.6.2 0 .3-.6.3-1.3 0-2.3.4-4.3 1-4.3.5 0 .5-.1.2-.3-.3-.2-.2-.6.4-1.3 1-1.2 1.1-1 .4 1.6-.4 1.6-.6 3.6-.5 7.5 0 .3.2.6.3.6.2 0 .4.5.4 1 0 1.6-1 1.9-3.2.9z"/>
+            </symbol>
+        </svg>
+        <svg style="display: none;">
+            <symbol id="back-arrow-svg" viewBox="0 0 100 100">
+                <path d="M99.8 73.6c-3.8-16.3-15.7-39-51.6-43.8V15.5a7.4 7.4 0 0 0-12.7-5.3L3 43.1a9.8 9.8 0 0 0 0 13.8l32.6 32.9a7.4 7.4 0 0 0 12.7-5.3V70.6c12.2 0 30 1.7 42.5 9.5a6 6 0 0 0 9.1-6.5z"/>
             </symbol>
         </svg>
         <svg style="display: none;">
@@ -393,7 +425,8 @@
     </noscript>
     <div id="mainPage">
         <a id="settingsIcon" href="/settings">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" style="color: var(--color-1); width: 100%; height: 100%;" >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+                 style="color: var(--color-1); width: 100%; height: 100%;">
                 <path fill="currentColor"
                       d="M2.2 34.6a49.9 49.9 0 0 1 10.5-18.1 3 3 0 0 1 3.2-.8l11.3 4a6 6 0 0 0 7.8-4.5l2.2-11.8a3 3 0 0 1 2.3-2.3 50.6 50.6 0 0 1 21 0 3 3 0 0 1 2.3 2.3L65 15.2a6 6 0 0 0 7.8 4.5l11.3-4a3 3 0 0 1 3.2.8 50 50 0 0 1 10.5 18.1 3 3 0 0 1-1 3.2l-9.1 7.7a5.9 5.9 0 0 0 0 9l9.2 7.7a3 3 0 0 1 .9 3.2 49.9 49.9 0 0 1-10.5 18.1 3 3 0 0 1-3.2.8l-11.3-4a6 6 0 0 0-7.8 4.5l-2.2 11.8a3 3 0 0 1-2.3 2.3 50.6 50.6 0 0 1-21 0 3 3 0 0 1-2.3-2.3L35 84.8a6 6 0 0 0-7.8-4.5l-11.3 4a3 3 0 0 1-3.2-.8A49.9 49.9 0 0 1 2.2 65.4a3 3 0 0 1 1-3.2l9.1-7.7a5.9 5.9 0 0 0 0-9l-9.2-7.7a3 3 0 0 1-.9-3.2ZM35.4 50a14.6 14.6 0 1 0 29.2 0 14.6 14.6 0 0 0-29.2 0z"/>
             </svg>
@@ -478,8 +511,11 @@
             <div class="middle">
                 <div class="encodeManual">
                     <div style="color: var(--color-1)">GetMeKey</div>
-                    <div class="hideOverflow manualStep"><span class="color1">• </span>Runs <strong class="color1">PBKDF2</strong></div>
-                    <div class="hideOverflow manualStep"><span class="color1">• </span>Adds <strong class="color1">A1!</strong> prefix</div>
+                    <div class="hideOverflow manualStep"><span class="color1">• </span>Runs <strong class="color1">PBKDF2</strong>
+                    </div>
+                    <div class="hideOverflow manualStep"><span class="color1">• </span>Adds <strong
+                            class="color1">A1!</strong> prefix
+                    </div>
                 </div>
             </div>
             <div class="side rightSide">
@@ -494,7 +530,7 @@
             <label id="finalPasswordLabel" class="label" for="finalPassword">Generated Password</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <div class="finalPasswordPanel middle" >
+                <div class="finalPasswordPanel middle">
                     <div id="dotLoader" off>
                         <svg style="height: var(--input-height); width: var(--input-height); color: var(--color-1);">
                             <use xlink:href="#dots-loading"></use>
@@ -532,7 +568,6 @@
         <div class="footer">
             <div class="footerItem">Full Disclaimer</div>
             <div class="footerItem">About GetMeKey</div>
-            <div class="footerItem">How This Works</div>
         </div>
         <div class="lastLine">
             <div class="appVersion">
@@ -541,10 +576,10 @@
             </div>
             <div class="lastLineSpacer"></div>
             <div class="socialIcons">
-                <a href="https://github.com/GuyDea/get-me-key" target="_blank" >
+                <a href="https://github.com/GuyDea/get-me-key" target="_blank">
                     <div class="socialIcon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                            <path d="M50.5 0a49.8 49.8 0 0 0-15.7 97.2c2.3.5 4.2-2 4.2-4.1v-6.7c-13.9 3-18.2-6.7-18.2-6.7a15 15 0 0 0-5.1-7.3c-4.6-3.3.2-3 .2-3a10 10 0 0 1 7.6 4.6c4 6.7 12.7 6 15.5 4.8a12.4 12.4 0 0 1 1.1-6.7C24.5 69.4 16 60.1 16 47.7a24.7 24.7 0 0 1 6.7-17.5 14.3 14.3 0 0 1 .7-14.8A20.5 20.5 0 0 1 38 22.1a34.8 34.8 0 0 1 12.5-1.8 39.4 39.4 0 0 1 12.4 1.6 20.7 20.7 0 0 1 14.8-6.5 15 15 0 0 1 .9 14.8 24.7 24.7 0 0 1 6.5 17.5c0 12.4-8.6 21.7-24.2 24.4a12.4 12.4 0 0 1 1.1 6.7v14.3a4.1 4.1 0 0 0 4.4 4.1A50 50 0 0 0 50.4 0Z" />
+                            <path d="M50.5 0a49.8 49.8 0 0 0-15.7 97.2c2.3.5 4.2-2 4.2-4.1v-6.7c-13.9 3-18.2-6.7-18.2-6.7a15 15 0 0 0-5.1-7.3c-4.6-3.3.2-3 .2-3a10 10 0 0 1 7.6 4.6c4 6.7 12.7 6 15.5 4.8a12.4 12.4 0 0 1 1.1-6.7C24.5 69.4 16 60.1 16 47.7a24.7 24.7 0 0 1 6.7-17.5 14.3 14.3 0 0 1 .7-14.8A20.5 20.5 0 0 1 38 22.1a34.8 34.8 0 0 1 12.5-1.8 39.4 39.4 0 0 1 12.4 1.6 20.7 20.7 0 0 1 14.8-6.5 15 15 0 0 1 .9 14.8 24.7 24.7 0 0 1 6.5 17.5c0 12.4-8.6 21.7-24.2 24.4a12.4 12.4 0 0 1 1.1 6.7v14.3a4.1 4.1 0 0 0 4.4 4.1A50 50 0 0 0 50.4 0Z"/>
                         </svg>
                     </div>
                 </a>

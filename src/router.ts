@@ -13,12 +13,12 @@ export class Router {
     public static initialize(){
         window.addEventListener('popstate', () => this.handleRoute(location.pathname, false));
         window.addEventListener('click', ev => {
-            const anchor = (ev.target as HTMLElement).closest('a');
-            if (anchor) {
+            const anchor = (ev.target as HTMLElement).closest('a')?.getAttribute('href');
+            if (anchor != null && !['http://', 'https://'].some(p => anchor.startsWith(p))) {
                 ev.preventDefault();
                 ev.stopPropagation();
                 ev.stopImmediatePropagation();
-                this.handleRoute(anchor.getAttribute('href') ?? '', true);
+                this.handleRoute(anchor, true);
             }
         }, {capture: true});
         this.handleRoute(location.pathname, false);
@@ -40,6 +40,8 @@ export class Router {
         }
         if(addHistory) {
             history.pushState(++this._lastStateId, '', route);
+        } else {
+            history.replaceState(history.state, '', route || '/');
         }
     }
 }
