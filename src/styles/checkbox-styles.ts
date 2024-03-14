@@ -11,10 +11,11 @@ export const checkboxStyles = css`
         margin: 0;
         position: relative;
         width: 30px;
-        box-shadow: var(--box-shadow-2);
+        box-shadow: var(--box-shadow-1);
+        cursor: pointer;
     }
 
-    input[type=checkbox]:focus{
+    input[type=checkbox]:focus-visible{
         outline: 1px solid var(--color-1);
     }
 
@@ -67,4 +68,5 @@ export const checkboxStyles = css`
 
     input[type=checkbox]:checked:hover {
         background-color: hsl(var(--color-1-hsl-val), 100%, 30%);
-    }`
+    }
+`

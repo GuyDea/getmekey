@@ -24,6 +24,8 @@
             --color-2: rgba(var(--color-2-val, 1));
             --color-2-neg-val: 255, 255, 255;
             --color-2-neg: rgba(var(--color-2-neg-val, 1));
+            --color-danger-val: 255, 0, 0;
+            --color-danger: rgba(var(--color-danger-val), 1);
             --border-radius-1: 7px;
             --box-shadow-1: 0 4px 4px 0 rgba(var(--color-1-val), 0.2), 0 6px 20px 0 rgba(var(--color-1-val), 0.2);
             --box-shadow-2: 0 4px 4px 0 rgba(var(--color-2-val), 0.2), 0 6px 20px 0 rgba(var(--color-2-val), 0.2);
@@ -69,8 +71,10 @@
             padding: .5em 1em;
             background: var(--color-1);
             color: var(--color-1-neg);
-            box-shadow: var(--box-shadow-2);
             transition: opacity .3s, transform .3s;
+        }
+        button:not([disabled]) {
+            box-shadow: var(--box-shadow-2);
         }
 
         button[disabled] {
@@ -501,6 +505,7 @@
                 </div>
             </div>
             <div class="reqPanel">
+                <div class="req" id="lengthReqUppercase">length</div>
                 <div class="req" id="saltReqUppercase">uppercase</div>
                 <div class="req" id="saltReqSpecial">special</div>
                 <div class="req" id="saltReqNumber">number</div>
