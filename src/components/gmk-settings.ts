@@ -18,16 +18,14 @@ export class GmkSettings extends HTMLElement {
         }
 
         label {
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .algoSelectionPanel {
-            border: 1px solid var(--color-1);
-            border-radius: 1rem;
             padding: .5rem;
         }
 
-        .algoSelectionTitle {
+        .panelTitle {
             color: var(--color-1);
             text-align: center;
             font-size: 14px;
@@ -52,15 +50,19 @@ export class GmkSettings extends HTMLElement {
             <gmk-subpage-container>
                 <span slot="headerText">Settings</span>
                 <div slot="content">
-                    <div class="algoSelectionPanel">
-                        <div class="algoSelectionTitle">Algorithm Selection</div>
-                        <div style="display: flex; flex-direction: column; gap: 10px">
-                            <input type="radio" id="sha" name="algo" checked><label for="sha">SHA-256</label>
-                            <input type="radio" id="pbkdf2" name="algo"><label for="pbkdf2">PBKDF2</label>
-                            <input type="radio" id="argon2" name="algo"><label for="argon2">Argon2</label>
-                            <input type="radio" id="bcrypt" name="algo"><label for="bcrypt">BCrypt</label>
+                    <gmk-title-panel>
+                        <span slot="title">Algorithm Selection</span>
+                        <div slot="content">
+                            <div class="algoSelectionPanel">
+                                <div style="display: flex; flex-direction: column; gap: 10px">
+                                    <input type="radio" id="sha" name="algo" checked><label for="sha">SHA-256</label>
+                                    <input type="radio" id="pbkdf2" name="algo"><label for="pbkdf2">PBKDF2</label>
+                                    <input type="radio" id="argon2" name="algo"><label for="argon2">Argon2</label>
+                                    <input type="radio" id="bcrypt" name="algo"><label for="bcrypt">BCrypt</label>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </gmk-title-panel>
                     <div class="checkboxPanel">
                         <input type="checkbox" id="topSecretModeCheckbox"><label for="topSecretModeCheckbox">Top-Secret
                         Mode</label>
@@ -71,8 +73,8 @@ export class GmkSettings extends HTMLElement {
                         <gmk-question-mark-icon class="questionMarkIcon"></gmk-question-mark-icon>
                     </div>
                     <div class="checkboxPanel unrestrictedModePanel">
-                        <input type="checkbox" id="unrestrictedModeCheckbox"><label for="unrestrictedModeCheckbox">Unrestricted Mode</label>
-                        <gmk-question-mark-icon color="var(--color-danger)" class="questionMarkIcon"></gmk-question-mark-icon>
+                        <input type="checkbox" id="unrestrictedModeCheckbox" class="danger"><label for="unrestrictedModeCheckbox">Unrestricted Mode</label>
+                        <gmk-question-mark-icon style="--color: var(--color-danger)" class="questionMarkIcon"></gmk-question-mark-icon>
                     </div>
                 </div>
             </gmk-subpage-container>

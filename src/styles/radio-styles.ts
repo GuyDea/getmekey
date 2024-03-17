@@ -25,24 +25,32 @@ export const radioStyles = css`
         position: absolute;
         left: 0;
         top: 0;
-        width: 20px; /* Match the checkbox size */
+        width: 20px;
         height: 20px;
-        background-color: white; /* Background color */
-        box-shadow: var(--box-shadow-1);
-        box-sizing: border-box;
-        border: 0 solid var(--color-1);
+        background-color: var(--color-1);
+        box-shadow: var(--box-shadow-1);        
         border-radius: 100%;
-        transition: border-width .1s;
-    }
-    
-    input[type=radio]:checked + label::before {
-        border-width: 5px;
     }
 
-    input[type=radio] + label:hover::before {
-        background-color: #c9cbcd;
+    input[type=radio] + label::after {
+        content: '';
+        transition: transform .5s;
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        background-color: white;
+        z-index: 1;
     }
-    input[type=radio]:checked + label:hover::before {
-        border-color: hsl(var(--color-1-hsl-val), 100%, 30%);
+
+    input[type=radio]:checked + label::after {
+        transform: scale(.5);
+    }
+
+    input[type=radio] + label:hover::after {
+        background-color: #eaeaea;
     }
 `

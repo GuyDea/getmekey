@@ -54,7 +54,7 @@ export const checkboxStyles = css`
     }
 
     input[type=checkbox]:checked {
-        background-color: hsl(var(--color-1-hsl-val), 100%, 50%);
+        background-color: hsl(var(--color-1-hue-val), 100%, 50%);
     }
 
     input[type=checkbox]:checked::after {
@@ -67,6 +67,15 @@ export const checkboxStyles = css`
     }
 
     input[type=checkbox]:checked:hover {
-        background-color: hsl(var(--color-1-hsl-val), 100%, 30%);
+        background-color: hsl(var(--color-1-hue-val), 100%, 30%);
+    }
+    input[type=checkbox].danger:checked:hover {
+        background-color: hsl(var(--color-danger-hue-val), 100%, 30%);
+    }    
+    input[type=checkbox].danger{        
+        box-shadow: var(--box-shadow-danger);
+    }
+    input[type=checkbox].danger:checked {
+        background-color: hsl(var(--color-danger-hue-val), 100%, 50%);
     }
 `

@@ -15,20 +15,22 @@
 
         :root {
             --app-width: 400px;
-            --color-1-hsl-val: 255;
-            --color-1-val: 63, 0, 255;
-            --color-1: rgba(var(--color-1-val, 1));
-            --color-1-neg-val: 255, 255, 255;
-            --color-1-neg: rgba(var(--color-1-neg-val, 1));
+            --color-1-hue-val: 255;
+            --color-1: hsla(var(--color-1-hue-val), 100%, 50%, 1);
+            --color-1-neg-hue-val: 0;
+            --color-1-neg: hsla(var(--color-1-neg-hue-val), 100%, 100%, 1);
+            --color-2-hue-val: 0;
             --color-2-val: 0, 0, 0;
             --color-2: rgba(var(--color-2-val, 1));
             --color-2-neg-val: 255, 255, 255;
             --color-2-neg: rgba(var(--color-2-neg-val, 1));
+            --color-danger-hue-val: 0;
             --color-danger-val: 255, 0, 0;
             --color-danger: rgba(var(--color-danger-val), 1);
             --border-radius-1: 7px;
-            --box-shadow-1: 0 4px 4px 0 rgba(var(--color-1-val), 0.2), 0 6px 20px 0 rgba(var(--color-1-val), 0.2);
+            --box-shadow-1: 0 4px 4px 0 hsla(var(--color-1-hue-val), 100%, 50%, .2), 0 6px 20px 0 hsla(var(--color-1-hue-val), 100%, 50%, .2);
             --box-shadow-2: 0 4px 4px 0 rgba(var(--color-2-val), 0.2), 0 6px 20px 0 rgba(var(--color-2-val), 0.2);
+            --box-shadow-danger: 0 4px 4px 0 hsla(var(--color-danger-hue-val), 100%, 50%, .2), 0 6px 20px 0 hsla(var(--color-danger-hue-val), 100%, 50%, .2);
             --input-width: 220px;
             --input-height: 28px;
             --right-side-width: 60px;
@@ -56,7 +58,7 @@
         }
 
         body {
-            background: radial-gradient(circle, rgba(230, 230, 230, 1) 0%, rgba(var(--color-1-val), 0.15) 90%);
+            background: radial-gradient(circle, rgba(230, 230, 230, 1) 0%, hsla(var(--color-1-hue-val), 100%, 50%, .15) 90%);
             height: 100dvh;
             margin: 0;
             display: flex;
@@ -241,7 +243,7 @@
 
         .req {
             font-size: 10px;
-            padding: .5em 0;
+            padding-top: .5em;
         }
 
         *[ok] {
@@ -389,7 +391,7 @@
         </svg>
         <svg style="display: none;">
             <symbol id="icon-question" viewBox="0 0 100 100">
-                <path d="M 94.956261,50 A 44.956261,44.956261 0 0 1 50,94.956261 44.956261,44.956261 0 0 1 5.0437393,50 44.956261,44.956261 0 0 1 50,5.0437393 44.956261,44.956261 0 0 1 94.956261,50 Z m -43.679069,26.504281 0.03653,-0.04056 M 36.300332,36.572688 c 0,-17.436038 27.399336,-17.435892 27.399336,3.6e-5 0,12.454078 -12.45426,9.962934 -12.45426,24.907974"
+                <path d="m 51.277192,76.504281 0.03653,-0.04056 M 36.300332,36.572688 c 0,-17.436038 27.399336,-17.435892 27.399336,3.6e-5 0,12.454078 -12.45426,9.962934 -12.45426,24.907974"
                       style="fill: none; stroke:var(--color-1);stroke-width:var(--side-icon-width);stroke-linecap:round;stroke-dasharray:none;stroke-opacity:1"></path>
             </symbol>
         </svg>
@@ -511,26 +513,29 @@
                 <div class="req" id="saltReqNumber">number</div>
             </div>
         </div>
-        <div class="withSides">
-            <div class="side leftSide"></div>
-            <div class="middle">
-                <div class="encodeManual">
-                    <div style="color: var(--color-1)">GetMeKey</div>
-                    <div class="hideOverflow manualStep"><span class="color1">• </span>Runs <strong class="color1">PBKDF2</strong>
-                    </div>
-                    <div class="hideOverflow manualStep"><span class="color1">• </span>Adds <strong
-                            class="color1">A1!</strong> prefix
+        <div class="labelInput">
+            <div class="label" style="color: var(--color-1)">GetMeKey</div>
+            <div class="withSides">
+                <div class="side leftSide"></div>
+                <div class="middle">
+                    <div class="encodeManual">
+                        <div class="hideOverflow manualStep"><span class="color1">• </span>Runs <strong class="color1">PBKDF2</strong>
+                        </div>
+                        <div class="hideOverflow manualStep"><span class="color1">• </span>Adds <strong
+                                class="color1">A1!</strong> prefix
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="side rightSide">
-                <div class="sideIcon">
-                    <svg off>
-                        <use xlink:href="#icon-question"></use>
-                    </svg>
+                <div class="side rightSide">
+                    <div class="sideIcon">
+                        <svg off>
+                            <use xlink:href="#icon-question"></use>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
+
         <div class="labelInput">
             <label id="finalPasswordLabel" class="label" for="finalPassword">Generated Password</label>
             <div class="withSides">
