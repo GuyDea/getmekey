@@ -25,6 +25,10 @@ export class Router {
             }
         }, {capture: true});
         this.handleRoute(location.pathname, false).then();
+        setTimeout(() => {
+            console.log('[Router] Lazy loading components');
+            this._routes.forEach(r => r.component())
+        }, 10_000);
     }
 
     public static canGoBack(){

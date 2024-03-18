@@ -1,5 +1,5 @@
 import {Elements} from "./elements.js";
-import {StateSelectors} from "./stateSelectors.js";
+import {StateSelectors} from "./state-selectors.js";
 import {State} from "./state.js";
 
 const setAttr = (el: HTMLElement, name: string, value?: string) => el.setAttribute(name, value ?? '');

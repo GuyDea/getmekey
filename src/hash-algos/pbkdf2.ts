@@ -1,6 +1,6 @@
-import {type IHashAlgorithm} from "./hashAlgosTypes.js";
+import {type IHashAlgorithm} from "./hash-algo-types.js";
 import {type OutputFormat} from "../types.js";
-import {ByteUtils} from "./byteUtils";
+import {ByteUtils} from "./byte-utils.js";
 
 export class Pbkdf2 implements IHashAlgorithm<Pbkdf2Options> {
     async encode(secret: string, salt: string, outputFormat: OutputFormat, options: Pbkdf2Options): Promise<string> {

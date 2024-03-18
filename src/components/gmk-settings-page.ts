@@ -4,7 +4,7 @@ import {radioStyles} from "/src/styles/radio-styles.js";
 import {css, html} from "/src/helper-functions.js";
 import '/src/components/gmk-subpage-container.js';
 import '/src/components/gmk-title-panel.js';
-import '/src/components/icons/gmk-question-mark-icon.js';
+import '/src/components/icons/gmk-info-icon.js';
 import '/src/components/password-options/gmk-algo-output-format.js';
 
 export class GmkSettingsPage extends HTMLElement {
@@ -60,15 +60,15 @@ export class GmkSettingsPage extends HTMLElement {
                     <div class="checkboxPanel">
                         <input type="checkbox" id="topSecretModeCheckbox"><label for="topSecretModeCheckbox">Top-Secret
                         Mode</label>
-                        <gmk-question-mark-icon class="questionMarkIcon"></gmk-question-mark-icon>
+                        <gmk-info-icon class="questionMarkIcon"></gmk-info-icon>
                     </div>
                     <div class="checkboxPanel">
                         <input type="checkbox" id="disableStorageCheckbox"><label for="disableStorageCheckbox">Disable Storage</label>
-                        <gmk-question-mark-icon class="questionMarkIcon"></gmk-question-mark-icon>
+                        <gmk-info-icon class="questionMarkIcon"></gmk-info-icon>
                     </div>
                     <div class="checkboxPanel unrestrictedModePanel">
                         <input type="checkbox" id="unrestrictedModeCheckbox" class="danger"><label for="unrestrictedModeCheckbox">Unrestricted Mode</label>
-                        <gmk-question-mark-icon color="var(--color-danger)" class="questionMarkIcon"></gmk-question-mark-icon>
+                        <gmk-info-icon color="var(--color-danger)" class="questionMarkIcon"></gmk-info-icon>
                     </div>
                 </div>
             </gmk-subpage-container>

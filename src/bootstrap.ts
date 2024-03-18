@@ -1,7 +1,7 @@
 import {Listeners} from "./listeners.js";
 import {Elements} from "./elements.js";
 import {Renderer} from "./renderer.js";
-import {SideEffects} from "./sideEffects.js";
+import {SideEffects} from "./side-effects.js";
 import {Router} from "./router.js";
 
 export class Bootstrap {

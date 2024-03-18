@@ -45,7 +45,7 @@ export class GmkShaOptions extends HTMLElement {
                                 for="suffixRadio">Suffix</label>
                             </span>
                     </div>
-                    <div><label for="lengthInput" >Take First</label><input  type="number" style="width: 50px; margin: 0 .5rem;" id="lengthInput"><span>Characters</span></div>
+                    <div><label for="lengthInput" >Take First</label><input  type="number" style="width: 50px; margin: 0 .5rem;" id="lengthInput" maxlength="2" minlength="2"><span>Characters</span></div>
                 </div>
             </gmk-title-panel>
         `
