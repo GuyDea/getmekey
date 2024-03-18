@@ -1,12 +1,15 @@
 import {Elements} from "./elements.js";
-import './components/index.js';
 
 export class Router {
     private static _lastStateId = 0;
     private static _routes: Route[] = [
         {
             path: '/settings',
-            component: () => document.createElement('gmk-settings'),
+            component: () => import('/src/components/gmk-settings-page.js').then(() => document.createElement('gmk-settings-page')),
+        },
+        {
+            path: '/password-options',
+            component: () => import('/src/components/password-options/gmk-password-options-page.js').then(() => document.createElement('gmk-password-options-page')),
         }
     ]
 
@@ -18,22 +21,22 @@ export class Router {
                 ev.preventDefault();
                 ev.stopPropagation();
                 ev.stopImmediatePropagation();
-                this.handleRoute(anchor, true);
+                this.handleRoute(anchor, true).then();
             }
         }, {capture: true});
-        this.handleRoute(location.pathname, false);
+        this.handleRoute(location.pathname, false).then();
     }
 
     public static canGoBack(){
         return history.state > 0;
     }
 
-    public static handleRoute(route: string, addHistory?: boolean) {
+    public static async handleRoute(route: string, addHistory?: boolean) {
         const component = this._routes.find(r => route.match(r.path))?.component();
         if(component){
             Elements.mainPage().style.display = 'none';
             Elements.subPageContainer().innerHTML = '';
-            Elements.subPageContainer().append(component);
+            Elements.subPageContainer().append(await component);
         } else {
             Elements.mainPage().style.display = 'flex';
             Elements.subPageContainer().innerHTML = '';
@@ -48,5 +51,5 @@ export class Router {
 
 type Route = {
     path: string,
-    component: () => HTMLElement;
+    component: () => Promise<HTMLElement>;
 }

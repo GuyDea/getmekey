@@ -1,7 +1,7 @@
-import {Router} from "../router.js";
-import {html, css} from "../helper-functions.js";
-import {checkboxStyles} from "../styles/checkbox-styles.js";
-import {globalStyles} from "../styles/global.js";
+import {Router} from "/src/router.js";
+import {html, css} from "/src/helper-functions.js";
+import {checkboxStyles} from "/src/styles/checkbox-styles.js";
+import {globalStyles} from "/src/styles/global-styles.js";
 
 export class GmkSubpageContainer extends HTMLElement{
     constructor() {
@@ -35,7 +35,7 @@ export class GmkSubpageContainer extends HTMLElement{
         #headerText{
             display: flex;
             flex-direction: row;
-            font-weight: bolder;
+            font-weight: lighter;
             justify-content: center;
             align-items: center;
             flex: 1 1;

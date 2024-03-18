@@ -1,9 +1,13 @@
-import {css, html} from "../helper-functions.js";
-import {checkboxStyles} from "../styles/checkbox-styles.js";
-import {globalStyles} from "../styles/global.js";
-import {radioStyles} from "../styles/radio-styles.js";
+import {checkboxStyles} from "/src/styles/checkbox-styles.js";
+import {globalStyles} from "/src/styles/global-styles.js";
+import {radioStyles} from "/src/styles/radio-styles.js";
+import {css, html} from "/src/helper-functions.js";
+import '/src/components/gmk-subpage-container.js';
+import '/src/components/gmk-title-panel.js';
+import '/src/components/icons/gmk-question-mark-icon.js';
+import '/src/components/password-options/gmk-algo-output-format.js';
 
-export class GmkSettings extends HTMLElement {
+export class GmkSettingsPage extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
@@ -21,9 +25,6 @@ export class GmkSettings extends HTMLElement {
             font-size: 12px;
         }
 
-        .algoSelectionPanel {
-            padding: .5rem;
-        }
 
         .panelTitle {
             color: var(--color-1);
@@ -42,27 +43,20 @@ export class GmkSettings extends HTMLElement {
         .unrestrictedModePanel > .questionMarkIcon{
             --question-mark-color: var(--color-danger);   
         }
+        .algoOptionsPanel{
+            flex: 1 1;
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+        }
     `
 
     render() {
         return html`
             <style>${this.styles}${checkboxStyles}${globalStyles}${radioStyles}</style>
             <gmk-subpage-container>
-                <span slot="headerText">Settings</span>
-                <div slot="content">
-                    <gmk-title-panel>
-                        <span slot="title">Algorithm Selection</span>
-                        <div slot="content">
-                            <div class="algoSelectionPanel">
-                                <div style="display: flex; flex-direction: column; gap: 10px">
-                                    <input type="radio" id="sha" name="algo" checked><label for="sha">SHA-256</label>
-                                    <input type="radio" id="pbkdf2" name="algo"><label for="pbkdf2">PBKDF2</label>
-                                    <input type="radio" id="argon2" name="algo"><label for="argon2">Argon2</label>
-                                    <input type="radio" id="bcrypt" name="algo"><label for="bcrypt">BCrypt</label>
-                                </div>
-                            </div>
-                        </div>
-                    </gmk-title-panel>
+                <span slot="headerText">Usability Settings</span>
+                <div slot="content">                    
                     <div class="checkboxPanel">
                         <input type="checkbox" id="topSecretModeCheckbox"><label for="topSecretModeCheckbox">Top-Secret
                         Mode</label>
@@ -74,7 +68,7 @@ export class GmkSettings extends HTMLElement {
                     </div>
                     <div class="checkboxPanel unrestrictedModePanel">
                         <input type="checkbox" id="unrestrictedModeCheckbox" class="danger"><label for="unrestrictedModeCheckbox">Unrestricted Mode</label>
-                        <gmk-question-mark-icon style="--color: var(--color-danger)" class="questionMarkIcon"></gmk-question-mark-icon>
+                        <gmk-question-mark-icon color="var(--color-danger)" class="questionMarkIcon"></gmk-question-mark-icon>
                     </div>
                 </div>
             </gmk-subpage-container>
@@ -82,4 +76,4 @@ export class GmkSettings extends HTMLElement {
     }
 }
 
-customElements.define('gmk-settings', GmkSettings);
+customElements.define('gmk-settings-page', GmkSettingsPage);

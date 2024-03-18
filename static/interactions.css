@@ -34,7 +34,7 @@ button:focus-visible {
 .socialIcon:hover {
     transform: scale(1.2);
 }
-#settingsIcon:hover {
+.settingsIcon:hover {
     transform: scale(1.2) rotate(90deg);
 }
 .input:valid {
