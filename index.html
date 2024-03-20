@@ -38,7 +38,7 @@
             --color-disabled: #aaaaaa;
             --side-icon-width: 6;
             --spacing: 12px;
-            --info-icon-size: 20px;
+            --info-icon-size: 16px;
         }
 
         @media (max-width: 400px) {
@@ -114,8 +114,9 @@
         .arrow {
             --arrow-left: 60px;
             --arrow-height: 70px;
+            --arrow-gap: 20px;
             --arrow-width: 30px;
-            --arrow-top-start: 120px;
+            --arrow-top-start: 110px;
             position: absolute;
             height: var(--arrow-height);
             width: var(--arrow-width);
@@ -132,11 +133,11 @@
         }
 
         #arrow2 {
-            top: calc(var(--arrow-top-start) + var(--arrow-height) + 10px);
+            top: calc(var(--arrow-top-start) + var(--arrow-height) + var(--arrow-gap));
         }
 
         #arrow3 {
-            top: calc(var(--arrow-top-start) + ((var(--arrow-height) + 10px) * 2));
+            top: calc(var(--arrow-top-start) + ((var(--arrow-height) + var(--arrow-gap)) * 2));
         }
 
         .labelInput {
@@ -265,7 +266,6 @@
             gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
-            margin-top: 10px;
         }
 
         .footerItem {
@@ -533,6 +533,9 @@
                 <div class="middle">
                     <div class="encodeManual">
                         <div class="hideOverflow manualStep"><span class="color1">• </span>Runs <strong class="color1">PBKDF2</strong>
+                        </div>
+                        <div class="hideOverflow manualStep"><span class="color1">• </span>Takes first <strong
+                                class="color1">20</strong> characters
                         </div>
                         <div class="hideOverflow manualStep"><span class="color1">• </span>Adds <strong
                                 class="color1">#1A</strong> prefix

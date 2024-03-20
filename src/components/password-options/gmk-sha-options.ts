@@ -8,11 +8,6 @@ export class GmkShaOptions extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
-        console.log('this._lengthComp()', this._lengthInput())
-        this._lengthInput().addEventListener('input', ev => {
-            console.log('xxxdsa', ev)
-            ev.preventDefault();
-        })
     }
 
     private styles = css`
@@ -45,7 +40,6 @@ export class GmkShaOptions extends HTMLElement {
                                 for="suffixRadio">Suffix</label>
                             </span>
                     </div>
-                    <div><label for="lengthInput" >Take First</label><input  type="number" style="width: 50px; margin: 0 .5rem;" id="lengthInput" maxlength="2" minlength="2"><span>Characters</span></div>
                 </div>
             </gmk-title-panel>
         `

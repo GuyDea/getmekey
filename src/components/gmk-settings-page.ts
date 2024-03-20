@@ -25,7 +25,6 @@ export class GmkSettingsPage extends HTMLElement {
             font-size: 12px;
         }
 
-
         .panelTitle {
             color: var(--color-1);
             text-align: center;
@@ -55,7 +54,7 @@ export class GmkSettingsPage extends HTMLElement {
         return html`
             <style>${this.styles}${checkboxStyles}${globalStyles}${radioStyles}</style>
             <gmk-subpage-container>
-                <span slot="headerText">Usability Settings</span>
+                <span slot="headerText">User Experience</span>
                 <div slot="content">                    
                     <div class="checkboxPanel">
                         <input type="checkbox" id="topSecretModeCheckbox"><label for="topSecretModeCheckbox">Top-Secret
@@ -63,7 +62,7 @@ export class GmkSettingsPage extends HTMLElement {
                         <gmk-info-icon class="questionMarkIcon"></gmk-info-icon>
                     </div>
                     <div class="checkboxPanel">
-                        <input type="checkbox" id="disableStorageCheckbox"><label for="disableStorageCheckbox">Disable Storage</label>
+                        <input type="checkbox" id="hideInfoButtonCheckbox"><label for="hideInfoButtonCheckbox">Hide Info Button</label>
                         <gmk-info-icon class="questionMarkIcon"></gmk-info-icon>
                     </div>
                     <div class="checkboxPanel unrestrictedModePanel">
