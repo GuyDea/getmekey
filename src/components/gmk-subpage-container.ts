@@ -1,6 +1,5 @@
 import {Router} from "/src/router.js";
 import {html, css} from "/src/helper-functions.js";
-import {checkboxStyles} from "/src/styles/checkbox-styles.js";
 import {globalStyles} from "/src/styles/global-styles.js";
 
 export class GmkSubpageContainer extends HTMLElement{
@@ -47,13 +46,22 @@ export class GmkSubpageContainer extends HTMLElement{
             text-align: center;
         }
         .mainContainer{
-            padding: 1rem;
+            padding-top: 1rem;
+            display: grid;
+            grid-template: minmax(0, min-content) minmax(0, 1fr) / minmax(0, 1fr);
+            height: 100dvh;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        #content {
+            overflow: auto;
+            padding-bottom: 1rem;
         }
     `
 
     render(){
         return html`
-            <style>${this.styles}${checkboxStyles}${globalStyles}</style>
+            <style>${this.styles}${globalStyles}</style>
             <div class="mainContainer">
                 <div class="header">
                     <button class="iconButton" id="backButton">

@@ -4,8 +4,9 @@ import {ByteUtils} from "./byte-utils.js";
 
 export class Pbkdf2 implements IHashAlgorithm<Pbkdf2Options> {
     async encode(secret: string, salt: string, outputFormat: OutputFormat, options: Pbkdf2Options): Promise<string> {
-        const k = await this._deriveKeyFromPassword(secret, salt, options);
-        return await (outputFormat === "hex" ? this._keyToHexString(k) : this._keyToBase64String(k));
+        const cryptoKey = await this._deriveKeyFromPassword(secret, salt, options);
+        const hashBytes = new Uint8Array(await window.crypto.subtle.exportKey("raw", cryptoKey));
+        return await (outputFormat === "hex" ? ByteUtils.uint8ArrayToHexString(hashBytes) : ByteUtils.uint8ArrayToBase64String(hashBytes));
     }
 
     private async _deriveKeyFromPassword(password: string, salt: string, options: Pbkdf2Options) {
@@ -32,14 +33,6 @@ export class Pbkdf2 implements IHashAlgorithm<Pbkdf2Options> {
             true,
             ['encrypt', 'decrypt']
         );
-    }
-
-    private async _keyToBase64String(derivedKey: CryptoKey) {
-        return ByteUtils.uint8ArrayToBase64String(new Uint8Array(await window.crypto.subtle.exportKey("raw", derivedKey)));
-    }
-
-    private async _keyToHexString(derivedKey: CryptoKey) {
-        return ByteUtils.uint8ArrayToHexString(new Uint8Array(await window.crypto.subtle.exportKey("raw", derivedKey)));
     }
 }
 

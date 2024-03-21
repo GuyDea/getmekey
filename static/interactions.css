@@ -40,3 +40,4 @@ button:focus-visible {
 .input:valid {
     border: var(--color-1) 1px solid;
 }
+

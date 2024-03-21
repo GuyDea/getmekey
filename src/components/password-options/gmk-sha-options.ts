@@ -1,6 +1,5 @@
 import {comp, css, html} from "/src/helper-functions.js";
-import {radioStyles} from "/src/styles/radio-styles.js";
-import {textInputStyles} from "/src/styles/text-input-styles.js";
+import {globalStyles} from "/src/styles/global-styles.js";
 
 export class GmkShaOptions extends HTMLElement {
     private _lengthInput = comp<HTMLInputElement>(this, '#lengthInput');
@@ -25,20 +24,35 @@ export class GmkShaOptions extends HTMLElement {
 
     render() {
         return html`
-            <style>${radioStyles}${textInputStyles}${this.styles}</style>
+            <style>${globalStyles}${this.styles}</style>
             <gmk-title-panel>
-                <span slot="title">SHA-256 Options</span>
-                <div slot="content" class="mainContent">                                        
-                    <div style="display: flex; gap: .5rem; align-items: center;" >
+                <span slot="title">SHA Options</span>
+                <div slot="content" class="mainContent">
+                    <div class="line" >
+                        <span>SHA version</span>
+                        <div class="lineRadios">
+                            <span>
+                                <input type="radio" name="shaVersion" id="sha256Radio" checked/><label
+                                for="sha256Radio">SHA-256</label>
+                            </span>
+                            <span>
+                                <input type="radio" name="shaVersion" id="sha512Radio"/><label
+                                    for="sha512Radio">SHA-512</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="line" >
                         <span>Salt Position</span>
-                        <span>
+                        <div class="lineRadios">
+                            <span>
                                 <input type="radio" name="format" id="prefixRadio" checked/><label
                                 for="prefixRadio">Prefix</label>
                             </span>
-                        <span>
+                            <span>
                                 <input type="radio" name="format" id="suffixRadio"/><label
-                                for="suffixRadio">Suffix</label>
+                                    for="suffixRadio">Suffix</label>
                             </span>
+                        </div>
                     </div>
                 </div>
             </gmk-title-panel>

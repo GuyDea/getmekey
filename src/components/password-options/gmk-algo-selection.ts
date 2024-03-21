@@ -1,8 +1,9 @@
 import {css, html} from "/src/helper-functions.js";
 import '/src/components/gmk-title-panel.js'
-import {radioStyles} from "/src/styles/radio-styles.js";
 import '/src/components/gmk-subpage-container.js';
 import '/src/components/password-options/gmk-sha-options.js';
+import '/src/components/password-options/gmk-pbkdf2-options.js';
+import {globalStyles} from "/src/styles/global-styles.js";
 
 export class GmkAlgoSelection extends HTMLElement {
     constructor() {
@@ -27,7 +28,7 @@ export class GmkAlgoSelection extends HTMLElement {
 
     render() {
         return html`
-            <style>${radioStyles}${this.styles}</style>
+            <style>${globalStyles}${this.styles}</style>
 
             <gmk-title-panel>
                 <span slot="title">Algorithm Selection</span>
@@ -43,6 +44,7 @@ export class GmkAlgoSelection extends HTMLElement {
                         </div>
                     </div>
                     <gmk-sha-options></gmk-sha-options>
+                    <gmk-pbkdf2-options></gmk-pbkdf2-options>
                 </div>
             </gmk-title-panel>
         `

@@ -15,7 +15,7 @@ export class SideEffects {
                     state.passwordGenerating = true;
                     State.notifyChange();
                     try {
-                        const generatedPassword = await PasswordGenerator.generatePassword(state.saltValue, state.secretValue);
+                        const generatedPassword = await PasswordGenerator.generatePassword(state);
                         // Make sure state has not been changed in the meantime
                         if(oldSecret === state.secretValue && oldSalt === state.saltValue){
                             state.passwordValue = generatedPassword;
