@@ -3,6 +3,7 @@ import '/src/components/gmk-title-panel.js'
 import '/src/components/gmk-subpage-container.js';
 import '/src/components/password-options/gmk-sha-options.js';
 import '/src/components/password-options/gmk-pbkdf2-options.js';
+import '/src/components/password-options/gmk-argon2-options.js';
 import {globalStyles} from "/src/styles/global-styles.js";
 
 export class GmkAlgoSelection extends HTMLElement {
@@ -34,7 +35,7 @@ export class GmkAlgoSelection extends HTMLElement {
                 <span slot="title">Algorithm Selection</span>
                 <div slot="content" class="mainContent">
                     <div class="algoSelectionPanel">
-                        <div><input type="radio" id="sha" name="algo" checked><label for="sha">SHA-256</label>
+                        <div><input type="radio" id="sha" name="algo" checked><label for="sha">SHA</label>
                         </div>
                         <div><input type="radio" id="pbkdf2" name="algo"><label for="pbkdf2">PBKDF2</label>
                         </div>
@@ -43,6 +44,7 @@ export class GmkAlgoSelection extends HTMLElement {
                         <div><input type="radio" id="bcrypt" name="algo"><label for="bcrypt">BCrypt</label>
                         </div>
                     </div>
+                    <gmk-argon2-options></gmk-argon2-options>
                     <gmk-sha-options></gmk-sha-options>
                     <gmk-pbkdf2-options></gmk-pbkdf2-options>
                 </div>

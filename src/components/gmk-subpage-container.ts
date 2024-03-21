@@ -26,7 +26,7 @@ export class GmkSubpageContainer extends HTMLElement{
             display: flex;
             flex-direction: row;
             width: 100%;
-            margin-bottom: 1rem;
+            padding: 1rem;
         }
         #backButton {
             display: block;
@@ -46,7 +46,6 @@ export class GmkSubpageContainer extends HTMLElement{
             text-align: center;
         }
         .mainContainer{
-            padding-top: 1rem;
             display: grid;
             grid-template: minmax(0, min-content) minmax(0, 1fr) / minmax(0, 1fr);
             height: 100dvh;
@@ -55,7 +54,7 @@ export class GmkSubpageContainer extends HTMLElement{
         }
         #content {
             overflow: auto;
-            padding-bottom: 1rem;
+            padding: 1rem;
         }
     `
 

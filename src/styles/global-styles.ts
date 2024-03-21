@@ -1,6 +1,7 @@
 import {css} from "../helper-functions.js";
 
 export const globalStyles = css`
+    ${document.getElementById('scrollerStyles')!.innerHTML}
     /* General styles */
     .verticalItems {
         display: flex;
@@ -244,5 +245,5 @@ export const globalStyles = css`
     input[type=range]:hover {
         opacity: 1; /* Fully shown on mouse-over */
     }
-
 `
+

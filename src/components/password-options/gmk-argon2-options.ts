@@ -24,41 +24,38 @@ export class GmkArgon2Options extends HTMLElement {
                         <input id="iterations" type="text" class="short">
                         <input type="range">
                     </div>
-                    <div class="line">
-                        <label>Hash</label>
-                        <div class="lineRadios">
-                        <span>
-                            <input type="radio" name="sha" id="sha256Radio" checked/><label
-                                for="sha256Radio">SHA-256</label>
-                        </span>
-                            <span>
-                            <input type="radio" name="sha" id="sha384Radio"/><label
-                                    for="sha384Radio">SHA-384</label>
-                        </span>
-                            <span>
-                            <input type="radio" name="sha" id="sha512Radio"/><label
-                                    for="sha512Radio">SHA-512</label>
-                        </span>
-                        </div>
+                    <div class="line lineCenter">
+                        <label for="parallelism">Parallelism</label>
+                        <input id="parallelism" type="text" class="short">
+                        <input type="range">
+                    </div>
+                    <div class="line lineCenter">
+                        <label for="memoryConst">Memory Cost</label>
+                        <input id="memoryConst" type="text" class="short">
+                        <input type="range">
+                    </div>
+                    <div class="line lineCenter">
+                        <label for="hashLength">Hash Length</label>
+                        <input id="hashLength" type="text" class="short">
+                        <input type="range">
                     </div>
                     <div class="line">
-                        <label>Length</label>
+                        <label>Version</label>
                         <div class="lineRadios">
                             <span>
-                                <input type="radio" name="length" id="length128Radio" checked/><label
-                                    for="length128Radio">128</label>
+                                <input type="radio" name="version" id="2iRadio" checked/><label
+                                    for="2iRadio">Argon2i</label>
                             </span>
-                            <span>
-                                <input type="radio" name="length" id="length192Radio"/><label
-                                    for="length192Radio">192</label>
+                                <span>
+                                <input type="radio" name="version" id="2dRadio"/><label
+                                        for="2dRadio">Argon2d</label>
                             </span>
-                            <span>
-                                <input type="radio" name="length" id="length256Radio"/><label
-                                    for="length256Radio">256</label>
+                                <span>
+                                <input type="radio" name="version" id="2idRadio"/><label
+                                        for="2idRadio">Argon2id</label>
                             </span>
                         </div>
-
-                    </div>
+                    </div>                    
                 </div>
             </gmk-title-panel>
         `
