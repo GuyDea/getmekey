@@ -29,12 +29,13 @@ export class GmkAlgoOutputFormat extends HTMLElement {
                             <input type="radio" name="format" id="hexRadio"/><label for="hexRadio">Hex</label>
                         </div>
                     </div>
-                    <div class="line">
-                        <label for="lengthInput" >Take First</label><input  type="number" class="short" id="lengthInput" maxlength="2" minlength="2"><span>Characters</span>
+                    <div class="line lineCenter">
+                        <label for="lengthInput" >Take First</label>
+                        <input  type="number" class="short" id="lengthInput" maxlength="2" minlength="2"><span>Characters</span>
                     </div>
-                    <div class="line">
+                    <div class="line lineCenter">
                         <label for="securityTextInput">Security Text</label>
-                        <input id="securityTextInput" type="text">
+                        <input id="securityTextInput" type="text" class="short">
                     </div>                    
                     <div class="line">
                         <span>Text Position</span>

@@ -14,7 +14,7 @@ export class PasswordGenerator {
     //     document.body.append(htmlButtonElement)
     // }
     public static async generatePassword(state: StateDef): Promise<string> {
-        return await new Pbkdf2().encode(state.secretValue, state.saltValue, "base64", {length: 128, hash: "SHA-256", iterations: 1000000})
+        return await new Pbkdf2().encode(state.secretValue, state.saltValue, "base64", state.passwordGeneration.algoOptions.pbkdf2Options)
         // @ts-ignore
         // await import('./../lib/argon2/argon2-init.js');
         // return argon2.hash({ pass: secret, salt: salt })

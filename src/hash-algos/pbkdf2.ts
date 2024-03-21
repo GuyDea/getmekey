@@ -37,6 +37,8 @@ export class Pbkdf2 implements IHashAlgorithm<Pbkdf2Options> {
 }
 
 export type Pbkdf2Options = {
+    minIterations: number;
+    maxIterations: number;
     iterations: number;
     hash: 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512';
     length: 128 | 192 | 256;

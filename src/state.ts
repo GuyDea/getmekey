@@ -63,7 +63,9 @@ export class State {
                 pbkdf2Options: {
                     iterations: 1000,
                     hash: "SHA-256",
-                    length: 128
+                    length: 128,
+                    minIterations: 1,
+                    maxIterations: 10000
                 },
             }
         },

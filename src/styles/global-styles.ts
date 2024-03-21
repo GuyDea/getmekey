@@ -40,6 +40,9 @@ export const globalStyles = css`
         gap: .5rem;
         justify-content: start;
     }
+    .lineCenter{
+        align-items: center;
+    }
     .lineRadios {
         display: flex;
         flex-direction: column;
@@ -190,7 +193,7 @@ export const globalStyles = css`
         box-sizing: border-box;
     }
     input[type=text]::placeholder, input[type=number]::placeholder {
-        color: rgba(var(--color-2-val), .6);
+        color: rgba(var(--color-text-1-hex-val), .6);
         font-size: 1rem;
     }
     input[type=text]:focus, input[type=number]:focus {
@@ -209,11 +212,10 @@ export const globalStyles = css`
     input[type=range] {
         -webkit-appearance: none;
         width: 100%;
-        height: 15px;
+        height: 5px;
         border-radius: 5px;
-        background: #d3d3d3;
+        background: hsla(var(--color-1-hue-val), 50%, 70%, 1);
         outline: none;
-        opacity: 0.7;
         -webkit-transition: .2s;
         transition: opacity .2s;
     }
@@ -221,19 +223,23 @@ export const globalStyles = css`
     input[type=range]::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         background: var(--color-1);
         cursor: pointer;
+        box-shadow: var(--box-shadow-1);
     }
 
     input[type=range]::-moz-range-thumb {
-        width: 25px;
-        height: 25px;
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
         border-radius: 50%;
         background: var(--color-1);
         cursor: pointer;
+        box-shadow: var(--box-shadow-1);
     }
     input[type=range]:hover {
         opacity: 1; /* Fully shown on mouse-over */

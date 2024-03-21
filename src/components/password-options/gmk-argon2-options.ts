@@ -2,7 +2,7 @@ import {css, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
 import '/src/components/gmk-title-panel.js';
 
-export class GmkPbkdf2Options extends HTMLElement {
+export class GmkArgon2Options extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
@@ -17,7 +17,7 @@ export class GmkPbkdf2Options extends HTMLElement {
         return html`
             <style>${globalStyles}${this._styles()}</style>    
             <gmk-title-panel>
-                <div slot="title">PBKDF2 Options</div>
+                <div slot="title">Argon2 Options</div>
                 <div slot="content" class="verticalItems">
                     <div class="line lineCenter">
                         <label for="iterations">Iterations</label>
@@ -65,4 +65,4 @@ export class GmkPbkdf2Options extends HTMLElement {
     }
 }
 
-customElements.define('gmk-pbkdf2-options', GmkPbkdf2Options);
+customElements.define('gmk-argon2-options', GmkArgon2Options);
