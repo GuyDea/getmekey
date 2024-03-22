@@ -1,12 +1,9 @@
 import {type IHashAlgorithm} from "./hash-algo-types.js";
-import {type OutputFormat} from "../types.js";
-import {ByteUtils} from "./byte-utils.js";
 
 export class Pbkdf2 implements IHashAlgorithm<Pbkdf2Options> {
-    async encode(secret: string, salt: string, outputFormat: OutputFormat, options: Pbkdf2Options): Promise<string> {
+    async encode(secret: string, salt: string, options: Pbkdf2Options): Promise<Uint8Array> {
         const cryptoKey = await this._deriveKeyFromPassword(secret, salt, options);
-        const hashBytes = new Uint8Array(await window.crypto.subtle.exportKey("raw", cryptoKey));
-        return await (outputFormat === "hex" ? ByteUtils.uint8ArrayToHexString(hashBytes) : ByteUtils.uint8ArrayToBase64String(hashBytes));
+        return new Uint8Array(await window.crypto.subtle.exportKey("raw", cryptoKey));
     }
 
     private async _deriveKeyFromPassword(password: string, salt: string, options: Pbkdf2Options) {
