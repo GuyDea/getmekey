@@ -9,7 +9,7 @@ export class Bootstrap {
         Elements.secretInput().focus();
         Listeners.initialize();
         SideEffects.initialize();
-        Renderer.run();
+        Renderer.initialize();
         Router.initialize();
     }
 }

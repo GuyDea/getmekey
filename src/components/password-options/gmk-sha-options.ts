@@ -1,12 +1,19 @@
 import {comp, css, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
+import {State} from "/src/state.js";
 
 export class GmkShaOptions extends HTMLElement {
-    private _lengthInput = comp<HTMLInputElement>(this, '#lengthInput');
-
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
+        comp(this, '#versionForm')().addEventListener('change', ev => {
+            State.value.passwordGeneration.algoOptions.sha.version = (ev.target as HTMLInputElement).getAttribute('id') as any;
+            State.notifyChange();
+        })
+        comp(this, '#positionForm')().addEventListener('change', ev => {
+            State.value.passwordGeneration.algoOptions.sha.saltPosition = (ev.target as HTMLInputElement).getAttribute('id') as any;
+            State.notifyChange();
+        })
     }
 
     private styles = css`
@@ -30,29 +37,29 @@ export class GmkShaOptions extends HTMLElement {
                 <div slot="content" class="mainContent">
                     <div class="line" >
                         <span>Version</span>
-                        <div class="lineRadios">
+                        <form id="versionForm" class="lineRadios">
                             <span>
-                                <input type="radio" name="shaVersion" id="sha256Radio" checked/><label
-                                for="sha256Radio">SHA-256</label>
+                                <input type="radio" name="version" id="SHA-256" checked/><label
+                                for="SHA-256">SHA-256</label>
                             </span>
                             <span>
-                                <input type="radio" name="shaVersion" id="sha512Radio"/><label
-                                    for="sha512Radio">SHA-512</label>
+                                <input type="radio" name="version" id="SHA-512"/><label
+                                    for="SHA-512">SHA-512</label>
                             </span>
-                        </div>
+                        </form>
                     </div>
                     <div class="line" >
                         <span>Salt Position</span>
-                        <div class="lineRadios">
+                        <form id="positionForm" class="lineRadios">
                             <span>
-                                <input type="radio" name="format" id="prefixRadio" checked/><label
-                                for="prefixRadio">Prefix</label>
+                                <input type="radio" name="format" id="prefix" checked/><label
+                                for="prefix">Prefix</label>
                             </span>
                             <span>
-                                <input type="radio" name="format" id="suffixRadio"/><label
-                                    for="suffixRadio">Suffix</label>
+                                <input type="radio" name="format" id="suffix"/><label
+                                    for="suffix">Suffix</label>
                             </span>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </gmk-title-panel>

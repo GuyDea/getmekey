@@ -10,9 +10,9 @@ const setAttrIfTrue = (set: boolean, el: HTMLElement, name: string, valueIfTrue?
  * Only place in the application that is meant to update DOM based on the current state
  */
 export class Renderer {
-    static {
-        State.subscribe(() => this.run());
-    }
+    public static initialize(){
+        State.subscribe(() => this.run(), {dispatchImmediately: true});
+    };
 
     public static run(){
         setAttrIfTrue(!State.value.secretShow, Elements.secretHideToggle(), 'off');
@@ -40,5 +40,6 @@ export class Renderer {
         setAttrIfTrue(!State.value.passwordValue, Elements.copySaveButton(), 'disabled');
         setAttrIfTrue(!!State.value.passwordValue, Elements.finalPasswordLabel(), 'ok');
         Elements.finalPassword().value = State.value.passwordValue;
+        Elements.algoTypeNote().innerHTML = State.value.passwordGeneration.selectedAlgo;
     }
 }

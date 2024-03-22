@@ -4,32 +4,55 @@ import {PasswordGenerator} from "./password-generator.js";
 
 
 export class SideEffects {
-    public static initialize(){
-        let oldSecret: string, oldSalt: string;
-        State.subscribe(async state => {
-            if(state.secretValue !== oldSecret || state.saltValue !== oldSalt){
-                oldSalt = state.saltValue;
-                oldSecret = state.secretValue;
-                if(StateSelectors.isPasswordOk() && StateSelectors.isSaltOk()){
-                    state.passwordValue = '';
-                    state.passwordGenerating = true;
-                    State.notifyChange();
-                    try {
-                        const generatedPassword = await PasswordGenerator.generatePassword(state);
-                        // Make sure state has not been changed in the meantime
-                        if(oldSecret === state.secretValue && oldSalt === state.saltValue){
-                            state.passwordValue = generatedPassword;
-                            state.passwordGenerating = false;
-                            State.notifyChange();
-                        }
-                    } catch (e){
-                        console.error('Password generation failed', e);
+    public static initialize() {
+        let lastProcessedSecret: string, lastProcessedSalt: string, lastOptions: string;
+
+        const stateDidntChangeInMeantime = () => lastProcessedSecret === State.value.secretValue &&
+            lastProcessedSalt === State.value.saltValue &&
+            lastOptions === JSON.stringify(State.value.passwordGeneration);
+
+        const canStartGenerating = () => StateSelectors.isPasswordOk() && StateSelectors.isSaltOk() && !State.value.passwordGenerating;
+
+        async function processSecret() {
+            lastProcessedSecret = State.value.secretValue;
+            lastProcessedSalt = State.value.saltValue;
+            lastOptions = JSON.stringify(State.value.passwordGeneration);
+            if (canStartGenerating()) {
+                State.value.passwordGenerating = true;
+                State.value.passwordValue = '';
+                State.notifyChange();
+                try {
+                    const generatedPassword = await PasswordGenerator.generatePassword(State.value);
+                    State.value.passwordGenerating = false;
+                    // Make sure state has not been changed in the meantime
+                    if (stateDidntChangeInMeantime()) {
+                        State.value.passwordValue = generatedPassword;
+                        State.notifyChange();
+                    } else {
+                        // If state changed, restart process - can skip notif here, as we want to keep uncut loading indication
+                        processSecret().then();
                     }
-                } else {
-                    state.passwordValue = '';
-                    state.passwordGenerating = false;
-                    State.notifyChange();
+                } catch (e) {
+                    State.value.passwordGenerating = false;
+                    if (stateDidntChangeInMeantime()) {
+                        State.value.passwordValue = '';
+                        State.value.passwordGenerationFailed = true;
+                        State.notifyChange();
+                    } else {
+                        processSecret().then();
+                    }
                 }
+            } else {
+                State.value.passwordValue = '';
+                State.value.passwordGenerating = false;
+                State.value.passwordGenerationFailed = false;
+                State.notifyChange();
+            }
+        }
+
+        State.subscribe(state => {
+            if (!stateDidntChangeInMeantime()) {
+                processSecret().then();
             }
         })
     }

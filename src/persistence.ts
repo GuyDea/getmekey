@@ -1,33 +1,27 @@
-enum Address {
-    SALT = 'SALT'
-}
+export const ADDRESS = {
+    UX: 'UX'
+} as const;
+type Address = keyof typeof ADDRESS;
 
 export class Persistence {
     private static readonly VERSION = 1;
 
-    public static getSalt(){
-        return this.getItem(Address.SALT) ?? '';
+    private static setItem<T>(address: Address, value: T){
+        localStorage.setItem(`${this.VERSION}_${address}`, JSON.stringify(value));
     }
 
-    public static setSaltValue(value: string) {
-        this.setItem(Address.SALT, value);
+    private static getItem<T>(address: Address): T | null{
+        const val = localStorage.getItem(`${this.VERSION}_${address}`);
+        return val ? JSON.parse(val) : null;
     }
 
-    private static setItem(address: Address, value: string){
-        localStorage.setItem(`${this.VERSION}_${address}`, value);
-    }
-
-    private static getItem(address: string){
-        return localStorage.getItem(`${this.VERSION}_${address}`);
-    }
-
-    private static _getCookieValue(name: string): string | null {
+    private static _getCookieValue<T>(name: string): T | null {
         let nameEQ = name + "=";
         let ca = document.cookie.split(';');
         for (let i = 0; i < ca.length; i++) {
             let c = ca[i];
             while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            if (c.indexOf(nameEQ) == 0) return JSON.parse(c.substring(nameEQ.length, c.length));
         }
         return null;
     }

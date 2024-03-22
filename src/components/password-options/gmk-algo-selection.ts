@@ -1,15 +1,25 @@
-import {css, html} from "/src/helper-functions.js";
+import {comp, css, html} from "/src/helper-functions.js";
 import '/src/components/gmk-title-panel.js'
 import '/src/components/gmk-subpage-container.js';
 import '/src/components/password-options/gmk-sha-options.js';
 import '/src/components/password-options/gmk-pbkdf2-options.js';
 import '/src/components/password-options/gmk-argon2-options.js';
+import '/src/components/password-options/gmk-scrypt-options.js';
 import {globalStyles} from "/src/styles/global-styles.js";
+import {Algo, State} from "/src/state.js";
 
 export class GmkAlgoSelection extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
+        const algoOptions = comp(this, '#algoOptions');
+        comp(this, '#algoSelectionPanel')().addEventListener('change', ev => {
+            const selectedAlgo = (ev.target as HTMLInputElement).getAttribute('id')! as Algo;
+            State.value.passwordGeneration.selectedAlgo = selectedAlgo;
+            State.notifyChange();
+            algoOptions().setAttribute('show', selectedAlgo)
+        });
+        setTimeout(() => comp<HTMLInputElement>(this, `#${State.value.passwordGeneration.selectedAlgo}`)().click());
     }
 
     private styles = css`
@@ -18,13 +28,23 @@ export class GmkAlgoSelection extends HTMLElement {
             flex-direction: column;
             gap: 1rem;
         }
-        .algoSelectionPanel {
+        #algoSelectionPanel {
             display: flex;
             flex-direction: column;
             flex-wrap: wrap;
             gap: .5rem;
             justify-content: start;
         }
+        #algoOptions > * {
+            display: none;
+        }
+        #algoOptions[show=SHA] > [type=SHA],
+        #algoOptions[show=PBKDF2] > [type=PBKDF2],
+        #algoOptions[show=Argon2] > [type=Argon2],
+        #algoOptions[show=Scrypt] > [type=Scrypt]
+        {
+            display: block;
+        } 
     `
 
     render() {
@@ -34,19 +54,22 @@ export class GmkAlgoSelection extends HTMLElement {
             <gmk-title-panel>
                 <span slot="title">Algorithm Selection</span>
                 <div slot="content" class="mainContent">
-                    <div class="algoSelectionPanel">
-                        <div><input type="radio" id="sha" name="algo" checked><label for="sha">SHA</label>
+                    <form id="algoSelectionPanel">
+                        <div><input type="radio" id="SHA" name="algo"><label for="SHA">SHA</label>
                         </div>
-                        <div><input type="radio" id="pbkdf2" name="algo"><label for="pbkdf2">PBKDF2</label>
+                        <div><input type="radio" id="PBKDF2" name="algo"><label for="PBKDF2">PBKDF2</label>
                         </div>
-                        <div><input type="radio" id="argon2" name="algo"><label for="argon2">Argon2</label>
+                        <div><input type="radio" id="Argon2" name="algo"><label for="Argon2">Argon2</label>
                         </div>
-                        <div><input type="radio" id="bcrypt" name="algo"><label for="bcrypt">BCrypt</label>
+                        <div><input type="radio" id="Scrypt" name="algo"><label for="Scrypt">Scrypt</label>
                         </div>
+                    </form>
+                    <div id="algoOptions">
+                        <gmk-sha-options type="SHA"></gmk-sha-options>
+                        <gmk-pbkdf2-options type="PBKDF2"></gmk-pbkdf2-options>
+                        <gmk-argon2-options type="Argon2"></gmk-argon2-options>
+                        <gmk-scrypt-options type="Scrypt"></gmk-scrypt-options>
                     </div>
-                    <gmk-argon2-options></gmk-argon2-options>
-                    <gmk-sha-options></gmk-sha-options>
-                    <gmk-pbkdf2-options></gmk-pbkdf2-options>
                 </div>
             </gmk-title-panel>
         `

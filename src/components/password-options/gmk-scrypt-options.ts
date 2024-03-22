@@ -1,27 +1,26 @@
 import {comp, css, fixVal, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
-import '/src/components/gmk-title-panel.js';
 import {State} from "/src/state.js";
 
-export class GmkArgon2Options extends HTMLElement {
-    private _iterationsComp = comp<HTMLInputElement>(this, '#iterations');
-    private _iterationsRangeComp = comp<HTMLInputElement>(this, '#iterationsRange');
+export class GmkScryptOptions extends HTMLElement {
+    private _blockComp = comp<HTMLInputElement>(this, '#block');
+    private _blockRangeComp = comp<HTMLInputElement>(this, '#blockRange');
     private _parallelComp = comp<HTMLInputElement>(this, '#parallel');
     private _parallelRangeComp = comp<HTMLInputElement>(this, '#parallelRange');
     private _costComp = comp<HTMLInputElement>(this, '#cost');
     private _costRangeComp = comp<HTMLInputElement>(this, '#costRange');
     private _lengthComp = comp<HTMLInputElement>(this, '#length');
     private _lengthRangeComp = comp<HTMLInputElement>(this, '#lengthRange');
-    
+
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
-        const opts = () => State.value.passwordGeneration.algoOptions.argon2;
+        const opts = () => State.value.passwordGeneration.algoOptions.scrypt;
         State.subscribe(s => {
-            this._iterationsRangeComp().setAttribute('min', opts().minIterations.toString());
-            this._iterationsRangeComp().setAttribute('max', opts().maxIterations.toString());
-            this._iterationsComp().value = opts().iterations.toString();
-            this._iterationsRangeComp().value = opts().iterations.toString();
+            this._blockRangeComp().setAttribute('min', opts().minBlock.toString());
+            this._blockRangeComp().setAttribute('max', opts().maxBlock.toString());
+            this._blockComp().value = opts().block.toString();
+            this._blockRangeComp().value = opts().block.toString();
             this._parallelRangeComp().setAttribute('min', opts().minParallel.toString());
             this._parallelRangeComp().setAttribute('max', opts().maxParallel.toString());
             this._parallelComp().value = opts().parallel.toString();
@@ -36,11 +35,11 @@ export class GmkArgon2Options extends HTMLElement {
             this._lengthRangeComp().value = opts().length.toString();
 
         }, {
-            diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.argon2),
+            diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.scrypt),
             dispatchImmediately: true
         });
-        this._iterationsRangeComp().addEventListener('input', () => State.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
-        this._iterationsComp().addEventListener('input', () => State.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
+        this._blockRangeComp().addEventListener('input', () => State.update(s => opts().block = Number(this._blockRangeComp().value)));
+        this._blockComp().addEventListener('input', () => State.update(s => opts().block = fixVal(opts().minBlock, opts().maxBlock, this._blockComp())));
         this._parallelRangeComp().addEventListener('input', () => State.update(s => opts().parallel = Number(this._parallelRangeComp().value)));
         this._parallelComp().addEventListener('input', () => State.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())));
         this._costRangeComp().addEventListener('input', () => State.update(s => opts().cost = Number(this._costRangeComp().value)));
@@ -49,17 +48,25 @@ export class GmkArgon2Options extends HTMLElement {
         this._lengthComp().addEventListener('input', () => State.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
     }
 
-    private _styles() {
-        return css`
+    private styles = css`
+        .mainContent{
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .saltPositionPanel{
+            gap: .5rem;
+            width: 100%;
+            flex: 1 1;
+        }
     `
-    }
 
-    private _render() {
+    _render() {
         return html`
-            <style>${globalStyles}${this._styles()}</style>    
+            <style>${globalStyles}${this.styles}</style>
             <gmk-title-panel>
-                <div slot="title">Argon2 Options</div>
-                <div slot="content" class="verticalItems">
+                <span slot="title">Scrypt Options</span>
+                <div slot="content" class="mainContent">
                     <div class="line lineCenter">
                         <label for="cost">Cost</label>
                         <input id="cost" type="number" class="short">
@@ -76,31 +83,14 @@ export class GmkArgon2Options extends HTMLElement {
                         <input id="lengthRange" type="range">
                     </div>
                     <div class="line lineCenter">
-                        <label for="iterations">Iterations</label>
-                        <input id="iterations" type="number" class="short">
-                        <input id="iterationsRange" type="range">
-                    </div>                    
-                    <div class="line">
-                        <label>Version</label>
-                        <div class="lineRadios">
-                            <span>
-                                <input type="radio" name="version" id="2iRadio" checked/><label
-                                    for="2iRadio">Argon2i</label>
-                            </span>
-                                <span>
-                                <input type="radio" name="version" id="2dRadio"/><label
-                                        for="2dRadio">Argon2d</label>
-                            </span>
-                                <span>
-                                <input type="radio" name="version" id="2idRadio"/><label
-                                        for="2idRadio">Argon2id</label>
-                            </span>
-                        </div>
-                    </div>                    
+                        <label for="block">Block</label>
+                        <input id="block" type="number" class="short">
+                        <input id="blockRange" type="range">
+                    </div>
                 </div>
             </gmk-title-panel>
         `
     }
 }
 
-customElements.define('gmk-argon2-options', GmkArgon2Options);
+customElements.define('gmk-scrypt-options', GmkScryptOptions);

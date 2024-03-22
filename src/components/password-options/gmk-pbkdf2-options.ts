@@ -1,11 +1,27 @@
-import {css, html} from "/src/helper-functions.js";
+import {comp, css, fixVal, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
 import '/src/components/gmk-title-panel.js';
+import {State} from "/src/state.js";
 
 export class GmkPbkdf2Options extends HTMLElement {
+    private _iterationsComp = comp<HTMLInputElement>(this, '#iterations');
+    private _iterationsRangeComp = comp<HTMLInputElement>(this, '#iterationsRange');
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
+        const opts = () => State.value.passwordGeneration.algoOptions.pbkdf2;
+        State.subscribe(s => {
+            this._iterationsRangeComp().setAttribute('min', opts().minIterations.toString());
+            this._iterationsRangeComp().setAttribute('max', opts().maxIterations.toString());
+            this._iterationsComp().value = opts().iterations.toString();
+            this._iterationsRangeComp().value = opts().iterations.toString();
+        }, {
+            diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.pbkdf2),
+            dispatchImmediately: true
+        });
+        this._iterationsRangeComp().addEventListener('input', () => State.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
+        this._iterationsComp().addEventListener('input', () => State.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
+
     }
 
     private _styles() {
@@ -21,8 +37,8 @@ export class GmkPbkdf2Options extends HTMLElement {
                 <div slot="content" class="verticalItems">
                     <div class="line lineCenter">
                         <label for="iterations">Iterations</label>
-                        <input id="iterations" type="text" class="short">
-                        <input type="range">
+                        <input id="iterations" type="number" class="short">
+                        <input id="iterationsRange" type="range">
                     </div>
                     <div class="line">
                         <label>Hash</label>

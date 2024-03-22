@@ -18,7 +18,7 @@ function _returnUnchanged(strings: TemplateStringsArray, ...expressions: any[]):
  * @param parent
  * @return function returning component within the parent for given selector
  */
-export function comp<T>(parent: HTMLElement, selector: string): () => T {
+export function comp<T extends HTMLElement | SVGElement>(parent: HTMLElement, selector: string): () => T {
     return () => parent.shadowRoot?.querySelector(selector) as T;
 }
 
@@ -34,4 +34,12 @@ export function reDispatchEvent(originalEvent: any, newParent: HTMLElement) {
 
     // Dispatch the cloned event from the same target
     // newParent.dispatchEvent(clonedEvent);
+}
+
+export function fixVal(min: number, max: number, inputComponent: HTMLInputElement): number {
+    let number = Number(inputComponent.value);
+    number = Number.isNaN(number) ? min : number;
+    const fixed = Math.min(Math.max(number, min), max);
+    inputComponent.value = fixed.toString();
+    return fixed
 }
