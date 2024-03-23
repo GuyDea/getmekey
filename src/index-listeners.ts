@@ -1,7 +1,7 @@
 import {Elements} from './elements.js';
 import {State} from "./state.js";
 
-export class Listeners{
+export class IndexListeners {
     public static initialize(){
         function execute(toRun: () => void){
             toRun();

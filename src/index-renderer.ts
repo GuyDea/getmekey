@@ -9,9 +9,22 @@ const setAttrIfTrue = (set: boolean, el: HTMLElement, name: string, valueIfTrue?
 /**
  * Only place in the application that is meant to update DOM based on the current state
  */
-export class Renderer {
+export class IndexRenderer {
     public static initialize(){
-        State.subscribe(() => this._render(), {dispatchImmediately: true, debugId: 'test2'});
+        State.subscribe(() => this._render(), {dispatchImmediately: true, diffMatcher: s => {
+                return JSON.stringify({
+                    secretValue: s.secretValue,
+                    secretShow: s.secretShow,
+                    saltShow: s.saltShow,
+                    passwordShow: s.passwordShow,
+                    passwordGenerating: s.passwordGenerating,
+                    passwordValue: s.passwordValue,
+                    saltValue: s.saltValue,
+                    passwordGenerationError: s.passwordGenerationError,
+                    outputFormat: s.passwordGeneration.outputOptions,
+                    selectedAlgo: s.passwordGeneration.selectedAlgo
+                })
+            }});
     };
 
     private static _render(){
@@ -41,5 +54,8 @@ export class Renderer {
         setAttrIfTrue(!!State.value.passwordValue, Elements.finalPasswordLabel(), 'ok');
         Elements.finalPassword().value = State.value.passwordValue;
         Elements.algoTypeNote().innerHTML = State.value.passwordGeneration.selectedAlgo;
+        Elements.firstCharactersNote().innerHTML = State.value.passwordGeneration.outputOptions.takeFirst.toString();
+        Elements.securityTextNote().innerHTML = State.value.passwordGeneration.outputOptions.securityText;
+        Elements.securityTextPositionNote().innerHTML = State.value.passwordGeneration.outputOptions.securityTextPosition;
     }
 }

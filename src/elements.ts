@@ -27,6 +27,7 @@ export class Elements {
     public static dotLoader = elById('dotLoader');
     public static iconInfoPath = elById('icon-info-path');
     public static algoTypeNote = elById('algoTypeNote');
-
-
+    public static firstCharactersNote = elById('firstCharactersNote');
+    public static securityTextNote = elById('securityTextNote');
+    public static securityTextPositionNote = elById('securityTextPositionNote');
 }

@@ -1,4 +1,12 @@
-import {comp, css, fixVal, html} from "/src/helper-functions.js";
+import {
+    comp,
+    css,
+    fixVal,
+    highestPowerOfTwoLessThanN,
+    html,
+    isPowerOfTwo,
+    nextPowerOfTwo
+} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
 import {State, Subscriber} from "/src/state.js";
 
@@ -39,12 +47,13 @@ export class GmkScryptOptions extends HTMLElement {
             diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.scrypt),
             dispatchImmediately: true
         }));
+
         this._blockRangeComp().addEventListener('input', () => State.update(s => opts().block = Number(this._blockRangeComp().value)));
         this._blockComp().addEventListener('input', () => State.update(s => opts().block = fixVal(opts().minBlock, opts().maxBlock, this._blockComp())));
         this._parallelRangeComp().addEventListener('input', () => State.update(s => opts().parallel = Number(this._parallelRangeComp().value)));
         this._parallelComp().addEventListener('input', () => State.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())));
-        this._costRangeComp().addEventListener('input', () => State.update(s => opts().cost = Number(this._costRangeComp().value)));
-        this._costComp().addEventListener('input', () => State.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())));
+        this._costRangeComp().addEventListener('input', () => State.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costRangeComp(), isPowerOfTwo, highestPowerOfTwoLessThanN )));
+        this._costComp().addEventListener('change', () => State.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp(), isPowerOfTwo, opts().cost > Number(this._costComp().value) ? highestPowerOfTwoLessThanN : nextPowerOfTwo)));
         this._lengthRangeComp().addEventListener('input', () => State.update(s => opts().length = Number(this._lengthRangeComp().value)));
         this._lengthComp().addEventListener('input', () => State.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
     }

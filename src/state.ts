@@ -45,7 +45,8 @@ export type PasswordOutputOptions = {
 
 export type Subscriber = {
     callback: Callback,
-    options?: SubscriberOptions
+    options?: SubscriberOptions,
+    previousDiffValue?: string;
 }
 
 export type Callback = (state: StateDef) => void;
@@ -53,7 +54,6 @@ export type Callback = (state: StateDef) => void;
 export type SubscriberOptions = {
     diffMatcher?: (state: StateDef) => string,
     dispatchImmediately?: boolean,
-    previousValue?: string;
     consumeAsync?: boolean;
     debugId?: string;
 }
@@ -74,7 +74,7 @@ export class State {
             outputOptions: {
                 format: 'base64',
                 takeFirst: 20,
-                minTakeFirst: 10,
+                minTakeFirst: 15,
                 maxTakeFirst: 200,
                 securityText: '#1A',
                 securityTextPosition: 'prefix'
@@ -132,8 +132,9 @@ export class State {
         this.subscribers.forEach(s => {
             if(s.options?.diffMatcher){
                 let currentMatcherResult = s.options?.diffMatcher(this.value);
-                if(currentMatcherResult !== s.options.previousValue){
-                    s.options.previousValue = currentMatcherResult;
+                if(currentMatcherResult !== s.previousDiffValue){
+
+                    s.previousDiffValue = currentMatcherResult;
                     s.options.consumeAsync ? setTimeout(() => s.callback(this.value)): s.callback(this.value);
                 }
             } else {

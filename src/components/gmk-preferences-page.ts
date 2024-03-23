@@ -5,7 +5,7 @@ import '/src/components/gmk-title-panel.js';
 import '/src/components/icons/gmk-info-icon.js';
 import '/src/components/password-options/gmk-algo-output-format.js';
 
-export class GmkSettingsPage extends HTMLElement {
+export class GmkPreferencesPage extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
@@ -52,7 +52,7 @@ export class GmkSettingsPage extends HTMLElement {
         return html`
             <style>${this.styles}${globalStyles}</style>
             <gmk-subpage-container>
-                <span slot="headerText">User Experience</span>
+                <span slot="headerText">User Preferences</span>
                 <div slot="content">                    
                     <div class="checkboxPanel">
                         <input type="checkbox" id="topSecretModeCheckbox"><label for="topSecretModeCheckbox">Top-Secret
@@ -73,4 +73,4 @@ export class GmkSettingsPage extends HTMLElement {
     }
 }
 
-customElements.define('gmk-settings-page', GmkSettingsPage);
+customElements.define('gmk-settings-page', GmkPreferencesPage);

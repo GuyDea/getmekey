@@ -4,8 +4,8 @@ export class Router {
     private static _lastStateId = 0;
     private static _routes: Route[] = [
         {
-            path: '/settings',
-            component: () => import('/src/components/gmk-settings-page.js').then(() => document.createElement('gmk-settings-page')),
+            path: '/preferences',
+            component: () => import('/src/components/gmk-preferences-page.js').then(() => document.createElement('gmk-settings-page')),
         },
         {
             path: '/password-options',

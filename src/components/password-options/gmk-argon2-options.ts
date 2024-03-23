@@ -49,7 +49,7 @@ export class GmkArgon2Options extends HTMLElement {
         this._lengthRangeComp().addEventListener('input', () => State.update(s => opts().length = Number(this._lengthRangeComp().value)));
         this._lengthComp().addEventListener('input', () => State.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
         comp(this, '#versionForm')().addEventListener('change', (ev) => {
-            State.value.passwordGeneration.algoOptions.argon2.version = (ev.target as HTMLInputElement).getAttribute('id') as any;
+            opts().version = (ev.target as HTMLInputElement).getAttribute('id') as any;
             State.notifyChange();
         })
     }

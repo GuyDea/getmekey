@@ -37,6 +37,9 @@ button:focus-visible {
 .settingsIcon:hover {
     transform: scale(1.2) rotate(90deg);
 }
+.preferencesIcon:hover {
+    transform: scale(1.2);
+}
 .input:valid {
     border: var(--color-1) 1px solid;
 }
