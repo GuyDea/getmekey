@@ -43,5 +43,5 @@ export type Pbkdf2Options = {
     maxIterations: number;
     iterations: number;
     hash: 'SHA-1' | 'SHA-256' | 'SHA-384' | 'SHA-512';
-    length: 128 | 192 | 256;
+    length: 128 | 256;
 }

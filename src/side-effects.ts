@@ -7,53 +7,58 @@ export class SideEffects {
     public static initialize() {
         let lastProcessedSecret: string, lastProcessedSalt: string, lastOptions: string;
 
-        const stateDidntChangeInMeantime = () => lastProcessedSecret === State.value.secretValue &&
-            lastProcessedSalt === State.value.saltValue &&
-            lastOptions === JSON.stringify(State.value.passwordGeneration);
+        const stateChangedInMeantime = () => lastProcessedSecret !== State.value.secretValue ||
+            lastProcessedSalt !== State.value.saltValue ||
+            lastOptions !== JSON.stringify(State.value.passwordGeneration);
 
-        const canStartGenerating = () => StateSelectors.isPasswordOk() && StateSelectors.isSaltOk() && !State.value.passwordGenerating;
+        const secretsAreValid = () => StateSelectors.isPasswordOk() && StateSelectors.isSaltOk();
 
         async function processSecret() {
-            lastProcessedSecret = State.value.secretValue;
-            lastProcessedSalt = State.value.saltValue;
-            lastOptions = JSON.stringify(State.value.passwordGeneration);
-            if (canStartGenerating()) {
-                State.value.passwordGenerating = true;
-                State.value.passwordValue = '';
-                State.notifyChange();
-                try {
-                    const generatedPassword = await PasswordGenerator.generatePassword(State.value);
-                    State.value.passwordGenerating = false;
-                    // Make sure state has not been changed in the meantime
-                    if (stateDidntChangeInMeantime()) {
-                        State.value.passwordValue = generatedPassword;
-                        State.notifyChange();
-                    } else {
-                        // If state changed, restart process - can skip notif here, as we want to keep uncut loading indication
-                        processSecret().then();
+            if(stateChangedInMeantime() && !State.value.passwordGenerating){
+                lastProcessedSecret = State.value.secretValue;
+                lastProcessedSalt = State.value.saltValue;
+                lastOptions = JSON.stringify(State.value.passwordGeneration);
+                if (secretsAreValid()) {
+                    State.value.passwordGenerating = true;
+                    State.value.passwordValue = '';
+                    State.value.generationSpeed = null;
+                    State.notifyChange();
+                    try {
+                        const start = new Date();
+                        const generatedPassword = await PasswordGenerator.generatePassword(State.value);
+                        State.value.generationSpeed = new Date().getTime() - start.getTime();
+                        State.value.passwordGenerating = false;
+                        State.value.passwordGenerationError = null;
+                        // Make sure state has not been changed in the meantime
+                        if (stateChangedInMeantime()) {
+                            // If state changed, restart process - can skip notif here, as we want to keep uncut loading indication
+                            processSecret().then();
+                        } else {
+                            State.value.passwordValue = generatedPassword;
+                            State.notifyChange();
+                        }
+                    } catch (e) {
+                        console.error('[Generator] Failed to generate password: ', e);
+                        State.value.passwordGenerating = false;
+                        if (stateChangedInMeantime()) {
+                            processSecret().then();
+                        } else {
+                            State.value.passwordValue = '';
+                            State.value.passwordGenerationError = typeof e === 'string' ? e : JSON.stringify(e);
+                            State.notifyChange();
+                        }
                     }
-                } catch (e) {
-                    State.value.passwordGenerating = false;
-                    if (stateDidntChangeInMeantime()) {
-                        State.value.passwordValue = '';
-                        State.value.passwordGenerationFailed = true;
-                        State.notifyChange();
-                    } else {
-                        processSecret().then();
-                    }
+                } else {
+                    State.value.generationSpeed = null;
+                    State.value.passwordValue = '';
+                    State.value.passwordGenerationError = null;
+                    State.notifyChange();
                 }
-            } else {
-                State.value.passwordValue = '';
-                State.value.passwordGenerating = false;
-                State.value.passwordGenerationFailed = false;
-                State.notifyChange();
             }
         }
 
-        State.subscribe(state => {
-            if (!stateDidntChangeInMeantime()) {
-                processSecret().then();
-            }
+        State.subscribe(() => {
+            processSecret().then();
         })
     }
 }

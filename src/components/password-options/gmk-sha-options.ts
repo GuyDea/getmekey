@@ -32,7 +32,7 @@ export class GmkShaOptions extends HTMLElement {
     render() {
         return html`
             <style>${globalStyles}${this.styles}</style>
-            <gmk-title-panel>
+            <gmk-title-panel showBoarder="false">
                 <span slot="title">SHA Options</span>
                 <div slot="content" class="mainContent">
                     <div class="line" >

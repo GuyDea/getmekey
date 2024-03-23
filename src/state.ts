@@ -11,7 +11,8 @@ export type StateDef = {
     passwordShow: boolean;
     passwordValue: string;
     passwordGenerating: boolean;
-    passwordGenerationFailed: boolean;
+    generationSpeed: number | null;
+    passwordGenerationError: string | null;
     userExperience: UserExperienceOptions;
     passwordGeneration: PasswordGenerationOptions;
 }
@@ -54,6 +55,7 @@ export type SubscriberOptions = {
     dispatchImmediately?: boolean,
     previousValue?: string;
     consumeAsync?: boolean;
+    debugId?: string;
 }
 
 export class State {
@@ -65,9 +67,10 @@ export class State {
         passwordShow: false,
         passwordValue: '',
         passwordGenerating: false,
-        passwordGenerationFailed: false,
+        passwordGenerationError: null,
+        generationSpeed: null,
         passwordGeneration: {
-            selectedAlgo: 'SHA',
+            selectedAlgo: 'Scrypt',
             outputOptions: {
                 format: 'base64',
                 takeFirst: 20,
@@ -82,40 +85,40 @@ export class State {
                     version: 'SHA-256'
                 },
                 pbkdf2: {
-                    iterations: 1000,
+                    iterations: 1024,
                     hash: "SHA-256",
                     length: 128,
                     minIterations: 1,
-                    maxIterations: 10000
+                    maxIterations: 16384
                 },
                 argon2: {
                     iterations: 1,
                     cost: 1024,
-                    length: 24,
+                    length: 32,
                     parallel: 1,
                     version: "Argon2d",
                     minIterations: 1,
                     minParallel: 1,
                     minCost: 1,
-                    minLength: 1,
-                    maxIterations: 10000,
-                    maxParallel: 10000,
-                    maxCost: 10000,
-                    maxLength: 10000,
+                    minLength: 16,
+                    maxIterations: 16,
+                    maxParallel: 1024,
+                    maxCost: 16384,
+                    maxLength: 16384,
                 },
                 scrypt: {
-                    cost: 16384,
+                    cost: 2,
                     block: 8,
                     parallel: 1,
-                    length: 16,
-                    minCost: 1,
+                    length: 1,
+                    minCost: 2,
                     minBlock: 1,
                     minParallel: 1,
                     minLength: 1,
-                    maxCost: 10000,
-                    maxBlock: 10000,
-                    maxParallel: 10000,
-                    maxLength: 10000,
+                    maxCost: 16384,
+                    maxBlock: 128,
+                    maxParallel: 128,
+                    maxLength: 16,
                 }
             }
         },

@@ -1,6 +1,6 @@
 import {comp, css, fixVal, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
-import {State} from "/src/state.js";
+import {State, Subscriber} from "/src/state.js";
 
 export class GmkScryptOptions extends HTMLElement {
     private _blockComp = comp<HTMLInputElement>(this, '#block');
@@ -11,12 +11,13 @@ export class GmkScryptOptions extends HTMLElement {
     private _costRangeComp = comp<HTMLInputElement>(this, '#costRange');
     private _lengthComp = comp<HTMLInputElement>(this, '#length');
     private _lengthRangeComp = comp<HTMLInputElement>(this, '#lengthRange');
+    private _subs: Subscriber[] = [];
 
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
         const opts = () => State.value.passwordGeneration.algoOptions.scrypt;
-        State.subscribe(s => {
+        this._subs.push(State.subscribe(s => {
             this._blockRangeComp().setAttribute('min', opts().minBlock.toString());
             this._blockRangeComp().setAttribute('max', opts().maxBlock.toString());
             this._blockComp().value = opts().block.toString();
@@ -37,7 +38,7 @@ export class GmkScryptOptions extends HTMLElement {
         }, {
             diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.scrypt),
             dispatchImmediately: true
-        });
+        }));
         this._blockRangeComp().addEventListener('input', () => State.update(s => opts().block = Number(this._blockRangeComp().value)));
         this._blockComp().addEventListener('input', () => State.update(s => opts().block = fixVal(opts().minBlock, opts().maxBlock, this._blockComp())));
         this._parallelRangeComp().addEventListener('input', () => State.update(s => opts().parallel = Number(this._parallelRangeComp().value)));
@@ -46,6 +47,10 @@ export class GmkScryptOptions extends HTMLElement {
         this._costComp().addEventListener('input', () => State.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())));
         this._lengthRangeComp().addEventListener('input', () => State.update(s => opts().length = Number(this._lengthRangeComp().value)));
         this._lengthComp().addEventListener('input', () => State.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
+    }
+
+    disconnectedCallback() {
+        this._subs.forEach(s => State.unsubscribe(s));
     }
 
     private styles = css`
@@ -64,7 +69,7 @@ export class GmkScryptOptions extends HTMLElement {
     _render() {
         return html`
             <style>${globalStyles}${this.styles}</style>
-            <gmk-title-panel>
+            <gmk-title-panel showBoarder="false">
                 <span slot="title">Scrypt Options</span>
                 <div slot="content" class="mainContent">
                     <div class="line lineCenter">

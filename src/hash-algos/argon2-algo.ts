@@ -9,7 +9,7 @@ export class Argon2Algo implements IHashAlgorithm<Argon2Options> {
         return new Promise((resolve, reject) => {
         argon2.hash({ pass: secret, salt: salt, time: options.iterations, mem: options.cost, hashLen: options.length, parallelism: options.parallel, type: options.version })
             .then((h: any) => resolve(h.hash))
-            .catch((e: any) => reject(e))
+            .catch((e: any) => reject(e.code === -14 ? 'Cost is too small' : 'Unknown error'))
 
         })
     }

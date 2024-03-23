@@ -6,9 +6,11 @@ import '/src/components/password-options/gmk-pbkdf2-options.js';
 import '/src/components/password-options/gmk-argon2-options.js';
 import '/src/components/password-options/gmk-scrypt-options.js';
 import {globalStyles} from "/src/styles/global-styles.js";
-import {Algo, State} from "/src/state.js";
+import {Algo, State, Subscriber} from "/src/state.js";
 
 export class GmkAlgoSelection extends HTMLElement {
+    private _subs: Subscriber[] = [];
+
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
@@ -20,6 +22,17 @@ export class GmkAlgoSelection extends HTMLElement {
             algoOptions().setAttribute('show', selectedAlgo)
         });
         setTimeout(() => comp<HTMLInputElement>(this, `#${State.value.passwordGeneration.selectedAlgo}`)().click());
+        this._subs.push(State.subscribe(s => {
+            comp(this, '#error')().innerHTML = s.passwordGenerationError ?? '';
+            comp(this, '#error')().style.display = s.passwordGenerationError ? 'block' : 'none'
+        }, {
+            dispatchImmediately: true,
+            diffMatcher: s => s.passwordGenerationError ?? ''
+        }))
+    }
+
+    disconnectedCallback() {
+        this._subs.forEach(s => State.unsubscribe(s));
     }
 
     private styles = css`
@@ -45,6 +58,13 @@ export class GmkAlgoSelection extends HTMLElement {
         {
             display: block;
         } 
+        #error {
+            text-align: center;
+            display: block;
+            font-size: 1.2rem;
+            font-weight: bolder;
+            color: var(--color-danger);
+        }
     `
 
     render() {
@@ -69,6 +89,8 @@ export class GmkAlgoSelection extends HTMLElement {
                         <gmk-pbkdf2-options type="PBKDF2"></gmk-pbkdf2-options>
                         <gmk-argon2-options type="Argon2"></gmk-argon2-options>
                         <gmk-scrypt-options type="Scrypt"></gmk-scrypt-options>
+                    </div>
+                    <div id="error">
                     </div>
                 </div>
             </gmk-title-panel>

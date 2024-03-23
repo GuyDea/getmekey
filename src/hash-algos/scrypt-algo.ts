@@ -5,15 +5,23 @@ import {StateDef} from "/src/state.js";
 
 export class ScryptAlgo implements IHashAlgorithm<ScryptOptions> {
     async encode(secret: string, salt: string, options: ScryptOptions): Promise<Uint8Array> {
-        return new Promise(resolve => {
-            scrypt(secret, salt, {
-                N: options.cost,
-                r: options.block,
-                p: options.parallel,
-                dkLen: options.length,
-                encoding: 'binary',
-                interruptStep: 100
-            }, (h: any) => resolve(h));
+        return new Promise((resolve, reject) => {
+            try {
+                scrypt(secret, salt, {
+                    N: options.cost,
+                    r: options.block,
+                    p: options.parallel,
+                    dkLen: options.length,
+                    encoding: 'binary',
+                    interruptStep: 1
+                }, (h: any) => resolve(h));
+            } catch (e){
+                if((e as Error).message === 'scrypt: N is not a power of 2'){
+                    reject('Cost must be a power of 2');
+                } else {
+                    reject('Unknown error');
+                }
+            }
         })
     }
     getOptions(state: StateDef): ScryptOptions {

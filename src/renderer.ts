@@ -11,10 +11,10 @@ const setAttrIfTrue = (set: boolean, el: HTMLElement, name: string, valueIfTrue?
  */
 export class Renderer {
     public static initialize(){
-        State.subscribe(() => this.run(), {dispatchImmediately: true});
+        State.subscribe(() => this._render(), {dispatchImmediately: true, debugId: 'test2'});
     };
 
-    public static run(){
+    private static _render(){
         setAttrIfTrue(!State.value.secretShow, Elements.secretHideToggle(), 'off');
         setAttrIfTrue(State.value.secretShow, Elements.secretInput(), 'type', 'text', 'password');
         setAttrIfTrue(StateSelectors.secretLengthOk(), Elements.passReqLength(), 'ok');
