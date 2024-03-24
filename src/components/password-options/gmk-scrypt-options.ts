@@ -19,6 +19,7 @@ export class GmkScryptOptions extends HTMLElement {
     private _costRangeComp = comp<HTMLInputElement>(this, '#costRange');
     private _lengthComp = comp<HTMLInputElement>(this, '#length');
     private _lengthRangeComp = comp<HTMLInputElement>(this, '#lengthRange');
+    private _costPowComp = comp<HTMLInputElement>(this, '#costPow');
     private _subs: Subscriber[] = [];
 
     constructor() {
@@ -42,6 +43,7 @@ export class GmkScryptOptions extends HTMLElement {
             this._lengthRangeComp().setAttribute('max', opts().maxLength.toString());
             this._lengthComp().value = opts().length.toString();
             this._lengthRangeComp().value = opts().length.toString();
+            this._costPowComp().innerHTML = Math.pow(2, opts().cost).toString()
 
         }, {
             diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.scrypt),
@@ -52,8 +54,8 @@ export class GmkScryptOptions extends HTMLElement {
         this._blockComp().addEventListener('input', () => State.update(s => opts().block = fixVal(opts().minBlock, opts().maxBlock, this._blockComp())));
         this._parallelRangeComp().addEventListener('input', () => State.update(s => opts().parallel = Number(this._parallelRangeComp().value)));
         this._parallelComp().addEventListener('input', () => State.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())));
-        this._costRangeComp().addEventListener('input', () => State.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costRangeComp(), isPowerOfTwo, highestPowerOfTwoLessThanN )));
-        this._costComp().addEventListener('change', () => State.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp(), isPowerOfTwo, opts().cost > Number(this._costComp().value) ? highestPowerOfTwoLessThanN : nextPowerOfTwo)));
+        this._costRangeComp().addEventListener('input', () => State.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costRangeComp())));
+        this._costComp().addEventListener('change', () => State.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())));
         this._lengthRangeComp().addEventListener('input', () => State.update(s => opts().length = Number(this._lengthRangeComp().value)));
         this._lengthComp().addEventListener('input', () => State.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
     }
@@ -82,7 +84,7 @@ export class GmkScryptOptions extends HTMLElement {
                 <span slot="title">Scrypt Options</span>
                 <div slot="content" class="mainContent">
                     <div class="line lineCenter">
-                        <label for="cost">Cost</label>
+                        <label for="cost">Cost (2<span style="position: relative; bottom: .5em;">x</span> = <span id="costPow"></span>)</label>
                         <input id="cost" type="number" class="short">
                         <input id="costRange" type="range">
                     </div>

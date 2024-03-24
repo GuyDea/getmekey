@@ -22,7 +22,7 @@ export class GmkPasswordOptionsPage extends HTMLElement {
         return html`
             <style>${this.styles}</style>
             <gmk-subpage-container>
-                <span slot="headerText">Password Generation</span>
+                <span class="label" slot="headerText">Password Generation</span>
                 <div slot="content">
                     <gmk-algo-selection></gmk-algo-selection>
                     <gmk-algo-output-format></gmk-algo-output-format>

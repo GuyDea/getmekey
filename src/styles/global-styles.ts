@@ -7,10 +7,10 @@ export const globalStyles = css`
         display: flex;
         flex-direction: column;
         gap: 1rem;
-    }
-    label, span {
+    }    
+    label, .label {
        margin-right: 10px; 
-    }
+    }    
     .iconButton {
         border: none;
         background: none;
@@ -207,7 +207,7 @@ export const globalStyles = css`
         transform: scale(1.05);
     }
     .short {
-        width: 5rem;
+        width: 5.5rem;
     }
     /* Range slider */
     input[type=range] {

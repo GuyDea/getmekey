@@ -7,28 +7,28 @@ import '/src/components/password-options/gmk-argon2-options.js';
 import '/src/components/password-options/gmk-scrypt-options.js';
 import {globalStyles} from "/src/styles/global-styles.js";
 import {Algo, State, Subscriber} from "/src/state.js";
+import '/src/components/password-options/gmk-generation-duration.js';
 
 export class GmkAlgoSelection extends HTMLElement {
     private _subs: Subscriber[] = [];
 
     constructor() {
         super();
-        this.attachShadow({mode: 'open'}).innerHTML = this.render();
-        const algoOptions = comp(this, '#algoOptions');
-        comp(this, '#algoSelectionPanel')().addEventListener('change', ev => {
-            const selectedAlgo = (ev.target as HTMLInputElement).getAttribute('id')! as Algo;
-            State.value.passwordGeneration.selectedAlgo = selectedAlgo;
-            State.notifyChange();
-            algoOptions().setAttribute('show', selectedAlgo)
-        });
-        setTimeout(() => comp<HTMLInputElement>(this, `#${State.value.passwordGeneration.selectedAlgo}`)().click());
+        const shadowRoot = this.attachShadow({mode: 'open'});
         this._subs.push(State.subscribe(s => {
-            comp(this, '#error')().innerHTML = s.passwordGenerationError ?? '';
-            comp(this, '#error')().style.display = s.passwordGenerationError ? 'block' : 'none'
+            shadowRoot.innerHTML = this.render();
+            const algoOptions = comp(this, '#algoOptions');
+            comp(this, '#algoSelectionPanel')().addEventListener('change', ev => {
+                const selectedAlgo = (ev.target as HTMLInputElement).getAttribute('id')! as Algo;
+                State.value.passwordGeneration.selectedAlgo = selectedAlgo;
+                State.notifyChange();
+                algoOptions().setAttribute('show', selectedAlgo)
+            });
+            setTimeout(() => comp<HTMLInputElement>(this, `#${State.value.passwordGeneration.selectedAlgo}`)().click());
         }, {
             dispatchImmediately: true,
-            diffMatcher: s => s.passwordGenerationError ?? ''
-        }))
+            diffMatcher: s => JSON.stringify(s.internals),
+        }));
     }
 
     disconnectedCallback() {
@@ -58,13 +58,6 @@ export class GmkAlgoSelection extends HTMLElement {
         {
             display: block;
         } 
-        #error {
-            text-align: center;
-            display: block;
-            font-size: 1.2rem;
-            font-weight: bolder;
-            color: var(--color-danger);
-        }
     `
 
     render() {
@@ -75,14 +68,12 @@ export class GmkAlgoSelection extends HTMLElement {
                 <span slot="title">Algorithm Selection</span>
                 <div slot="content" class="mainContent">
                     <form id="algoSelectionPanel">
-                        <div><input type="radio" id="SHA" name="algo"><label for="SHA">SHA</label>
-                        </div>
-                        <div><input type="radio" id="PBKDF2" name="algo"><label for="PBKDF2">PBKDF2</label>
-                        </div>
-                        <div><input type="radio" id="Argon2" name="algo"><label for="Argon2">Argon2</label>
-                        </div>
-                        <div><input type="radio" id="Scrypt" name="algo"><label for="Scrypt">Scrypt</label>
-                        </div>
+                        ${
+                            State.value.internals.usedAlgos.map(a => html`
+                                    <div><input type="radio" id="${a}" name="algo"><label for="${a}">${a}</label>
+                                    </div>
+                                `).join('')
+                        }
                     </form>
                     <div id="algoOptions">
                         <gmk-sha-options type="SHA"></gmk-sha-options>
@@ -90,8 +81,7 @@ export class GmkAlgoSelection extends HTMLElement {
                         <gmk-argon2-options type="Argon2"></gmk-argon2-options>
                         <gmk-scrypt-options type="Scrypt"></gmk-scrypt-options>
                     </div>
-                    <div id="error">
-                    </div>
+                    <gmk-generation-duration></gmk-generation-duration>
                 </div>
             </gmk-title-panel>
         `

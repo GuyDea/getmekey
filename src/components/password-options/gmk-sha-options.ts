@@ -36,7 +36,7 @@ export class GmkShaOptions extends HTMLElement {
                 <span slot="title">SHA Options</span>
                 <div slot="content" class="mainContent">
                     <div class="line" >
-                        <span>Version</span>
+                        <span class="label">Version</span>
                         <form id="versionForm" class="lineRadios">
                             <span>
                                 <input type="radio" name="version" id="SHA-256" checked/><label
@@ -49,7 +49,7 @@ export class GmkShaOptions extends HTMLElement {
                         </form>
                     </div>
                     <div class="line" >
-                        <span>Salt Position</span>
+                        <span class="label">Salt Position</span>
                         <form id="positionForm" class="lineRadios">
                             <span>
                                 <input type="radio" name="format" id="prefix" checked/><label

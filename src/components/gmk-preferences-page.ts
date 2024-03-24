@@ -40,12 +40,6 @@ export class GmkPreferencesPage extends HTMLElement {
         .unrestrictedModePanel > .questionMarkIcon{
             --question-mark-color: var(--color-danger);   
         }
-        .algoOptionsPanel{
-            flex: 1 1;
-            display: flex;
-            flex-direction: column;
-            gap: .5rem;
-        }
     `
 
     render() {

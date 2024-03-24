@@ -15,10 +15,15 @@ export type StateDef = {
     passwordGenerationError: string | null;
     userExperience: UserExperienceOptions;
     passwordGeneration: PasswordGenerationOptions;
+    internals: InternalOptions;
 }
 
 export type UserExperienceOptions = {
 
+}
+
+export type InternalOptions = {
+    usedAlgos: Algo[];
 }
 
 export type Algo = 'SHA' | 'PBKDF2' | 'Argon2' | 'Scrypt';
@@ -52,6 +57,10 @@ export type Subscriber = {
 export type Callback = (state: StateDef) => void;
 
 export type SubscriberOptions = {
+    /**
+     * Only listen to changes, if serialized string value differs between emissions
+     * @param state
+     */
     diffMatcher?: (state: StateDef) => string,
     dispatchImmediately?: boolean,
     consumeAsync?: boolean;
@@ -85,16 +94,16 @@ export class State {
                     version: 'SHA-256'
                 },
                 pbkdf2: {
-                    iterations: 1024,
+                    iterations: 1,
                     hash: "SHA-256",
                     length: 128,
                     minIterations: 1,
-                    maxIterations: 16384
+                    maxIterations: 131072
                 },
                 argon2: {
                     iterations: 1,
-                    cost: 1024,
-                    length: 32,
+                    cost: 1,
+                    length: 16,
                     parallel: 1,
                     version: "Argon2d",
                     minIterations: 1,
@@ -104,27 +113,33 @@ export class State {
                     maxIterations: 16,
                     maxParallel: 1024,
                     maxCost: 16384,
-                    maxLength: 16384,
+                    maxLength: 1024,
                 },
                 scrypt: {
-                    cost: 2,
-                    block: 8,
+                    cost: 1,
+                    block: 1,
                     parallel: 1,
-                    length: 1,
-                    minCost: 2,
+                    length: 16,
+                    minCost: 1,
                     minBlock: 1,
                     minParallel: 1,
-                    minLength: 1,
-                    maxCost: 16384,
+                    minLength: 16,
+                    maxCost: 8,
                     maxBlock: 128,
                     maxParallel: 128,
-                    maxLength: 16,
+                    maxLength: 1024,
                 }
             }
         },
         userExperience: {
 
+        },
+        internals: {
+            usedAlgos: ['SHA', 'PBKDF2', 'Scrypt']
         }
+    }
+    static {
+        (window as any).State = this;
     }
     private static subscribers: Set<Subscriber> = new Set();
 

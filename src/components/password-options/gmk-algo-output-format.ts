@@ -56,7 +56,7 @@ export class GmkAlgoOutputFormat extends HTMLElement {
                 <span slot="title">Password Output</span>
                 <div slot="content">
                     <form id="formatForm" class="line">
-                        <span>Format</span>
+                        <span class="label">Format</span>
                         <div class="lineRadios">
                             <input type="radio" name="format" id="base64"/><label
                                 for="base64">Base-64</label>
@@ -72,7 +72,7 @@ export class GmkAlgoOutputFormat extends HTMLElement {
                         <input id="securityText" type="text" class="short">
                     </div>                    
                     <div class="line">
-                        <span>Text Position</span>
+                        <span class="label">Text Position</span>
                         <form id="positionForm" class="lineRadios">
                             <input type="radio" name="securityPart" id="prefix"/><label
                                 for="prefix">Prefix</label>

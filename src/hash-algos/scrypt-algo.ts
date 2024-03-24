@@ -8,7 +8,7 @@ export class ScryptAlgo implements IHashAlgorithm<ScryptOptions> {
         return new Promise((resolve, reject) => {
             try {
                 scrypt(secret, salt, {
-                    N: options.cost,
+                    N: Math.pow(2, options.cost),
                     r: options.block,
                     p: options.parallel,
                     dkLen: options.length,
