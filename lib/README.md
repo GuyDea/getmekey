@@ -1,7 +1,7 @@
 # Used libraries
 Libraries used in the production build of this project are imported directly into it's file structure, instead of relying on package-manager. 
 
-As we are not using any bundler, it's just easier to fix import issues manually
+As we are not using any bundler, it's just easier to fix import issues manually.
 ## Argon2
 **Source:** https://github.com/antelle/argon2-browser
 

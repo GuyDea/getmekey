@@ -45,7 +45,7 @@ export class GmkPbkdf2Options extends HTMLElement {
     private _render() {
         return html`
             <style>${globalStyles}${this._styles()}</style>    
-            <gmk-title-panel showBoarder="false">
+            <gmk-title-panel showBorder="false">
                 <div slot="title">PBKDF2 Options</div>
                 <div slot="content" class="verticalItems">
                     <div class="line lineCenter">

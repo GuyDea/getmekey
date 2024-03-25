@@ -2,7 +2,7 @@ import {html, css} from "/src/helper-functions.js";
 
 export class GmkTitlePanel extends HTMLElement{
     private readonly _color= this.getAttribute('color') ?? 'var(--color-1)';
-    private readonly _showBoarder = this.getAttribute('showBoarder') !== 'false';
+    private readonly _showBorder = this.getAttribute('showBorder') !== 'false';
 
     constructor() {
         super();
@@ -12,17 +12,17 @@ export class GmkTitlePanel extends HTMLElement{
     private _styles(){
         return css`
         .content{
-            border: ${this._showBoarder ? `1px solid ${this._color}` : 'none'};
+            border: ${this._showBorder ? `1px solid ${this._color}` : 'none'};
             border-radius: 1rem;
         }
         .title {
             color: ${this._color};
             text-align: center;
-            padding-bottom: ${this._showBoarder ? '.5em' : '0'};
+            padding-bottom: ${this._showBorder ? '.5em' : '0'};
             font-size: 12px;
         }
         .content {
-            padding: .5rem;
+            padding: ${this._showBorder ? '.5rem' : '.5rem 0'};
         }
     `
     }

@@ -2,7 +2,7 @@ const elById = <T extends HTMLElement>(id: string) => () => document.getElementB
 /**
  * Provides access to all elements available on the main page
  */
-export class Elements {
+export class IndexElements {
     public static mainPage = elById('mainPage');
     public static arrow1 = elById('arrow1');
     public static arrow2 = elById('arrow2');

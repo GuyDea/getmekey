@@ -1,1 +1,0 @@
-export type OutputFormat = 'hex' | 'base64';

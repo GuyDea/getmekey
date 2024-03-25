@@ -69,7 +69,7 @@ export class GmkAlgoSelection extends HTMLElement {
                 <div slot="content" class="mainContent">
                     <form id="algoSelectionPanel">
                         ${
-                            State.value.internals.usedAlgos.map(a => html`
+                            State.value.internals.enabledAlgos.map(a => html`
                                     <div><input type="radio" id="${a}" name="algo"><label for="${a}">${a}</label>
                                     </div>
                                 `).join('')

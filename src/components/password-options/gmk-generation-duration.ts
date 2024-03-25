@@ -17,7 +17,7 @@ export class GmkGenerationDuration extends HTMLElement {
             this._duration().style.display = 'none';
             this._loader().style.display = 'none';
             this._noInfo().style.display = 'none';
-            if(s.generationSpeed){
+            if(typeof s.generationSpeed === 'number'){
                 this._duration().innerHTML = s.generationSpeed.toString() + ' ms to generate';
                 this._duration().style.display = 'block';
             } else if(s.passwordGenerationError){

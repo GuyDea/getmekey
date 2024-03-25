@@ -14,17 +14,27 @@ export type StateDef = {
     passwordGenerating: boolean;
     generationSpeed: number | null;
     passwordGenerationError: string | null;
-    userExperience: UserExperienceOptions;
+    userPreferences: UserPreferencesOptions;
     passwordGeneration: PasswordGenerationOptions;
     internals: InternalOptions;
 }
 
-export type UserExperienceOptions = {
+export type UserPreferencesOptions = {
+    visibility: VisibilityOptions;
+    danger: DangerOptions;
+}
 
+export type DangerOptions = {
+    unrestrictedMode: boolean;
+}
+
+export type VisibilityOptions = {
+    topSecret: boolean;
+    hideInfo: boolean;
 }
 
 export type InternalOptions = {
-    usedAlgos: Algo[];
+    enabledAlgos: Algo[];
 }
 
 export type Algo = 'SHA' | 'PBKDF2' | 'Argon2' | 'Scrypt';

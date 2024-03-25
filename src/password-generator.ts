@@ -16,7 +16,7 @@ export class PasswordGenerator {
     static {
         setTimeout(() => {
             console.log('[Password Generator] Started: Lazy loading algos');
-            State.value.internals.usedAlgos.forEach(async a => await import((`/src/hash-algos/${a.toLowerCase()}-algo.js`)))
+            State.value.internals.enabledAlgos.forEach(async a => await import((`/src/hash-algos/${a.toLowerCase()}-algo.js`)))
             console.log('[Password Generator] Finished: Lazy loading algos');
         }, 10_000);
     }

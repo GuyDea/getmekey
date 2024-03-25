@@ -1,14 +1,14 @@
-import {Elements} from "./elements.js";
+import {IndexElements} from "./index-related/index-elements.js";
 
 export class Router {
     private static _lastStateId = 0;
     private static _routes: Route[] = [
         {
             path: '/preferences',
-            component: () => import('/src/components/gmk-preferences-page.js').then(() => document.createElement('gmk-settings-page')),
+            component: () => import('/src/components/preferences/gmk-preferences-page.js').then(() => document.createElement('gmk-settings-page')),
         },
         {
-            path: '/password-options',
+            path: '/hash-settings',
             component: () => import('/src/components/password-options/gmk-password-options-page.js').then(() => document.createElement('gmk-password-options-page')),
         }
     ]
@@ -39,12 +39,12 @@ export class Router {
     public static async handleRoute(route: string, addHistory?: boolean) {
         const component = this._routes.find(r => route.match(r.path))?.component();
         if(component){
-            Elements.mainPage().style.display = 'none';
-            Elements.subPageContainer().innerHTML = '';
-            Elements.subPageContainer().append(await component);
+            IndexElements.mainPage().style.display = 'none';
+            IndexElements.subPageContainer().innerHTML = '';
+            IndexElements.subPageContainer().append(await component);
         } else {
-            Elements.mainPage().style.display = 'flex';
-            Elements.subPageContainer().innerHTML = '';
+            IndexElements.mainPage().style.display = 'flex';
+            IndexElements.subPageContainer().innerHTML = '';
         }
         if(addHistory) {
             history.pushState(++this._lastStateId, '', route);

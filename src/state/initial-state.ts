@@ -1,4 +1,4 @@
-import type {StateDef} from "/src/state/state";
+import type {StateDef} from "/src/state/state.js";
 
 export const state: StateDef = {
     secretValue: '',
@@ -63,10 +63,16 @@ export const state: StateDef = {
             }
         }
     },
-    userExperience: {
-
+    userPreferences: {
+        danger: {
+            unrestrictedMode: false
+        },
+        visibility: {
+            hideInfo: false,
+            topSecret: false
+        }
     },
     internals: {
-        usedAlgos: ['SHA', 'PBKDF2', 'Scrypt']
+        enabledAlgos: ['SHA', 'PBKDF2', 'Scrypt']
     }
 }

@@ -1,5 +1,5 @@
 import {comp, html} from "/src/helper-functions.js";
-import {Elements} from "/src/elements.js";
+import {IndexElements} from "/src/index-related/index-elements.js";
 
 export class GmkInfoIcon extends HTMLElement {
     constructor() {
@@ -16,7 +16,7 @@ export class GmkInfoIcon extends HTMLElement {
                 <path id="path" d=""
                       style="fill: currentColor; stroke:none;"></path>
             </svg>`;
-        comp<SVGPathElement>(this, '#path')().setAttribute('d', Elements.iconInfoPath().getAttribute('d')!)
+        comp<SVGPathElement>(this, '#path')().setAttribute('d', IndexElements.iconInfoPath().getAttribute('d')!)
     }
 }
 

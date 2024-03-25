@@ -72,7 +72,7 @@ export class GmkScryptOptions extends HTMLElement {
     _render() {
         return html`
             <style>${globalStyles}${this.styles}</style>
-            <gmk-title-panel showBoarder="false">
+            <gmk-title-panel showBorder="false">
                 <span slot="title">Scrypt Options</span>
                 <div slot="content" class="mainContent">
                     <div class="line lineCenter">

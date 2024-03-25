@@ -1,5 +1,5 @@
 import {comp, html} from "/src/helper-functions.js";
-import {Elements} from "/src/elements.js";
+import {IndexElements} from "/src/index-related/index-elements.js";
 
 export class GmkDotLoader extends HTMLElement {
     constructor() {
@@ -20,7 +20,7 @@ export class GmkDotLoader extends HTMLElement {
             </style>
             <svg viewBox="0 0 24 8">               
             </svg>`;
-        comp<SVGPathElement>(this, 'svg')().innerHTML = Elements.dotsLoading().innerHTML;
+        comp<SVGPathElement>(this, 'svg')().innerHTML = IndexElements.dotsLoading().innerHTML;
     }
 }
 
