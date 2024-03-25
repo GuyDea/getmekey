@@ -1,9 +1,5 @@
-import {Pbkdf2Algo} from "/src/hash-algos/pbkdf2-algo.js";
-import {State, type StateDef} from "/src/state.js";
-import {ScryptAlgo} from "/src/hash-algos/scrypt-algo.js";
-import {Argon2Algo} from "/src/hash-algos/argon2-algo.js";
+import {State, type StateDef} from "/src/state/state.js";
 import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
-import {ShaAlgo} from "/src/hash-algos/sha-algo.js";
 import {ByteUtils} from "/src/hash-algos/byte-utils.js";
 
 export class PasswordGenerator {
@@ -17,16 +13,17 @@ export class PasswordGenerator {
     //     })
     //     document.body.append(htmlButtonElement)
     // }
+    static {
+        setTimeout(() => {
+            console.log('[Password Generator] Started: Lazy loading algos');
+            State.value.internals.usedAlgos.forEach(async a => await import((`/src/hash-algos/${a.toLowerCase()}-algo.js`)))
+            console.log('[Password Generator] Finished: Lazy loading algos');
+        }, 10_000);
+    }
     public static async generatePassword(state: StateDef): Promise<string> {
         let passwordGeneration = state.passwordGeneration;
         let outputOptions = passwordGeneration.outputOptions;
-        let selectedAlgo: IHashAlgorithm<any>;
-        switch (passwordGeneration.selectedAlgo){
-            case "SHA": selectedAlgo = new ShaAlgo(); break;
-            case "PBKDF2": selectedAlgo = new Pbkdf2Algo(); break;
-            case "Argon2": selectedAlgo = new Argon2Algo(); break;
-            case "Scrypt": selectedAlgo = new ScryptAlgo(); break;
-        }
+        let selectedAlgo: IHashAlgorithm<any> = await import((`/src/hash-algos/${passwordGeneration.selectedAlgo.toLowerCase()}-algo.js`)).then(m => m.default());
         let uint8Array = await selectedAlgo.encode(state.secretValue,state.saltValue, selectedAlgo.getOptions(State.value));
         const hashed = outputOptions.format === "base64" ?
             ByteUtils.uint8ArrayToBase64String(uint8Array) :

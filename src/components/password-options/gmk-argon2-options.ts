@@ -1,7 +1,7 @@
 import {comp, css, fixVal, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
 import '/src/components/gmk-title-panel.js';
-import {State, Subscriber} from "/src/state.js";
+import {State, Subscriber} from "/src/state/state.js";
 
 export class GmkArgon2Options extends HTMLElement {
     private _iterationsComp = comp<HTMLInputElement>(this, '#iterations');

@@ -6,7 +6,7 @@ import '/src/components/password-options/gmk-pbkdf2-options.js';
 import '/src/components/password-options/gmk-argon2-options.js';
 import '/src/components/password-options/gmk-scrypt-options.js';
 import {globalStyles} from "/src/styles/global-styles.js";
-import {Algo, State, Subscriber} from "/src/state.js";
+import {Algo, State, Subscriber} from "/src/state/state.js";
 import '/src/components/password-options/gmk-generation-duration.js';
 
 export class GmkAlgoSelection extends HTMLElement {

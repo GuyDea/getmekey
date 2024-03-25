@@ -1,6 +1,6 @@
 import {State} from "./state.js";
 import {StateSelectors} from "./state-selectors.js";
-import {PasswordGenerator} from "./password-generator.js";
+import {PasswordGenerator} from "../password-generator.js";
 
 
 export class SideEffects {

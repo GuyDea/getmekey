@@ -1,7 +1,7 @@
 import {IndexListeners} from "./index-listeners.js";
 import {Elements} from "./elements.js";
 import {IndexRenderer} from "./index-renderer.js";
-import {SideEffects} from "./side-effects.js";
+import {SideEffects} from "./state/side-effects.js";
 import {Router} from "./router.js";
 
 export class Bootstrap {

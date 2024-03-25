@@ -1,6 +1,6 @@
 import {comp, css, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
-import {State} from "/src/state.js";
+import {State} from "/src/state/state.js";
 
 export class GmkShaOptions extends HTMLElement {
     constructor() {

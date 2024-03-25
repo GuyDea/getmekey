@@ -1,9 +1,13 @@
 import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
 // @ts-ignore
 import {scrypt} from "/lib/scrypt/scrypt-async.js";
-import {StateDef} from "/src/state.js";
+import {StateDef} from "/src/state/state.js";
 
-export class ScryptAlgo implements IHashAlgorithm<ScryptOptions> {
+export default function create() {
+    return new ScryptAlgo();
+}
+
+class ScryptAlgo implements IHashAlgorithm<ScryptOptions> {
     async encode(secret: string, salt: string, options: ScryptOptions): Promise<Uint8Array> {
         return new Promise((resolve, reject) => {
             try {

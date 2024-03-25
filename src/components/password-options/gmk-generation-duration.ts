@@ -1,6 +1,6 @@
 import {comp, css, html} from "/src/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
-import {State, Subscriber} from "/src/state.js";
+import {State, Subscriber} from "/src/state/state.js";
 import '/src/components/gmk-dot-loader.js';
 
 export class GmkGenerationDuration extends HTMLElement {

@@ -1,7 +1,11 @@
 import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
-import {StateDef} from "/src/state.js";
+import {StateDef} from "/src/state/state.js";
 
-export class ShaAlgo implements IHashAlgorithm<ShaOptions> {
+export default function create() {
+    return new ShaAlgo();
+}
+
+class ShaAlgo implements IHashAlgorithm<ShaOptions> {
     async encode(secret: string, salt: string, options: ShaOptions): Promise<Uint8Array> {
         const inputString = options.saltPosition === "prefix" ? `${salt}${secret}` : `${secret}${salt}`;
         return new Uint8Array(await crypto.subtle.digest(options.version, new TextEncoder().encode(inputString)));

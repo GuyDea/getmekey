@@ -1,10 +1,14 @@
 import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
 // @ts-ignore
 import '/lib/argon2/argon2-init.js';
-import {StateDef} from "/src/state";
+import {StateDef} from "/src/state/state.js";
 declare const argon2: any;
 
-export class Argon2Algo implements IHashAlgorithm<Argon2Options> {
+export default function create() {
+    return new Argon2Algo();
+}
+
+class Argon2Algo implements IHashAlgorithm<Argon2Options> {
     async encode(secret: string, salt: string, options: Argon2Options): Promise<Uint8Array> {
         return new Promise((resolve, reject) => {
             argon2.hash({

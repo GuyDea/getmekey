@@ -1,7 +1,11 @@
 import {type IHashAlgorithm} from "./hash-algo-types.js";
-import {StateDef} from "/src/state.js";
+import {StateDef} from "/src/state/state.js";
 
-export class Pbkdf2Algo implements IHashAlgorithm<Pbkdf2Options> {
+export default function create() {
+    return new Pbkdf2Algo();
+}
+
+class Pbkdf2Algo implements IHashAlgorithm<Pbkdf2Options> {
     async encode(secret: string, salt: string, options: Pbkdf2Options): Promise<Uint8Array> {
         const cryptoKey = await this._deriveKeyFromPassword(secret, salt, options);
         return new Uint8Array(await window.crypto.subtle.exportKey("raw", cryptoKey));

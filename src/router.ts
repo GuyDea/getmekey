@@ -26,8 +26,9 @@ export class Router {
         }, {capture: true});
         this.handleRoute(location.pathname, false).then();
         setTimeout(() => {
-            console.log('[Router] Lazy loading components');
-            this._routes.forEach(r => r.component())
+            console.log('[Router] Started: Lazy loading components');
+            this._routes.forEach(async r => await r.component())
+            console.log('[Router] Finished: Lazy loading components');
         }, 10_000);
     }
 

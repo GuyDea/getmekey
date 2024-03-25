@@ -1,14 +1,6 @@
-import {
-    comp,
-    css,
-    fixVal,
-    highestPowerOfTwoLessThanN,
-    html,
-    isPowerOfTwo,
-    nextPowerOfTwo
-} from "/src/helper-functions.js";
+import {comp, css, fixVal, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
-import {State, Subscriber} from "/src/state.js";
+import {State, Subscriber} from "/src/state/state.js";
 
 export class GmkScryptOptions extends HTMLElement {
     private _blockComp = comp<HTMLInputElement>(this, '#block');
