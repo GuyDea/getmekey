@@ -68,21 +68,6 @@
             min-width: var(--app-width);
         }
 
-        button {
-            border: none;
-            border-radius: 1em;
-            padding: .5em 1em;
-            background: var(--color-1);
-            color: var(--color-text-2);
-            transition: opacity .3s, transform .3s;
-        }
-        button:not([disabled]) {
-            box-shadow: var(--box-shadow-1);
-        }
-
-        button[disabled] {
-            background: var(--color-disabled);
-        }
         .allContent {
             margin: 0 auto;
             width: var(--app-width);
@@ -385,6 +370,37 @@
         }
 
     </style>
+    <style id="baseStyles">
+        .gmkButton {
+            border: none;
+            border-radius: 1em;
+            padding: .5em 1em;
+            background: var(--color-1);
+            color: var(--color-text-2);
+            transition: opacity .3s, transform .3s;
+        }
+        .gmkButton:not([disabled]) {
+            box-shadow: var(--box-shadow-1);
+        }
+
+        .gmkButton[disabled] {
+            background: var(--color-disabled);
+        }
+        .gmkButton.gmkButtonDanger {
+            background: var(--color-danger);
+            box-shadow: var(--box-shadow-danger);
+        }
+        .gmkButton:active:not([disabled]) {
+            opacity: .5;
+            transition: none;
+        }
+        .gmkButton:hover:not([disabled]) {
+            transform: scale(1.05);
+        }
+        .gmkButton:focus-visible {
+            outline: 2px solid var(--color-1);
+        }
+    </style>
     <style id="scrollerStyles">
         *::-webkit-scrollbar-track {
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -606,8 +622,8 @@
             </div>
             <div style="margin-top: 10px; display: flex; gap: 10px;">
                 <div class="sideIcon"></div>
-                <button id="copyButton" disabled>Copy</button>
-                <button id="copySaveButton" disabled>Copy & Save</button>
+                <button id="copyButton" class="gmkButton" disabled>Copy</button>
+                <button id="copySaveButton" class="gmkButton" disabled>Copy & Save</button>
                 <div class="sideIcon infoIcon">
                     <svg off>
                         <use xlink:href="#icon-info"></use>
@@ -615,7 +631,7 @@
                 </div>
             </div>
             <div style="margin-top: 10px; font-size: .6rem">
-                <button id="clearButton" style="font-size: .8rem" disabled>Clear Secret</button>
+                <button id="clearButton" class="gmkButton" style="font-size: .8rem" disabled>Clear Secret</button>
             </div>
         </div>
         <div class="useDisclaimer">

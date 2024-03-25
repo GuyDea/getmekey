@@ -11,7 +11,7 @@ export const state: StateDef = {
     passwordGenerationError: null,
     generationSpeed: null,
     passwordGeneration: {
-        selectedAlgo: 'Scrypt',
+        selectedAlgo: 'SHA',
         outputOptions: {
             format: 'base64',
             takeFirst: 20,

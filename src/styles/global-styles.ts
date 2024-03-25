@@ -2,6 +2,7 @@ import {css} from "../helper-functions.js";
 
 export const globalStyles = css`
     ${document.getElementById('scrollerStyles')!.innerHTML}
+    ${document.getElementById('baseStyles')!.innerHTML}
     /* General styles */
     .verticalItems {
         display: flex;
@@ -34,6 +35,11 @@ export const globalStyles = css`
     .questionMarkIcon:hover {
         transform: scale(1.2);
     }
+    .settingsColumn{
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
     .line{
         display: flex;
         flex-direction: row;
@@ -49,6 +55,9 @@ export const globalStyles = css`
         flex-direction: column;
         flex-wrap: wrap;
         gap: .5rem;
+    }
+    label.danger, span.danger{
+        color: var(--color-danger);
     }
     /* Checkbox styles */
     input[type=checkbox] {
@@ -206,6 +215,13 @@ export const globalStyles = css`
     input[type=text]:hover, input[type=number]:hover {
         transform: scale(1.05);
     }
+    input[type=text].danger, input[type=number].danger {
+        box-shadow: var(--box-shadow-danger);
+        color: var(--color-danger)
+    }
+    input[type=text].danger:focus, input[type=number].danger:focus {
+        outline: 2px solid var(--color-danger);
+    }
     .short {
         width: 5.5rem;
     }
@@ -244,6 +260,16 @@ export const globalStyles = css`
     }
     input[type=range]:hover {
         opacity: 1; /* Fully shown on mouse-over */
+    }
+    input[type=range].danger{
+        background: hsla(var(--color-danger-hue-val), 50%, 70%, 1);
+        box-shadow: var(--box-shadow-danger);
+    }
+    input[type=range].danger::-webkit-slider-thumb {
+        background: var(--color-danger);
+    }
+    input[type=range].danger::-moz-range-thumb {
+        background: var(--color-danger);
     }
 `
 
