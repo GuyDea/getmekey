@@ -21,11 +21,26 @@ export type StateDef = {
 
 export type UserPreferencesOptions = {
     visibility: VisibilityOptions;
-    danger: DangerOptions;
+    sensitive: SensitiveOptions;
+    convenience: ConvenienceOptions;
+    saving: SavingOptions;
 }
 
-export type DangerOptions = {
+export type SavingOptions = {
+    allowRecall: boolean;
+    rememberHash: 'never' | 'always' | 'onRecall'
+}
+
+export type ConvenienceOptions = {
+    copyOnRecall: boolean;
+}
+
+export type SensitiveOptions = {
     unrestrictedMode: boolean;
+    rememberDurationM: number;
+    minRememberDurationM: number;
+    maxRememberDurationM: number;
+    remember: boolean;
 }
 
 export type VisibilityOptions = {

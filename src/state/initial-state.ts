@@ -64,8 +64,19 @@ export const state: StateDef = {
         }
     },
     userPreferences: {
-        danger: {
-            unrestrictedMode: false
+        convenience: {
+            copyOnRecall: false
+        },
+        saving: {
+            rememberHash: 'never',
+            allowRecall: false
+        },
+        sensitive: {
+            unrestrictedMode: false,
+            rememberDurationM: 60,
+            remember: false,
+            minRememberDurationM: 1,
+            maxRememberDurationM: 1440
         },
         visibility: {
             hideInfo: false,

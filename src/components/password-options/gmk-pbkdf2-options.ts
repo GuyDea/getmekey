@@ -23,14 +23,8 @@ export class GmkPbkdf2Options extends HTMLElement {
         }));
         this._iterationsRangeComp().addEventListener('input', () => State.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
         this._iterationsComp().addEventListener('input', () => State.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
-        comp(this, '#lengthForm')().addEventListener('change', (ev) => {
-            State.value.passwordGeneration.algoOptions.pbkdf2.length = (ev.target as HTMLInputElement).getAttribute('id') as any;
-            State.notifyChange();
-        })
-        comp(this, '#shaForm')().addEventListener('change', (ev) => {
-            State.value.passwordGeneration.algoOptions.pbkdf2.hash = (ev.target as HTMLInputElement).getAttribute('id') as any;
-            State.notifyChange();
-        })
+        comp(this, '#lengthForm')().addEventListener('change', (ev) => State.update(() => opts().length = (ev.target as HTMLInputElement).getAttribute('id') as any));
+        comp(this, '#shaForm')().addEventListener('change', (ev) => State.update(() => opts().hash = (ev.target as HTMLInputElement).getAttribute('id') as any));
     }
 
     disconnectedCallback() {

@@ -14,6 +14,7 @@ export class IndexElements {
     public static passReqUppercase = elById('passReqUppercase');
     public static passReqSpecial = elById('passReqSpecial');
     public static saltInput = elById<HTMLInputElement>('saltInput');
+    public static saltReqLength = elById('saltReqLength');
     public static saltReqNumber = elById('saltReqNumber');
     public static saltReqUppercase = elById('saltReqUppercase');
     public static saltReqSpecial = elById('saltReqSpecial');

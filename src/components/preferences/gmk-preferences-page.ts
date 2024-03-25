@@ -6,7 +6,7 @@ import '/src/components/icons/gmk-info-icon.js';
 import '/src/components/password-options/gmk-algo-output-format.js';
 import '/src/components/preferences/gmk-visibility.js';
 import '/src/components/preferences/gmk-saving.js';
-import '/src/components/preferences/gmk-danger-zone.js';
+import '/src/components/preferences/gmk-sensitive.js';
 import '/src/components/preferences/gmk-convenience.js';
 
 export class GmkPreferencesPage extends HTMLElement {
@@ -24,7 +24,7 @@ export class GmkPreferencesPage extends HTMLElement {
                     <gmk-visibility></gmk-visibility>
                     <gmk-saving></gmk-saving>
                     <gmk-convenience></gmk-convenience>
-                    <gmk-danger-zone></gmk-danger-zone>
+                    <gmk-sensitive></gmk-sensitive>
                 </div>
             </gmk-subpage-container>
         `

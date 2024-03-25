@@ -38,6 +38,7 @@ export class IndexRenderer {
 
         setAttrIfTrue(!State.value.saltShow, IndexElements.saltHideToggle(), 'off');
         setAttrIfTrue(State.value.saltShow, IndexElements.saltInput(), 'type', 'text', 'password');
+        setAttrIfTrue(StateSelectors.saltLengthOk(), IndexElements.saltReqLength(), 'ok');
         setAttrIfTrue(StateSelectors.saltContainsNumber(), IndexElements.saltReqNumber(), 'ok');
         setAttrIfTrue(StateSelectors.saltContainsUppercase(), IndexElements.saltReqUppercase(), 'ok');
         setAttrIfTrue(StateSelectors.saltContainsSpecial(), IndexElements.saltReqSpecial(), 'ok');
