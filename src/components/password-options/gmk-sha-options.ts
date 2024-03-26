@@ -1,18 +1,18 @@
 import {comp, css, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
-import {State} from "/src/state/state.js";
+import {state} from "/src/state/state.js";
 
 export class GmkShaOptions extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
         comp(this, '#versionForm')().addEventListener('change', ev => {
-            State.value.passwordGeneration.algoOptions.sha.version = (ev.target as HTMLInputElement).getAttribute('id') as any;
-            State.notifyChange();
+            state.value.passwordGeneration.algoOptions.sha.version = (ev.target as HTMLInputElement).getAttribute('id') as any;
+            state.notifyChange();
         })
         comp(this, '#positionForm')().addEventListener('change', ev => {
-            State.value.passwordGeneration.algoOptions.sha.saltPosition = (ev.target as HTMLInputElement).getAttribute('id') as any;
-            State.notifyChange();
+            state.value.passwordGeneration.algoOptions.sha.saltPosition = (ev.target as HTMLInputElement).getAttribute('id') as any;
+            state.notifyChange();
         })
     }
 

@@ -1,11 +1,11 @@
-import {comp, css, fixVal, html, setClassIfTrue, toggleDisabledPanel} from "/src/helper-functions.js";
+import {comp, css, fixVal, html, toggleDisabledPanel} from "/src/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
 import '/src/components/icons/gmk-info-icon.js';
 import {globalStyles} from "/src/styles/global-styles.js";
-import {State, Subscriber} from "/src/state/state.js";
+import {state, StateDef, Subscriber} from "/src/state/state.js";
 
 export class GmkSensitive extends HTMLElement {
-    private _subs: Subscriber[] = [];
+    private _subs: Subscriber<StateDef>[] = [];
     private _remember = comp<HTMLInputElement>(this,'#remember');
     private _unrestricted = comp<HTMLInputElement>(this,'#unrestricted');
     private _minutes = comp<HTMLInputElement>(this, '#minutes');
@@ -16,11 +16,11 @@ export class GmkSensitive extends HTMLElement {
 
     constructor() {
         super();
-        const opts = () => State.value.userPreferences.sensitive;
+        const opts = () => state.value.userPreferences.sensitive;
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
-        this._remember().addEventListener('input', () => State.update(s => opts().remember = this._remember().checked));
-        this._unrestricted().addEventListener('input', () => State.update(s => opts().unrestrictedMode = this._unrestricted().checked));
-        this._subs.push(State.subscribe(s => {
+        this._remember().addEventListener('input', () => state.update(s => opts().remember = this._remember().checked));
+        this._unrestricted().addEventListener('input', () => state.update(s => opts().unrestrictedMode = this._unrestricted().checked));
+        this._subs.push(state.subscribe(s => {
             this._remember().checked = opts().remember;
             this._unrestricted().checked = opts().unrestrictedMode;
             this._minutesRange().setAttribute('min', opts().minRememberDurationM.toString());
@@ -36,12 +36,12 @@ export class GmkSensitive extends HTMLElement {
             }),
             dispatchImmediately: true
         }));
-        this._minutesRange().addEventListener('input', () => State.update(s => opts().rememberDurationM = Number(this._minutesRange().value)));
-        this._minutes().addEventListener('input', () => State.update(s => opts().rememberDurationM = fixVal(opts().minRememberDurationM, opts().maxRememberDurationM, this._minutes())));
+        this._minutesRange().addEventListener('input', () => state.update(s => opts().rememberDurationM = Number(this._minutesRange().value)));
+        this._minutes().addEventListener('input', () => state.update(s => opts().rememberDurationM = fixVal(opts().minRememberDurationM, opts().maxRememberDurationM, this._minutes())));
     }
 
     disconnectedCallback() {
-        this._subs.forEach(s => State.unsubscribe(s));
+        this._subs.forEach(s => state.unsubscribe(s));
     }
 
     private _styles() {

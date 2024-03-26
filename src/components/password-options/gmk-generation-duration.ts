@@ -1,10 +1,10 @@
 import {comp, css, html} from "/src/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
-import {State, Subscriber} from "/src/state/state.js";
+import {state, StateDef, Subscriber} from "/src/state/state.js";
 import '/src/components/gmk-dot-loader.js';
 
 export class GmkGenerationDuration extends HTMLElement {
-    private _subs: Subscriber[] = [];
+    private _subs: Subscriber<StateDef>[] = [];
     private _error = comp(this, '#error');
     private _duration = comp(this, '#duration');
     private _loader = comp(this, '#loader');
@@ -12,7 +12,7 @@ export class GmkGenerationDuration extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
-        this._subs.push(State.subscribe(s => {
+        this._subs.push(state.subscribe(s => {
             this._error().style.display = 'none';
             this._duration().style.display = 'none';
             this._loader().style.display = 'none';
@@ -39,7 +39,7 @@ export class GmkGenerationDuration extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this._subs.forEach(s => State.unsubscribe(s));
+        this._subs.forEach(s => state.unsubscribe(s));
     }
 
     private _styles() {

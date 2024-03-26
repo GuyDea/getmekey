@@ -1,18 +1,18 @@
 import {comp, css, fixVal, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
 import '/src/components/gmk-title-panel.js';
-import {State, Subscriber} from "/src/state/state.js";
+import {state, StateDef, Subscriber} from "/src/state/state.js";
 
 export class GmkPbkdf2Options extends HTMLElement {
     private _iterationsComp = comp<HTMLInputElement>(this, '#iterations');
     private _iterationsRangeComp = comp<HTMLInputElement>(this, '#iterationsRange');
-    private _subs: Subscriber[] = [];
+    private _subs: Subscriber<StateDef>[] = [];
 
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
-        const opts = () => State.value.passwordGeneration.algoOptions.pbkdf2;
-        this._subs.push(State.subscribe(s => {
+        const opts = () => state.value.passwordGeneration.algoOptions.pbkdf2;
+        this._subs.push(state.subscribe(s => {
             this._iterationsRangeComp().setAttribute('min', opts().minIterations.toString());
             this._iterationsRangeComp().setAttribute('max', opts().maxIterations.toString());
             this._iterationsComp().value = opts().iterations.toString();
@@ -21,14 +21,14 @@ export class GmkPbkdf2Options extends HTMLElement {
             diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.pbkdf2),
             dispatchImmediately: true
         }));
-        this._iterationsRangeComp().addEventListener('input', () => State.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
-        this._iterationsComp().addEventListener('input', () => State.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
-        comp(this, '#lengthForm')().addEventListener('change', (ev) => State.update(() => opts().length = (ev.target as HTMLInputElement).getAttribute('id') as any));
-        comp(this, '#shaForm')().addEventListener('change', (ev) => State.update(() => opts().hash = (ev.target as HTMLInputElement).getAttribute('id') as any));
+        this._iterationsRangeComp().addEventListener('input', () => state.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
+        this._iterationsComp().addEventListener('input', () => state.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
+        comp(this, '#lengthForm')().addEventListener('change', (ev) => state.update(() => opts().length = (ev.target as HTMLInputElement).getAttribute('id') as any));
+        comp(this, '#shaForm')().addEventListener('change', (ev) => state.update(() => opts().hash = (ev.target as HTMLInputElement).getAttribute('id') as any));
     }
 
     disconnectedCallback() {
-        this._subs.forEach(s => State.unsubscribe(s));
+        this._subs.forEach(s => state.unsubscribe(s));
     }
 
     private _styles() {

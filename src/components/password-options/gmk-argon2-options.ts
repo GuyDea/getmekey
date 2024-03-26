@@ -1,7 +1,7 @@
 import {comp, css, fixVal, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
 import '/src/components/gmk-title-panel.js';
-import {State, Subscriber} from "/src/state/state.js";
+import {state, StateDef, Subscriber} from "/src/state/state.js";
 
 export class GmkArgon2Options extends HTMLElement {
     private _iterationsComp = comp<HTMLInputElement>(this, '#iterations');
@@ -12,13 +12,13 @@ export class GmkArgon2Options extends HTMLElement {
     private _costRangeComp = comp<HTMLInputElement>(this, '#costRange');
     private _lengthComp = comp<HTMLInputElement>(this, '#length');
     private _lengthRangeComp = comp<HTMLInputElement>(this, '#lengthRange');
-    private _subs: Subscriber[] = [];
+    private _subs: Subscriber<StateDef>[] = [];
     
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
-        const opts = () => State.value.passwordGeneration.algoOptions.argon2;
-        this._subs.push(State.subscribe(s => {
+        const opts = () => state.value.passwordGeneration.algoOptions.argon2;
+        this._subs.push(state.subscribe(s => {
             this._iterationsRangeComp().setAttribute('min', opts().minIterations.toString());
             this._iterationsRangeComp().setAttribute('max', opts().maxIterations.toString());
             this._iterationsComp().value = opts().iterations.toString();
@@ -40,22 +40,22 @@ export class GmkArgon2Options extends HTMLElement {
             diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.argon2),
             dispatchImmediately: true
         }));
-        this._iterationsRangeComp().addEventListener('input', () => State.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
-        this._iterationsComp().addEventListener('input', () => State.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
-        this._parallelRangeComp().addEventListener('input', () => State.update(s => opts().parallel = Number(this._parallelRangeComp().value)));
-        this._parallelComp().addEventListener('input', () => State.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())));
-        this._costRangeComp().addEventListener('input', () => State.update(s => opts().cost = Number(this._costRangeComp().value)));
-        this._costComp().addEventListener('input', () => State.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())));
-        this._lengthRangeComp().addEventListener('input', () => State.update(s => opts().length = Number(this._lengthRangeComp().value)));
-        this._lengthComp().addEventListener('input', () => State.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
+        this._iterationsRangeComp().addEventListener('input', () => state.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
+        this._iterationsComp().addEventListener('input', () => state.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
+        this._parallelRangeComp().addEventListener('input', () => state.update(s => opts().parallel = Number(this._parallelRangeComp().value)));
+        this._parallelComp().addEventListener('input', () => state.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())));
+        this._costRangeComp().addEventListener('input', () => state.update(s => opts().cost = Number(this._costRangeComp().value)));
+        this._costComp().addEventListener('input', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())));
+        this._lengthRangeComp().addEventListener('input', () => state.update(s => opts().length = Number(this._lengthRangeComp().value)));
+        this._lengthComp().addEventListener('input', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
         comp(this, '#versionForm')().addEventListener('change', (ev) => {
             opts().version = (ev.target as HTMLInputElement).getAttribute('id') as any;
-            State.notifyChange();
+            state.notifyChange();
         })
     }
 
     disconnectedCallback() {
-        this._subs.forEach(s => State.unsubscribe(s));
+        this._subs.forEach(s => state.unsubscribe(s));
     }
 
     private _styles() {

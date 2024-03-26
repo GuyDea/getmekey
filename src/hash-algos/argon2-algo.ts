@@ -2,6 +2,7 @@ import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
 // @ts-ignore
 import '/lib/argon2/argon2-init.js';
 import {StateDef} from "/src/state/state.js";
+
 declare const argon2: any;
 
 export default function create() {

@@ -2,10 +2,10 @@ import {comp, css, html, setAttrIfTrue, setClassIfTrue} from "/src/helper-functi
 import '/src/components/gmk-title-panel.js';
 import '/src/components/icons/gmk-info-icon.js';
 import {globalStyles} from "/src/styles/global-styles.js";
-import {State, Subscriber} from "/src/state/state.js";
+import {state, StateDef, Subscriber} from "/src/state/state.js";
 
 export class GmkSaving extends HTMLElement {
-    private _subs: Subscriber[] = [];
+    private _subs: Subscriber<StateDef>[] = [];
     private _allowRecall = comp<HTMLInputElement>(this,'#allowRecall');
     private _onRecallSpan = comp<HTMLSpanElement>(this,'#onRecallSpan');
     private _onRecallInput = comp<HTMLInputElement>(this,'#onRecall');
@@ -13,15 +13,15 @@ export class GmkSaving extends HTMLElement {
 
     constructor() {
         super();
-        const opts = () => State.value.userPreferences.saving;
+        const opts = () => state.value.userPreferences.saving;
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
-        this._allowRecall().addEventListener('input', () => State.update(s => opts().allowRecall = this._allowRecall().checked));
-        this._hashForm().addEventListener('change', ev => State.update(s => opts().rememberHash = (ev.target as HTMLInputElement).getAttribute('id') as any));
-        this._subs.push(State.subscribe(s => {
+        this._allowRecall().addEventListener('input', () => state.update(s => opts().allowRecall = this._allowRecall().checked));
+        this._hashForm().addEventListener('change', ev => state.update(s => opts().rememberHash = (ev.target as HTMLInputElement).getAttribute('id') as any));
+        this._subs.push(state.subscribe(s => {
             this._allowRecall().checked = opts().allowRecall;
             if(!opts().allowRecall && opts().rememberHash === "onRecall"){
                 opts().rememberHash = 'never';
-                State.notifyChange();
+                state.notifyChange();
                 return;
             }
             setClassIfTrue(!opts().allowRecall, this._onRecallSpan(), 'disabled');
@@ -34,7 +34,7 @@ export class GmkSaving extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this._subs.forEach(s => State.unsubscribe(s));
+        this._subs.forEach(s => state.unsubscribe(s));
     }
 
     private _styles() {

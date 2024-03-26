@@ -1,6 +1,6 @@
 import type {StateDef} from "/src/state/state.js";
 
-export const state: StateDef = {
+export const initState: StateDef = {
     secretValue: '',
     secretShow: false,
     saltShow: false,

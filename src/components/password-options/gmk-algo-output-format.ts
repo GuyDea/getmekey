@@ -1,9 +1,9 @@
 import {comp, css, fixVal, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
-import {State, Subscriber} from "/src/state/state.js";
+import {state, StateDef, Subscriber} from "/src/state/state.js";
 
 export class GmkAlgoOutputFormat extends HTMLElement {
-    private _subs: Subscriber[] = [];
+    private _subs: Subscriber<StateDef>[] = [];
     private _formatForm = comp<HTMLInputElement>(this, '#formatForm');
     private _positionForm = comp<HTMLInputElement>(this, '#positionForm');
     private _takeFirst = comp<HTMLInputElement>(this, '#takeFirst');
@@ -13,8 +13,8 @@ export class GmkAlgoOutputFormat extends HTMLElement {
         super();
 
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
-        const opts = () => State.value.passwordGeneration.outputOptions;
-        this._subs.push(State.subscribe(s => {
+        const opts = () => state.value.passwordGeneration.outputOptions;
+        this._subs.push(state.subscribe(s => {
         }, {
             diffMatcher: s => JSON.stringify(s.passwordGeneration.outputOptions),
             dispatchImmediately: true,
@@ -24,21 +24,21 @@ export class GmkAlgoOutputFormat extends HTMLElement {
         this._takeFirst().value = opts().takeFirst.toString();
         this._takeFirst().setAttribute('min', opts().minTakeFirst.toString());
         this._takeFirst().setAttribute('max', opts().maxTakeFirst.toString());
-        this._takeFirst().addEventListener('input', () => State.update(() => opts().takeFirst = fixVal(opts().minTakeFirst, opts().maxTakeFirst, this._takeFirst())));
+        this._takeFirst().addEventListener('input', () => state.update(() => opts().takeFirst = fixVal(opts().minTakeFirst, opts().maxTakeFirst, this._takeFirst())));
         this._securityText().value = opts().securityText;
-        this._securityText().addEventListener('input', () => State.update(() => opts().securityText = this._securityText().value))
+        this._securityText().addEventListener('input', () => state.update(() => opts().securityText = this._securityText().value))
         this._formatForm().addEventListener('change', ev => {
             opts().format = (ev.target as HTMLInputElement).getAttribute('id') as any;
-            State.notifyChange();
+            state.notifyChange();
         })
         this._positionForm().addEventListener('change', ev => {
             opts().securityTextPosition = (ev.target as HTMLInputElement).getAttribute('id') as any;
-            State.notifyChange();
+            state.notifyChange();
         })
     }
 
     disconnectedCallback() {
-        this._subs.forEach(s => State.unsubscribe(s));
+        this._subs.forEach(s => state.unsubscribe(s));
     }
 
     private styles = css`

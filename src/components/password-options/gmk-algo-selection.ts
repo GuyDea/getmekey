@@ -6,25 +6,25 @@ import '/src/components/password-options/gmk-pbkdf2-options.js';
 import '/src/components/password-options/gmk-argon2-options.js';
 import '/src/components/password-options/gmk-scrypt-options.js';
 import {globalStyles} from "/src/styles/global-styles.js";
-import {Algo, State, Subscriber} from "/src/state/state.js";
+import {Algo, state, StateDef, Subscriber} from "/src/state/state.js";
 import '/src/components/password-options/gmk-generation-duration.js';
 
 export class GmkAlgoSelection extends HTMLElement {
-    private _subs: Subscriber[] = [];
+    private _subs: Subscriber<StateDef>[] = [];
 
     constructor() {
         super();
         const shadowRoot = this.attachShadow({mode: 'open'});
-        this._subs.push(State.subscribe(s => {
+        this._subs.push(state.subscribe(s => {
             shadowRoot.innerHTML = this.render();
             const algoOptions = comp(this, '#algoOptions');
             comp(this, '#algoSelectionPanel')().addEventListener('change', ev => {
                 const selectedAlgo = (ev.target as HTMLInputElement).getAttribute('id')! as Algo;
-                State.value.passwordGeneration.selectedAlgo = selectedAlgo;
-                State.notifyChange();
+                state.value.passwordGeneration.selectedAlgo = selectedAlgo;
+                state.notifyChange();
                 algoOptions().setAttribute('show', selectedAlgo)
             });
-            setTimeout(() => comp<HTMLInputElement>(this, `#${State.value.passwordGeneration.selectedAlgo}`)().click());
+            setTimeout(() => comp<HTMLInputElement>(this, `#${state.value.passwordGeneration.selectedAlgo}`)().click());
         }, {
             dispatchImmediately: true,
             diffMatcher: s => JSON.stringify(s.internals),
@@ -32,7 +32,7 @@ export class GmkAlgoSelection extends HTMLElement {
     }
 
     disconnectedCallback() {
-        this._subs.forEach(s => State.unsubscribe(s));
+        this._subs.forEach(s => state.unsubscribe(s));
     }
 
     private styles = css`
@@ -69,7 +69,7 @@ export class GmkAlgoSelection extends HTMLElement {
                 <div slot="content" class="mainContent">
                     <form id="algoSelectionPanel">
                         ${
-                            State.value.internals.enabledAlgos.map(a => html`
+                            state.value.internals.enabledAlgos.map(a => html`
                                     <div><input type="radio" id="${a}" name="algo"><label for="${a}">${a}</label>
                                     </div>
                                 `).join('')

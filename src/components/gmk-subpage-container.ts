@@ -1,5 +1,5 @@
 import {Router} from "/src/router.js";
-import {html, css} from "/src/helper-functions.js";
+import {css, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
 
 export class GmkSubpageContainer extends HTMLElement{

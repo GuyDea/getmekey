@@ -1,4 +1,4 @@
-import {html, css} from "/src/helper-functions.js";
+import {css, html} from "/src/helper-functions.js";
 import '/src/components/icons/gmk-info-icon.js';
 
 export class GmkTitlePanel extends HTMLElement{

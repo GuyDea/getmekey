@@ -2,7 +2,7 @@ import {type ShaOptions} from "/src/hash-algos/sha-algo.js";
 import {type Pbkdf2Options} from "/src/hash-algos/pbkdf2-algo.js";
 import {type ScryptOptions} from "/src/hash-algos/scrypt-algo.js";
 import {type Argon2Options} from "/src/hash-algos/argon2-algo.js";
-import {state} from "/src/state/initial-state.js";
+import {initState} from "/src/state/initial-state.js";
 
 export type StateDef = {
     secretValue: string;
@@ -28,7 +28,7 @@ export type UserPreferencesOptions = {
 
 export type SavingOptions = {
     allowRecall: boolean;
-    rememberHash: 'never' | 'always' | 'onRecall'
+    rememberHash: 'never' | 'always' | 'onRecall';
 }
 
 export type ConvenienceOptions = {
@@ -43,12 +43,12 @@ export type SensitiveOptions = {
     remember: boolean;
 }
 
-export type VisibilityOptions = {
+type VisibilityOptions = {
     topSecret: boolean;
     hideInfo: boolean;
 }
 
-export type InternalOptions = {
+type InternalOptions = {
     enabledAlgos: Algo[];
 }
 
@@ -74,38 +74,38 @@ export type PasswordOutputOptions = {
     securityTextPosition: 'prefix' | 'suffix'
 }
 
-export type Subscriber = {
-    callback: Callback,
-    options?: SubscriberOptions,
+export type Subscriber<T> = {
+    callback: Callback<T>,
+    options?: SubscriberOptions<T>,
     previousDiffValue?: string;
 }
 
-export type Callback = (state: StateDef) => void;
+type Callback<T> = (state: T) => void;
 
-export type SubscriberOptions = {
+type SubscriberOptions<T> = {
     /**
      * Only listen to changes, if serialized string value differs between emissions
      * @param state
      */
-    diffMatcher?: (state: StateDef) => string,
+    diffMatcher?: (state: T) => string,
     dispatchImmediately?: boolean,
     consumeAsync?: boolean;
     debugId?: string;
 }
 
-export class State {
-    public static value = state;
-    static {
-        (window as any).State = this;
-    }
-    private static subscribers: Set<Subscriber> = new Set();
+export class State<T> {
+    public value;
+    private subscribers: Set<Subscriber<T>> = new Set();
 
-    public static notifyChange() {
+    constructor(value: T) {
+        this.value = value;
+    }
+
+    public notifyChange() {
         this.subscribers.forEach(s => {
             if(s.options?.diffMatcher){
                 let currentMatcherResult = s.options?.diffMatcher(this.value);
                 if(currentMatcherResult !== s.previousDiffValue){
-
                     s.previousDiffValue = currentMatcherResult;
                     s.options.consumeAsync ? setTimeout(() => s.callback(this.value)): s.callback(this.value);
                 }
@@ -115,13 +115,13 @@ export class State {
         });
     }
 
-    public static update(action: (state: StateDef) => void){
+    public update(action: (state: T) => void){
         action(this.value);
         this.notifyChange();
     }
 
-    public static subscribe(callback: Callback, options?: SubscriberOptions){
-        const subscriber: Subscriber = {callback, options};
+    public subscribe(callback: Callback<T>, options?: SubscriberOptions<T>){
+        const subscriber: Subscriber<T> = {callback, options};
         this.subscribers.add(subscriber);
         if(options?.dispatchImmediately){
             options.consumeAsync ? setTimeout(() => callback(this.value)) : callback(this.value);
@@ -129,7 +129,10 @@ export class State {
         return subscriber;
     }
 
-    public static unsubscribe(subscriber: Subscriber){
+    public unsubscribe(subscriber: Subscriber<T>){
         this.subscribers.delete(subscriber);
     }
 }
+
+export const state = new State<typeof initState>(initState);
+(window as any).State = this;
