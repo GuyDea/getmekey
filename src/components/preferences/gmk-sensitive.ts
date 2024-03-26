@@ -1,4 +1,4 @@
-import {comp, css, fixVal, html} from "/src/helper-functions.js";
+import {comp, css, fixVal, html, setClassIfTrue, toggleDisabledPanel} from "/src/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
 import '/src/components/icons/gmk-info-icon.js';
 import {globalStyles} from "/src/styles/global-styles.js";
@@ -10,6 +10,9 @@ export class GmkSensitive extends HTMLElement {
     private _unrestricted = comp<HTMLInputElement>(this,'#unrestricted');
     private _minutes = comp<HTMLInputElement>(this, '#minutes');
     private _minutesRange = comp<HTMLInputElement>(this, '#minutesRange');
+    private _minutesPanel = comp(this, '#minutesPanel');
+    private _rememberPanel = comp(this, '#rememberPanel');
+
 
     constructor() {
         super();
@@ -24,8 +27,13 @@ export class GmkSensitive extends HTMLElement {
             this._minutesRange().setAttribute('max', opts().maxRememberDurationM.toString());
             this._minutes().value = opts().rememberDurationM.toString();
             this._minutesRange().value = opts().rememberDurationM.toString();
+            toggleDisabledPanel(this._rememberPanel(), !s.userPreferences.saving.allowRecall);
+            toggleDisabledPanel(this._minutesPanel(), !s.userPreferences.sensitive.remember);
         }, {
-            diffMatcher: s => JSON.stringify(s.userPreferences.sensitive),
+            diffMatcher: s => JSON.stringify({
+                sensitive: s.userPreferences.sensitive,
+                saving: s.userPreferences.saving
+            }),
             dispatchImmediately: true
         }));
         this._minutesRange().addEventListener('input', () => State.update(s => opts().rememberDurationM = Number(this._minutesRange().value)));
@@ -47,13 +55,13 @@ export class GmkSensitive extends HTMLElement {
             <gmk-title-panel color="var(--color-danger)">
                 <span slot="title">Sensitive</span>
                 <div slot="content" class="settingsColumn">                   
-                    <gmk-title-panel >
+                    <gmk-title-panel id="rememberPanel" class="disableable">
                         <span slot="title">Remember Recalled Secret</span>
-                        <div slot="content" class="settingsColumn">
+                        <div slot="content" class="settingsColumn" >
                             <div class="checkboxPanel line lineCenter">
                                 <input type="checkbox" id="remember"><label for="remember">Enabled</label>
                             </div>
-                            <div class="line lineCenter">
+                            <div class="line lineCenter" id="minutesPanel">
                                 <label for="minutes">Minutes</label>
                                 <input id="minutes" type="number" class="short">
                                 <input id="minutesRange" type="range">
@@ -64,7 +72,7 @@ export class GmkSensitive extends HTMLElement {
                         <input type="checkbox" id="unrestricted"><label for="unrestricted">Unrestricted Mode</label>
                     </div>
                     <div style="display: flex; justify-content: center;">
-                        <button class="gmkButton">Purge All Secrets</button>
+                        <button class="gmkButton">Purge All</button>
                     </div>
                 </div>
             </gmk-title-panel>

@@ -106,10 +106,6 @@
             right: 10px;
         }
 
-        .arrow[off] {
-            color: var(--color-disabled);
-        }
-
         #arrow1 {
             top: var(--arrow-top-start);
         }
@@ -371,6 +367,18 @@
 
     </style>
     <style id="baseStyles">
+        label, a {
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+        .disabled {
+            filter: grayscale(1);
+            opacity: .5;
+        }
+        .disableable {
+            transition: opacity 1s, filter 1s;
+        }
         .gmkButton {
             border: none;
             border-radius: 1em;
@@ -489,13 +497,13 @@
             </svg>
         </a>
         <div class="arrows">
-            <svg class="arrow" id="arrow1" off>
+            <svg class="arrow disableable disabled" id="arrow1">
                 <use xlink:href="#arrow-svg"></use>
             </svg>
-            <svg class="arrow" id="arrow2" off>
+            <svg class="arrow disableable disabled" id="arrow2">
                 <use xlink:href="#arrow-svg"></use>
             </svg>
-            <svg class="arrow" id="arrow3" off>
+            <svg class="arrow disableable disabled" id="arrow3">
                 <use xlink:href="#arrow-svg"></use>
             </svg>
         </div>
@@ -532,10 +540,10 @@
                 </div>
             </div>
             <div class="reqPanel">
-                <div class="req" id="passReqLength">length</div>
-                <div class="req" id="passReqUppercase">uppercase</div>
-                <div class="req" id="passReqSpecial">special</div>
-                <div class="req" id="passReqNumber">number</div>
+                <label class="req" id="passReqLength">length</label>
+                <label class="req" id="passReqUppercase">uppercase</label>
+                <label class="req" id="passReqSpecial">special</label>
+                <label class="req" id="passReqNumber">number</label>
             </div>
         </div>
         <div class="labelInput">
@@ -558,10 +566,10 @@
                 </div>
             </div>
             <div class="reqPanel">
-                <div class="req" id="saltReqLength">length</div>
-                <div class="req" id="saltReqUppercase">uppercase</div>
-                <div class="req" id="saltReqSpecial">special</div>
-                <div class="req" id="saltReqNumber">number</div>
+                <label class="req" id="saltReqLength">length</label>
+                <label class="req" id="saltReqUppercase">uppercase</label>
+                <label class="req" id="saltReqSpecial">special</label>
+                <label class="req" id="saltReqNumber">number</label>
             </div>
         </div>
         <div class="labelInput">

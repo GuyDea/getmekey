@@ -1,4 +1,4 @@
-import {comp, css, html} from "/src/helper-functions.js";
+import {comp, css, html, setAttrIfTrue, setClassIfTrue} from "/src/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
 import '/src/components/icons/gmk-info-icon.js';
 import {globalStyles} from "/src/styles/global-styles.js";
@@ -7,6 +7,8 @@ import {State, Subscriber} from "/src/state/state.js";
 export class GmkSaving extends HTMLElement {
     private _subs: Subscriber[] = [];
     private _allowRecall = comp<HTMLInputElement>(this,'#allowRecall');
+    private _onRecallSpan = comp<HTMLSpanElement>(this,'#onRecallSpan');
+    private _onRecallInput = comp<HTMLInputElement>(this,'#onRecall');
     private _hashForm = comp<HTMLFormElement>(this,'#hashForm');
 
     constructor() {
@@ -17,6 +19,13 @@ export class GmkSaving extends HTMLElement {
         this._hashForm().addEventListener('change', ev => State.update(s => opts().rememberHash = (ev.target as HTMLInputElement).getAttribute('id') as any));
         this._subs.push(State.subscribe(s => {
             this._allowRecall().checked = opts().allowRecall;
+            if(!opts().allowRecall && opts().rememberHash === "onRecall"){
+                opts().rememberHash = 'never';
+                State.notifyChange();
+                return;
+            }
+            setClassIfTrue(!opts().allowRecall, this._onRecallSpan(), 'disabled');
+            setAttrIfTrue(!opts().allowRecall, this._onRecallInput(), 'disabled');
             comp<HTMLInputElement>(this, `#${opts().rememberHash}`)().checked = true;
         }, {
             diffMatcher: s => JSON.stringify(s.userPreferences.saving),
@@ -59,7 +68,7 @@ export class GmkSaving extends HTMLElement {
                                 <input type="radio" name="remember" id="always"/><label
                                     for="always">Always</label>
                             </span>
-                            <span>
+                            <span id="onRecallSpan" class="disableable">
                                 <input type="radio" name="remember" id="onRecall"/><label
                                     for="onRecall">On Recall</label>
                             </span>

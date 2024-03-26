@@ -1,10 +1,10 @@
 import {IndexElements} from "./index-elements.js";
 import {StateSelectors} from "../state/state-selectors.js";
-import {State} from "../state/state.js";
+import {State} from "/src/state/state.js";
+import {setAttrIfTrue, setClassIfTrue} from "/src/helper-functions.js";
 
-const setAttr = (el: HTMLElement, name: string, value?: string) => el.setAttribute(name, value ?? '');
-const rmAttr = (el: HTMLElement, name: string) => el.removeAttribute(name);
-const setAttrIfTrue = (set: boolean, el: HTMLElement, name: string, valueIfTrue?: string, valueIfFalse?: string) => set ? setAttr(el, name, valueIfTrue) : valueIfFalse ? setAttr(el, name, valueIfFalse) : rmAttr(el, name);
+
+
 
 /**
  * Only place in the application that is meant to update DOM based on the current state
@@ -34,7 +34,7 @@ export class IndexRenderer {
         setAttrIfTrue(StateSelectors.secretContainsNumber(), IndexElements.passReqNumber(), 'ok');
         setAttrIfTrue(StateSelectors.secretContainsUppercase(), IndexElements.passReqUppercase(), 'ok');
         setAttrIfTrue(StateSelectors.secretContainsSpecial(), IndexElements.passReqSpecial(), 'ok');
-        setAttrIfTrue(!StateSelectors.isPasswordOk(), IndexElements.arrow1(), 'off');
+        setClassIfTrue(!StateSelectors.isPasswordOk(), IndexElements.arrow1(), 'disabled');
 
         setAttrIfTrue(!State.value.saltShow, IndexElements.saltHideToggle(), 'off');
         setAttrIfTrue(State.value.saltShow, IndexElements.saltInput(), 'type', 'text', 'password');
@@ -44,8 +44,8 @@ export class IndexRenderer {
         setAttrIfTrue(StateSelectors.saltContainsSpecial(), IndexElements.saltReqSpecial(), 'ok');
 
         setAttrIfTrue(!State.value.passwordShow, IndexElements.passwordHideToggle(), 'off');
-        setAttrIfTrue(!StateSelectors.isPasswordOk() || !StateSelectors.isSaltOk(), IndexElements.arrow2(), 'off');
-        setAttrIfTrue(!StateSelectors.isPasswordOk() || !StateSelectors.isSaltOk(), IndexElements.arrow3(), 'off');
+        setClassIfTrue(!StateSelectors.isPasswordOk() || !StateSelectors.isSaltOk(), IndexElements.arrow2(), 'disabled');
+        setClassIfTrue(!StateSelectors.isPasswordOk() || !StateSelectors.isSaltOk(), IndexElements.arrow3(), 'disabled');
         setAttrIfTrue(!StateSelectors.isPasswordOk() || !StateSelectors.isSaltOk(), IndexElements.finalPassword(), 'disabled');
 
         setAttrIfTrue(State.value.passwordShow, IndexElements.finalPassword(), 'type', 'text', 'password');

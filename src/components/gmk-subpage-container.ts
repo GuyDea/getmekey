@@ -54,7 +54,7 @@ export class GmkSubpageContainer extends HTMLElement{
         }
         #content {
             overflow: auto;
-            padding: 1rem;
+            padding: 0 1rem 1rem;
         }
     `
 

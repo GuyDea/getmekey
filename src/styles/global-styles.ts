@@ -107,7 +107,7 @@ export const globalStyles = css`
         cursor: default;
     }
 
-    input[type=checkbox]:hover {
+    input[type=checkbox]:hover:not([disabled]) {
         background-color: #c9cbcd;
         transition-duration: 0s;
     }
@@ -125,10 +125,10 @@ export const globalStyles = css`
         outline: 0;
     }
 
-    input[type=checkbox]:checked:hover {
+    input[type=checkbox]:checked:hover:not([disabled]) {
         background-color: hsl(var(--color-1-hue-val), 100%, 30%);
     }
-    input[type=checkbox].danger:checked:hover {
+    input[type=checkbox].danger:checked:hover:not([disabled]) {
         background-color: hsl(var(--color-danger-hue-val), 100%, 30%);
     }
     input[type=checkbox].danger{
@@ -187,7 +187,7 @@ export const globalStyles = css`
         transform: scale(.5);
     }
 
-    input[type=radio] + label:hover::after {
+    input[type=radio]:not([disabled]) + label:hover::after {
         background-color: #eaeaea;
     }
     /* Text input */
@@ -202,6 +202,9 @@ export const globalStyles = css`
         height: 2em;
         box-sizing: border-box;
     }
+    input[type=text].short ,input[type=number].short {
+        width: 5.5rem;
+    }
     input[type=text]::placeholder, input[type=number]::placeholder {
         color: rgba(var(--color-text-1-hex-val), .6);
         font-size: 1rem;
@@ -212,18 +215,16 @@ export const globalStyles = css`
         transform: scale(1) !important;
     }
 
-    input[type=text]:hover, input[type=number]:hover {
+    input[type=text]:hover:not([disabled]), input[type=number]:hover:not([disabled]) {
         transform: scale(1.05);
     }
+    
     input[type=text].danger, input[type=number].danger {
         box-shadow: var(--box-shadow-danger);
         color: var(--color-danger)
     }
     input[type=text].danger:focus, input[type=number].danger:focus {
         outline: 2px solid var(--color-danger);
-    }
-    .short {
-        width: 5.5rem;
     }
     /* Range slider */
     input[type=range] {
@@ -257,7 +258,7 @@ export const globalStyles = css`
         background: var(--color-1);
         cursor: pointer;
         box-shadow: var(--box-shadow-1);
-    }
+    }   
     input[type=range]:hover {
         opacity: 1; /* Fully shown on mouse-over */
     }

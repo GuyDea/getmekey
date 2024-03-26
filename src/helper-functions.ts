@@ -32,3 +32,31 @@ export function fixVal(min: number, max: number, inputComponent: HTMLInputElemen
     inputComponent.value = corrected.toString();
     return corrected
 }
+
+type AnyElement = HTMLElement | SVGElement;
+
+export function setAttr(el: AnyElement, name: string, value?: string) {
+    el.setAttribute(name, value ?? '');
+}
+export function rmAttr(el: AnyElement, name: string){
+    el.removeAttribute(name);
+}
+export function setAttrIfTrue(set: boolean, el: AnyElement, name: string, valueIfTrue?: string, valueIfFalse?: string){
+    set ? setAttr(el, name, valueIfTrue) : valueIfFalse ? setAttr(el, name, valueIfFalse) : rmAttr(el, name);
+}
+
+export function setCls(el: AnyElement, name: string){
+    el.classList.add(name);
+}
+export function rmCls(el: AnyElement, name: string){
+    el.classList.remove(name);
+}
+export function setClassIfTrue(set: boolean, el: AnyElement, name: string){
+    set ? setCls(el, name) : rmCls(el, name);
+}
+
+export function toggleDisabledPanel(element: AnyElement, disable: boolean) {
+    element.classList.add('disableable');
+    setClassIfTrue(disable, element, 'disabled');
+    element.querySelectorAll('input').forEach(input => input.disabled = disable);
+}
