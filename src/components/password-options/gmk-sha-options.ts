@@ -1,19 +1,33 @@
 import {comp, css, html} from "/src/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
-import {state} from "/src/state/state.js";
+import {state, StateDef, Subscriber} from "/src/state/state.js";
 
 export class GmkShaOptions extends HTMLElement {
+    private _subs: Subscriber<StateDef>[] = [];
+
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
         comp(this, '#versionForm')().addEventListener('change', ev => {
             state.value.passwordGeneration.algoOptions.sha.version = (ev.target as HTMLInputElement).getAttribute('id') as any;
             state.notifyChange();
-        })
+        });
         comp(this, '#positionForm')().addEventListener('change', ev => {
             state.value.passwordGeneration.algoOptions.sha.saltPosition = (ev.target as HTMLInputElement).getAttribute('id') as any;
             state.notifyChange();
-        })
+        });
+        this._subs.push(state.subscribe(s => {
+            const opts = s.passwordGeneration.algoOptions.sha;
+            comp(this,`#${opts.version}`)().setAttribute('checked', '');
+            comp(this,`#${opts.saltPosition}`)().setAttribute('checked', '');
+        }, {
+            dispatchImmediately: true,
+            diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.sha)
+        }))
+    }
+
+    disconnectedCallback() {
+        this._subs.forEach(s => state.unsubscribe(s));
     }
 
     private styles = css`
@@ -39,7 +53,7 @@ export class GmkShaOptions extends HTMLElement {
                         <span class="label">Version</span>
                         <form id="versionForm" class="lineRadios">
                             <span>
-                                <input type="radio" name="version" id="SHA-256" checked/><label
+                                <input type="radio" name="version" id="SHA-256"/><label
                                 for="SHA-256">SHA-256</label>
                             </span>
                             <span>
@@ -52,7 +66,7 @@ export class GmkShaOptions extends HTMLElement {
                         <span class="label">Salt Position</span>
                         <form id="positionForm" class="lineRadios">
                             <span>
-                                <input type="radio" name="format" id="prefix" checked/><label
+                                <input type="radio" name="format" id="prefix"/><label
                                 for="prefix">Prefix</label>
                             </span>
                             <span>
