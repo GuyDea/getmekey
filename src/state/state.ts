@@ -134,5 +134,5 @@ export class State<T> {
     }
 }
 
-export const state = new State<typeof initState>(initState);
-(window as any).State = this;
+export const state = new State<StateDef>(initState);
+(window as any).state = state;

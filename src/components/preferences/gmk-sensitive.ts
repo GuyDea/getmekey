@@ -37,7 +37,7 @@ export class GmkSensitive extends HTMLElement {
             dispatchImmediately: true
         }));
         this._minutesRange().addEventListener('input', () => state.update(s => opts().rememberDurationM = Number(this._minutesRange().value)));
-        this._minutes().addEventListener('input', () => state.update(s => opts().rememberDurationM = fixVal(opts().minRememberDurationM, opts().maxRememberDurationM, this._minutes())));
+        this._minutes().addEventListener('change', () => state.update(s => opts().rememberDurationM = fixVal(opts().minRememberDurationM, opts().maxRememberDurationM, this._minutes())));
     }
 
     disconnectedCallback() {

@@ -43,13 +43,13 @@ export class GmkScryptOptions extends HTMLElement {
         }));
 
         this._blockRangeComp().addEventListener('input', () => state.update(s => opts().block = Number(this._blockRangeComp().value)));
-        this._blockComp().addEventListener('input', () => state.update(s => opts().block = fixVal(opts().minBlock, opts().maxBlock, this._blockComp())));
+        this._blockComp().addEventListener('change', () => state.update(s => opts().block = fixVal(opts().minBlock, opts().maxBlock, this._blockComp())));
         this._parallelRangeComp().addEventListener('input', () => state.update(s => opts().parallel = Number(this._parallelRangeComp().value)));
-        this._parallelComp().addEventListener('input', () => state.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())));
+        this._parallelComp().addEventListener('change', () => state.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())));
         this._costRangeComp().addEventListener('input', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costRangeComp())));
         this._costComp().addEventListener('change', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())));
         this._lengthRangeComp().addEventListener('input', () => state.update(s => opts().length = Number(this._lengthRangeComp().value)));
-        this._lengthComp().addEventListener('input', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
+        this._lengthComp().addEventListener('change', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
     }
 
     disconnectedCallback() {

@@ -58,7 +58,7 @@ export class GmkSaving extends HTMLElement {
                         Secret Recall</label>
                     </div>
                     <div class="hashSettingsPanel">
-                        <label class="collapsedLabel">Remember Hash Settings</label>
+                        <label class="collapsedLabel">Remember <a href="/hash-settings">Hash Settings</a></label>
                         <form id="hashForm" class="lineRadios">
                             <span>
                                 <input type="radio" name="remember" id="never"/><label

@@ -20,7 +20,8 @@ export class IndexRenderer {
                     saltValue: s.saltValue,
                     passwordGenerationError: s.passwordGenerationError,
                     outputFormat: s.passwordGeneration.outputOptions,
-                    selectedAlgo: s.passwordGeneration.selectedAlgo
+                    selectedAlgo: s.passwordGeneration.selectedAlgo,
+                    userPreferences: s.userPreferences
                 })
             }});
     };
@@ -50,6 +51,7 @@ export class IndexRenderer {
         setAttrIfTrue(!state.value.passwordGenerating, IndexElements.dotLoader(), 'off');
         setAttrIfTrue(!state.value.passwordValue, IndexElements.copyButton(), 'disabled');
         setAttrIfTrue(!state.value.passwordValue, IndexElements.copySaveButton(), 'disabled');
+        setClassIfTrue(!state.value.userPreferences.saving.allowRecall, IndexElements.copySaveButton(), 'hidden');
         setAttrIfTrue(!!state.value.passwordValue, IndexElements.finalPasswordLabel(), 'ok');
         IndexElements.finalPassword().value = state.value.passwordValue;
         IndexElements.algoTypeNote().innerHTML = state.value.passwordGeneration.selectedAlgo;

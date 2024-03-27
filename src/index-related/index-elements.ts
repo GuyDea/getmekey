@@ -32,4 +32,5 @@ export class IndexElements {
     public static firstCharactersNote = elById('firstCharactersNote');
     public static securityTextNote = elById('securityTextNote');
     public static securityTextPositionNote = elById('securityTextPositionNote');
+    public static toastPanel = elById('toastPanel');
 }

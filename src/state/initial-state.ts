@@ -1,4 +1,26 @@
-import type {StateDef} from "/src/state/state.js";
+import type {StateDef, UserPreferencesOptions} from "/src/state/state.js";
+import {Persistence} from "/src/persistence.js";
+
+const defaultUserPreferences: UserPreferencesOptions = {
+    convenience: {
+        copyOnRecall: false
+    },
+    saving: {
+        rememberHash: 'never',
+        allowRecall: false
+    },
+    sensitive: {
+        unrestrictedMode: false,
+        rememberDurationM: 60,
+        remember: false,
+        minRememberDurationM: 1,
+        maxRememberDurationM: 1440
+    },
+    visibility: {
+        hideInfo: false,
+        topSecret: false
+    }
+}
 
 export const initState: StateDef = {
     secretValue: '',
@@ -63,26 +85,7 @@ export const initState: StateDef = {
             }
         }
     },
-    userPreferences: {
-        convenience: {
-            copyOnRecall: false
-        },
-        saving: {
-            rememberHash: 'never',
-            allowRecall: false
-        },
-        sensitive: {
-            unrestrictedMode: false,
-            rememberDurationM: 60,
-            remember: false,
-            minRememberDurationM: 1,
-            maxRememberDurationM: 1440
-        },
-        visibility: {
-            hideInfo: false,
-            topSecret: false
-        }
-    },
+    userPreferences: Persistence.getFromStorage("USER_PREFERENCES") ?? defaultUserPreferences,
     internals: {
         enabledAlgos: ['SHA', 'PBKDF2', 'Scrypt']
     }

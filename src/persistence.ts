@@ -1,22 +1,30 @@
-export const ADDRESS = {
-    UX: 'UX'
+export const STORAGE_ADDRESS = {
+    USER_PREFERENCES: 'USER_PREFERENCES',
+    ENCRYPTED_SECRET: 'ENCRYPTED_SECRET'
 } as const;
-type Address = keyof typeof ADDRESS;
+export type Address = keyof typeof STORAGE_ADDRESS;
+
+export const COOKIE_ADDRESS = {
+    SECRET_SESSION_KEY: 'SECRET_SESSION_KEY',
+    SECRET_DURATION_KEY: 'SECRET_DURATION_KEY'
+} as const;
+type CookieAddress = keyof typeof COOKIE_ADDRESS;
 
 export class Persistence {
     private static readonly VERSION = 1;
+    private static readonly COOKIE_PATH = 'this_path_is_meant_to_prevent_cookie_to_actually_leave_the_browser';
 
-    private static setItem<T>(address: Address, value: T){
+    public static addToStorage<T>(address: Address, value: T){
         localStorage.setItem(`${this.VERSION}_${address}`, JSON.stringify(value));
     }
 
-    private static getItem<T>(address: Address): T | null{
+    public static getFromStorage<T>(address: Address): T | null{
         const val = localStorage.getItem(`${this.VERSION}_${address}`);
         return val ? JSON.parse(val) : null;
     }
 
-    private static _getCookieValue<T>(name: string): T | null {
-        let nameEQ = name + "=";
+    public static getFromCookie<T>(name: CookieAddress): T | null {
+        let nameEQ = `${this.VERSION}_${name}=`;
         let ca = document.cookie.split(';');
         for (let i = 0; i < ca.length; i++) {
             let c = ca[i];
@@ -24,6 +32,18 @@ export class Persistence {
             if (c.indexOf(nameEQ) == 0) return JSON.parse(c.substring(nameEQ.length, c.length));
         }
         return null;
+    }
+
+    public static addToCookie(name: CookieAddress, value: any, durationInSeconds?: number): void {
+        let cookieValue = `${this.VERSION}_${name}=${encodeURIComponent(JSON.stringify(value))}; path=${(this.COOKIE_PATH)}`;
+
+        if (durationInSeconds) {
+            const expiryDate = new Date();
+            expiryDate.setTime(expiryDate.getTime() + durationInSeconds * 1000);
+            cookieValue += `; expires=${expiryDate.toUTCString()}`;
+        }
+
+        document.cookie = cookieValue;
     }
 
 }

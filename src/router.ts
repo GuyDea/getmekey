@@ -16,7 +16,7 @@ export class Router {
     public static initialize(){
         window.addEventListener('popstate', () => this.handleRoute(location.pathname, false));
         window.addEventListener('click', ev => {
-            const anchor = (ev.target as HTMLElement).closest('a')?.getAttribute('href');
+            const anchor = (ev.composedPath().find(e => (e as any)?.tagName?.toLowerCase() === 'a') as HTMLElement)?.getAttribute('href');
             if (anchor != null && !['http://', 'https://'].some(p => anchor.startsWith(p))) {
                 ev.preventDefault();
                 ev.stopPropagation();

@@ -367,6 +367,9 @@
 
     </style>
     <style id="baseStyles">
+        .hidden {
+            display: none;
+        }
         label, a {
             -webkit-user-select: none; /* Safari */
             -ms-user-select: none; /* IE 10 and IE 11 */
@@ -430,6 +433,7 @@
     </style>
 </head>
 <body>
+<div id="toastPanel"></div>
 <div class="allContent">
     <div>
         <svg style="display: none;">
@@ -629,14 +633,8 @@
                 </div>
             </div>
             <div style="margin-top: 10px; display: flex; gap: 10px;">
-                <div class="sideIcon"></div>
                 <button id="copyButton" class="gmkButton" disabled>Copy</button>
-                <button id="copySaveButton" class="gmkButton" disabled>Copy & Save</button>
-                <div class="sideIcon infoIcon">
-                    <svg off>
-                        <use xlink:href="#icon-info"></use>
-                    </svg>
-                </div>
+                <button id="copySaveButton" class="gmkButton hidden" disabled>Copy & Save</button>
             </div>
             <div style="margin-top: 10px; font-size: .6rem">
                 <button id="clearButton" class="gmkButton" style="font-size: .8rem" disabled>Clear Secret</button>

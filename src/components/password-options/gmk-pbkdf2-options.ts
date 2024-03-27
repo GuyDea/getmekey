@@ -22,7 +22,7 @@ export class GmkPbkdf2Options extends HTMLElement {
             dispatchImmediately: true
         }));
         this._iterationsRangeComp().addEventListener('input', () => state.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
-        this._iterationsComp().addEventListener('input', () => state.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
+        this._iterationsComp().addEventListener('change', () => state.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
         comp(this, '#lengthForm')().addEventListener('change', (ev) => state.update(() => opts().length = (ev.target as HTMLInputElement).getAttribute('id') as any));
         comp(this, '#shaForm')().addEventListener('change', (ev) => state.update(() => opts().hash = (ev.target as HTMLInputElement).getAttribute('id') as any));
     }
