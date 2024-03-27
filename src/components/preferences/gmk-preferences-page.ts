@@ -2,7 +2,7 @@ import {globalStyles} from "/src/styles/global-styles.js";
 import {html} from "/src/helper-functions.js";
 import '/src/components/gmk-subpage-container.js';
 import '/src/components/gmk-title-panel.js';
-import '/src/components/icons/gmk-info-icon.js';
+import '/src/components/gmk-info-icon.js';
 import '/src/components/password-options/gmk-algo-output-format.js';
 import '/src/components/preferences/gmk-visibility.js';
 import '/src/components/preferences/gmk-saving.js';

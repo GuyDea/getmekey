@@ -1,6 +1,6 @@
 import {comp, css, fixVal, html, toggleDisabledPanel} from "/src/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
-import '/src/components/icons/gmk-info-icon.js';
+import '/src/components/gmk-info-icon.js';
 import {globalStyles} from "/src/styles/global-styles.js";
 import {state, StateDef, Subscriber} from "/src/state/state.js";
 

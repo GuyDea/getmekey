@@ -26,7 +26,6 @@ export class IndexElements {
     public static copyButton = elById('copyButton');
     public static copySaveButton = elById('copySaveButton');
     public static dotLoader = elById('dotLoader');
-    public static iconInfoPath = elById('icon-info-path');
     public static dotsLoading = elById('dots-loading');
     public static algoTypeNote = elById('algoTypeNote');
     public static firstCharactersNote = elById('firstCharactersNote');

@@ -1,5 +1,5 @@
 import {css, html} from "/src/helper-functions.js";
-import '/src/components/icons/gmk-info-icon.js';
+import '/src/components/gmk-info-icon.js';
 
 export class GmkTitlePanel extends HTMLElement{
     private readonly _color= this.getAttribute('color') ?? 'var(--color-1)';
