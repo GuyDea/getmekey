@@ -1,4 +1,4 @@
-import {comp, css, html, setAttrIfTrue, setClassIfTrue} from "/src/helper-functions.js";
+import {comp, css, html, setAttrIfTrue, setClassIfTrue, toggleDisabledPanel} from "/src/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
 import {globalStyles} from "/src/styles/global-styles.js";
 import {state, StateDef, Subscriber} from "/src/state/state.js";
@@ -6,7 +6,7 @@ import {state, StateDef, Subscriber} from "/src/state/state.js";
 export class GmkConvenience extends HTMLElement {
     private _subs: Subscriber<StateDef>[] = [];
     private _copy = comp<HTMLInputElement>(this,'#copy');
-    private _panel = comp(this, '#panel');
+    private _copyLine = comp(this, '#copyLine');
 
     constructor() {
         super();
@@ -15,8 +15,7 @@ export class GmkConvenience extends HTMLElement {
         this._copy().addEventListener('input', () => state.update(s => opts().copyOnRecall = this._copy().checked));
         this._subs.push(state.subscribe(s => {
             this._copy().checked = opts().copyOnRecall;
-            setAttrIfTrue(!s.userPreferences.saving.allowRecall, this._copy(), 'disabled')
-            setClassIfTrue(!s.userPreferences.saving.allowRecall, this._panel(), 'disabled')
+            toggleDisabledPanel(this._copyLine(), !s.userPreferences.saving.allowRecall);
         }, {
             diffMatcher: s => JSON.stringify({
                 convenience: s.userPreferences.convenience,
@@ -39,10 +38,10 @@ export class GmkConvenience extends HTMLElement {
     private _render() {
         return html`
             <style>${globalStyles}${this._styles()}</style>
-            <gmk-title-panel class="disableable" id="panel">
+            <gmk-title-panel>
                 <span slot="title">Convenience</span>
                 <div slot="content">
-                    <div class="line lineCenter">
+                    <div id="copyLine" class="line lineCenter disableable">
                         <input type="checkbox" id="copy"><label for="copy">Copy On Recalled</label>
                     </div>
                 </div>

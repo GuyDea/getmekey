@@ -24,7 +24,7 @@ export class GmkAlgoOutputFormat extends HTMLElement {
         this._takeFirst().value = opts().takeFirst.toString();
         this._takeFirst().setAttribute('min', opts().minTakeFirst.toString());
         this._takeFirst().setAttribute('max', opts().maxTakeFirst.toString());
-        this._takeFirst().addEventListener('input', () => state.update(() => opts().takeFirst = fixVal(opts().minTakeFirst, opts().maxTakeFirst, this._takeFirst())));
+        this._takeFirst().addEventListener('change', () => state.update(() => opts().takeFirst = fixVal(opts().minTakeFirst, opts().maxTakeFirst, this._takeFirst())));
         this._securityText().value = opts().securityText;
         this._securityText().addEventListener('input', () => state.update(() => opts().securityText = this._securityText().value))
         this._formatForm().addEventListener('change', ev => {

@@ -4,11 +4,11 @@ export const STORAGE_ADDRESS = {
 } as const;
 export type Address = keyof typeof STORAGE_ADDRESS;
 
-export const COOKIE_ADDRESS = {
+export const COOKIE_NAME = {
     SECRET_SESSION_KEY: 'SECRET_SESSION_KEY',
     SECRET_DURATION_KEY: 'SECRET_DURATION_KEY'
 } as const;
-type CookieAddress = keyof typeof COOKIE_ADDRESS;
+type CookieName = keyof typeof COOKIE_NAME;
 
 export class Persistence {
     private static readonly VERSION = 1;
@@ -23,7 +23,7 @@ export class Persistence {
         return val ? JSON.parse(val) : null;
     }
 
-    public static getFromCookie<T>(name: CookieAddress): T | null {
+    public static getFromCookie<T>(name: CookieName): T | null {
         let nameEQ = `${this.VERSION}_${name}=`;
         let ca = document.cookie.split(';');
         for (let i = 0; i < ca.length; i++) {
@@ -34,7 +34,7 @@ export class Persistence {
         return null;
     }
 
-    public static addToCookie(name: CookieAddress, value: any, durationInSeconds?: number): void {
+    public static addToCookie(name: CookieName, value: any, durationInSeconds?: number): void {
         let cookieValue = `${this.VERSION}_${name}=${encodeURIComponent(JSON.stringify(value))}; path=${(this.COOKIE_PATH)}`;
 
         if (durationInSeconds) {

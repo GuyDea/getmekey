@@ -18,5 +18,8 @@ export class IndexListeners {
                     // TODO
                 });
         })
+        IndexElements.copySaveButton().addEventListener('click', () => {
+            console.log('xxx')
+        });
     }
 }

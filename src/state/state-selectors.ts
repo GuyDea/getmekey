@@ -9,11 +9,23 @@ export class StateSelectors {
     public static secretContainsNumber = () => this.numberRegx.test(state.value.secretValue);
     public static secretContainsSpecial = () => this.specialRegx.test(state.value.secretValue);
     public static secretContainsUppercase = () => this.uppercaseRegx.test(state.value.secretValue);
-    public static isPasswordOk = () => StateSelectors.secretLengthOk() && StateSelectors.secretContainsNumber() && StateSelectors.secretContainsSpecial() && StateSelectors.secretContainsUppercase();
+    public static isPasswordOk = () => {
+        if(state.value.userPreferences.sensitive.unrestrictedMode){
+            return state.value.secretValue.length > 0;
+        } else {
+            return StateSelectors.secretLengthOk() && StateSelectors.secretContainsNumber() && StateSelectors.secretContainsSpecial() && StateSelectors.secretContainsUppercase()
+        }
+    };
 
     public static saltLengthOk = () => state.value.saltValue.length >= 8;
     public static saltContainsNumber = () => this.numberRegx.test(state.value.saltValue);
     public static saltContainsSpecial = () => this.specialRegx.test(state.value.saltValue);
     public static saltContainsUppercase = () => this.uppercaseRegx.test(state.value.saltValue);
-    public static isSaltOk = () => StateSelectors.saltContainsNumber() && StateSelectors.saltContainsSpecial() && StateSelectors.saltContainsUppercase() && StateSelectors.saltLengthOk();
+    public static isSaltOk = () => {
+        if(state.value.userPreferences.sensitive.unrestrictedMode){
+            return state.value.saltValue.length > 0;
+        } else {
+            return StateSelectors.saltContainsNumber() && StateSelectors.saltContainsSpecial() && StateSelectors.saltContainsUppercase() && StateSelectors.saltLengthOk()
+        }
+    };
 }

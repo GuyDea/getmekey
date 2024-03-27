@@ -28,7 +28,7 @@ export class GmkSensitive extends HTMLElement {
             this._minutes().value = opts().rememberDurationM.toString();
             this._minutesRange().value = opts().rememberDurationM.toString();
             toggleDisabledPanel(this._rememberPanel(), !s.userPreferences.saving.allowRecall);
-            toggleDisabledPanel(this._minutesPanel(), !s.userPreferences.sensitive.remember);
+            toggleDisabledPanel(this._minutesPanel(), !s.userPreferences.sensitive.remember || !s.userPreferences.saving.allowRecall);
         }, {
             diffMatcher: s => JSON.stringify({
                 sensitive: s.userPreferences.sensitive,
