@@ -5,8 +5,6 @@ const elById = <T extends HTMLElement>(id: string) => () => document.getElementB
 export class IndexElements {
     public static mainPage = elById('mainPage');
     public static arrow1 = elById('arrow1');
-    public static arrow2 = elById('arrow2');
-    public static arrow3 = elById('arrow3');
     public static secretInput = elById<HTMLInputElement>('secretInput');
     public static subPageContainer = elById('subPageContainer');
     public static passReqLength = elById('passReqLength');
@@ -19,12 +17,11 @@ export class IndexElements {
     public static saltReqUppercase = elById('saltReqUppercase');
     public static saltReqSpecial = elById('saltReqSpecial');
     public static finalPassword = elById<HTMLInputElement>('finalPassword');
-    public static finalPasswordLabel = elById<HTMLLabelElement>('finalPasswordLabel');
     public static secretHideToggle = elById('secretHideToggle');
     public static saltHideToggle = elById('saltHideToggle');
     public static passwordHideToggle = elById('passwordHideToggle');
     public static copyButton = elById('copyButton');
-    public static copySaveButton = elById('copySaveButton');
+    public static addRecalledButton = elById('addRecalledButton');
     public static dotLoader = elById('dotLoader');
     public static dotsLoading = elById('dots-loading');
     public static algoTypeNote = elById('algoTypeNote');

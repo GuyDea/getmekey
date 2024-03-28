@@ -19,6 +19,8 @@ export class IndexListeners {
                     // TODO
                 });
         })
-        IndexElements.copySaveButton().addEventListener('click', () => SecretStore.storeSecret(state.value.secretValue));
+        IndexElements.addRecalledButton().addEventListener('click', () => {
+
+        });
     }
 }

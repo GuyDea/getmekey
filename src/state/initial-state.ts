@@ -1,5 +1,5 @@
 import type {StateDef, UserPreferencesOptions} from "/src/state/state.js";
-import {Persistence} from "/src/persistence.js";
+import {Persistence} from "/src/storage/persistence.js";
 
 const defaultUserPreferences: UserPreferencesOptions = {
     convenience: {

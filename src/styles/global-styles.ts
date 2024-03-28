@@ -206,7 +206,7 @@ export const globalStyles = css`
         width: 5.5rem;
     }
     input[type=text]::placeholder, input[type=number]::placeholder {
-        color: rgba(var(--color-text-1-hex-val), .6);
+        color: rgba(var(--color-text-2-rgb-val), .6);
         font-size: 1rem;
     }
     input[type=text]:focus, input[type=number]:focus {

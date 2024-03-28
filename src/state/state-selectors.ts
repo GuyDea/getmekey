@@ -15,7 +15,7 @@ export class StateSelectors {
     public secretContainsNumber = () => this.numberRegx.test(this._getState().value.secretValue);
     public secretContainsSpecial = () => this.specialRegx.test(this._getState().value.secretValue);
     public secretContainsUppercase = () => this.uppercaseRegx.test(this._getState().value.secretValue);
-    public isPasswordOk = () => {
+    public isSecretOk = () => {
         if(this._getState().value.userPreferences.sensitive.unrestrictedMode){
             return this._getState().value.secretValue.length > 0;
         } else {
@@ -34,6 +34,7 @@ export class StateSelectors {
             return this.saltContainsNumber() && this.saltContainsSpecial() && this.saltContainsUppercase() && this.saltLengthOk()
         }
     };
+    public formOk = () => this.isSecretOk() && this.isSaltOk()
 }
 
 export const stateSelectors = new StateSelectors(() => state);

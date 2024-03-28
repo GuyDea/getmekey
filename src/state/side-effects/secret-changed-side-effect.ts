@@ -1,5 +1,5 @@
 import {PasswordGenerationOptions, State, StateDef} from "/src/state/state.js";
-import {stateSelectors} from "/src/state/state-selectors.js";
+import {StateSelectors, stateSelectors} from "/src/state/state-selectors.js";
 import {PasswordGenerator} from "/src/password-generator.js";
 import {GetStateFn, SideEffect} from "/src/state/side-effects.js";
 
@@ -24,13 +24,12 @@ export class SecretChangedSideEffect implements SideEffect {
 
     stateChangedInMeantime = (currentState: State<StateDef>) => this.lastObservedProps !== JSON.stringify(getObservedProps(currentState));
 
-    secretsAreValid = () => stateSelectors.isPasswordOk() && stateSelectors.isSaltOk();
-
     processSecret(stateFn: GetStateFn) {
+        let stateSelectors = new StateSelectors(stateFn);
         let currentState = stateFn();
         if (this.stateChangedInMeantime(currentState) && !currentState.value.passwordGenerating) {
             this.lastObservedProps = JSON.stringify(getObservedProps(currentState));
-            if (this.secretsAreValid()) {
+            if (stateSelectors.formOk()) {
                 currentState.value.passwordGenerating = true;
                 currentState.value.passwordValue = '';
                 currentState.value.generationSpeed = null;

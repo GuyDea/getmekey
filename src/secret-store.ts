@@ -1,6 +1,6 @@
 import {decryptSecret, encryptSecret, generateRandomPassphrase} from "/src/crypto-functions.js";
 import {state} from "/src/state/state.js";
-import {Persistence} from "/src/persistence.js";
+import {Persistence} from "/src/storage/persistence.js";
 
 export type StoredSecret = {
     secret: string;

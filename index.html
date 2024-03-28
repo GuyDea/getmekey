@@ -17,17 +17,24 @@
             --app-width: 400px;
             --color-1-hue-val: 255;
             --color-1: hsla(var(--color-1-hue-val), 100%, 50%, 1);
+            --color-2-hue-val: 0;
+            --color-2-rgb-val: 255, 255, 255;
+            --color-2: rgb(var(--color-2-rgb-val));
             --color-text-1-hue-val: 0;
-            --color-text-1-hex-val: 0, 0, 0;
-            --color-text-1: rgb(var(--color-text-1-hex-val));
+            --color-text-1-rgb-val: 255, 255, 255;
+            --color-text-1: rgb(var(--color-text-1-rgb-val));
             --color-text-2-hue-val: 0;
-            --color-text-2-hex-val: 255, 255, 255;
-            --color-text-2: rgb(var(--color-text-2-hex-val));
+            --color-text-2-rgb-val: 0, 0, 0;
+            --color-text-2: rgb(var(--color-text-2-rgb-val));
             --color-danger-hue-val: 0;
-            --color-danger-hex-val: 255, 0, 0;
-            --color-danger: rgba(var(--color-danger-hex-val), 1);
+            --color-danger-rgb-val: 255, 0, 0;
+            --color-danger: rgba(var(--color-danger-rgb-val), 1);
+            --color-text-danger-hue-val: 0;
+            --color-text-danger-rgb-val: 255, 255, 255;
+            --color-text-danger: rgb(var(--color-text-danger-rgb-val));
             --border-radius-1: 7px;
             --box-shadow-1: 0 4px 4px 0 hsla(var(--color-1-hue-val), 100%, 50%, .2), 0 6px 20px 0 hsla(var(--color-1-hue-val), 100%, 50%, .2);
+            --box-shadow-2: 0 4px 4px 0 rgba(var(--color-text-2-rgb-val), .2), 0 6px 20px 0 rgba(var(--color-text-2-rgb-val), .2);
             --box-shadow-danger: 0 4px 4px 0 hsla(var(--color-danger-hue-val), 100%, 50%, .2), 0 6px 20px 0 hsla(var(--color-danger-hue-val), 100%, 50%, .2);
             --input-width: 220px;
             --input-height: 28px;
@@ -121,7 +128,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: var(--color-text-1);
+            color: var(--color-text-2);
         }
 
         .input {
@@ -141,7 +148,7 @@
         }
 
         input::placeholder {
-            color: rgba(var(--color-text-1-hex-val), .6);
+            color: rgba(var(--color-text-2-rgb-val), .6);
             font-size: 1rem;
         }
 
@@ -208,10 +215,6 @@
             width: 100%;
             font-size: 11px;
             height: var(--input-height);
-        }
-
-        #finalPassword[disabled] {
-            border-color: var(--color-disabled);
         }
 
         .reqPanel {
@@ -355,7 +358,7 @@
         .settingsIcon, .preferencesIcon {
             height: 2.5rem;
             width: 2.5rem;
-            transition: all .5s;
+            transition: transform .5s, opacity .5s, filter .5s !important;
             cursor: pointer;
         }
         .uxSettings{
@@ -383,26 +386,34 @@
             opacity: .5;
         }
         .disableable {
-            transition: opacity 1s, filter 1s;
+            transition: opacity .5s, filter .5s;
         }
         .gmkButton {
             border: none;
             border-radius: 1em;
             padding: .5em 1em;
-            background: var(--color-1);
-            color: var(--color-text-2);
             transition: opacity .3s, transform .3s;
         }
-        .gmkButton:not([disabled]) {
+        .gmkButtonPrimary{
+            background: var(--color-1);
+            color: var(--color-text-1);
+        }
+        .gmkButtonPrimary:not([disabled]) {
             box-shadow: var(--box-shadow-1);
         }
-
-        .gmkButton[disabled] {
-            background: var(--color-disabled);
-        }
-        .gmkButton.gmkButtonDanger {
+        .gmkButtonDanger {
             background: var(--color-danger);
+            color: var(--color-text-danger);
+        }
+        .gmkButtonDanger:not([disabled]) {
             box-shadow: var(--box-shadow-danger);
+        }
+        .gmkButtonSecondary {
+            background: var(--color-2);
+            color: var(--color-text-2);
+        }
+        .gmkButtonSecondary:not([disabled]) {
+            box-shadow: var(--box-shadow-2);
         }
         .gmkButton:active:not([disabled]) {
             opacity: .5;
@@ -414,6 +425,7 @@
         .gmkButton:focus-visible {
             outline: 2px solid var(--color-1);
         }
+
     </style>
     <style id="scrollerStyles">
         *::-webkit-scrollbar-track {
@@ -501,10 +513,10 @@
             <svg class="arrow disableable disabled" id="arrow1">
                 <use xlink:href="#arrow-svg"></use>
             </svg>
-            <svg class="arrow disableable disabled" id="arrow2">
+            <svg class="arrow disableable disabled" id="arrow2" needValidForm>
                 <use xlink:href="#arrow-svg"></use>
             </svg>
-            <svg class="arrow disableable disabled" id="arrow3">
+            <svg class="arrow disableable disabled" id="arrow3" needValidForm>
                 <use xlink:href="#arrow-svg"></use>
             </svg>
         </div>
@@ -517,7 +529,7 @@
             <div>
                 <div style="font-weight: bolder; color: var(--color-1); font-size: 1.5rem;">GetMeKey
                 </div>
-                <div style="font-size: .8rem; color: var(--color-text-1)">by GuyDea</div>
+                <div style="font-size: .8rem; color: var(--color-text-2)">by GuyDea</div>
             </div>
         </div>
 
@@ -566,11 +578,11 @@
             </div>
         </div>
         <div class="labelInput">
-            <div class="label" style="color: var(--color-1)">GetMeKey</div>
+            <div style="color: var(--color-1)" class="label disableable disabled" needValidForm>GetMeKey</div>
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <div class="middle">
-                    <div class="encodeManual">
+                    <div needValidForm class="encodeManual disableable disabled">
                         <div class="hideOverflow manualStep"><span class="color1">• </span>Runs <strong id="algoTypeNote" class="color1">SHA</strong> hash
                         </div>
                         <div class="hideOverflow manualStep"><span class="color1">• </span>Takes first <strong id="firstCharactersNote"
@@ -583,7 +595,7 @@
                 </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
-                    <a class="settingsIcon sideIcon" href="/hash-settings">
+                    <a class="settingsIcon sideIcon disableable disabled" href="/hash-settings" needValidForm>
                         <svg style="color: var(--color-1); width: 100%; height: 100%;">
                             <use xlink:href="#settings-icon"></use>
                         </svg>
@@ -593,7 +605,7 @@
         </div>
 
         <div class="labelInput">
-            <label id="finalPasswordLabel" class="label" for="finalPassword">Generated Password</label>
+            <label class="label disableable disabled" for="finalPassword" ok needValidForm>Generated Password</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <div class="finalPasswordPanel middle">
@@ -602,7 +614,7 @@
                             <use xlink:href="#dots-loading"></use>
                         </svg>
                     </div>
-                    <input id="finalPassword" readonly disabled type="password" value="" autocomplete="off"/>
+                    <input id="finalPassword" readonly type="password" value="" autocomplete="off" class="disableable disabled" needValidForm/>
                 </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
@@ -613,12 +625,12 @@
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 10px; display: flex; gap: 10px;">
-                <button id="copyButton" class="gmkButton" disabled>Copy</button>
-                <button id="copySaveButton" class="gmkButton hidden" disabled>Copy & Save</button>
+            <div style="margin-top: 10px; display: flex; gap: .5rem;">
+                <button id="copyButton" class="gmkButton gmkButtonPrimary disableable disabled" needValidPassword disabled>Copy</button>
             </div>
-            <div style="margin-top: 10px; font-size: .6rem">
-                <button id="clearButton" class="gmkButton" style="font-size: .8rem" disabled>Clear Secret</button>
+            <div style="margin-top: 10px; display: flex; gap: .5rem;">
+                <button id="clearButton" class="gmkButton gmkButtonDanger disableable disabled" style="font-size: .8rem" needRecalled disabled>Remove Recalled</button>
+                <button id="addRecalledButton" class="gmkButton hidden gmkButtonSecondary disableable disabled" style="font-size: .8rem" needValidSecret disabled>Add Recalled</button>
             </div>
         </div>
         <div class="useDisclaimer">

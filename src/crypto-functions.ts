@@ -60,16 +60,18 @@ function base64ToArrayBuffer(base64: string): ArrayBuffer {
     return bytes.buffer;
 }
 
-export async function encryptSecret<T>(secret: T, passphrase1: string, passphrase2: string): Promise<string> {
+export async function encryptSecret<T>(secret: T, ...passphrases: string[]): Promise<string> {
     const salt =  window.crypto.getRandomValues(new Uint8Array(16));
     const iv = window.crypto.getRandomValues(new Uint8Array(16));
-    const key1 = await deriveKey(passphrase1, salt);
-    const key2 = await deriveKey(passphrase2, salt);
-    const finalKeyBits = await xorKeys(key1, key2);
+    let lastKey: ArrayBuffer = await deriveKey(passphrases[0], salt);
+    for (let i = 1; i < passphrases.length; i++) {
+        const keyI = await deriveKey(passphrases[i], salt);
+        lastKey = await xorKeys(lastKey, keyI);
+    }
 
     const finalKey = await window.crypto.subtle.importKey(
         'raw',
-        finalKeyBits,
+        lastKey,
         { name: 'AES-CBC' },
         false,
         ['encrypt']
@@ -83,17 +85,19 @@ export async function encryptSecret<T>(secret: T, passphrase1: string, passphras
     return arrayBufferToBase64(encoder.encode(JSON.stringify({ encrypted: arrayBufferToBase64(encryptedSecret), iv: arrayBufferToBase64(iv.buffer), salt: arrayBufferToBase64(salt.buffer) } as EncryptedObject)));
 }
 
-export async function decryptSecret<T>(encryptedData: string, passphrase1: string, passphrase2: string): Promise<T> {
+export async function decryptSecret<T>(encryptedData: string, ...passphrases: string[]): Promise<T> {
     let data = JSON.parse(decoder.decode(base64ToArrayBuffer(encryptedData))) as EncryptedObject;
     const salt =  base64ToArrayBuffer(data.salt);
     const iv = base64ToArrayBuffer(data.iv) ;
-    const key1 = await deriveKey(passphrase1, salt);
-    const key2 = await deriveKey(passphrase2, salt);
-    const finalKeyBits = await xorKeys(key1, key2);
+    let lastKey: ArrayBuffer = await deriveKey(passphrases[0], salt);
+    for (let i = 1; i < passphrases.length; i++) {
+        const keyI = await deriveKey(passphrases[i], salt);
+        lastKey = await xorKeys(lastKey, keyI);
+    }
 
     const finalKey = await window.crypto.subtle.importKey(
         'raw',
-        finalKeyBits,
+        lastKey,
         { name: 'AES-CBC' },
         false,
         ['decrypt']
@@ -110,3 +114,9 @@ export async function decryptSecret<T>(encryptedData: string, passphrase1: strin
 export function generateRandomPassphrase(length: number){
     return arrayBufferToBase64(window.crypto.getRandomValues(new Uint8Array(length)));
 }
+
+// (async () => {
+//     let stringPromise = await encryptSecret("secret", "1", '2', '3');
+//     let newVar = await decryptSecret(stringPromise, "1", '2', '3');
+//     console.log('xxx', newVar)
+// })()
