@@ -1,5 +1,5 @@
 import {globalStyles} from "/src/styles/global-styles.js";
-import {html} from "/src/helper-functions.js";
+import {html} from "/src/utils/helper-functions.js";
 import '/src/components/gmk-subpage-container.js';
 import '/src/components/gmk-title-panel.js';
 import '/src/components/gmk-info-icon.js';

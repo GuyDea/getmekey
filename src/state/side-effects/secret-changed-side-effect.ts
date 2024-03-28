@@ -1,7 +1,8 @@
-import {PasswordGenerationOptions, State, StateDef} from "/src/state/state.js";
+import {StateHolder} from "/src/state/state-holder.js";
 import {StateSelectors, stateSelectors} from "/src/state/state-selectors.js";
-import {PasswordGenerator} from "/src/password-generator.js";
+import {PasswordGenerator} from "/src/services/password-generator.js";
 import {GetStateFn, SideEffect} from "/src/state/side-effects.js";
+import {PasswordGenerationOptions, GmkState} from "/src/state/state-type.js"
 
 type ObservedProps = {
     secret?: string;
@@ -10,7 +11,7 @@ type ObservedProps = {
     isUnrestricted?: boolean;
 }
 
-const getObservedProps = (state: State<StateDef>): ObservedProps => {
+const getObservedProps = (state: StateHolder<GmkState>): ObservedProps => {
     return {
         secret: state.value.secretValue,
         salt: state.value.saltValue,
@@ -22,7 +23,7 @@ const getObservedProps = (state: State<StateDef>): ObservedProps => {
 export class SecretChangedSideEffect implements SideEffect {
     lastObservedProps?: string;
 
-    stateChangedInMeantime = (currentState: State<StateDef>) => this.lastObservedProps !== JSON.stringify(getObservedProps(currentState));
+    stateChangedInMeantime = (currentState: StateHolder<GmkState>) => this.lastObservedProps !== JSON.stringify(getObservedProps(currentState));
 
     processSecret(stateFn: GetStateFn) {
         let stateSelectors = new StateSelectors(stateFn);

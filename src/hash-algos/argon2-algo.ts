@@ -1,7 +1,8 @@
 import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
 // @ts-ignore
 import '/lib/argon2/argon2-init.js';
-import {StateDef} from "/src/state/state.js";
+
+import {GmkState} from "/src/state/state-type.js"
 
 declare const argon2: any;
 
@@ -25,7 +26,7 @@ class Argon2Algo implements IHashAlgorithm<Argon2Options> {
                 .catch((e: any) => reject(e.code === -14 ? 'Cost is too small' : 'Unknown error'))
         })
     }
-    getOptions(state: StateDef): Argon2Options {
+    getOptions(state: GmkState): Argon2Options {
         return state.passwordGeneration.algoOptions.argon2;
     }
 }

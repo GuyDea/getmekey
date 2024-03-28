@@ -1,6 +1,7 @@
-import {state, type StateDef} from "/src/state/state.js";
+import {state} from "/src/state/state-holder.js";
 import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
 import {ByteUtils} from "/src/hash-algos/byte-utils.js";
+import {GmkState} from "/src/state/state-type.js"
 
 export class PasswordGenerator {
     static {
@@ -10,7 +11,7 @@ export class PasswordGenerator {
             console.log('[Password Generator] Finished: Lazy loading algos');
         }, 10_000);
     }
-    public static async generatePassword(state: StateDef): Promise<string> {
+    public static async generatePassword(state: GmkState): Promise<string> {
         let passwordGeneration = state.passwordGeneration;
         let outputOptions = passwordGeneration.outputOptions;
         let selectedAlgo: IHashAlgorithm<any> = await import((`/src/hash-algos/${passwordGeneration.selectedAlgo.toLowerCase()}-algo.js`)).then(m => m.default());

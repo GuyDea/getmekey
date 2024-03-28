@@ -1,5 +1,6 @@
 import {type IHashAlgorithm} from "./hash-algo-types.js";
-import {StateDef} from "/src/state/state.js";
+
+import {GmkState} from "/src/state/state-type.js"
 
 export default function create() {
     return new Pbkdf2Algo();
@@ -11,7 +12,7 @@ class Pbkdf2Algo implements IHashAlgorithm<Pbkdf2Options> {
         return new Uint8Array(await window.crypto.subtle.exportKey("raw", cryptoKey));
     }
 
-    getOptions(state: StateDef): Pbkdf2Options {
+    getOptions(state: GmkState): Pbkdf2Options {
         return state.passwordGeneration.algoOptions.pbkdf2;
     }
 

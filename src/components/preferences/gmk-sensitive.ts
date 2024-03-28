@@ -1,11 +1,12 @@
-import {comp, css, fixVal, html, toggleDisabledPanel} from "/src/helper-functions.js";
+import {comp, css, fixVal, html, toggleDisabledPanel} from "/src/utils/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
 import '/src/components/gmk-info-icon.js';
 import {globalStyles} from "/src/styles/global-styles.js";
-import {state, StateDef, Subscriber} from "/src/state/state.js";
+import {state, Subscriber} from "/src/state/state-holder.js";
+import {GmkState} from "/src/state/state-type.js"
 
 export class GmkSensitive extends HTMLElement {
-    private _subs: Subscriber<StateDef>[] = [];
+    private _subs: Subscriber<GmkState>[] = [];
     private _remember = comp<HTMLInputElement>(this,'#remember');
     private _unrestricted = comp<HTMLInputElement>(this,'#unrestricted');
     private _minutes = comp<HTMLInputElement>(this, '#minutes');

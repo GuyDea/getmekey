@@ -1,4 +1,4 @@
-import {IndexElements} from "./index-related/index-elements.js";
+import {IndexElements} from "../index-related/index-elements.js"
 
 export class Router {
     private static _lastStateId = 0;

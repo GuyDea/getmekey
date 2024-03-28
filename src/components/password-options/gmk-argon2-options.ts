@@ -1,7 +1,8 @@
-import {comp, css, fixVal, html} from "/src/helper-functions.js";
+import {comp, css, fixVal, html} from "/src/utils/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
 import '/src/components/gmk-title-panel.js';
-import {state, StateDef, Subscriber} from "/src/state/state.js";
+import {state, Subscriber} from "/src/state/state-holder.js";
+import {GmkState} from "/src/state/state-type.js"
 
 export class GmkArgon2Options extends HTMLElement {
     private _iterationsComp = comp<HTMLInputElement>(this, '#iterations');
@@ -12,7 +13,7 @@ export class GmkArgon2Options extends HTMLElement {
     private _costRangeComp = comp<HTMLInputElement>(this, '#costRange');
     private _lengthComp = comp<HTMLInputElement>(this, '#length');
     private _lengthRangeComp = comp<HTMLInputElement>(this, '#lengthRange');
-    private _subs: Subscriber<StateDef>[] = [];
+    private _subs: Subscriber<GmkState>[] = [];
     
     constructor() {
         super();

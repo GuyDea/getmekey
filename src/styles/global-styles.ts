@@ -1,4 +1,4 @@
-import {css} from "../helper-functions.js";
+import {css} from "../utils/helper-functions.js"
 
 export const globalStyles = css`
     ${document.getElementById('scrollerStyles')!.innerHTML}

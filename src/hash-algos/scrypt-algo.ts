@@ -1,7 +1,8 @@
 import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
 // @ts-ignore
 import {scrypt} from "/lib/scrypt/scrypt-async.js";
-import {StateDef} from "/src/state/state.js";
+
+import {GmkState} from "/src/state/state-type.js"
 
 export default function create() {
     return new ScryptAlgo();
@@ -28,7 +29,7 @@ class ScryptAlgo implements IHashAlgorithm<ScryptOptions> {
             }
         })
     }
-    getOptions(state: StateDef): ScryptOptions {
+    getOptions(state: GmkState): ScryptOptions {
         return state.passwordGeneration.algoOptions.scrypt;
     }
 }

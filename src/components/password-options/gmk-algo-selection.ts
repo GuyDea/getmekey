@@ -1,4 +1,4 @@
-import {comp, css, html} from "/src/helper-functions.js";
+import {comp, css, html} from "/src/utils/helper-functions.js";
 import '/src/components/gmk-title-panel.js'
 import '/src/components/gmk-subpage-container.js';
 import '/src/components/password-options/gmk-sha-options.js';
@@ -6,11 +6,12 @@ import '/src/components/password-options/gmk-pbkdf2-options.js';
 import '/src/components/password-options/gmk-argon2-options.js';
 import '/src/components/password-options/gmk-scrypt-options.js';
 import {globalStyles} from "/src/styles/global-styles.js";
-import {Algo, state, StateDef, Subscriber} from "/src/state/state.js";
+import {state, Subscriber} from "/src/state/state-holder.js";
 import '/src/components/password-options/gmk-generation-duration.js';
+import {Algo, GmkState} from "/src/state/state-type.js"
 
 export class GmkAlgoSelection extends HTMLElement {
-    private _subs: Subscriber<StateDef>[] = [];
+    private _subs: Subscriber<GmkState>[] = [];
 
     constructor() {
         super();

@@ -1,8 +1,9 @@
-import {State, state, StateDef} from "./state.js";
+import {StateHolder, state} from "./state-holder.js"
 import {SecretChangedSideEffect} from "/src/state/side-effects/secret-changed-side-effect.js";
 import {PreferencesSaveSideEffect} from "/src/state/side-effects/preferences-save-side-effect.js";
+import {GmkState} from "/src/state/state-type.js"
 
-export type GetStateFn = () => State<StateDef>;
+export type GetStateFn = () => StateHolder<GmkState>;
 
 export interface SideEffect {
     run(currentStateFn: GetStateFn): void;

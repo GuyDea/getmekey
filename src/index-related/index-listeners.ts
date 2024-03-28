@@ -1,6 +1,6 @@
 import {IndexElements} from './index-elements.js';
-import {state} from "../state/state.js";
-import {SecretStore} from "/src/secret-store.js";
+import {state} from "../state/state-holder.js"
+import {SecretStorage} from "/src/services/storage/secret-storage.js";
 
 export class IndexListeners {
     public static initialize(){

@@ -1,7 +1,7 @@
 import {IndexElements} from "./index-elements.js";
 import {stateSelectors} from "../state/state-selectors.js";
-import {state} from "/src/state/state.js";
-import {setAttrIfTrue, setClassIfTrue, toggleDisabledPanel} from "/src/helper-functions.js";
+import {state} from "/src/state/state-holder.js";
+import {setAttrIfTrue, setClassIfTrue, toggleDisabledPanel} from "/src/utils/helper-functions.js";
 
 
 /**

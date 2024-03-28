@@ -1,4 +1,4 @@
-import {comp, html} from "/src/helper-functions.js";
+import {comp, html} from "/src/utils/helper-functions.js";
 import {IndexElements} from "/src/index-related/index-elements.js";
 
 export class GmkDotLoader extends HTMLElement {

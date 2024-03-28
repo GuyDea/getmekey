@@ -1,6 +1,6 @@
-import {decryptSecret, encryptSecret, generateRandomPassphrase} from "/src/crypto-functions.js";
-import {state} from "/src/state/state.js";
-import {Persistence} from "/src/storage/persistence.js";
+import {decryptSecret, encryptSecret, generateRandomPassphrase} from "/src/utils/crypto-functions.js";
+import {state} from "/src/state/state-holder.js";
+import {Persistence} from "/src/services/storage/persistence.js";
 
 export type StoredSecret = {
     secret: string;
@@ -12,7 +12,7 @@ export type DecryptedSecret = {
     expiryDate: Date;
 }
 
-export class SecretStore {
+export class SecretStorage {
     public static async storeSecret(secret: string){
         const passphrase1 = generateRandomPassphrase(20);
         const passphrase2 = generateRandomPassphrase(20);

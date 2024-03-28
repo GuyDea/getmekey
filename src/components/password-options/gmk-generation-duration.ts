@@ -1,10 +1,11 @@
-import {comp, css, html} from "/src/helper-functions.js";
+import {comp, css, html} from "/src/utils/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
-import {state, StateDef, Subscriber} from "/src/state/state.js";
+import {state, Subscriber} from "/src/state/state-holder.js";
 import '/src/components/gmk-dot-loader.js';
+import {GmkState} from "/src/state/state-type.js"
 
 export class GmkGenerationDuration extends HTMLElement {
-    private _subs: Subscriber<StateDef>[] = [];
+    private _subs: Subscriber<GmkState>[] = [];
     private _error = comp(this, '#error');
     private _duration = comp(this, '#duration');
     private _loader = comp(this, '#loader');

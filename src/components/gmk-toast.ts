@@ -1,4 +1,4 @@
-import {css, html} from "/src/helper-functions.js";
+import {css, html} from "/src/utils/helper-functions.js";
 
 export class GmkToast extends HTMLElement {
     private readonly _message: string;

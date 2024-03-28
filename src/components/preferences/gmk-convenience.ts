@@ -1,10 +1,11 @@
-import {comp, css, html, setAttrIfTrue, setClassIfTrue, toggleDisabledPanel} from "/src/helper-functions.js";
+import {comp, css, html, setAttrIfTrue, setClassIfTrue, toggleDisabledPanel} from "/src/utils/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
 import {globalStyles} from "/src/styles/global-styles.js";
-import {state, StateDef, Subscriber} from "/src/state/state.js";
+import {state, Subscriber} from "/src/state/state-holder.js";
+import {GmkState} from "/src/state/state-type.js"
 
 export class GmkConvenience extends HTMLElement {
-    private _subs: Subscriber<StateDef>[] = [];
+    private _subs: Subscriber<GmkState>[] = [];
     private _copy = comp<HTMLInputElement>(this,'#copy');
     private _copyLine = comp(this, '#copyLine');
 

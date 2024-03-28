@@ -1,9 +1,10 @@
-import {State, state, StateDef} from "./state.js";
+import {StateHolder, state} from "./state-holder.js"
+import {GmkState} from "/src/state/state-type.js"
 
 export class StateSelectors {
-    private _getState: () => State<StateDef>;
+    private _getState: () => StateHolder<GmkState>;
 
-    constructor(getState: () => State<StateDef>) {
+    constructor(getState: () => StateHolder<GmkState>) {
         this._getState = getState;
     }
 

@@ -1,4 +1,4 @@
-import {css, html} from "/src/helper-functions.js";
+import {css, html} from "/src/utils/helper-functions.js";
 import '/src/components/password-options/gmk-algo-output-format.js';
 import '/src/components/password-options/gmk-algo-selection.js';
 import '/src/components/password-options/gmk-sha-options.js';

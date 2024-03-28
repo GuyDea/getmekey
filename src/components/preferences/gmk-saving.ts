@@ -1,11 +1,12 @@
-import {comp, css, html, setAttrIfTrue, setClassIfTrue} from "/src/helper-functions.js";
+import {comp, css, html, setAttrIfTrue, setClassIfTrue} from "/src/utils/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
 import '/src/components/gmk-info-icon.js';
 import {globalStyles} from "/src/styles/global-styles.js";
-import {state, StateDef, Subscriber} from "/src/state/state.js";
+import {state, Subscriber} from "/src/state/state-holder.js";
+import {GmkState} from "/src/state/state-type.js"
 
 export class GmkSaving extends HTMLElement {
-    private _subs: Subscriber<StateDef>[] = [];
+    private _subs: Subscriber<GmkState>[] = [];
     private _allowRecall = comp<HTMLInputElement>(this,'#allowRecall');
     private _onRecallSpan = comp<HTMLSpanElement>(this,'#onRecallSpan');
     private _onRecallInput = comp<HTMLInputElement>(this,'#onRecall');

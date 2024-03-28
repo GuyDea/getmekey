@@ -1,8 +1,9 @@
-import {html} from "/src/helper-functions.js";
-import {state, StateDef, Subscriber} from "/src/state/state.js";
+import {html} from "/src/utils/helper-functions.js";
+import {state, Subscriber} from "/src/state/state-holder.js";
+import {GmkState} from "/src/state/state-type.js"
 
 export class GmkInfoIcon extends HTMLElement {
-    private _subs: Subscriber<StateDef>[] = [];
+    private _subs: Subscriber<GmkState>[] = [];
 
     constructor() {
         super();

@@ -1,5 +1,5 @@
-import type {StateDef, UserPreferencesOptions} from "/src/state/state.js";
-import {Persistence} from "/src/storage/persistence.js";
+import {Persistence} from "/src/services/storage/persistence.js";
+import {GmkState, UserPreferencesOptions} from "/src/state/state-type.js"
 
 const defaultUserPreferences: UserPreferencesOptions = {
     convenience: {
@@ -22,7 +22,7 @@ const defaultUserPreferences: UserPreferencesOptions = {
     }
 }
 
-export const initState: StateDef = {
+export const initState: GmkState = {
     secretValue: '',
     secretShow: false,
     saltShow: false,
