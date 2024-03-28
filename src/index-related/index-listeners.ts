@@ -1,5 +1,6 @@
 import {IndexElements} from './index-elements.js';
 import {state} from "../state/state.js";
+import {SecretStore} from "/src/secret-store.js";
 
 export class IndexListeners {
     public static initialize(){
@@ -18,8 +19,6 @@ export class IndexListeners {
                     // TODO
                 });
         })
-        IndexElements.copySaveButton().addEventListener('click', () => {
-            console.log('xxx')
-        });
+        IndexElements.copySaveButton().addEventListener('click', () => SecretStore.storeSecret(state.value.secretValue));
     }
 }

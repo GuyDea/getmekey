@@ -3,16 +3,6 @@ import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
 import {ByteUtils} from "/src/hash-algos/byte-utils.js";
 
 export class PasswordGenerator {
-    // TODO: remove once all algos are tested
-    // static {
-    //     let htmlButtonElement = document.createElement('button');
-    //     htmlButtonElement.innerHTML='tests';
-    //     htmlButtonElement.addEventListener('click', async () => {
-    //         // @ts-ignore
-    //         this.generatePassword({secretValue: 'test', saltValue: 'somesaltvalue'}!);
-    //     })
-    //     document.body.append(htmlButtonElement)
-    // }
     static {
         setTimeout(() => {
             console.log('[Password Generator] Started: Lazy loading algos');

@@ -14,6 +14,7 @@ export type StateDef = {
     passwordGenerating: boolean;
     generationSpeed: number | null;
     passwordGenerationError: string | null;
+    secretExpiryDate: Date | null;
     userPreferences: UserPreferencesOptions;
     passwordGeneration: PasswordGenerationOptions;
     internals: InternalOptions;

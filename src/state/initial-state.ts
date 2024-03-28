@@ -32,6 +32,7 @@ export const initState: StateDef = {
     passwordGenerating: false,
     passwordGenerationError: null,
     generationSpeed: null,
+    secretExpiryDate: null,
     passwordGeneration: {
         selectedAlgo: 'SHA',
         outputOptions: {

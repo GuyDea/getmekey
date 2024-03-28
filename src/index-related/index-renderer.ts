@@ -27,6 +27,7 @@ export class IndexRenderer {
     };
 
     private static _render(){
+        IndexElements.secretInput().value = state.value.secretValue;
         setAttrIfTrue(state.value.userPreferences.sensitive.unrestrictedMode, IndexElements.mainPage(), 'unrestricted');
         setAttrIfTrue(!state.value.secretShow, IndexElements.secretHideToggle(), 'off');
         setAttrIfTrue(state.value.secretShow, IndexElements.secretInput(), 'type', 'text', 'password');
