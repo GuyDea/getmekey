@@ -5,7 +5,7 @@ import {globalStyles} from "/src/styles/global-styles.js";
 import {state, Subscriber} from "/src/state/state-holder.js";
 import {GmkState} from "/src/state/state-type.js"
 
-export class GmkSaving extends HTMLElement {
+export class GmkRememberHash extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];
     private _hashForm = comp<HTMLFormElement>(this,'#hashForm');
     private _onRecallSpan = comp<HTMLSpanElement>(this,'#onRecallSpan');
@@ -75,4 +75,4 @@ export class GmkSaving extends HTMLElement {
     }
 }
 
-customElements.define('gmk-saving', GmkSaving);
+customElements.define('gmk-remember-hash', GmkRememberHash);

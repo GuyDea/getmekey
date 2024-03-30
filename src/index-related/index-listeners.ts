@@ -1,7 +1,7 @@
 import {IndexElements} from './index-elements.js';
 import {state} from "../state/state-holder.js"
-import {SecretStorage} from "/src/services/storage/secret-storage.js";
 import {toastService} from "/src/services/toast-service.js"
+import {recallService} from "/src/services/recall-service.js";
 
 export class IndexListeners {
     public static initialize(){
@@ -18,8 +18,6 @@ export class IndexListeners {
             navigator.clipboard.writeText(state.value.passwordValue)
                 .catch(() => toastService.addToast('Failed To Copy', "ERROR"));
         })
-        IndexElements.addRecalledButton().addEventListener('click', () => {
-            toastService.addToast('test')
-        });
+        IndexElements.addRecalledButton().addEventListener('click', () => recallService.storeToRecalled());
     }
 }

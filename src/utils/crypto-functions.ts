@@ -60,7 +60,7 @@ function base64ToArrayBuffer(base64: string): ArrayBuffer {
     return bytes.buffer;
 }
 
-export async function encryptSecret<T>(secret: T, ...passphrases: string[]): Promise<string> {
+export async function encryptData<T>(secret: T, ...passphrases: string[]): Promise<string> {
     const salt =  window.crypto.getRandomValues(new Uint8Array(16));
     const iv = window.crypto.getRandomValues(new Uint8Array(16));
     let lastKey: ArrayBuffer = await deriveKey(passphrases[0], salt);
@@ -85,7 +85,7 @@ export async function encryptSecret<T>(secret: T, ...passphrases: string[]): Pro
     return arrayBufferToBase64(encoder.encode(JSON.stringify({ encrypted: arrayBufferToBase64(encryptedSecret), iv: arrayBufferToBase64(iv.buffer), salt: arrayBufferToBase64(salt.buffer) } as EncryptedObject)));
 }
 
-export async function decryptSecret<T>(encryptedData: string, ...passphrases: string[]): Promise<T> {
+export async function decryptData<T>(encryptedData: string, ...passphrases: string[]): Promise<T> {
     let data = JSON.parse(decoder.decode(base64ToArrayBuffer(encryptedData))) as EncryptedObject;
     const salt =  base64ToArrayBuffer(data.salt);
     const iv = base64ToArrayBuffer(data.iv) ;

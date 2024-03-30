@@ -1,6 +1,8 @@
 export const STORAGE_ADDRESS = {
     USER_PREFERENCES: 'USER_PREFERENCES',
-    ENCRYPTED_SECRET: 'ENCRYPTED_SECRET'
+    ENCRYPTED_SECRET: 'ENCRYPTED_SECRET',
+    HASH_SETTINGS: 'HASH_SETTINGS',
+    RECALLED_SECRET: 'RECALLED_SECRET'
 } as const;
 export type Address = keyof typeof STORAGE_ADDRESS;
 
@@ -13,12 +15,12 @@ type CookieName = keyof typeof COOKIE_NAME;
 export class Persistence {
     private static readonly VERSION = 1;
 
-    public static addToStorage<T>(address: Address, value: T){
-        localStorage.setItem(`${this.VERSION}_${address}`, JSON.stringify(value));
+    public static addToStorage<T>(address: Address, value: T, suffix?: string){
+        localStorage.setItem(`${this.VERSION}_${address}${suffix ? `_${suffix}` : ''}`, JSON.stringify(value));
     }
 
-    public static getFromStorage<T>(address: Address): T | null{
-        const val = localStorage.getItem(`${this.VERSION}_${address}`);
+    public static getFromStorage<T>(address: Address, suffix?: string): T | null{
+        const val = localStorage.getItem(`${this.VERSION}_${address}${suffix ? `_${suffix}` : ''}`);
         return val ? JSON.parse(val) : null;
     }
 

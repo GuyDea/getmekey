@@ -26,7 +26,7 @@ export type ErrorHandler = (error: any) => void;
 export class StateHolder<T> {
     public value;
     private subscribers: Set<Subscriber<T>> = new Set();
-    private _errorHandler
+    private readonly _errorHandler;
 
     constructor(value: T, errorHandler?: ErrorHandler) {
         this.value = value;
@@ -34,17 +34,19 @@ export class StateHolder<T> {
     }
 
     public notifyChange() {
-        this.subscribers.forEach(s => {
-            if(s.options?.diffMatcher){
-                let currentMatcherResult = s.options?.diffMatcher(this.value);
-                if(currentMatcherResult !== s.previousDiffValue){
-                    s.previousDiffValue = currentMatcherResult;
+        setTimeout(() => {
+            this.subscribers.forEach(s => {
+                if(s.options?.diffMatcher){
+                    let currentMatcherResult = s.options?.diffMatcher(this.value);
+                    if(currentMatcherResult !== s.previousDiffValue){
+                        s.previousDiffValue = currentMatcherResult;
+                        s.callback(this.value);
+                    }
+                } else {
                     s.callback(this.value);
                 }
-            } else {
-                s.callback(this.value);
-            }
-        });
+            });
+        })
     }
 
     public update(action: (state: T) => void){

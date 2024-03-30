@@ -45,7 +45,7 @@ export class GmkToast extends HTMLElement {
 
     public reset(){
         this._fuze().style.animation = 'none';
-        setTimeout(() => this._fuze().style.removeProperty('animation'));
+        requestAnimationFrame(() => this._fuze().style.removeProperty('animation'));
     }
 
     private _styles() {

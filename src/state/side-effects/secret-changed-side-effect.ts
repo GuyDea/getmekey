@@ -1,8 +1,8 @@
 import {StateHolder} from "/src/state/state-holder.js";
-import {StateSelectors, stateSelectors} from "/src/state/state-selectors.js";
+import {StateSelectors} from "/src/state/state-selectors.js";
 import {PasswordGenerator} from "/src/services/password-generator.js";
 import {GetStateFn, SideEffect} from "/src/state/side-effects.js";
-import {PasswordGenerationOptions, GmkState} from "/src/state/state-type.js"
+import {GmkState, PasswordGenerationOptions} from "/src/state/state-type.js"
 
 type ObservedProps = {
     secret?: string;
@@ -11,25 +11,24 @@ type ObservedProps = {
     isUnrestricted?: boolean;
 }
 
-const getObservedProps = (state: StateHolder<GmkState>): ObservedProps => {
-    return {
-        secret: state.value.secretValue,
-        salt: state.value.saltValue,
-        passwordOptions: state.value.passwordGeneration,
-        isUnrestricted: state.value.userPreferences.sensitive.unrestrictedMode,
+export class SecretChangedSideEffect implements SideEffect<GmkState> {
+    diffMatcher(state: GmkState): string {
+        return JSON.stringify({
+            secret: state.secretValue,
+            salt: state.saltValue,
+            passwordOptions: state.passwordGeneration,
+            isUnrestricted: state.userPreferences.sensitive.unrestrictedMode,
+        } as ObservedProps)
     }
-}
-
-export class SecretChangedSideEffect implements SideEffect {
     lastObservedProps?: string;
 
-    stateChangedInMeantime = (currentState: StateHolder<GmkState>) => this.lastObservedProps !== JSON.stringify(getObservedProps(currentState));
+    stateChangedInMeantime = (currentState: StateHolder<GmkState>) => this.lastObservedProps !== this.diffMatcher(currentState.value);
 
-    processSecret(stateFn: GetStateFn) {
-        let stateSelectors = new StateSelectors(stateFn);
+    processSecret(stateFn: GetStateFn<GmkState>) {
+        let stateSelectors = new StateSelectors(() => stateFn().value);
         let currentState = stateFn();
         if (this.stateChangedInMeantime(currentState) && !currentState.value.passwordGenerating) {
-            this.lastObservedProps = JSON.stringify(getObservedProps(currentState));
+            this.lastObservedProps = this.diffMatcher(currentState.value);
             if (stateSelectors.formOk()) {
                 currentState.value.passwordGenerating = true;
                 currentState.value.passwordValue = '';
@@ -72,7 +71,7 @@ export class SecretChangedSideEffect implements SideEffect {
         }
     }
 
-    run(stateFn: GetStateFn): void {
+    run(stateFn: GetStateFn<GmkState>): void {
         this.processSecret(stateFn);
     }
 }

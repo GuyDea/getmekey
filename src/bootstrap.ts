@@ -11,9 +11,9 @@ import {state} from "/src/state/state-holder.js";
 export class Bootstrap {
     public static runBootstrap(){
         IndexElements.secretInput().focus();
+        SideEffects.initialize();
         IndexListeners.initialize();
         IndexRenderer.initialize();
-        SideEffects.initialize();
         Router.initialize();
         this._tryToRestoreSecret();
     }

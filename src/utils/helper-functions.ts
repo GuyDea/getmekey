@@ -1,6 +1,8 @@
 /*
 Tag functions used to denote purpose of used template literal - behave the same as regular template literal
  */
+import {state} from "/src/state/state-holder.js"
+
 export function html(strings: TemplateStringsArray, ...expressions: any[]): string {
     return _returnUnchanged(strings, ...expressions);
 }
@@ -60,4 +62,8 @@ export function toggleDisabledPanel(element: AnyElement, disable: boolean) {
     setClassIfTrue(disable, element, 'disabled');
     setAttrIfTrue(disable, element, 'disabled');
     element.querySelectorAll('input, button, a').forEach(input => setAttrIfTrue(disable, input, 'disabled'));
+}
+
+export function toggleHiddenPanel(element: AnyElement, hidden: boolean) {
+    (element as any).style.display = hidden ? 'none' : '';
 }
