@@ -19,5 +19,6 @@ export class IndexListeners {
                 .catch(() => toastService.addToast('Failed To Copy', "ERROR"));
         })
         IndexElements.addRecalledButton().addEventListener('click', () => recallService.storeToRecalled());
+        IndexElements.clearButton().addEventListener('click', () => recallService.removeRecalled());
     }
 }

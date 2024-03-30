@@ -22,6 +22,7 @@ export class IndexElements {
     public static passwordHideToggle = elById('passwordHideToggle');
     public static copyButton = elById('copyButton');
     public static addRecalledButton = elById('addRecalledButton');
+    public static clearButton = elById('clearButton');
     public static dotLoader = elById('dotLoader');
     public static dotsLoading = elById('dots-loading');
     public static algoTypeNote = elById('algoTypeNote');

@@ -11,12 +11,14 @@ export type Subscriber<T> = {
 
 type Callback<T> = (state: T) => void;
 
+export type DiffMatcher<T> = (state: T) => string;
+
 type SubscriberOptions<T> = {
     /**
      * Only listen to changes, if serialized string value differs between emissions
      * @param state
      */
-    diffMatcher?: (state: T) => string,
+    diffMatcher?: DiffMatcher<T>,
     dispatchImmediately?: boolean,
     debugId?: string;
 }

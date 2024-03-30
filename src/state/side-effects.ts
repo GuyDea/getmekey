@@ -2,7 +2,6 @@ import {StateHolder, state} from "./state-holder.js"
 import {SecretChangedSideEffect} from "/src/state/side-effects/secret-changed-side-effect.js";
 import {PreferencesSaveSideEffect} from "/src/state/side-effects/preferences-save-side-effect.js";
 import {GmkState} from "/src/state/state-type.js"
-import {RecalledSideEffect} from "/src/state/side-effects/recalled-side-effect.js";
 
 export type GetStateFn<T> = () => StateHolder<T>;
 
@@ -18,7 +17,6 @@ export class SideEffects {
         ([
             new SecretChangedSideEffect(),
             new PreferencesSaveSideEffect(),
-            new RecalledSideEffect()
         ] as SideEffect<GmkState>[])
             .forEach(e => effectVsOldValue.set(e, e.diffMatcher(state.value)))
 

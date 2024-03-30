@@ -24,8 +24,8 @@ export class Persistence {
         return val ? JSON.parse(val) : null;
     }
 
-    public static removeFromStorage(address: Address){
-        localStorage.removeItem(`${this.VERSION}_${address}`)
+    public static removeFromStorage(address: Address, suffix?: string){
+        localStorage.removeItem(`${this.VERSION}_${address}${suffix ? `_${suffix}` : ''}`)
     }
 
     public static getFromCookie<T>(name: CookieName): T | null {

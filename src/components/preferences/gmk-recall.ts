@@ -13,7 +13,6 @@ export class GmkRecall extends HTMLElement {
     private _minutesPanel = comp(this, '#minutesPanel');
     private _rememberAndCopyPanel = comp(this, '#rememberAndCopyPanel');
     private _copy = comp<HTMLInputElement>(this,'#copy');
-    private _copyLine = comp(this, '#copyLine');
 
     constructor() {
         super();
@@ -32,7 +31,6 @@ export class GmkRecall extends HTMLElement {
             this._minutesRange().value = opts().rememberDurationM.toString();
             this._copy().checked = opts().copyOnRecall;
             this._allowRecall().checked = opts().allowRecall;
-            toggleDisabledPanel(this._copyLine(), !s.userPreferences.recall.allowRecall);
             toggleDisabledPanel(this._rememberAndCopyPanel(), !s.userPreferences.recall.allowRecall);
             toggleDisabledPanel(this._minutesPanel(), !s.userPreferences.recall.remember || !s.userPreferences.recall.allowRecall);
         }, {
@@ -74,7 +72,7 @@ export class GmkRecall extends HTMLElement {
                             mins
                             <input id="minutesRange" type="range">
                         </div>
-                        <div id="copyLine" class="line lineCenter disableable">
+                        <div class="line lineCenter disableable">
                             <input type="checkbox" id="copy"><label for="copy">Copy On Recalled</label>
                         </div>
                     </div>
