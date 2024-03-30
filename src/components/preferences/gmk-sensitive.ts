@@ -17,8 +17,11 @@ export class GmkSensitive extends HTMLElement {
 
     constructor() {
         super();
-        const opts = () => state.value.userPreferences.sensitive;
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
+    }
+
+    connectedCallback() {
+        const opts = () => state.value.userPreferences.sensitive;
         this._remember().addEventListener('input', () => state.update(s => opts().remember = this._remember().checked));
         this._unrestricted().addEventListener('input', () => state.update(s => opts().unrestrictedMode = this._unrestricted().checked));
         this._subs.push(state.subscribe(s => {
@@ -39,6 +42,7 @@ export class GmkSensitive extends HTMLElement {
         }));
         this._minutesRange().addEventListener('input', () => state.update(s => opts().rememberDurationM = Number(this._minutesRange().value)));
         this._minutes().addEventListener('change', () => state.update(s => opts().rememberDurationM = fixVal(opts().minRememberDurationM, opts().maxRememberDurationM, this._minutes())));
+
     }
 
     disconnectedCallback() {

@@ -11,8 +11,11 @@ export class GmkConvenience extends HTMLElement {
 
     constructor() {
         super();
-        const opts = () => state.value.userPreferences.convenience;
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
+    }
+
+    connectedCallback() {
+        const opts = () => state.value.userPreferences.convenience;
         this._copy().addEventListener('input', () => state.update(s => opts().copyOnRecall = this._copy().checked));
         this._subs.push(state.subscribe(s => {
             this._copy().checked = opts().copyOnRecall;

@@ -12,6 +12,9 @@ export class GmkPbkdf2Options extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
+    }
+
+    connectedCallback(){
         const opts = () => state.value.passwordGeneration.algoOptions.pbkdf2;
         this._subs.push(state.subscribe(s => {
             this._iterationsRangeComp().setAttribute('min', opts().minIterations.toString());

@@ -14,6 +14,10 @@ export class GmkToast extends HTMLElement {
         this._ttl = ttl ?? 3_000;
         this._severity = severity ?? "INFO";
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
+
+    }
+
+    connectedCallback() {
         this._fuze().addEventListener('animationend', () => {
             this._removed = true;
             const height = this.clientHeight;
@@ -22,8 +26,8 @@ export class GmkToast extends HTMLElement {
                     {height: '0', transform: `translateY(-${height}px)`, opacity: '0', marginBottom: 0}
                 ],
                 {
-                duration: 300, fill: "forwards", easing: 'linear'
-            }).finished.then(() => this._close())
+                    duration: 300, fill: "forwards", easing: 'linear'
+                }).finished.then(() => this._close())
         })
     }
 

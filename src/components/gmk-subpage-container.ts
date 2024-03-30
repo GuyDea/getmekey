@@ -6,10 +6,14 @@ export class GmkSubpageContainer extends HTMLElement{
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
+    }
+
+    connectedCallback() {
         this.shadowRoot!.querySelector('#backButton')!.addEventListener('click', () => {
             Router.canGoBack() ? history.back() : Router.handleRoute('')
         })
     }
+
     private styles = css`
         :host {
             --header-height: 1.5rem;

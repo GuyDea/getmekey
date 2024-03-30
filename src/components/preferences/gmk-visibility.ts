@@ -12,8 +12,11 @@ export class GmkVisibility extends HTMLElement {
     
     constructor() {
         super();
-        const opts = () => state.value.userPreferences.visibility;
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
+    }
+
+    connectedCallback() {
+        const opts = () => state.value.userPreferences.visibility;
         this._topSecret().addEventListener('input', () => state.update(s => opts().topSecret = this._topSecret().checked));
         this._hideInfo().addEventListener('input', () => state.update(s => opts().hideInfo = this._hideInfo().checked));
         this._subs.push(state.subscribe(s => {

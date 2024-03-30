@@ -14,8 +14,11 @@ export class GmkSaving extends HTMLElement {
 
     constructor() {
         super();
-        const opts = () => state.value.userPreferences.saving;
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
+    }
+
+    connectedCallback() {
+        const opts = () => state.value.userPreferences.saving;
         this._allowRecall().addEventListener('input', () => state.update(s => opts().allowRecall = this._allowRecall().checked));
         this._hashForm().addEventListener('change', ev => state.update(s => opts().rememberHash = (ev.target as HTMLInputElement).getAttribute('id') as any));
         this._subs.push(state.subscribe(s => {

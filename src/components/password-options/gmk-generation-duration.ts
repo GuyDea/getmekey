@@ -13,6 +13,10 @@ export class GmkGenerationDuration extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
+
+    }
+
+    connectedCallback(){
         this._subs.push(state.subscribe(s => {
             this._error().style.display = 'none';
             this._duration().style.display = 'none';

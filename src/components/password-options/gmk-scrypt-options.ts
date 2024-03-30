@@ -18,6 +18,10 @@ export class GmkScryptOptions extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
+
+    }
+
+    connectedCallback(){
         const opts = () => state.value.passwordGeneration.algoOptions.scrypt;
         this._subs.push(state.subscribe(s => {
             this._blockRangeComp().setAttribute('min', opts().minBlock.toString());

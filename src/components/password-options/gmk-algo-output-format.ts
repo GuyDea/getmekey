@@ -13,6 +13,9 @@ export class GmkAlgoOutputFormat extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
+    }
+
+    connectedCallback(){
         const opts = () => state.value.passwordGeneration.outputOptions;
         this._subs.push(state.subscribe(s => {
         }, {
