@@ -7,7 +7,7 @@ import '/src/components/password-options/gmk-algo-output-format.js';
 import '/src/components/preferences/gmk-visibility.js';
 import '/src/components/preferences/gmk-saving.js';
 import '/src/components/preferences/gmk-sensitive.js';
-import '/src/components/preferences/gmk-convenience.js';
+import '/src/components/preferences/gmk-recall.js';
 
 export class GmkPreferencesPage extends HTMLElement {
     constructor() {
@@ -22,8 +22,8 @@ export class GmkPreferencesPage extends HTMLElement {
                 <span slot="headerText">User Preferences</span>
                 <div slot="content" class="settingsColumn">       
                     <gmk-visibility></gmk-visibility>
+                    <gmk-recall></gmk-recall>
                     <gmk-saving></gmk-saving>
-                    <gmk-convenience></gmk-convenience>
                     <gmk-sensitive></gmk-sensitive>
                 </div>
             </gmk-subpage-container>

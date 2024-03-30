@@ -7,10 +7,8 @@ import {GmkState} from "/src/state/state-type.js"
 
 export class GmkSaving extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];
-    private _allowRecall = comp<HTMLInputElement>(this,'#allowRecall');
-    private _onRecallSpan = comp<HTMLSpanElement>(this,'#onRecallSpan');
-    private _onRecallInput = comp<HTMLInputElement>(this,'#onRecall');
     private _hashForm = comp<HTMLFormElement>(this,'#hashForm');
+    private _onRecallSpan = comp<HTMLSpanElement>(this,'#onRecallSpan');
 
     constructor() {
         super();
@@ -19,20 +17,18 @@ export class GmkSaving extends HTMLElement {
 
     connectedCallback() {
         const opts = () => state.value.userPreferences.saving;
-        this._allowRecall().addEventListener('input', () => state.update(s => opts().allowRecall = this._allowRecall().checked));
         this._hashForm().addEventListener('change', ev => state.update(s => opts().rememberHash = (ev.target as HTMLInputElement).getAttribute('id') as any));
         this._subs.push(state.subscribe(s => {
-            this._allowRecall().checked = opts().allowRecall;
-            if(!opts().allowRecall && opts().rememberHash === "onRecall"){
+            const allowRecall = state.value.userPreferences.recall.allowRecall;
+            if(!allowRecall && opts().rememberHash === "onRecall"){
                 opts().rememberHash = 'never';
                 state.notifyChange();
                 return;
             }
-            setClassIfTrue(!opts().allowRecall, this._onRecallSpan(), 'disabled');
-            setAttrIfTrue(!opts().allowRecall, this._onRecallInput(), 'disabled');
+            setClassIfTrue(!allowRecall, this._onRecallSpan(), 'disabled');
             comp<HTMLInputElement>(this, `#${opts().rememberHash}`)().checked = true;
         }, {
-            diffMatcher: s => JSON.stringify(s.userPreferences.saving),
+            diffMatcher: s => JSON.stringify({saving: s.userPreferences.saving, recall: s.userPreferences.recall}),
             dispatchImmediately: true
         }))
     }
@@ -55,14 +51,9 @@ export class GmkSaving extends HTMLElement {
         return html`
             <style>${globalStyles}${this._styles()}</style>
             <gmk-title-panel>
-                <span slot="title">Saving</span>
+                <span slot="title">Remember <a href="/hash-settings">Hash Settings</a></span>
                 <div slot="content" class="settingsColumn">
-                    <div class="line lineCenter">
-                        <input type="checkbox" id="allowRecall"><label for="allowRecall">Allow
-                        Secret Recall</label>
-                    </div>
-                    <div class="hashSettingsPanel">
-                        <label class="collapsedLabel">Remember <a href="/hash-settings">Hash Settings</a></label>
+                    <div class="hashSettingsPanel">                        
                         <form id="hashForm" class="lineRadios">
                             <span>
                                 <input type="radio" name="remember" id="never"/><label

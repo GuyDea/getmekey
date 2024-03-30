@@ -22,14 +22,12 @@ export class GmkPbkdf2Options extends HTMLElement {
             this._iterationsComp().value = opts().iterations.toString();
             this._iterationsRangeComp().value = opts().iterations.toString();
             comp(this, `#${opts().hash}`)().setAttribute('checked', '');
-            comp(this, `#length${opts().length}`)().setAttribute('checked', '');
         }, {
             diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.pbkdf2),
             dispatchImmediately: true
         }));
         this._iterationsRangeComp().addEventListener('input', () => state.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
         this._iterationsComp().addEventListener('change', () => state.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
-        comp(this, '#lengthForm')().addEventListener('change', (ev) => state.update(() => opts().length = Number((ev.target as HTMLInputElement).getAttribute('value')) as any));
         comp(this, '#shaForm')().addEventListener('change', (ev) => state.update(() => opts().hash = (ev.target as HTMLInputElement).getAttribute('id') as any));
     }
 
@@ -69,21 +67,7 @@ export class GmkPbkdf2Options extends HTMLElement {
                                         for="SHA-512">SHA-512</label>
                             </span>
                         </form>
-                    </div>
-                    <div class="line">
-                        <label>Length</label>
-                        <form id="lengthForm" class="lineRadios">
-                            <span>
-                                <input type="radio" name="length" id="length128" value="128"/><label
-                                    for="length128">128</label>
-                            </span>
-                            <span>
-                                <input type="radio" name="length" id="length256" value="256"/><label
-                                    for="length256">256</label>
-                            </span>
-                        </form>
-
-                    </div>
+                    </div>                    
                 </div>
             </gmk-title-panel>
         `

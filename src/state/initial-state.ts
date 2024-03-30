@@ -2,29 +2,30 @@ import {Persistence} from "/src/services/storage/persistence.js";
 import {GmkState, UserPreferencesOptions} from "/src/state/state-type.js"
 
 const defaultUserPreferences: UserPreferencesOptions = {
-    convenience: {
-        copyOnRecall: false
-    },
     saving: {
-        rememberHash: 'never',
-        allowRecall: false
+        rememberHash: 'never'
     },
     sensitive: {
         unrestrictedMode: false,
-        rememberDurationM: 60,
-        remember: false,
-        minRememberDurationM: 1,
-        maxRememberDurationM: 1440
     },
     visibility: {
         hideInfo: false,
         topSecret: false
+    },
+    recall: {
+        rememberDurationM: 60,
+        remember: false,
+        minRememberDurationM: 1,
+        maxRememberDurationM: 1440,
+        copyOnRecall: false,
+        allowRecall: false
     }
 }
 
 export const initState: GmkState = {
     secretValue: '',
     secretShow: false,
+    secretRecalled: false,
     saltShow: false,
     saltValue: '',
     passwordShow: false,
@@ -51,9 +52,9 @@ export const initState: GmkState = {
             pbkdf2: {
                 iterations: 1,
                 hash: "SHA-256",
-                length: 128,
+                length: 256,
                 minIterations: 1,
-                maxIterations: 131072
+                maxIterations: 1000000
             },
             argon2: {
                 iterations: 1,
@@ -74,7 +75,7 @@ export const initState: GmkState = {
                 cost: 1,
                 block: 1,
                 parallel: 1,
-                length: 16,
+                length: 256,
                 minCost: 1,
                 minBlock: 1,
                 minParallel: 1,

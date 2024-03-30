@@ -10,8 +10,6 @@ export class GmkScryptOptions extends HTMLElement {
     private _parallelRangeComp = comp<HTMLInputElement>(this, '#parallelRange');
     private _costComp = comp<HTMLInputElement>(this, '#cost');
     private _costRangeComp = comp<HTMLInputElement>(this, '#costRange');
-    private _lengthComp = comp<HTMLInputElement>(this, '#length');
-    private _lengthRangeComp = comp<HTMLInputElement>(this, '#lengthRange');
     private _costPowComp = comp<HTMLInputElement>(this, '#costPow');
     private _subs: Subscriber<GmkState>[] = [];
 
@@ -36,10 +34,6 @@ export class GmkScryptOptions extends HTMLElement {
             this._costRangeComp().setAttribute('max', opts().maxCost.toString());
             this._costComp().value = opts().cost.toString();
             this._costRangeComp().value = opts().cost.toString();
-            this._lengthRangeComp().setAttribute('min', opts().minLength.toString());
-            this._lengthRangeComp().setAttribute('max', opts().maxLength.toString());
-            this._lengthComp().value = opts().length.toString();
-            this._lengthRangeComp().value = opts().length.toString();
             this._costPowComp().innerHTML = Math.pow(2, opts().cost).toString()
 
         }, {
@@ -53,8 +47,6 @@ export class GmkScryptOptions extends HTMLElement {
         this._parallelComp().addEventListener('change', () => state.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())));
         this._costRangeComp().addEventListener('input', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costRangeComp())));
         this._costComp().addEventListener('change', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())));
-        this._lengthRangeComp().addEventListener('input', () => state.update(s => opts().length = Number(this._lengthRangeComp().value)));
-        this._lengthComp().addEventListener('change', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
     }
 
     disconnectedCallback() {
@@ -89,11 +81,6 @@ export class GmkScryptOptions extends HTMLElement {
                         <label for="parallel">Parallel</label>
                         <input id="parallel" type="number" class="short">
                         <input id="parallelRange" type="range">
-                    </div>
-                    <div class="line lineCenter">
-                        <label for="length">Length</label>
-                        <input id="length" type="number" class="short">
-                        <input id="lengthRange" type="range">
                     </div>
                     <div class="line lineCenter">
                         <label for="block">Block</label>

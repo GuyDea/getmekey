@@ -367,6 +367,14 @@
             top: 0;
             margin: 1rem;
         }
+        .recallPanel {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin-top: .5rem;
+            gap: .3rem;
+            align-items: center;
+        }
 
     </style>
     <style id="baseStyles">
@@ -628,18 +636,21 @@
             <div style="margin-top: 10px; display: flex; gap: .5rem;">
                 <button id="copyButton" class="gmkButton gmkButtonPrimary disableable disabled" needValidPassword disabled>Copy</button>
             </div>
-            <div style="margin-top: 10px; display: flex; gap: .5rem; justify-content: center; align-items: center">
-                Recalled
-                <button id="clearButton" class="gmkButton gmkButtonDanger disableable disabled" style="font-size: .8rem" needRecalled disabled>Remove</button>
-                <button id="addRecalledButton" class="gmkButton gmkButtonSecondary" style="font-size: .8rem" >Add</button>
+            <div class="recallPanel" needRecalledEnabled>
+                Secret Recall
+                <div style="display: flex; gap: .5rem; justify-content: center; align-items: center">
+                    <button id="clearButton" class="gmkButton gmkButtonDanger disableable disabled" style="font-size: .9rem" disabled needRecalled>Remove</button>
+                    <button id="addRecalledButton" class="gmkButton gmkButtonSecondary disableable disabled" style="font-size: .9rem" disabled needValidSecret>Add</button>
+                </div>
             </div>
+
         </div>
         <div class="useDisclaimer">
             <strong>Disclaimer:</strong> Use GetMeKey At Own Risk
         </div>
         <div class="footer">
-            <div class="footerItem">Full Disclaimer</div>
             <div class="footerItem">About GetMeKey</div>
+            <div class="footerItem">Full Disclaimer</div>
         </div>
         <div class="lastLine">
             <div class="appVersion">

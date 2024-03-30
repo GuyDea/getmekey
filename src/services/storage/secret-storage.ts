@@ -16,7 +16,7 @@ export class SecretStorage {
     public static async storeSecret(secret: string){
         const passphrase1 = generateRandomPassphrase(20);
         const passphrase2 = generateRandomPassphrase(20);
-        const expiryDate = new Date(new Date().getTime() + state.value.userPreferences.sensitive.rememberDurationM * 60 * 1000);
+        const expiryDate = new Date(new Date().getTime() + state.value.userPreferences.recall.rememberDurationM * 60 * 1000);
         const encrypted = await encryptSecret<StoredSecret>({secret, expiryDate}, passphrase1, passphrase2);
         Persistence.addToCookie("SESSION_KEY", passphrase1);
         Persistence.addToCookie("DURATION_KEY", passphrase2, expiryDate);

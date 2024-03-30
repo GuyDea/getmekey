@@ -55,8 +55,10 @@ export class IndexRenderer {
         IndexElements.firstCharactersNote().innerHTML = state.value.passwordGeneration.outputOptions.takeFirst.toString();
         IndexElements.securityTextNote().innerHTML = state.value.passwordGeneration.outputOptions.securityText;
         IndexElements.securityTextPositionNote().innerHTML = state.value.passwordGeneration.outputOptions.securityTextPosition;
+        document.body.querySelectorAll('[needRecalled]').forEach(e => toggleDisabledPanel(e, !state.value.secretRecalled));
         document.body.querySelectorAll('[needValidForm]').forEach(e => toggleDisabledPanel(e, !formOk));
         document.body.querySelectorAll('[needValidSecret]').forEach(e => toggleDisabledPanel(e, !stateSelectors.isSecretOk()));
         document.body.querySelectorAll('[needValidPassword]').forEach(e => toggleDisabledPanel(e, !state.value.passwordValue));
+        document.body.querySelectorAll('[needRecalledEnabled]').forEach(e => (e as HTMLElement).style.display = state.value.userPreferences.recall.allowRecall ? '' : 'none');
     }
 }

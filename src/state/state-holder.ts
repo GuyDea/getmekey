@@ -1,5 +1,6 @@
 import {initState} from "/src/state/initial-state.js";
 import {GmkState} from "/src/state/state-type.js"
+import {Persistence} from "/src/services/storage/persistence.js"
 
 
 export type Subscriber<T> = {
@@ -20,12 +21,16 @@ type SubscriberOptions<T> = {
     debugId?: string;
 }
 
+export type ErrorHandler = (error: any) => void;
+
 export class StateHolder<T> {
     public value;
     private subscribers: Set<Subscriber<T>> = new Set();
+    private _errorHandler
 
-    constructor(value: T) {
+    constructor(value: T, errorHandler?: ErrorHandler) {
         this.value = value;
+        this._errorHandler = errorHandler;
     }
 
     public notifyChange() {
@@ -48,13 +53,20 @@ export class StateHolder<T> {
     }
 
     public subscribe(callback: Callback<T>, options?: SubscriberOptions<T>){
-        const subscriber: Subscriber<T> = {callback, options};
+        const cachedCallback = (value: T) => {
+            try {
+                callback(value)
+            }catch (e){
+                this._errorHandler?.(e);
+            }
+        }
+        const subscriber: Subscriber<T> = {callback: cachedCallback, options};
         this.subscribers.add(subscriber);
         if(options?.dispatchImmediately){
             if(options.diffMatcher){
                 subscriber.previousDiffValue = options.diffMatcher(this.value);
             }
-            callback(this.value);
+            subscriber.callback(this.value);
         }
         return subscriber;
     }
@@ -64,5 +76,14 @@ export class StateHolder<T> {
     }
 }
 
-export const state = new StateHolder<GmkState>(initState);
+export const state = new StateHolder<GmkState>(initState, error => {
+    // If there is some error, it's probably caused by outdated format of local storage
+    // Makeshift solution for now is to just clear that up completely
+    if(Persistence.getFromStorage("USER_PREFERENCES")){
+        Persistence.removeFromStorage("USER_PREFERENCES");
+        location.reload();
+    }
+
+    throw error
+});
 (window as any).state = state;

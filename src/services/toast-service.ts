@@ -15,8 +15,6 @@ export class ToastService {
     constructor(toastPanel: HTMLElement) {
         this._toastPanel = toastPanel;
         this._toastPanel.style.cssText = css`position: fixed; top: 0; z-index: 9999; display: flex; flex-direction: column; padding-top: 1rem; align-items: center`;
-        this.addToast('Copied');
-        this.addToast('Recalled');
     }
 
     public addToast(message: string, severity?: ToastSeverity, ttl?: number){

@@ -6,22 +6,22 @@ import type {Argon2Options} from "/src/hash-algos/argon2-algo.js"
 export type UserPreferencesOptions = {
     visibility: VisibilityOptions;
     sensitive: SensitiveOptions;
-    convenience: ConvenienceOptions;
     saving: SavingOptions;
+    recall: RecallOptions;
 }
-export type SavingOptions = {
+export type RecallOptions = {
     allowRecall: boolean;
-    rememberHash: 'never' | 'always' | 'onRecall';
-}
-export type ConvenienceOptions = {
-    copyOnRecall: boolean;
-}
-export type SensitiveOptions = {
-    unrestrictedMode: boolean;
     rememberDurationM: number;
     minRememberDurationM: number;
     maxRememberDurationM: number;
     remember: boolean;
+    copyOnRecall: boolean;
+}
+export type SavingOptions = {
+    rememberHash: 'never' | 'always' | 'onRecall';
+}
+export type SensitiveOptions = {
+    unrestrictedMode: boolean;
 }
 type VisibilityOptions = {
     topSecret: boolean;
@@ -49,6 +49,7 @@ export type PasswordOutputOptions = {
 export type GmkState = {
     secretValue: string;
     secretShow: boolean;
+    secretRecalled: boolean;
     saltValue: string;
     saltShow: boolean;
     passwordShow: boolean;
