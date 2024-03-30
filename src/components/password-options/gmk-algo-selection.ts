@@ -12,12 +12,16 @@ import {Algo, GmkState} from "/src/state/state-type.js"
 
 export class GmkAlgoSelection extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];
+    private _shadowRoot?: ShadowRoot;
 
     constructor() {
         super();
-        const shadowRoot = this.attachShadow({mode: 'open'});
+        this._shadowRoot = this.attachShadow({mode: 'open'});
+    }
+
+    connectedCallback(){
         this._subs.push(state.subscribe(s => {
-            shadowRoot.innerHTML = this.render();
+            this._shadowRoot!.innerHTML = this.render();
             const algoOptions = comp(this, '#algoOptions');
             comp(this, '#algoSelectionPanel')().addEventListener('change', ev => {
                 const selectedAlgo = (ev.target as HTMLInputElement).getAttribute('id')! as Algo;

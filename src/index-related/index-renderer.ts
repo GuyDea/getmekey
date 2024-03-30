@@ -50,8 +50,6 @@ export class IndexRenderer {
 
         setAttrIfTrue(state.value.passwordShow, IndexElements.finalPassword(), 'type', 'text', 'password');
         setAttrIfTrue(!state.value.passwordGenerating, IndexElements.dotLoader(), 'off');
-        setAttrIfTrue(!state.value.passwordValue, IndexElements.addRecalledButton(), 'disabled');
-        setClassIfTrue(!state.value.userPreferences.saving.allowRecall, IndexElements.addRecalledButton(), 'hidden');
         IndexElements.finalPassword().value = state.value.passwordValue;
         IndexElements.algoTypeNote().innerHTML = state.value.passwordGeneration.selectedAlgo;
         IndexElements.firstCharactersNote().innerHTML = state.value.passwordGeneration.outputOptions.takeFirst.toString();

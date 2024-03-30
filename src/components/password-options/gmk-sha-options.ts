@@ -9,6 +9,9 @@ export class GmkShaOptions extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
+    }
+
+    connectedCallback(){
         comp(this, '#versionForm')().addEventListener('change', ev => {
             state.value.passwordGeneration.algoOptions.sha.version = (ev.target as HTMLInputElement).getAttribute('id') as any;
             state.notifyChange();

@@ -17,7 +17,6 @@ type SubscriberOptions<T> = {
      */
     diffMatcher?: (state: T) => string,
     dispatchImmediately?: boolean,
-    consumeAsync?: boolean;
     debugId?: string;
 }
 
@@ -35,10 +34,10 @@ export class StateHolder<T> {
                 let currentMatcherResult = s.options?.diffMatcher(this.value);
                 if(currentMatcherResult !== s.previousDiffValue){
                     s.previousDiffValue = currentMatcherResult;
-                    s.options.consumeAsync ? setTimeout(() => s.callback(this.value)): s.callback(this.value);
+                    s.callback(this.value);
                 }
             } else {
-                s.options?.consumeAsync ? setTimeout(() => s.callback(this.value)): s.callback(this.value);
+                s.callback(this.value);
             }
         });
     }
@@ -52,7 +51,10 @@ export class StateHolder<T> {
         const subscriber: Subscriber<T> = {callback, options};
         this.subscribers.add(subscriber);
         if(options?.dispatchImmediately){
-            options.consumeAsync ? setTimeout(() => callback(this.value)) : callback(this.value);
+            if(options.diffMatcher){
+                subscriber.previousDiffValue = options.diffMatcher(this.value);
+            }
+            callback(this.value);
         }
         return subscriber;
     }

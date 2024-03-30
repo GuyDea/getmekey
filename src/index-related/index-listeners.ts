@@ -1,6 +1,7 @@
 import {IndexElements} from './index-elements.js';
 import {state} from "../state/state-holder.js"
 import {SecretStorage} from "/src/services/storage/secret-storage.js";
+import {toastService} from "/src/services/toast-service.js"
 
 export class IndexListeners {
     public static initialize(){
@@ -20,7 +21,7 @@ export class IndexListeners {
                 });
         })
         IndexElements.addRecalledButton().addEventListener('click', () => {
-
+            toastService.addToast('test')
         });
     }
 }
