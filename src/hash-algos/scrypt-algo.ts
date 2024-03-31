@@ -2,7 +2,7 @@ import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
 // @ts-ignore
 import {scrypt} from "/lib/scrypt/scrypt-async.js";
 
-import {GmkState} from "/src/state/state-type.js"
+import {GmkState} from "/src/state/gmk-state-type.js"
 
 export default function create() {
     return new ScryptAlgo();

@@ -18,7 +18,7 @@ export class IndexListeners {
             navigator.clipboard.writeText(state.value.passwordValue)
                 .catch(() => toastService.addToast('Failed To Copy', "ERROR"));
         })
-        IndexElements.addRecalledButton().addEventListener('click', () => recallService.storeToRecalled());
+        IndexElements.setRecalledButton().addEventListener('click', () => recallService.storeToRecalled());
         IndexElements.clearButton().addEventListener('click', () => recallService.removeRecalled());
     }
 }

@@ -1,6 +1,6 @@
 import {type IHashAlgorithm} from "./hash-algo-types.js";
 
-import {GmkState} from "/src/state/state-type.js"
+import {GmkState} from "/src/state/gmk-state-type.js"
 
 export default function create() {
     return new Pbkdf2Algo();

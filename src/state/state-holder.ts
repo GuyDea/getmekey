@@ -1,6 +1,6 @@
 import {initState} from "/src/state/initial-state.js";
-import {GmkState} from "/src/state/state-type.js"
-import {Persistence} from "/src/services/storage/persistence.js"
+import {GmkState} from "/src/state/gmk-state-type.js"
+import {Persistence} from "/src/services/persistence.js"
 
 
 export type Subscriber<T> = {

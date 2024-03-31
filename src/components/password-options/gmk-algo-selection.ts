@@ -8,7 +8,7 @@ import '/src/components/password-options/gmk-scrypt-options.js';
 import {globalStyles} from "/src/styles/global-styles.js";
 import {state, Subscriber} from "/src/state/state-holder.js";
 import '/src/components/password-options/gmk-generation-duration.js';
-import {Algo, GmkState} from "/src/state/state-type.js"
+import {Algo, GmkState} from "/src/state/gmk-state-type.js"
 
 export class GmkAlgoSelection extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];

@@ -1,5 +1,5 @@
-import {Persistence} from "/src/services/storage/persistence.js";
-import {GmkState, UserPreferencesOptions} from "/src/state/state-type.js"
+import {Persistence} from "/src/services/persistence.js";
+import {GmkState, UserPreferencesOptions} from "/src/state/gmk-state-type.js"
 
 const defaultUserPreferences: UserPreferencesOptions = {
     saving: {

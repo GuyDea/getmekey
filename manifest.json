@@ -3,7 +3,7 @@
   "description": "Password generating utility",
   "version": "1.0.0",
   "manifest_version": 3,
-  "permissions": [],
+  "permissions": ["clipboardWrite", "clipboardRead"],
   "action": {
     "default_title": "GetMeKey",
     "default_icon": "static/icons/gmk_icon_128.png",

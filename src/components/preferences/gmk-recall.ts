@@ -2,7 +2,7 @@ import {comp, css, fixVal, html, toggleDisabledPanel} from "/src/utils/helper-fu
 import '/src/components/gmk-title-panel.js';
 import {globalStyles} from "/src/styles/global-styles.js";
 import {state, Subscriber} from "/src/state/state-holder.js"
-import {GmkState} from "/src/state/state-type.js"
+import {GmkState} from "/src/state/gmk-state-type.js"
 
 export class GmkRecall extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];

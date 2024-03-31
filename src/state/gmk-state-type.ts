@@ -3,6 +3,23 @@ import type {ShaOptions} from "/src/hash-algos/sha-algo.js"
 import type {ScryptOptions} from "/src/hash-algos/scrypt-algo.js"
 import type {Argon2Options} from "/src/hash-algos/argon2-algo.js"
 
+export type GmkState = {
+    secretValue: string;
+    secretShow: boolean;
+    secretRecalled: boolean;
+    saltValue: string;
+    saltShow: boolean;
+    passwordShow: boolean;
+    passwordValue: string;
+    passwordGenerating: boolean;
+    generationSpeed: number | null;
+    passwordGenerationError: string | null;
+    secretExpiryDate: Date | null;
+    userPreferences: UserPreferencesOptions;
+    passwordGeneration: PasswordGenerationOptions;
+    internals: InternalOptions;
+}
+
 export type UserPreferencesOptions = {
     visibility: VisibilityOptions;
     sensitive: SensitiveOptions;
@@ -27,7 +44,9 @@ type VisibilityOptions = {
     topSecret: boolean;
     hideInfo: boolean;
 }
+
 export type Algo = 'SHA' | 'PBKDF2' | 'Argon2' | 'Scrypt';
+
 export type PasswordGenerationOptions = {
     selectedAlgo: Algo,
     algoOptions: {
@@ -46,23 +65,6 @@ export type PasswordOutputOptions = {
     securityText: string,
     securityTextPosition: 'prefix' | 'suffix'
 }
-export type GmkState = {
-    secretValue: string;
-    secretShow: boolean;
-    secretRecalled: boolean;
-    saltValue: string;
-    saltShow: boolean;
-    passwordShow: boolean;
-    passwordValue: string;
-    passwordGenerating: boolean;
-    generationSpeed: number | null;
-    passwordGenerationError: string | null;
-    secretExpiryDate: Date | null;
-    userPreferences: UserPreferencesOptions;
-    passwordGeneration: PasswordGenerationOptions;
-    internals: InternalOptions;
-}
-
 type InternalOptions = {
     enabledAlgos: Algo[];
 }

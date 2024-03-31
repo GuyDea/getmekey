@@ -1,6 +1,6 @@
 import {decryptData, encryptData, generateRandomPassphrase} from "/src/utils/crypto-functions.js";
 import {state} from "/src/state/state-holder.js";
-import {Persistence} from "/src/services/storage/persistence.js";
+import {Persistence} from "/src/services/persistence.js";
 
 export type StoredSecret = {
     secret: string;
@@ -12,10 +12,10 @@ export type DecryptedSecret = {
     expiryDate: Date;
 }
 
-export class SecretStorage {
+export class SecretStorageService {
     public static async storeSecret(secret: string){
-        const passphrase1 = generateRandomPassphrase(20);
-        const passphrase2 = generateRandomPassphrase(20);
+        const passphrase1 = generateRandomPassphrase(256);
+        const passphrase2 = generateRandomPassphrase(256);
         const expiryDate = new Date(new Date().getTime() + state.value.userPreferences.recall.rememberDurationM * 60 * 1000);
         const encrypted = await encryptData<StoredSecret>({secret, expiryDate}, passphrase1, passphrase2);
         Persistence.addToCookie("SESSION_KEY", passphrase1);

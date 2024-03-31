@@ -2,7 +2,7 @@ import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
 // @ts-ignore
 import '/lib/argon2/argon2-init.js';
 
-import {GmkState} from "/src/state/state-type.js"
+import {GmkState} from "/src/state/gmk-state-type.js"
 
 declare const argon2: any;
 

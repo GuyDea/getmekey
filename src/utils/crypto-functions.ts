@@ -1,5 +1,5 @@
 const KEY_ITERATIONS = 100000;
-const KEY_LENGTH = 32;
+const KEY_LENGTH = 256;
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
@@ -26,7 +26,7 @@ async function deriveKey(passphrase: string, salt: ArrayBuffer): Promise<ArrayBu
             hash: 'SHA-256',
         },
         passphraseKey,
-        KEY_LENGTH * 8
+        KEY_LENGTH
     );
 }
 
