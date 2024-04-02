@@ -22,6 +22,7 @@ export class IndexListeners {
         IndexElements.passwordHideToggle().addEventListener('click', () => state.update(() => state.value.passwordShow = !state.value.passwordShow));
         IndexElements.copyButton().addEventListener('click', () => {
             navigator.clipboard.writeText(state.value.passwordValue)
+                .then(() => toastService.addToast('Copied To Clipboard'))
                 .catch(() => toastService.addToast('Failed To Copy', "ERROR"));
         })
         IndexElements.setRecalledButton().addEventListener('click', () => recallService.storeToRecalled());

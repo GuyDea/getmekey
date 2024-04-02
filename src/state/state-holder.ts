@@ -90,4 +90,3 @@ export const state = new StateHolder<GmkState>(initState, error => {
 
     throw error
 });
-(window as any).state = state;

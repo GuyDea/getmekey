@@ -23,8 +23,6 @@ export type GmkState = {
 
 export type UserPreferencesOptions = {
     visibility: VisibilityOptions;
-    sensitive: SensitiveOptions;
-    saving: SavingOptions;
     recall: RecallOptions;
 }
 export type RecallOptions = {
@@ -33,13 +31,7 @@ export type RecallOptions = {
     minRememberDurationM: number;
     maxRememberDurationM: number;
     remember: boolean;
-    copyOnRecall: boolean;
-}
-export type SavingOptions = {
-    rememberHash: 'never' | 'always' | 'onRecall';
-}
-export type SensitiveOptions = {
-    unrestrictedMode: boolean;
+    appPrefill: boolean;
 }
 type VisibilityOptions = {
     topSecret: boolean;

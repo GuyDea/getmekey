@@ -22,13 +22,13 @@ export class Bootstrap {
         passwordGenerator.initialize();
     }
 
-    private static _tryToRestoreSecret(){
-        SecretStorageService.retrieveSecret().then(stored => {
-            if(stored?.secret && stored.expiryDate && stored.expiryDate.getTime() > new Date().getTime()){
+    private static _tryToRestoreSecret(): Promise<void>{
+        return SecretStorageService.retrieveSecret().then(stored => {
+            if(typeof stored === 'string'){
                 state.update(s => {
                     s.secretRemembered = true;
-                    s.secretValue = stored.secret;
-                    s.secretExpiryDate = stored.expiryDate;
+                    s.secretValue = stored;
+                    s.secretExpiryDate = new Date(new Date().getTime() + s.userPreferences.recall.rememberDurationM * 60 * 1000);
                     IndexElements.saltInput().focus();
                 })
             } else {

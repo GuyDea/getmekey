@@ -12,7 +12,7 @@ export class GmkRecall extends HTMLElement {
     private _minutesRange = comp<HTMLInputElement>(this, '#minutesRange');
     private _minutesPanel = comp(this, '#minutesPanel');
     private _rememberAndCopyPanel = comp(this, '#rememberAndCopyPanel');
-    private _copy = comp<HTMLInputElement>(this,'#copy');
+    private _appPrefill = comp<HTMLInputElement>(this,'#appPrefill');
 
     constructor() {
         super();
@@ -29,7 +29,7 @@ export class GmkRecall extends HTMLElement {
             this._minutesRange().setAttribute('max', opts().maxRememberDurationM.toString());
             this._minutes().value = opts().rememberDurationM.toString();
             this._minutesRange().value = opts().rememberDurationM.toString();
-            this._copy().checked = opts().copyOnRecall;
+            this._appPrefill().checked = opts().appPrefill;
             this._allowRecall().checked = opts().allowRecall;
             toggleDisabledPanel(this._rememberAndCopyPanel(), !s.userPreferences.recall.allowRecall);
             toggleDisabledPanel(this._minutesPanel(), !s.userPreferences.recall.remember || !s.userPreferences.recall.allowRecall);
@@ -39,7 +39,7 @@ export class GmkRecall extends HTMLElement {
         }));
         this._minutesRange().addEventListener('input', () => state.update(s => opts().rememberDurationM = Number(this._minutesRange().value)));
         this._minutes().addEventListener('change', () => state.update(s => opts().rememberDurationM = fixVal(opts().minRememberDurationM, opts().maxRememberDurationM, this._minutes())));
-        this._copy().addEventListener('input', () => state.update(s => opts().copyOnRecall = this._copy().checked));
+        this._appPrefill().addEventListener('input', () => state.update(s => opts().appPrefill = this._appPrefill().checked));
 
     }
 
@@ -73,8 +73,8 @@ export class GmkRecall extends HTMLElement {
                             <input id="minutesRange" type="range">
                         </div>
                         <div class="line lineCenter disableable">
-                            <input type="checkbox" id="copy"><label for="copy">Copy On Recalled</label>
-                        </div>
+                            <input type="checkbox" id="appPrefill"><label for="appPrefill">Try App Name Prefill</label>
+                        </div>                        
                     </div>
                     <div style="display: flex; justify-content: center;">
                         <button class="gmkButton gmkButtonPrimary">Purge All Recalled</button>

@@ -5,7 +5,6 @@ import '/src/components/gmk-title-panel.js';
 import '/src/components/gmk-info-icon.js';
 import '/src/components/password-options/gmk-algo-output-format.js';
 import '/src/components/preferences/gmk-visibility.js';
-import '/src/components/preferences/gmk-sensitive.js';
 import '/src/components/preferences/gmk-recall.js';
 
 export class GmkPreferencesPage extends HTMLElement {
@@ -22,7 +21,6 @@ export class GmkPreferencesPage extends HTMLElement {
                 <div slot="content" class="settingsColumn">       
                     <gmk-visibility></gmk-visibility>
                     <gmk-recall></gmk-recall>
-                    <gmk-sensitive></gmk-sensitive>
                 </div>
             </gmk-subpage-container>
         `

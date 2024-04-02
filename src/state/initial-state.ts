@@ -2,12 +2,6 @@ import {Persistence} from "/src/services/persistence.js";
 import {GmkState, UserPreferencesOptions} from "/src/state/gmk-state-type.js"
 
 const defaultUserPreferences: UserPreferencesOptions = {
-    saving: {
-        rememberHash: 'never'
-    },
-    sensitive: {
-        unrestrictedMode: false,
-    },
     visibility: {
         hideInfo: false,
         topSecret: false
@@ -17,7 +11,7 @@ const defaultUserPreferences: UserPreferencesOptions = {
         remember: false,
         minRememberDurationM: 1,
         maxRememberDurationM: 1440,
-        copyOnRecall: false,
+        appPrefill: false,
         allowRecall: false
     }
 }

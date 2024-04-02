@@ -29,8 +29,9 @@ export class IndexRenderer {
 
     private static _render(){
         let formOk = stateSelectors.formOk();
-        IndexElements.secretInput().value = state.value.secretRemembered ? '' : state.value.secretValue;
-        setAttrIfTrue(state.value.userPreferences.sensitive.unrestrictedMode, IndexElements.mainPage(), 'unrestricted');
+        let remembered = state.value.secretRemembered;
+        IndexElements.secretInput().value = remembered ? '' : state.value.secretValue;
+        IndexElements.secretInput().setAttribute('placeholder', remembered ? 'Remembered' : 'Make It Strong!')
         setAttrIfTrue(state.value.secretRecalled, IndexElements.mainPage(), 'recalled');
         setAttrIfTrue(!state.value.secretShow, IndexElements.secretHideToggle(), 'off');
         setAttrIfTrue(state.value.secretShow, IndexElements.secretInput(), 'type', 'text', 'password');

@@ -19,7 +19,6 @@ export class PasswordGeneratorService {
             secret: state.secretValue,
             salt: state.saltValue,
             passwordOptions: state.passwordGeneration,
-            isUnrestricted: state.userPreferences.sensitive.unrestrictedMode,
         } as ObservedProps)
     }
 
