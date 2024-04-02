@@ -4,11 +4,9 @@ import {ByteUtils} from "/src/hash-algos/byte-utils.js"
 import {decryptData, encryptData} from "/src/utils/crypto-functions.js"
 import {Persistence} from "/src/services/persistence.js"
 import {toastService} from "/src/services/toast-service.js"
+import {SecretStorageService} from "/src/services/secret-storage-service.js"
 
 export class RecallService {
-    constructor() {
-        this.initialize();
-    }
 
     public initialize(){
         const diffMatcher: DiffMatcher<GmkState> = s => JSON.stringify({
@@ -32,10 +30,12 @@ export class RecallService {
                         s1.secretRecalled = true;
                         s1.passwordGeneration = passwordGenerationOptions;
                     });
-                    return;
+                    SecretStorageService.storeSecret(oldSecret)
                 }
+            } else {
+                state.update(s1 => s1.secretRecalled = false);
+                SecretStorageService.purge();
             }
-            state.update(s1 => s1.secretRecalled = false);
         }, {
             diffMatcher
         })

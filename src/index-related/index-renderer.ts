@@ -29,11 +29,15 @@ export class IndexRenderer {
 
     private static _render(){
         let formOk = stateSelectors.formOk();
-        IndexElements.secretInput().value = state.value.secretValue;
+        IndexElements.secretInput().value = state.value.secretRemembered ? '' : state.value.secretValue;
         setAttrIfTrue(state.value.userPreferences.sensitive.unrestrictedMode, IndexElements.mainPage(), 'unrestricted');
         setAttrIfTrue(state.value.secretRecalled, IndexElements.mainPage(), 'recalled');
         setAttrIfTrue(!state.value.secretShow, IndexElements.secretHideToggle(), 'off');
         setAttrIfTrue(state.value.secretShow, IndexElements.secretInput(), 'type', 'text', 'password');
+        IndexElements.passReqLengthCount().innerHTML = stateSelectors.secretLengthOk() ? 'ok' : `${stateSelectors.secretLengthCount().toString()}/20`;
+        IndexElements.passReqNumberCount().innerHTML = stateSelectors.secretContainsNumber() ? 'ok' :`${stateSelectors.secretNumberCount().toString()}/2`;
+        IndexElements.passReqSpecialCount().innerHTML = stateSelectors.secretContainsSpecial() ? 'ok' :`${stateSelectors.secretSpecialCount().toString()}/2`;
+        IndexElements.passReqUppercaseCount().innerHTML = stateSelectors.secretContainsUppercase() ? 'ok' :`${stateSelectors.secretUppercaseCount().toString()}/2`;
         setAttrIfTrue(stateSelectors.secretLengthOk(), IndexElements.passReqLength(), 'ok');
         setAttrIfTrue(stateSelectors.secretContainsNumber(), IndexElements.passReqNumber(), 'ok');
         setAttrIfTrue(stateSelectors.secretContainsUppercase(), IndexElements.passReqUppercase(), 'ok');
@@ -42,10 +46,6 @@ export class IndexRenderer {
 
         setAttrIfTrue(!state.value.saltShow, IndexElements.saltHideToggle(), 'off');
         setAttrIfTrue(state.value.saltShow, IndexElements.saltInput(), 'type', 'text', 'password');
-        setAttrIfTrue(stateSelectors.saltLengthOk(), IndexElements.saltReqLength(), 'ok');
-        setAttrIfTrue(stateSelectors.saltContainsNumber(), IndexElements.saltReqNumber(), 'ok');
-        setAttrIfTrue(stateSelectors.saltContainsUppercase(), IndexElements.saltReqUppercase(), 'ok');
-        setAttrIfTrue(stateSelectors.saltContainsSpecial(), IndexElements.saltReqSpecial(), 'ok');
 
         setAttrIfTrue(!state.value.passwordShow, IndexElements.passwordHideToggle(), 'off');
         setAttrIfTrue(!formOk, IndexElements.finalPassword(), 'disabled');

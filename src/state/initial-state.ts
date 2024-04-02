@@ -26,6 +26,7 @@ export const initState: GmkState = {
     secretValue: '',
     secretShow: false,
     secretRecalled: false,
+    secretRemembered: true,
     saltShow: false,
     saltValue: '',
     passwordShow: false,
@@ -35,7 +36,7 @@ export const initState: GmkState = {
     generationSpeed: null,
     secretExpiryDate: null,
     passwordGeneration: {
-        selectedAlgo: 'SHA',
+        selectedAlgo: 'PBKDF2',
         outputOptions: {
             format: 'base64',
             takeFirst: 20,
@@ -50,7 +51,7 @@ export const initState: GmkState = {
                 version: 'SHA-256'
             },
             pbkdf2: {
-                iterations: 1,
+                iterations: 1000000,
                 hash: "SHA-256",
                 length: 256,
                 minIterations: 1,

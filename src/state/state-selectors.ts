@@ -8,33 +8,21 @@ export class StateSelectors {
         this._getState = getState;
     }
 
-    private readonly numberRegx = /\d/;
-    private readonly specialRegx = /[!@#$%^&*(),.?":{}|<>/\\]/;
-    private readonly uppercaseRegx = /[A-Z]/;
+    private readonly numberRegx = /\d/g;
+    private readonly specialRegx = /[!@#$%^&*(),.?":{}|<>/\\]/g;
+    private readonly uppercaseRegx = /[A-Z]/g;
 
-    public secretLengthOk = () => this._getState().secretValue.length >= 15;
-    public secretContainsNumber = () => this.numberRegx.test(this._getState().secretValue);
-    public secretContainsSpecial = () => this.specialRegx.test(this._getState().secretValue);
-    public secretContainsUppercase = () => this.uppercaseRegx.test(this._getState().secretValue);
-    public isSecretOk = () => {
-        if(this._getState().userPreferences.sensitive.unrestrictedMode){
-            return this._getState().secretValue.length > 0;
-        } else {
-            return this.secretLengthOk() && this.secretContainsNumber() && this.secretContainsSpecial() && this.secretContainsUppercase()
-        }
-    };
+    public secretLengthCount = () => this._getState().secretValue.length;
+    public secretNumberCount = () => this._getState().secretValue.match(this.numberRegx)?.length ?? 0;
+    public secretSpecialCount = () => this._getState().secretValue.match(this.specialRegx)?.length ?? 0;
+    public secretUppercaseCount = () => this._getState().secretValue.match(this.uppercaseRegx)?.length ?? 0;
+    public secretLengthOk = () => this.secretLengthCount() >= 20;
+    public secretContainsNumber = () => this.secretNumberCount() > 1;
+    public secretContainsSpecial = () => this.secretSpecialCount() > 1;
+    public secretContainsUppercase = () => this.secretUppercaseCount() > 1;
+    public isSecretOk = () => this.secretLengthOk() && this.secretContainsNumber() && this.secretContainsSpecial() && this.secretContainsUppercase();
 
-    public saltLengthOk = () => this._getState().saltValue.length >= 8;
-    public saltContainsNumber = () => this.numberRegx.test(this._getState().saltValue);
-    public saltContainsSpecial = () => this.specialRegx.test(this._getState().saltValue);
-    public saltContainsUppercase = () => this.uppercaseRegx.test(this._getState().saltValue);
-    public isSaltOk = () => {
-        if(this._getState().userPreferences.sensitive.unrestrictedMode){
-            return this._getState().saltValue.length > 0;
-        } else {
-            return this.saltContainsNumber() && this.saltContainsSpecial() && this.saltContainsUppercase() && this.saltLengthOk()
-        }
-    };
+    public isSaltOk = () => this._getState().saltValue.length > 0;
     public formOk = () => this.isSecretOk() && this.isSaltOk()
 }
 

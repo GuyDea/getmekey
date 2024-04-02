@@ -7,6 +7,7 @@ export type GmkState = {
     secretValue: string;
     secretShow: boolean;
     secretRecalled: boolean;
+    secretRemembered: boolean;
     saltValue: string;
     saltShow: boolean;
     passwordShow: boolean;

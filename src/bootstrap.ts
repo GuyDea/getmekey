@@ -8,6 +8,7 @@ import {SecretStorageService} from "/src/services/secret-storage-service.js";
 import {state} from "/src/state/state-holder.js";
 import {preferencesService} from "/src/services/preferences-service.js"
 import {passwordGenerator} from "/src/services/password-generator-service.js"
+import {recallService} from "/src/services/recall-service.js"
 
 export class Bootstrap {
     public static runBootstrap(){
@@ -16,6 +17,7 @@ export class Bootstrap {
         IndexRenderer.initialize();
         Router.initialize();
         this._tryToRestoreSecret();
+        recallService.initialize();
         preferencesService.initialize();
         passwordGenerator.initialize();
     }
@@ -24,6 +26,7 @@ export class Bootstrap {
         SecretStorageService.retrieveSecret().then(stored => {
             if(stored?.secret && stored.expiryDate && stored.expiryDate.getTime() > new Date().getTime()){
                 state.update(s => {
+                    s.secretRemembered = true;
                     s.secretValue = stored.secret;
                     s.secretExpiryDate = stored.expiryDate;
                     IndexElements.saltInput().focus();

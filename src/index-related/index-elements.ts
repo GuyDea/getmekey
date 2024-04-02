@@ -12,10 +12,6 @@ export class IndexElements {
     public static passReqUppercase = elById('passReqUppercase');
     public static passReqSpecial = elById('passReqSpecial');
     public static saltInput = elById<HTMLInputElement>('saltInput');
-    public static saltReqLength = elById('saltReqLength');
-    public static saltReqNumber = elById('saltReqNumber');
-    public static saltReqUppercase = elById('saltReqUppercase');
-    public static saltReqSpecial = elById('saltReqSpecial');
     public static finalPassword = elById<HTMLInputElement>('finalPassword');
     public static secretHideToggle = elById('secretHideToggle');
     public static saltHideToggle = elById('saltHideToggle');
@@ -30,4 +26,8 @@ export class IndexElements {
     public static securityTextNote = elById('securityTextNote');
     public static securityTextPositionNote = elById('securityTextPositionNote');
     public static toastPanel = elById('toastPanel');
+    public static passReqLengthCount = elById('passReqLengthCount');
+    public static passReqUppercaseCount = elById('passReqUppercaseCount');
+    public static passReqSpecialCount = elById('passReqSpecialCount');
+    public static passReqNumberCount = elById('passReqNumberCount');
 }

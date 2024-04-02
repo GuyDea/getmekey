@@ -102,9 +102,9 @@
         .arrow {
             --arrow-left: 60px;
             --arrow-height: 70px;
-            --arrow-gap: 20px;
+            --arrow-gap: 15px;
             --arrow-width: 30px;
-            --arrow-top-start: 110px;
+            --arrow-top-start: 115px;
             position: absolute;
             height: var(--arrow-height);
             width: var(--arrow-width);
@@ -229,8 +229,13 @@
         }
 
         .req {
-            font-size: 10px;
             padding-top: .5em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .req *{
+            font-size: 10px;
         }
 
         *[ok] {
@@ -578,14 +583,14 @@
                 </div>
             </div>
             <div class="reqPanel">
-                <label class="req" id="passReqLength">length</label>
-                <label class="req" id="passReqUppercase">uppercase</label>
-                <label class="req" id="passReqSpecial">special</label>
-                <label class="req" id="passReqNumber">number</label>
+                <div class="req" id="passReqLength"><div>length</div><div id="passReqLengthCount">0/20</div></div>
+                <div class="req" id="passReqUppercase"><div>uppercase</div><div id="passReqUppercaseCount">0/2</div></div>
+                <div class="req" id="passReqSpecial"><div>special</div><div id="passReqSpecialCount">0/2</div></div>
+                <div class="req" id="passReqNumber"><div>number</div><div id="passReqNumberCount">0/2</div></div>
             </div>
         </div>
         <div class="labelInput">
-            <label class="label" for="saltInput">App Name Variation</label>
+            <label class="label" for="saltInput">App Name</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <input id="saltInput" class="input middle" type="password" placeholder='To "Salt" Your Secret' required
@@ -598,12 +603,6 @@
                         </svg>
                     </div>
                 </div>
-            </div>
-            <div class="reqPanel">
-                <label class="req" id="saltReqLength">length</label>
-                <label class="req" id="saltReqUppercase">uppercase</label>
-                <label class="req" id="saltReqSpecial">special</label>
-                <label class="req" id="saltReqNumber">number</label>
             </div>
         </div>
         <div class="labelInput">
