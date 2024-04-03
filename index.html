@@ -387,6 +387,8 @@
             align-items: center;
             margin-bottom: 4px;
         }
+    </style>
+    <style id="baseStyles">
         .colorLabel {
             background: var(--color-1);
             color: var(--color-text-1);
@@ -396,8 +398,6 @@
             justify-content: center;
             align-items: center;
         }
-    </style>
-    <style id="baseStyles">
         .hidden {
             display: none;
         }
@@ -567,7 +567,7 @@
                     <div class="colorLabel" style="display: none;" needRecalled hiding>Recalled</div>
                 </div>
                 <label for="secretInput">Your Secret</label>
-                <div><div class="colorLabel" style="display: none;">1:34:32</div></div>
+                <div><gmk-countdown></gmk-countdown></div>
             </div>
             <div class="withSides">
                 <div class="side leftSide"></div>
@@ -657,7 +657,7 @@
                 <button id="copyButton" class="gmkButton gmkButtonPrimary disableable disabled" needValidPassword disabled>Copy</button>
             </div>
             <div class="recallPanel" needRecalledEnabled>
-                Recalled Secret
+                Secret Recall
                 <div style="display: flex; gap: .5rem; justify-content: center; align-items: center">
                     <button id="clearButton" class="gmkButton gmkButtonDanger disableable disabled" style="font-size: .9rem" disabled needRecalled disabling>Remove</button>
                     <button id="setRecalledButton" class="gmkButton gmkButtonSecondary disableable disabled" style="font-size: .9rem" disabled needValidSecret>Set</button>

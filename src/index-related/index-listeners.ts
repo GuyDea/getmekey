@@ -7,8 +7,7 @@ export class IndexListeners {
     public static initialize(){
         IndexElements.secretInput().addEventListener('focus', () => state.update(() => {
                 if(state.value.secretRemembered){
-                    state.value.secretValue = '';
-                    state.value.secretRemembered = false;
+                    recallService.removeRecalledSecret(true);
                 }
             })
         );
@@ -26,6 +25,6 @@ export class IndexListeners {
                 .catch(() => toastService.addToast('Failed To Copy', "ERROR"));
         })
         IndexElements.setRecalledButton().addEventListener('click', () => recallService.storeToRecalled());
-        IndexElements.clearButton().addEventListener('click', () => recallService.removeRecalled());
+        IndexElements.clearButton().addEventListener('click', () => recallService.removeRecalledByUser());
     }
 }

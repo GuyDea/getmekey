@@ -4,8 +4,7 @@ import {IndexRenderer} from "./index-related/index-renderer.js";
 import {Router} from "./services/router.js"
 import '/src/components/gmk-info-icon.js';
 import '/src/utils/crypto-functions.js';
-import {SecretStorageService} from "/src/services/secret-storage-service.js";
-import {state} from "/src/state/state-holder.js";
+import '/src/components/gmk-countdown.js';
 import {preferencesService} from "/src/services/preferences-service.js"
 import {passwordGenerator} from "/src/services/password-generator-service.js"
 import {recallService} from "/src/services/recall-service.js"
@@ -16,26 +15,17 @@ export class Bootstrap {
         IndexListeners.initialize();
         IndexRenderer.initialize();
         Router.initialize();
-        this._tryToRestoreSecret();
         recallService.initialize();
         preferencesService.initialize();
         passwordGenerator.initialize();
     }
 
-    private static _tryToRestoreSecret(): Promise<void>{
-        return SecretStorageService.retrieveSecret().then(stored => {
-            if(typeof stored === 'string'){
-                state.update(s => {
-                    s.secretRemembered = true;
-                    s.secretValue = stored;
-                    s.secretExpiryDate = new Date(new Date().getTime() + s.userPreferences.recall.rememberDurationM * 60 * 1000);
-                    IndexElements.saltInput().focus();
-                })
-            } else {
-                SecretStorageService.purge();
-            }
-        })
+    private static _getUrlAsChromeExtension(): Promise<string | null>{
+        return new Promise(resolve => (window as any).chrome?.tabs ? (window as any).chrome?.tabs?.query({active: true, lastFocusedWindow: true}, (tabs: {url: string}[]) => {
+            resolve(tabs[0]?.url)
+        }) : resolve(null))
     }
+
 }
 
 Bootstrap.runBootstrap();

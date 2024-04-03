@@ -56,7 +56,7 @@ export class GmkRecall extends HTMLElement {
         return html`
             <style>${globalStyles}${this._styles()}</style>      
             <gmk-title-panel>
-                <span slot="title">Secret Recall</span>
+                <span slot="title">Ease Of Use</span>
                 <div slot="content" class="settingsColumn">
                     <div class="line lineCenter">
                         <input type="checkbox" id="allowRecall"><label for="allowRecall">Allow
@@ -73,11 +73,8 @@ export class GmkRecall extends HTMLElement {
                             <input id="minutesRange" type="range">
                         </div>
                         <div class="line lineCenter disableable">
-                            <input type="checkbox" id="appPrefill"><label for="appPrefill">Try App Name Prefill</label>
+                            <input type="checkbox" id="appPrefill"><label for="appPrefill">App Name Prefill</label>
                         </div>                        
-                    </div>
-                    <div style="display: flex; justify-content: center;">
-                        <button class="gmkButton gmkButtonPrimary">Purge All Recalled</button>
                     </div>
                 </div>
                 

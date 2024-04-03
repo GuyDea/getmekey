@@ -23,7 +23,7 @@ export class StateSelectors {
     public isSecretOk = () => this.secretLengthOk() && this.secretContainsNumber() && this.secretContainsSpecial() && this.secretContainsUppercase();
 
     public isSaltOk = () => this._getState().saltValue.length > 0;
-    public formOk = () => this.isSecretOk() && this.isSaltOk()
+    public formOk = () => this.isSecretOk() && this.isSaltOk();
 }
 
 export const stateSelectors = new StateSelectors(() => state.value);

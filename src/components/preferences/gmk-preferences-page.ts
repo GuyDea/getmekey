@@ -21,6 +21,9 @@ export class GmkPreferencesPage extends HTMLElement {
                 <div slot="content" class="settingsColumn">       
                     <gmk-visibility></gmk-visibility>
                     <gmk-recall></gmk-recall>
+                    <div style="display: flex; justify-content: center;">
+                        <button class="gmkButton gmkButtonPrimary">Purge All Recalled</button>
+                    </div>
                 </div>
             </gmk-subpage-container>
         `
