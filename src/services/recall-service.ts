@@ -14,6 +14,9 @@ export class RecallService {
             settings: s.userPreferences
         });
         state.subscribe(async s => {
+            if(!s.userPreferences.recall.remember){
+                this.purgeRemembered();
+            }
             if(!s.userPreferences.recall.allowRecall){
                this.removeRecalledSecret(false);
                 return;
@@ -29,7 +32,7 @@ export class RecallService {
                 }
             } else {
                 state.update(s1 => s1.secretRecalled = false);
-                this.purge();
+                this.purgeRemembered();
             }
         }, {
             diffMatcher
@@ -62,7 +65,7 @@ export class RecallService {
                 IndexElements.saltInput().focus()
             })
         } else {
-            recallService.purge()
+            recallService.purgeRemembered()
         }
     }
 
@@ -117,7 +120,7 @@ export class RecallService {
         }
     }
 
-    public purge() {
+    public purgeRemembered() {
         Persistence.removeFromStorage("ENCRYPTED_SECRET");
         Persistence.deleteAllCookies();
     }

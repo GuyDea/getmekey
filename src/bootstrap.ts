@@ -8,6 +8,7 @@ import '/src/components/gmk-countdown.js';
 import {preferencesService} from "/src/services/preferences-service.js"
 import {passwordGenerator} from "/src/services/password-generator-service.js"
 import {recallService} from "/src/services/recall-service.js"
+import {HistoryService} from "/src/services/history-service.js"
 
 export class Bootstrap {
     public static runBootstrap(){
@@ -15,6 +16,7 @@ export class Bootstrap {
         IndexListeners.initialize();
         IndexRenderer.initialize();
         Router.initialize();
+        HistoryService.initialize();
         recallService.initialize();
         preferencesService.initialize();
         passwordGenerator.initialize();
