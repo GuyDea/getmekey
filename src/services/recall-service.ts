@@ -5,6 +5,13 @@ import {decryptData, encryptData, generateRandomPassphrase} from "/src/utils/cry
 import {Persistence} from "/src/services/persistence.js"
 import {toastService} from "/src/services/toast-service.js"
 import {IndexElements} from "/src/index-related/index-elements.js"
+import {formatTime} from "/src/utils/helper-functions.js";
+
+export type RememberedSecret = {
+    secret: string;
+    storedAt: Date;
+    expiry: Date;
+}
 
 export class RecallService {
 
@@ -57,11 +64,12 @@ export class RecallService {
     }
 
     private async _trySecretRetrieve() {
-        const stored = await this.retrieveSecret()
-        if (typeof stored === 'string') {
+        const stored = await this.retrieveSecret();
+        if (stored) {
+            toastService.addToast(`Remembered ${formatTime(new Date().getTime() - stored.storedAt.getTime())} Ago`, "INFO", 10_000)
             state.update(s => {
-                s.secretRemembered = true
-                s.secretValue = stored
+                s.secretRemembered = true;
+                s.secretValue = stored.secret;
                 IndexElements.saltInput().focus()
             })
         } else {
@@ -103,18 +111,21 @@ export class RecallService {
     private async _storeSecret(secret: string, expiryDate: Date){
         const passphrase1 = generateRandomPassphrase(256);
         const passphrase2 = generateRandomPassphrase(256);
-        const encrypted = await encryptData<string>(secret, passphrase1, passphrase2);
+        const encrypted = await encryptData<RememberedSecret>({secret, expiry: expiryDate, storedAt: new Date()}, passphrase1, passphrase2);
         Persistence.addToCookie("SESSION_KEY", passphrase1);
         Persistence.addToCookie("DURATION_KEY", passphrase2, expiryDate);
         Persistence.addToStorage("ENCRYPTED_SECRET", encrypted);
     }
 
-    public async retrieveSecret(): Promise<string | null> {
+    public async retrieveSecret(): Promise<RememberedSecret | null> {
         const durationKey = Persistence.getFromCookie<string>("DURATION_KEY");
         const sessionKey = Persistence.getFromCookie<string>("SESSION_KEY");
         const encrypted = Persistence.getFromStorage<string>("ENCRYPTED_SECRET");
         if(encrypted && durationKey && sessionKey) {
-            return await decryptData<string>(encrypted, sessionKey, durationKey);
+            const rememberedSecret = await decryptData<RememberedSecret>(encrypted, sessionKey, durationKey);
+            rememberedSecret.storedAt = new Date(rememberedSecret.storedAt);
+            rememberedSecret.expiry = new Date(rememberedSecret.expiry);
+            return rememberedSecret;
         } else {
             return null;
         }

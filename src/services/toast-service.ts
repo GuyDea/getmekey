@@ -19,7 +19,7 @@ export class ToastService {
 
     public addToast(message: string, severity?: ToastSeverity, ttl?: number){
         severity = severity ?? "INFO";
-        ttl = ttl ?? 3_000;
+        ttl = ttl ?? 2_000;
         if(!this._lastToast?.removed && message === this._lastToast?.message && severity === this._lastToast?.severity){
             this._lastToast?.reset()
         } else {

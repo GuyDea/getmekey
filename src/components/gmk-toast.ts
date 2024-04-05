@@ -29,6 +29,11 @@ export class GmkToast extends HTMLElement {
                     duration: 300, fill: "forwards", easing: 'linear'
                 }).finished.then(() => this._close())
         })
+        this.addEventListener('pointerdown', () => this._fuze().getAnimations().forEach(a => a.cancel()));
+        this.addEventListener('click', () => {
+            this._fuze().style.setProperty('--fuze-ttl', '500ms');
+            this.reset();
+        })
     }
 
     get removed(): boolean {
@@ -54,6 +59,7 @@ export class GmkToast extends HTMLElement {
                 width: fit-content;
                 margin-bottom: 1rem;
                 animation: appear .3s forwards linear;
+                --fuze-ttl: ${this._ttl}ms;
             }
             .mainPanel{
                 font-size: 1.5rem;
@@ -67,7 +73,8 @@ export class GmkToast extends HTMLElement {
                 overflow: hidden;
             }
             .message {
-                
+                white-space: pre-wrap;
+                text-align: center;
             }
             #fuze {
                 height: 3px;
@@ -77,7 +84,7 @@ export class GmkToast extends HTMLElement {
                 bottom: 0;
                 left: 0;
                 border-radius: 2rem;
-                animation: burn ${this._ttl}ms forwards linear;
+                animation: burn var(--fuze-ttl) forwards linear;
             }
             @keyframes burn {
                 from{

@@ -67,3 +67,16 @@ export function toggleDisabledPanel(element: AnyElement, disable: boolean) {
 export function toggleHiddenPanel(element: AnyElement, hidden: boolean) {
     (element as any).style.display = hidden ? 'none' : '';
 }
+
+export function formatTime(milliseconds: number): string {
+    let seconds = Math.floor(milliseconds / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+
+    seconds = seconds % 60;
+    minutes = minutes % 60;
+
+    const pad = (n: number) => n < 10 ? '0' + n : n;
+
+    return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+}

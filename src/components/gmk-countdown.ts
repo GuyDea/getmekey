@@ -1,4 +1,4 @@
-import {comp, css, html} from "/src/utils/helper-functions.js";
+import {comp, css, formatTime, html} from "/src/utils/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
 import {state, Subscriber} from "/src/state/state-holder.js"
 import {GmkState} from "/src/state/gmk-state-type.js"
@@ -14,24 +14,11 @@ export class GmkCountdown extends HTMLElement {
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
     }
 
-    private _formatDuration(milliseconds: number): string {
-        let seconds = Math.floor(milliseconds / 1000);
-        let minutes = Math.floor(seconds / 60);
-        let hours = Math.floor(minutes / 60);
-
-        seconds = seconds % 60;
-        minutes = minutes % 60;
-
-        const pad = (n: number) => n < 10 ? '0' + n : n;
-
-        return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-    }
-
     private _reevaluate(){
         let timeToExpire = recallService.getRememberTtl();
         if(timeToExpire){
             this.style.display = '';
-            this._clock().innerHTML = this._formatDuration(timeToExpire);
+            this._clock().innerHTML = formatTime(timeToExpire);
         } else {
             this.style.display = 'none';
             clearInterval(this._interval);
