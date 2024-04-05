@@ -1,6 +1,7 @@
 import {Router} from "/src/services/router.js";
 import {css, html} from "/src/utils/helper-functions.js";
 import {globalStyles} from "/src/styles/global-styles.js";
+import {HistoryService} from "/src/services/history-service.js";
 
 export class GmkSubpageContainer extends HTMLElement{
     constructor() {
@@ -10,7 +11,7 @@ export class GmkSubpageContainer extends HTMLElement{
 
     connectedCallback() {
         this.shadowRoot!.querySelector('#backButton')!.addEventListener('click', () => {
-            Router.canGoBack() ? history.back() : Router.handleRoute('')
+            HistoryService.canGoBack() ? HistoryService.goBack() : Router.handleRoute('', true)
         })
     }
 

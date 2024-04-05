@@ -49,8 +49,10 @@ export class GmkCountdown extends HTMLElement {
             dispatchImmediately: true,
             diffMatcher: s => JSON.stringify({
                 expiry: s.secretExpiryDate,
-                recall: s.userPreferences.recall.allowRecall,
-                remember: s.userPreferences.recall.remember
+                isRemembered: s.secretRemembered,
+                isRecalled: s.secretRecalled,
+                recallAllowed: s.userPreferences.recall.allowRecall,
+                rememberAllowed: s.userPreferences.recall.remember
             })
         }))
     }

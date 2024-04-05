@@ -18,7 +18,7 @@ export class RecallService {
                 this.purgeRemembered();
             }
             if(!s.userPreferences.recall.allowRecall){
-               this.removeRecalledSecret(false);
+               this.removeRecalledSecret(s.secretRemembered);
                 return;
             }
             const oldData = diffMatcher(s);
@@ -69,12 +69,12 @@ export class RecallService {
         }
     }
 
-    public getRememberTtl(): number | null{
-    const canRemember = state.value.userPreferences.recall.allowRecall &&  state.value.userPreferences.recall.remember;
+    public getRememberTtl(): number | null {
+        const canRemember = state.value.userPreferences.recall.allowRecall && state.value.userPreferences.recall.remember && state.value.secretRecalled;
         const expiryDate = state.value.secretExpiryDate;
-        if(canRemember && expiryDate){
+        if (canRemember && expiryDate) {
             const diff = expiryDate.getTime() - new Date().getTime();
-            if(diff > 0){
+            if (diff > 0) {
                 return diff;
             } else {
                 this.removeRecalledSecret(true);
@@ -123,6 +123,13 @@ export class RecallService {
     public purgeRemembered() {
         Persistence.removeFromStorage("ENCRYPTED_SECRET");
         Persistence.deleteAllCookies();
+        state.update(s => {
+            s.secretRemembered = false;
+            if(state.value.secretRemembered){
+                s.secretValue = '';
+            }
+        })
+
     }
 
     public async storeToRecalled(){

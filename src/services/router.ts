@@ -1,7 +1,7 @@
 import {IndexElements} from "../index-related/index-elements.js"
+import {HistoryService} from "/src/services/history-service.js"
 
 export class Router {
-    private static _lastStateId = 0;
     private static _routes: Route[] = [
         {
             path: '/preferences',
@@ -14,7 +14,6 @@ export class Router {
     ]
 
     public static initialize(){
-        window.addEventListener('popstate', () => this.handleRoute(location.pathname, false));
         window.addEventListener('click', ev => {
             const anchor = (ev.composedPath().find(e => (e as any)?.tagName?.toLowerCase() === 'a') as HTMLElement)?.getAttribute('href');
             if (anchor != null && !['http://', 'https://'].some(p => anchor.startsWith(p))) {
@@ -32,24 +31,29 @@ export class Router {
         }, 10_000);
     }
 
-    public static canGoBack(){
-        return history.state > 0;
+    public static async handleRoute(route: string, addHistory?: boolean) {
+        if(addHistory){
+            const currentRoute = location.pathname;
+            HistoryService.addToHistory(() => {
+                this._display(route);
+                return () => this._display(currentRoute)
+            }, route)
+        } else {
+            this._display(route);
+        }
     }
 
-    public static async handleRoute(route: string, addHistory?: boolean) {
-        const component = this._routes.find(r => route.match(r.path))?.component();
-        if(component){
-            IndexElements.mainPage().style.display = 'none';
-            IndexElements.subPageContainer().innerHTML = '';
-            IndexElements.subPageContainer().append(await component);
+    private static _display(route: string){
+        let foundRoute = this._routes.find(r => route.match(r.path));
+        if(foundRoute){
+            foundRoute.component().then(component => {
+                IndexElements.mainPage().style.display = 'none';
+                IndexElements.subPageContainer().innerHTML = '';
+                IndexElements.subPageContainer().append(component);
+            })
         } else {
             IndexElements.mainPage().style.display = 'flex';
             IndexElements.subPageContainer().innerHTML = '';
-        }
-        if(addHistory) {
-            history.pushState(++this._lastStateId, '', route);
-        } else {
-            history.replaceState(history.state, '', route || '/');
         }
     }
 }

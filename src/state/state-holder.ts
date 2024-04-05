@@ -57,14 +57,18 @@ export class StateHolder<T> {
     }
 
     public subscribe(callback: Callback<T>, options?: SubscriberOptions<T>){
-        const cachedCallback = (value: T) => {
+        const caughtCallback = (value: T) => {
             try {
                 callback(value)
             }catch (e){
-                this._errorHandler?.(e);
+                if(this._errorHandler) {
+                    this._errorHandler(e);
+                } else {
+                    throw e;
+                }
             }
         }
-        const subscriber: Subscriber<T> = {callback: cachedCallback, options};
+        const subscriber: Subscriber<T> = {callback: caughtCallback, options};
         this.subscribers.add(subscriber);
         if(options?.dispatchImmediately){
             if(options.diffMatcher){
