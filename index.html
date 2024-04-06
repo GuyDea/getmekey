@@ -98,6 +98,10 @@
             left: 0;
             z-index: -1;
         }
+        .arrowSvg{
+            height: 100%;
+            width: 100%;
+        }
 
         .arrow {
             --arrow-left: 60px;
@@ -187,6 +191,7 @@
             display: flex;
             flex-direction: column;
             gap: .3em;
+            position: relative;
         }
 
         #jsError {
@@ -390,6 +395,32 @@
         #toastPanel {
             padding: 0 1rem;
         }
+        [topSecret] input {
+            color: transparent;
+        }
+        [topSecret] [sensitiveHide] {
+            transition: none;
+            opacity: 0;
+        }
+        [topSecret] [sensitiveRemove] {
+            display: none;
+        }
+        .generatesText {
+            position: absolute;
+            top: 0;
+            left: 0;
+            color: var(--color-1);
+            height: 100%;
+            width: 100%;
+            display: grid;
+            place-items: center;
+        }
+        [sensitiveShow] {
+            display: none;
+        }
+        [topsecret] [sensitiveShow] {
+            display: grid;
+        }
     </style>
     <style id="baseStyles">
         .colorLabel {
@@ -541,15 +572,21 @@
             </svg>
         </a>
         <div class="arrows">
-            <svg class="arrow disableable disabled" id="arrow1">
-                <use xlink:href="#arrow-svg"></use>
-            </svg>
-            <svg class="arrow disableable disabled" id="arrow2" needValidForm>
-                <use xlink:href="#arrow-svg"></use>
-            </svg>
-            <svg class="arrow disableable disabled" id="arrow3" needValidForm>
-                <use xlink:href="#arrow-svg"></use>
-            </svg>
+            <div class="arrow disableable disabled" id="arrow1">
+                <svg class="arrowSvg">
+                    <use xlink:href="#arrow-svg"></use>
+                </svg>
+            </div>
+            <div class="arrow disableable disabled" id="arrow2" needValidForm>
+                <svg class="arrowSvg" >
+                    <use xlink:href="#arrow-svg"></use>
+                </svg>
+            </div>
+            <div class="arrow disableable disabled" id="arrow3" needValidForm>
+                <svg class="arrowSvg" >
+                    <use xlink:href="#arrow-svg"></use>
+                </svg>
+            </div>
         </div>
         <div class="logoPanel">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="logo">
@@ -578,14 +615,14 @@
                        autocomplete="new-password"/>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
-                    <div class="sideIcon" off id="secretHideToggle">
+                    <div class="sideIcon" sensitiveRemove off id="secretHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
                         </svg>
                     </div>
                 </div>
             </div>
-            <div class="reqPanel">
+            <div sensitiveHide class="reqPanel">
                 <div class="req" id="passReqLength"><div>length</div><div id="passReqLengthCount">0/20</div></div>
                 <div class="req" id="passReqUppercase"><div>uppercase</div><div id="passReqUppercaseCount">0/2</div></div>
                 <div class="req" id="passReqSpecial"><div>special</div><div id="passReqSpecialCount">0/2</div></div>
@@ -600,7 +637,7 @@
                        autocomplete="new-password"/>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
-                    <div class="sideIcon" off id="saltHideToggle">
+                    <div class="sideIcon" sensitiveRemove off id="saltHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
                         </svg>
@@ -614,13 +651,18 @@
                 <div class="side leftSide"></div>
                 <div class="middle">
                     <div needValidForm class="encodeManual disableable disabled">
-                        <div class="hideOverflow manualStep"><span class="color1">• </span>Runs <strong id="algoTypeNote" class="color1">SHA</strong> hash
+                        <div sensitiveHide>
+                            <div class="hideOverflow manualStep"><span class="color1">• </span>Runs <strong id="algoTypeNote" class="color1">PBKDF2</strong> hash
+                            </div>
+                            <div class="hideOverflow manualStep"><span class="color1">• </span>Takes first <strong id="firstCharactersNote"
+                                    class="color1">20</strong> characters
+                            </div>
+                            <div class="hideOverflow manualStep"><span class="color1">• </span>Adds <strong
+                                    class="color1" id="securityTextNote">#1A</strong> <span id="securityTextPositionNote">prefix</span>
+                            </div>
                         </div>
-                        <div class="hideOverflow manualStep"><span class="color1">• </span>Takes first <strong id="firstCharactersNote"
-                                class="color1">20</strong> characters
-                        </div>
-                        <div class="hideOverflow manualStep"><span class="color1">• </span>Adds <strong
-                                class="color1" id="securityTextNote">#1A</strong> <span id="securityTextPositionNote">prefix</span>
+                        <div sensitiveShow class="generatesText">
+                            Generates your password
                         </div>
                     </div>
                 </div>
@@ -639,8 +681,8 @@
             <label class="label disableable disabled" for="finalPassword" ok needValidForm>Generated Password</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <div class="finalPasswordPanel middle">
-                    <div id="dotLoader" off>
+                <div class="finalPasswordPanel middle" >
+                    <div id="dotLoader" off >
                         <svg style="height: var(--input-height); width: var(--input-height); color: var(--color-1);">
                             <use xlink:href="#dots-loading"></use>
                         </svg>
@@ -649,7 +691,7 @@
                 </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
-                    <div class="sideIcon" off id="passwordHideToggle">
+                    <div class="sideIcon" sensitiveRemove off id="passwordHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
                         </svg>

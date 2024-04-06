@@ -28,13 +28,15 @@ export class IndexRenderer {
     };
 
     private static _render(){
-        let formOk = stateSelectors.formOk();
-        let remembered = state.value.secretRemembered;
+        const formOk = stateSelectors.formOk();
+        const isTopSecret = state.value.userPreferences.visibility.topSecret;
+        const remembered = state.value.secretRemembered;
         IndexElements.secretInput().value = remembered ? '' : state.value.secretValue;
         IndexElements.secretInput().setAttribute('placeholder', remembered ? 'Remembered' : 'Make It Strong!')
         setAttrIfTrue(state.value.secretRecalled, IndexElements.mainPage(), 'recalled');
+        setAttrIfTrue(isTopSecret, IndexElements.mainPage(), 'topSecret');
         setAttrIfTrue(!state.value.secretShow, IndexElements.secretHideToggle(), 'off');
-        setAttrIfTrue(state.value.secretShow, IndexElements.secretInput(), 'type', 'text', 'password');
+        setAttrIfTrue(state.value.secretShow && !isTopSecret, IndexElements.secretInput(), 'type', 'text', 'password');
         IndexElements.passReqLengthCount().innerHTML = stateSelectors.secretLengthOk() ? 'ok' : `${stateSelectors.secretLengthCount().toString()}/20`;
         IndexElements.passReqNumberCount().innerHTML = stateSelectors.secretContainsNumber() ? 'ok' :`${stateSelectors.secretNumberCount().toString()}/2`;
         IndexElements.passReqSpecialCount().innerHTML = stateSelectors.secretContainsSpecial() ? 'ok' :`${stateSelectors.secretSpecialCount().toString()}/2`;
@@ -46,12 +48,12 @@ export class IndexRenderer {
         setClassIfTrue(!stateSelectors.isSecretOk(), IndexElements.arrow1(), 'disabled');
 
         setAttrIfTrue(!state.value.saltShow, IndexElements.saltHideToggle(), 'off');
-        setAttrIfTrue(state.value.saltShow, IndexElements.saltInput(), 'type', 'text', 'password');
+        setAttrIfTrue(state.value.saltShow && !isTopSecret, IndexElements.saltInput(), 'type', 'text', 'password');
 
         setAttrIfTrue(!state.value.passwordShow, IndexElements.passwordHideToggle(), 'off');
         setAttrIfTrue(!formOk, IndexElements.finalPassword(), 'disabled');
 
-        setAttrIfTrue(state.value.passwordShow, IndexElements.finalPassword(), 'type', 'text', 'password');
+        setAttrIfTrue(state.value.passwordShow && !isTopSecret, IndexElements.finalPassword(), 'type', 'text', 'password');
         setAttrIfTrue(!state.value.passwordGenerating, IndexElements.dotLoader(), 'off');
         IndexElements.finalPassword().value = state.value.passwordValue;
         IndexElements.algoTypeNote().innerHTML = state.value.passwordGeneration.selectedAlgo;

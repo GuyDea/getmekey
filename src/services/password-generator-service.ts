@@ -46,10 +46,18 @@ export class PasswordGeneratorService {
                 state.value.passwordValue = '';
                 state.value.generationSpeed = null;
                 state.notifyChange();
-                const start = new Date();
+                const start = new Date().getTime();
                 this.generatePassword(state.value)
                     .then(generatedPassword => {
-                        state.value.generationSpeed = new Date().getTime() - start.getTime();
+                        if(state.value.userPreferences.visibility.topSecret) {
+                            const now = new Date().getTime();
+                            return new Promise(resolve => setTimeout(() => resolve(generatedPassword), 500 - (now - start)))
+                        } else {
+                            return generatedPassword;
+                        }
+                    })
+                    .then(generatedPassword => {
+                        state.value.generationSpeed = new Date().getTime() - start;
                         state.value.passwordGenerating = false;
                         state.value.passwordGenerationError = null;
                         // Make sure state has not been changed in the meantime
@@ -57,7 +65,7 @@ export class PasswordGeneratorService {
                             // If state changed, restart process - can skip notif here, as we want to keep uncut loading indication
                             this._processSecret();
                         } else {
-                            state.value.passwordValue = generatedPassword;
+                            state.value.passwordValue = generatedPassword as string;
                             state.notifyChange();
                         }
                     })
