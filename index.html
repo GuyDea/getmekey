@@ -74,10 +74,8 @@
             min-width: var(--app-width);
         }
 
-        .allContent {
-            margin: 0 auto;
-            width: var(--app-width);
-            min-width: var(--app-width);
+        #allContent {
+            height: 100%;
         }
 
         #mainPage {
@@ -89,6 +87,7 @@
             gap: 1.5rem;
             padding: 1rem 0;
             max-width: var(--app-width);
+            height: 100%;
         }
 
         .arrows {
@@ -105,10 +104,10 @@
 
         .arrow {
             --arrow-left: 60px;
-            --arrow-height: 70px;
-            --arrow-gap: 15px;
+            --arrow-height: 65px;
+            --arrow-gap: 20px;
             --arrow-width: 30px;
-            --arrow-top-start: 115px;
+            --arrow-top-start: 105px;
             position: absolute;
             height: var(--arrow-height);
             width: var(--arrow-width);
@@ -172,7 +171,6 @@
             text-align: end;
             width: 100%;
             box-sizing: border-box;
-            margin-bottom: .5rem;
         }
 
         .logo {
@@ -397,6 +395,7 @@
         }
         [topSecret] input {
             color: transparent;
+            font-size: 1px;
         }
         [topSecret] [sensitiveHide] {
             transition: none;
@@ -420,6 +419,17 @@
         }
         [topsecret] [sensitiveShow] {
             display: grid;
+        }
+        #passwordLengthIndicator {
+            --_width: 0%;
+            position: absolute;
+            width: calc(var(--_width) - 6px);
+            left: 3px;
+            bottom: 0;
+            height: 3px;
+            z-index: 100;
+            background: var(--color-1);
+            transition: width .5s;
         }
     </style>
     <style id="baseStyles">
@@ -511,7 +521,8 @@
 </head>
 <body>
 <div id="toastPanel"></div>
-<div class="allContent">
+<div id="popupPanel"></div>
+<div id="allContent">
     <div>
         <svg style="display: none;">
             <symbol id="icon-eye" viewBox="0 0 100 100">
@@ -611,8 +622,12 @@
             </div>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="secretInput" class="input middle" type="password" value="" placeholder="Make It Strong!" required
-                       autocomplete="new-password"/>
+                <div style="position: relative; border-radius: var(--border-radius-1);"  class="middle">
+                    <input id="secretInput" type="password" value=""  class="input" placeholder="Make It Unique!" required
+                           autocomplete="new-password" style="width: 100%;"/>
+                    <div id="passwordLengthIndicator"></div>
+                </div>
+
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
                     <div class="sideIcon" sensitiveRemove off id="secretHideToggle">
@@ -668,7 +683,7 @@
                 </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
-                    <a class="settingsIcon sideIcon disableable disabled" href="/hash-settings" needValidForm>
+                    <a id="hashSettingsButton" class="settingsIcon sideIcon disableable disabled" href="/hash-settings" needValidForm>
                         <svg style="color: var(--color-1); width: 100%; height: 100%;">
                             <use xlink:href="#settings-icon"></use>
                         </svg>
@@ -701,18 +716,18 @@
             <div style="margin-top: 10px; display: flex; gap: .5rem;">
                 <button id="copyButton" class="gmkButton gmkButtonPrimary disableable disabled" needValidPassword disabled>Copy</button>
             </div>
-            <div class="recallPanel" needRecalledEnabled>
+            <div class="recallPanel" needRecalledEnabled style="display: none;">
                 Secret Recall
                 <div style="display: flex; gap: .5rem; justify-content: center; align-items: center">
                     <button id="clearButton" class="gmkButton gmkButtonDanger disableable disabled" style="font-size: .9rem" disabled needRecalled disabling>Remove</button>
                     <button id="setRecalledButton" class="gmkButton gmkButtonSecondary disableable disabled" style="font-size: .9rem" disabled needValidSecret>Set</button>
                 </div>
             </div>
-
         </div>
         <div class="useDisclaimer">
             <strong>Disclaimer:</strong> Use GetMeKey At Own Risk
         </div>
+        <div style="flex: 1 1"></div>
         <div class="footer">
             <div class="footerItem">About GetMeKey</div>
             <div class="footerItem">Full Disclaimer</div>

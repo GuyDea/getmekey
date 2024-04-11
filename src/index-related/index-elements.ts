@@ -3,6 +3,7 @@ const elById = <T extends HTMLElement>(id: string) => () => document.getElementB
  * Provides access to all elements available on the main page
  */
 export class IndexElements {
+    public static allContent = elById('allContent');
     public static mainPage = elById('mainPage');
     public static arrow1 = elById('arrow1');
     public static secretInput = elById<HTMLInputElement>('secretInput');
@@ -30,4 +31,6 @@ export class IndexElements {
     public static passReqUppercaseCount = elById('passReqUppercaseCount');
     public static passReqSpecialCount = elById('passReqSpecialCount');
     public static passReqNumberCount = elById('passReqNumberCount');
+    public static popupPanel = elById('popupPanel');
+    public static passwordLengthIndicator = elById('passwordLengthIndicator');
 }

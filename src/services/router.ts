@@ -1,5 +1,7 @@
 import {IndexElements} from "../index-related/index-elements.js"
 import {HistoryService} from "/src/services/history-service.js"
+import {popupService} from "/src/services/popup-service.js"
+import {state} from "/src/state/state-holder.js"
 
 export class Router {
     private static _routes: Route[] = [
@@ -10,6 +12,15 @@ export class Router {
         {
             path: '/hash-settings',
             component: () => import('/src/components/password-options/gmk-password-options-page.js').then(() => document.createElement('gmk-password-options-page')),
+            conditional: () => new Promise((resolve, reject) => {
+                if(state.value.userPreferences.visibility.topSecret){
+                    if(confirm('You are in Top-Secret mode. Opening this window might reveal information related to your password generation. Are you sure?')){
+                        resolve()
+                    }
+                } else {
+                    resolve()
+                }
+            })
         }
     ]
 
@@ -26,31 +37,38 @@ export class Router {
         this.handleRoute(location.pathname, false).then();
         setTimeout(() => {
             console.log('[Router] Started: Lazy loading components');
-            this._routes.forEach(async r => await r.component())
+            this._routes.forEach(async r => await r.component?.())
             console.log('[Router] Finished: Lazy loading components');
         }, 10_000);
     }
 
     public static async handleRoute(route: string, addHistory?: boolean) {
+        let currentRoute = this._routes.find(r => location.pathname.match(r.path));
+        let newRoute = this._routes.find(r => route.match(r.path));
+        let previousComponent = currentRoute?.component ? await currentRoute.component() : undefined;
+        let newComponent = newRoute?.component ? await newRoute.component() : undefined;
+        if(newRoute?.conditional){
+            try {
+                await newRoute.conditional();
+            } catch (e){
+                return;
+            }
+        }
         if(addHistory){
-            const currentRoute = location.pathname;
             HistoryService.addToHistory(() => {
-                this._display(route);
-                return () => this._display(currentRoute)
+                this._display(newComponent);
+                return () => this._display(previousComponent)
             }, route)
         } else {
-            this._display(route);
+            this._display(newComponent);
         }
     }
 
-    private static _display(route: string){
-        let foundRoute = this._routes.find(r => route.match(r.path));
-        if(foundRoute){
-            foundRoute.component().then(component => {
-                IndexElements.mainPage().style.display = 'none';
-                IndexElements.subPageContainer().innerHTML = '';
-                IndexElements.subPageContainer().append(component);
-            })
+    private static _display(component?: HTMLElement){
+        if(component){
+            IndexElements.mainPage().style.display = 'none';
+            IndexElements.subPageContainer().innerHTML = '';
+            IndexElements.subPageContainer().append(component);
         } else {
             IndexElements.mainPage().style.display = 'flex';
             IndexElements.subPageContainer().innerHTML = '';
@@ -60,5 +78,6 @@ export class Router {
 
 type Route = {
     path: string,
-    component: () => Promise<HTMLElement>;
+    component?: () => Promise<HTMLElement>;
+    conditional?: () => Promise<void>;
 }

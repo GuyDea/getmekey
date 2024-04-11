@@ -20,7 +20,7 @@ export const initState: GmkState = {
     secretValue: '',
     secretShow: false,
     secretRecalled: false,
-    secretRemembered: true,
+    secretRemembered: false,
     saltShow: false,
     saltValue: '',
     passwordShow: false,
