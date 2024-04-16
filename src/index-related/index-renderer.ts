@@ -31,9 +31,9 @@ export class IndexRenderer {
         const formOk = stateSelectors.formOk();
         const isTopSecret = state.value.userPreferences.visibility.topSecret;
         const remembered = state.value.secretRemembered;
-        IndexElements.passwordLengthIndicator().style.setProperty('--_width', `${Math.min(100, (IndexElements.secretInput().value.length/20) * 100)}%`)
+        IndexElements.passwordLengthIndicator().style.setProperty('--_width', isTopSecret ? '0%' : `${Math.min(100, (state.value.secretValue.length/20) * 100)}%`)
         IndexElements.secretInput().value = remembered ? '' : state.value.secretValue;
-        IndexElements.secretInput().setAttribute('placeholder', remembered ? 'Remembered' : 'Make It Unique!')
+        IndexElements.secretInput().setAttribute('placeholder', remembered ? 'Remembered' : 'Make It Unique!');
         setAttrIfTrue(state.value.secretRecalled, IndexElements.mainPage(), 'recalled');
         setAttrIfTrue(isTopSecret, IndexElements.mainPage(), 'topSecret');
         setAttrIfTrue(!state.value.secretShow, IndexElements.secretHideToggle(), 'off');

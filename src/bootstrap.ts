@@ -11,13 +11,13 @@ import {recallService} from "/src/services/recall-service.js"
 import {HistoryService} from "/src/services/history-service.js"
 
 export class Bootstrap {
-    public static runBootstrap(){
+    public static async runBootstrap(){
         IndexElements.secretInput().focus();
         IndexListeners.initialize();
         IndexRenderer.initialize();
-        Router.initialize();
+        await recallService.initialize();
         HistoryService.initialize();
-        recallService.initialize();
+        Router.initialize();
         preferencesService.initialize();
         passwordGenerator.initialize();
     }

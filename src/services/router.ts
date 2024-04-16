@@ -2,6 +2,8 @@ import {IndexElements} from "../index-related/index-elements.js"
 import {HistoryService} from "/src/services/history-service.js"
 import {popupService} from "/src/services/popup-service.js"
 import {state} from "/src/state/state-holder.js"
+import {GmkPopupConfirmationContent} from "/src/components/popup/gmk-popup-confirmation-content.js";
+import {html} from "/src/utils/helper-functions.js";
 
 export class Router {
     private static _routes: Route[] = [
@@ -13,10 +15,20 @@ export class Router {
             path: '/hash-settings',
             component: () => import('/src/components/password-options/gmk-password-options-page.js').then(() => document.createElement('gmk-password-options-page')),
             conditional: () => new Promise((resolve, reject) => {
-                if(state.value.userPreferences.visibility.topSecret){
-                    if(confirm('You are in Top-Secret mode. Opening this window might reveal information related to your password generation. Are you sure?')){
-                        resolve()
-                    }
+                if (state.value.userPreferences.visibility.topSecret) {
+                    popupService.open('Confirm', new GmkPopupConfirmationContent(html`
+                                <div style="text-align: center; font-size: 1.3rem; font-weight: lighter;"><span style="color: var(--color-danger)">You are in Top-Secret Mode</span><br/><br/>
+                                    Opening this window might reveal information related to your password generation<br/><br/>
+                                    Are you sure?</div>`,
+                        async () => {
+                            await popupService.close();
+                            resolve();
+                        }, async () => {
+                            await popupService.close();
+                            reject();
+                        }), {
+                        doAfterNativeClose: () => reject()
+                    });
                 } else {
                     resolve()
                 }

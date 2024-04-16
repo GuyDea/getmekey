@@ -1,10 +1,13 @@
-.input:focus {
+.inputPanel:focus-within {
     outline: 2px solid var(--color-1);
     box-shadow: none;
     transform: scale(1) !important;
 }
+input:focus-visible {
+    outline: none;
+}
 
-.input:hover {
+.inputPanel:hover {
     transform: scale(1.05);
 }
 .logo:hover {

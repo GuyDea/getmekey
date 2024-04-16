@@ -76,6 +76,7 @@
 
         #allContent {
             height: 100%;
+            transition: filter .2s;
         }
 
         #mainPage {
@@ -83,7 +84,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             gap: 1.5rem;
             padding: 1rem 0;
             max-width: var(--app-width);
@@ -104,8 +104,8 @@
 
         .arrow {
             --arrow-left: 60px;
-            --arrow-height: 65px;
-            --arrow-gap: 20px;
+            --arrow-height: 70px;
+            --arrow-gap: 15px;
             --arrow-width: 30px;
             --arrow-top-start: 105px;
             position: absolute;
@@ -135,15 +135,20 @@
         }
 
         .input {
-            width: var(--input-width);
-            border-radius: var(--border-radius-1);
             text-align: center;
             padding: .5em .5em;
             border: none;
+            font-size: 1rem;
+            height: 100%;
+            width: 100%;
+        }
+        .inputPanel{
+            width: var(--input-width);
+            border-radius: var(--border-radius-1);
             box-shadow: var(--box-shadow-1);
             transition: box-shadow .3s, transform .3s;
             height: var(--input-height);
-            font-size: 1rem;
+            overflow: hidden;
         }
 
         .labelInput {
@@ -393,6 +398,17 @@
         #toastPanel {
             padding: 0 1rem;
         }
+        #popupPanel {
+            position: fixed;
+            height: 100%;
+            width: 100%;
+            display: grid;
+            place-items: center;
+            z-index: 1;
+        }
+        #popupPanel * {
+            white-space: normal;
+        }
         [topSecret] input {
             color: transparent;
             font-size: 1px;
@@ -423,10 +439,10 @@
         #passwordLengthIndicator {
             --_width: 0%;
             position: absolute;
-            width: calc(var(--_width) - 6px);
-            left: 3px;
+            width: var(--_width);
+            left: 0;
             bottom: 0;
-            height: 3px;
+            height: 4px;
             z-index: 100;
             background: var(--color-1);
             transition: width .5s;
@@ -465,6 +481,9 @@
             border-radius: .7rem;
             padding: .5em 1em;
             transition: opacity .3s, transform .3s;
+        }
+        .gmkButton:not([disabled]) {
+            cursor: pointer;
         }
         .gmkButtonPrimary{
             background: var(--color-1);
@@ -521,7 +540,7 @@
 </head>
 <body>
 <div id="toastPanel"></div>
-<div id="popupPanel"></div>
+<div id="popupPanel" style="display: none;"></div>
 <div id="allContent">
     <div>
         <svg style="display: none;">
@@ -622,9 +641,9 @@
             </div>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <div style="position: relative; border-radius: var(--border-radius-1);"  class="middle">
-                    <input id="secretInput" type="password" value=""  class="input" placeholder="Make It Unique!" required
-                           autocomplete="new-password" style="width: 100%;"/>
+                <div style="position: relative; border-radius: var(--border-radius-1);"  class="middle inputPanel">
+                    <input id="secretInput" type="password" value="" class="input"  placeholder="Make It Unique!" required
+                           autocomplete="new-password" />
                     <div id="passwordLengthIndicator"></div>
                 </div>
 
@@ -648,8 +667,10 @@
             <label class="label" for="saltInput">App Name</label>
             <div class="withSides">
                 <div class="side leftSide"></div>
-                <input id="saltInput" class="input middle" type="password" value="" placeholder='To "Salt" Your Secret' required
-                       autocomplete="new-password"/>
+                <div class="inputPanel middle">
+                    <input id="saltInput" class="input" type="password" value="" placeholder='To "Salt" Your Secret' required
+                           autocomplete="new-password"/>
+                </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
                     <div class="sideIcon" sensitiveRemove off id="saltHideToggle">

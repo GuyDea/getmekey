@@ -1,4 +1,5 @@
 import {comp, css, html} from "/src/utils/helper-functions.js";
+import {globalStyles} from "/src/styles/global-styles.js";
 
 export class GmkPopupConfirmationContent extends HTMLElement {
     private readonly _htmlText: string;
@@ -10,8 +11,8 @@ export class GmkPopupConfirmationContent extends HTMLElement {
         this._yesCallback = yesCallback;
         this._noCallback = noCallback;
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
-        comp(this,'yesButton')().addEventListener('click', () => this._yesCallback());
-        comp(this,'noButton')().addEventListener('click', () => this._noCallback());
+        comp(this,'#yesButton')().addEventListener('click', () => this._yesCallback());
+        comp(this,'#noButton')().addEventListener('click', () => this._noCallback());
     }
 
     connectedCallback() {
@@ -26,25 +27,28 @@ export class GmkPopupConfirmationContent extends HTMLElement {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                gap: 1rem;
+                padding-top: 1rem;
             }
             .buttons{
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
+                gap: 1rem;
             }
     `
     }
 
     private _render() {
         return html`
-            <style>${this._styles()}</style>       
+            <style>${globalStyles}${this._styles()}</style>       
             <div class="mainPanel">
                 <div class="text">
                 ${this._htmlText}
                 </div>
                 <div class="buttons">
-                    <button id="yesButton">Yes</button>
-                    <button id="noButton">No</button>
+                    <button id="noButton" class="gmkButton gmkButtonSecondary">No</button>
+                    <button id="yesButton" class="gmkButton gmkButtonPrimary">Yes</button>
                 </div>
             </div>
         `
