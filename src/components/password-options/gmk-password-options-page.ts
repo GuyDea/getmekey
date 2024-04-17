@@ -13,8 +13,7 @@ export class GmkPasswordOptionsPage extends HTMLElement {
         div[slot=content] {
             display: flex;
             flex-direction: column;
-            gap: var(--spacing);
-            
+            gap: 1rem;
         }
     `
 

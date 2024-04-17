@@ -52,7 +52,7 @@ export class GmkPopup extends HTMLElement {
                 padding: 1rem;
                 border-radius: 1rem;
                 box-shadow: var(--box-shadow-1), inset .5rem .5rem .5rem var(--color-text-1);
-                max-width: 400px;
+                max-width: var(--app-width);
                 margin: 0 1rem;
             }
             .header {

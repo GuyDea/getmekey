@@ -31,7 +31,7 @@ export class GmkToast extends HTMLElement {
         })
         this.addEventListener('pointerdown', () => this._fuze().getAnimations().forEach(a => a.cancel()));
         this.addEventListener('click', () => {
-            this._fuze().style.setProperty('--fuze-ttl', '500ms');
+            this._fuze().style.setProperty('--fuze-ttl', '300ms');
             this.reset();
         })
     }
@@ -62,7 +62,7 @@ export class GmkToast extends HTMLElement {
                 --fuze-ttl: ${this._ttl}ms;
             }
             .mainPanel{
-                font-size: 1.5rem;
+                font-size: 1.3rem;
                 font-weight: lighter;
                 padding: .5rem 1rem;
                 border-radius: 1rem;

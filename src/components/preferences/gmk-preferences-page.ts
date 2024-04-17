@@ -17,7 +17,7 @@ export class GmkPreferencesPage extends HTMLElement {
         return html`
             <style>${globalStyles}</style>
             <gmk-subpage-container>
-                <span slot="headerText">User Preferences</span>
+                <span slot="headerText">Preferences</span>
                 <div slot="content" class="settingsColumn">       
                     <gmk-visibility></gmk-visibility>
                     <gmk-recall></gmk-recall>
