@@ -9,7 +9,7 @@ export class GmkPopup extends HTMLElement {
         super();
         this._header = header;
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
-        comp(this, '#closeButton')().addEventListener('click', () => popupService.close());
+        comp(this, '#closeButton')().addEventListener('click', () => popupService.close(true));
     }
 
     connectedCallback() {

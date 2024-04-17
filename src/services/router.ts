@@ -21,13 +21,13 @@ export class Router {
                                     Opening this window might reveal information related to your password generation<br/><br/>
                                     Are you sure?</div>`,
                         async () => {
-                            await popupService.close();
+                            await popupService.close(false);
                             resolve();
                         }, async () => {
-                            await popupService.close();
+                            await popupService.close(false);
                             reject();
                         }), {
-                        doAfterNativeClose: () => reject()
+                        doOnDismiss: reject
                     });
                 } else {
                     resolve()

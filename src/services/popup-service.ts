@@ -3,7 +3,7 @@ import {IndexElements} from "/src/index-related/index-elements.js"
 import {HistoryService} from "/src/services/history-service.js";
 
 export type PopupOptions = {
-    doAfterNativeClose?: () => void
+    doOnDismiss?: () => void
 }
 
 export class PopupService {
@@ -16,17 +16,21 @@ export class PopupService {
             IndexElements.popupPanel().style.display = '';
             IndexElements.popupPanel().innerHTML = '';
             IndexElements.popupPanel().appendChild(gmkPopup);
-            return (wasNativeNavigation) => {
+            return (nav) => {
                 this._hide();
-                if(wasNativeNavigation) {
-                    popupOptions?.doAfterNativeClose?.();
+                const wasDismissed = nav.payload;
+                if(nav.wasNativeNavigation || wasDismissed) {
+                    popupOptions?.doOnDismiss?.();
                 }
             }
         })
     }
 
-    public async close(): Promise<void> {
-        await HistoryService.goBack();
+    /**
+     * @param dismiss tells the popup that it's meant to be closed without executing any additional action
+     */
+    public async close(dismiss?: boolean): Promise<void> {
+        await HistoryService.goBack(dismiss);
     }
 
     private _hide(){
