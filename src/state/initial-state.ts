@@ -6,6 +6,7 @@ const defaultUserPreferences: UserPreferencesOptions = {
         hideInfo: false,
         topSecret: false
     },
+    autoCopy: false,
     recall: {
         rememberDurationM: 60,
         remember: false,
@@ -34,7 +35,7 @@ export const initState: GmkState = {
         outputOptions: {
             format: 'base64',
             takeFirst: 20,
-            minTakeFirst: 15,
+            minTakeFirst: 10,
             maxTakeFirst: 200,
             securityText: '#1A',
             securityTextPosition: 'prefix'

@@ -28,6 +28,10 @@ export class Persistence {
         localStorage.removeItem(`${this.VERSION}_${address}${suffix ? `_${suffix}` : ''}`)
     }
 
+    public static removeAllStorage(){
+        localStorage.clear();
+    }
+
     public static getFromCookie<T>(name: CookieName): T | null {
         let nameEQ = `${this.VERSION}_${name}=`;
         let ca = document.cookie.split(';');

@@ -24,6 +24,7 @@ export type GmkState = {
 export type UserPreferencesOptions = {
     visibility: VisibilityOptions;
     recall: RecallOptions;
+    autoCopy: boolean;
 }
 export type RecallOptions = {
     allowRecall: boolean;

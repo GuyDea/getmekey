@@ -9,12 +9,14 @@ import {preferencesService} from "/src/services/preferences-service.js"
 import {passwordGenerator} from "/src/services/password-generator-service.js"
 import {recallService} from "/src/services/recall-service.js"
 import {HistoryService} from "/src/services/history-service.js"
+import {copyService} from "/src/services/copy-service.js"
 
 export class Bootstrap {
     public static async runBootstrap(){
         IndexElements.secretInput().focus();
         IndexListeners.initialize();
         IndexRenderer.initialize();
+        copyService.initialize();
         await recallService.initialize();
         HistoryService.initialize();
         Router.initialize();
