@@ -74,7 +74,7 @@ export class GmkRecall extends HTMLElement {
                             <input type="checkbox" id="remember"><label for="remember">Remember Recalled Secret</label>
                         </div>
                         <div class="line lineCenter" id="minutesPanel">
-                            <label for="minutes" style="margin-right: 0;">Remember For</label>
+                            <label for="minutes" style="margin-right: 0;">Remember</label>
                             <input id="minutes" type="number" class="short">
                             mins
                             <input id="minutesRange" type="range">
