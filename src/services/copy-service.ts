@@ -4,11 +4,11 @@ import {state} from "/src/state/state-holder.js";
 export class CopyService {
     public initialize(){
         state.subscribe(s => {
-            if(s.userPreferences.autoCopy && s.passwordValue){
+            if(s.userPreferences.usability.autoCopy && s.passwordValue){
                 this.copy(s.passwordValue, 'Auto Copied');
             }
         }, {
-            diffMatcher: s => JSON.stringify({enabled: s.userPreferences.autoCopy, password: s.passwordValue})
+            diffMatcher: s => JSON.stringify({enabled: s.userPreferences.usability.autoCopy, password: s.passwordValue})
         })
     }
 

@@ -12,8 +12,6 @@ export class GmkRecall extends HTMLElement {
     private _minutesRange = comp<HTMLInputElement>(this, '#minutesRange');
     private _minutesPanel = comp(this, '#minutesPanel');
     private _rememberAndCopyPanel = comp(this, '#rememberAndCopyPanel');
-    private _appPrefill = comp<HTMLInputElement>(this,'#appPrefill');
-    private _autoCopy = comp<HTMLInputElement>(this,'#autoCopy');
 
 
     constructor() {
@@ -31,9 +29,7 @@ export class GmkRecall extends HTMLElement {
             this._minutesRange().setAttribute('max', opts().maxRememberDurationM.toString());
             this._minutes().value = opts().rememberDurationM.toString();
             this._minutesRange().value = opts().rememberDurationM.toString();
-            this._appPrefill().checked = opts().appPrefill;
             this._allowRecall().checked = opts().allowRecall;
-            this._autoCopy().checked = state.value.userPreferences.autoCopy;
             toggleDisabledPanel(this._rememberAndCopyPanel(), !s.userPreferences.recall.allowRecall);
             toggleDisabledPanel(this._minutesPanel(), !s.userPreferences.recall.remember || !s.userPreferences.recall.allowRecall);
         }, {
@@ -42,8 +38,6 @@ export class GmkRecall extends HTMLElement {
         }));
         this._minutesRange().addEventListener('input', () => state.update(s => opts().rememberDurationM = Number(this._minutesRange().value)));
         this._minutes().addEventListener('change', () => state.update(s => opts().rememberDurationM = fixVal(opts().minRememberDurationM, opts().maxRememberDurationM, this._minutes())));
-        this._appPrefill().addEventListener('input', () => state.update(s => opts().appPrefill = this._appPrefill().checked));
-        this._autoCopy().addEventListener('input', () => state.update(s => s.userPreferences.autoCopy = this._autoCopy().checked));
 
     }
 
@@ -60,13 +54,10 @@ export class GmkRecall extends HTMLElement {
         return html`
             <style>${globalStyles}${this._styles()}</style>      
             <gmk-title-panel>
-                <span slot="title">Ease Of Use</span>
+                <span slot="title">Secret Recall</span>
                 <div slot="content" class="settingsColumn">
                     <div class="line lineCenter">
-                        <input type="checkbox" id="autoCopy"><label for="autoCopy">Auto Copy</label>
-                    </div>
-                    <div class="line lineCenter">
-                        <input type="checkbox" id="allowRecall"><label for="allowRecall">Allow
+                        <input type="checkbox" id="allowRecall"><label for="allowRecall">Enable
                         Secret Recall</label>
                     </div>
                     <div id="rememberAndCopyPanel" class="settingsColumn">
@@ -79,9 +70,6 @@ export class GmkRecall extends HTMLElement {
                             mins
                             <input id="minutesRange" type="range">
                         </div>
-                        <div class="line lineCenter disableable">
-                            <input type="checkbox" id="appPrefill"><label for="appPrefill">App Name Prefill</label>
-                        </div>                        
                     </div>
                 </div>
                 

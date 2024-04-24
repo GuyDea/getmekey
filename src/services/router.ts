@@ -33,13 +33,18 @@ export class Router {
                     resolve()
                 }
             })
-        }
+        },
+        {
+            path: '/why-strong-secret',
+            component: () => import('/src/components/text-pages/gmk-why-strong-secret-page.js').then(() => document.createElement('gmk-why-strong-secret-page')),
+        },
     ]
 
     public static initialize(){
-        window.addEventListener('click', ev => {
-            const anchor = (ev.composedPath().find(e => (e as any)?.tagName?.toLowerCase() === 'a') as HTMLElement)?.getAttribute('href');
-            if (anchor != null && !['http://', 'https://'].some(p => anchor.startsWith(p))) {
+        window.addEventListener('click', async ev => {
+            let aHref = ev.composedPath().find(e => (e as any)?.tagName?.toLowerCase() === 'a') as HTMLElement;
+            const anchor = aHref?.getAttribute('href');
+            if (anchor != null && !['http://', 'https://'].some(p => anchor.startsWith(p)) && aHref.getAttribute('target') !== '_blank') {
                 ev.preventDefault();
                 ev.stopPropagation();
                 ev.stopImmediatePropagation();

@@ -7,6 +7,7 @@ export type PopupOptions = {
 }
 
 export class PopupService {
+    private _popupOpen = false;
     public open(header: string, content: HTMLElement, popupOptions?: PopupOptions) {
         const gmkPopup = new GmkPopup(header);
         content.setAttribute('slot', 'content');
@@ -16,8 +17,10 @@ export class PopupService {
             IndexElements.popupPanel().style.display = '';
             IndexElements.popupPanel().innerHTML = '';
             IndexElements.popupPanel().appendChild(gmkPopup);
+            this._popupOpen = true;
             return (nav) => {
                 this._hide();
+                this._popupOpen = false;
                 const wasDismissed = nav.payload;
                 if(nav.wasNativeNavigation || wasDismissed) {
                     popupOptions?.doOnDismiss?.();
@@ -30,7 +33,9 @@ export class PopupService {
      * @param dismiss tells the popup that it's meant to be closed without executing any additional action
      */
     public async close(dismiss?: boolean): Promise<void> {
-        await HistoryService.goBack(dismiss);
+        if (this._popupOpen) {
+            await HistoryService.goBack(dismiss);
+        }
     }
 
     private _hide(){

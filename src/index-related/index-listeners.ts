@@ -1,6 +1,5 @@
 import {IndexElements} from './index-elements.js';
 import {state} from "../state/state-holder.js"
-import {toastService} from "/src/services/toast-service.js"
 import {recallService} from "/src/services/recall-service.js";
 import {copyService} from "/src/services/copy-service.js"
 
@@ -23,5 +22,6 @@ export class IndexListeners {
         IndexElements.copyButton().addEventListener('click', () => copyService.copy(state.value.passwordValue, 'Copied To Clipboard'));
         IndexElements.setRecalledButton().addEventListener('click', () => recallService.storeToRecalled());
         IndexElements.clearButton().addEventListener('click', () => recallService.removeRecalledByUser());
+
     }
 }

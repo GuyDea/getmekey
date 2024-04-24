@@ -6,7 +6,10 @@ const defaultUserPreferences: UserPreferencesOptions = {
         hideInfo: false,
         topSecret: false
     },
-    autoCopy: false,
+    usability: {
+        autoCopy: false,
+        appPrefill: false
+    },
     recall: {
         rememberDurationM: 60,
         remember: false,

@@ -6,6 +6,7 @@ import '/src/components/gmk-info-icon.js';
 import '/src/components/password-options/gmk-algo-output-format.js';
 import '/src/components/preferences/gmk-visibility.js';
 import '/src/components/preferences/gmk-recall.js';
+import '/src/components/preferences/gmk-usability.js';
 import {popupService} from "/src/services/popup-service.js"
 import {GmkPopupConfirmationContent} from "/src/components/popup/gmk-popup-confirmation-content.js"
 import {Persistence} from "/src/services/persistence.js"
@@ -39,6 +40,7 @@ export class GmkPreferencesPage extends HTMLElement {
                 <span slot="headerText">Preferences</span>
                 <div slot="content" class="settingsColumn">       
                     <gmk-visibility></gmk-visibility>
+                    <gmk-usability></gmk-usability>
                     <gmk-recall></gmk-recall>
                     <div style="display: flex; justify-content: center;">
                         <button id="purgeAllButton" class="gmkButton gmkButtonPrimary">Purge All</button>

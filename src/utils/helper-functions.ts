@@ -1,8 +1,6 @@
 /*
 Tag functions used to denote purpose of used template literal - behave the same as regular template literal
  */
-import {state} from "/src/state/state-holder.js"
-
 export function html(strings: TemplateStringsArray, ...expressions: any[]): string {
     return _returnUnchanged(strings, ...expressions);
 }
@@ -79,4 +77,8 @@ export function formatTime(milliseconds: number): string {
     const pad = (n: number) => n < 10 ? '0' + n : n;
 
     return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+}
+
+export function getOrigin(): string{
+    return origin.startsWith('http') ? origin : 'https://getmekey.com';
 }

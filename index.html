@@ -107,9 +107,9 @@
         .arrow {
             --arrow-left: 60px;
             --arrow-height: 70px;
-            --arrow-gap: 20px;
+            --arrow-gap: 15px;
             --arrow-width: 30px;
-            --arrow-top-start: 105px;
+            --arrow-top-start: 115px;
             position: absolute;
             height: var(--arrow-height);
             width: var(--arrow-width);
@@ -256,6 +256,7 @@
         .useDisclaimer {
             font-size: 12px;
             text-align: center;
+            flex: 1 1;
         }
 
         .footer {
@@ -335,17 +336,6 @@
 
         .color1 {
             color: var(--color-1);
-        }
-
-        .lastLine {
-            display: flex;
-            flex-direction: row;
-            width: 100%;
-            padding: 0 1rem;
-        }
-
-        .lastLineSpacer {
-            flex: 1 1 auto;
         }
 
         .socialIcon {
@@ -651,7 +641,7 @@
                 </div>
 
                 <div class="side rightSide">
-                    <gmk-info-icon></gmk-info-icon>
+                    <gmk-info-icon page="secret"></gmk-info-icon>
                     <div class="sideIcon" sensitiveRemove off id="secretHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
@@ -751,26 +741,18 @@
         <div class="useDisclaimer">
             <strong>Disclaimer:</strong> Use GetMeKey At Own Risk
         </div>
-        <div style="flex: 1 1"></div>
         <div class="footer">
             <div class="footerItem">About GetMeKey</div>
             <div class="footerItem">Full Disclaimer</div>
         </div>
-        <div class="lastLine">
-            <div class="appVersion">
-                <div><strong>Version</strong> {{APP_VERSION}}.{{GIT_COMMIT_ID}}</div>
-                <div><strong>Build at</strong> {{BUILD_AT}}</div>
-            </div>
-            <div class="lastLineSpacer"></div>
-            <div class="socialIcons">
-                <a href="https://github.com/GuyDea/get-me-key" target="_blank">
-                    <div class="socialIcon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                            <path d="M50.5 0a49.8 49.8 0 0 0-15.7 97.2c2.3.5 4.2-2 4.2-4.1v-6.7c-13.9 3-18.2-6.7-18.2-6.7a15 15 0 0 0-5.1-7.3c-4.6-3.3.2-3 .2-3a10 10 0 0 1 7.6 4.6c4 6.7 12.7 6 15.5 4.8a12.4 12.4 0 0 1 1.1-6.7C24.5 69.4 16 60.1 16 47.7a24.7 24.7 0 0 1 6.7-17.5 14.3 14.3 0 0 1 .7-14.8A20.5 20.5 0 0 1 38 22.1a34.8 34.8 0 0 1 12.5-1.8 39.4 39.4 0 0 1 12.4 1.6 20.7 20.7 0 0 1 14.8-6.5 15 15 0 0 1 .9 14.8 24.7 24.7 0 0 1 6.5 17.5c0 12.4-8.6 21.7-24.2 24.4a12.4 12.4 0 0 1 1.1 6.7v14.3a4.1 4.1 0 0 0 4.4 4.1A50 50 0 0 0 50.4 0Z"/>
-                        </svg>
-                    </div>
-                </a>
-            </div>
+        <div class="socialIcons">
+            <a href="https://github.com/GuyDea/get-me-key" target="_blank">
+                <div class="socialIcon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                        <path d="M50.5 0a49.8 49.8 0 0 0-15.7 97.2c2.3.5 4.2-2 4.2-4.1v-6.7c-13.9 3-18.2-6.7-18.2-6.7a15 15 0 0 0-5.1-7.3c-4.6-3.3.2-3 .2-3a10 10 0 0 1 7.6 4.6c4 6.7 12.7 6 15.5 4.8a12.4 12.4 0 0 1 1.1-6.7C24.5 69.4 16 60.1 16 47.7a24.7 24.7 0 0 1 6.7-17.5 14.3 14.3 0 0 1 .7-14.8A20.5 20.5 0 0 1 38 22.1a34.8 34.8 0 0 1 12.5-1.8 39.4 39.4 0 0 1 12.4 1.6 20.7 20.7 0 0 1 14.8-6.5 15 15 0 0 1 .9 14.8 24.7 24.7 0 0 1 6.5 17.5c0 12.4-8.6 21.7-24.2 24.4a12.4 12.4 0 0 1 1.1 6.7v14.3a4.1 4.1 0 0 0 4.4 4.1A50 50 0 0 0 50.4 0Z"/>
+                    </svg>
+                </div>
+            </a>
         </div>
     </div>
 

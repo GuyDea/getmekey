@@ -24,7 +24,7 @@ export type GmkState = {
 export type UserPreferencesOptions = {
     visibility: VisibilityOptions;
     recall: RecallOptions;
-    autoCopy: boolean;
+    usability: UsabilityOptions;
 }
 export type RecallOptions = {
     allowRecall: boolean;
@@ -37,6 +37,11 @@ export type RecallOptions = {
 type VisibilityOptions = {
     topSecret: boolean;
     hideInfo: boolean;
+}
+
+type UsabilityOptions = {
+    autoCopy: boolean;
+    appPrefill: boolean;
 }
 
 export type Algo = 'SHA' | 'PBKDF2' | 'Argon2' | 'Scrypt';
