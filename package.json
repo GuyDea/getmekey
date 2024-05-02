@@ -1,5 +1,5 @@
 {
-  "name": "get-me-key",
+  "name": "getmekey",
   "author": "GuyDea",
   "description": "Tool for quick generation of unique and reproducible passwords",
   "private": false,
@@ -20,5 +20,21 @@
     "chokidar-cli": "^3.0.0",
     "live-server": "^1.2.2",
     "typescript": "^5.3.3"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuyDea/getmekey.git"
+  },
+  "keywords": [
+    "password",
+    "manager",
+    "security"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuyDea/getmekey/issues"
   }
 }
