@@ -35,16 +35,16 @@ export class Router {
             })
         },
         {
-            path: '/why-strong-secret',
-            component: () => import('/src/components/text-pages/gmk-why-strong-secret-page.js').then(() => document.createElement('gmk-why-strong-secret-page')),
-        },
-        {
             path: '/about',
             component: () => import('/src/components/text-pages/gmk-about-page.js').then(() => document.createElement('gmk-about-page')),
         },
         {
             path: '/disclaimer',
             component: () => import('/src/components/text-pages/gmk-disclaimer-page.js').then(() => document.createElement('gmk-disclaimer-page')),
+        },
+        {
+            path: '/info-secret|/why-strong-secret',
+            component: (path: string) => import('/src/components/text-pages/gmk-info-page.js').then(m => new m.default(path.replace('/', '').split('?')[0])),
         },
     ]
 
@@ -60,18 +60,13 @@ export class Router {
             }
         }, {capture: true});
         this.handleRoute(location.pathname, false).then();
-        setTimeout(() => {
-            console.log('[Router] Started: Lazy loading components');
-            this._routes.forEach(async r => await r.component?.())
-            console.log('[Router] Finished: Lazy loading components');
-        }, 10_000);
     }
 
     public static async handleRoute(route: string, addHistory?: boolean) {
         let currentRoute = this._routes.find(r => location.pathname.match(r.path));
         let newRoute = this._routes.find(r => route.match(r.path));
-        let previousComponent = currentRoute?.component ? await currentRoute.component() : undefined;
-        let newComponent = newRoute?.component ? await newRoute.component() : undefined;
+        let previousComponent = currentRoute?.component ? await currentRoute.component(location.pathname) : undefined;
+        let newComponent = newRoute?.component ? await newRoute.component(route) : undefined;
         if(newRoute?.conditional){
             try {
                 await newRoute.conditional();
@@ -103,6 +98,6 @@ export class Router {
 
 type Route = {
     path: string,
-    component?: () => Promise<HTMLElement>;
+    component?: (path: string) => Promise<HTMLElement>;
     conditional?: () => Promise<void>;
 }

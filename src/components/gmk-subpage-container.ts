@@ -32,6 +32,7 @@ export class GmkSubpageContainer extends HTMLElement{
             flex-direction: row;
             width: 100%;
             padding: 1rem;
+            box-sizing: border-box;
         }
         #backButton {
             display: block;

@@ -74,10 +74,6 @@
             min-width: var(--app-width);
         }
 
-        gmk-info-icon{
-            flex: 0 0 auto;
-        }
-
         #subPageContainer{
             width: var(--app-width);
         }
@@ -289,8 +285,6 @@
         .side {
             display: flex;
             flex-direction: row;
-            gap: .2em;
-            padding: 0 .5rem;
             align-items: center;
         }
 
@@ -387,7 +381,7 @@
             margin-bottom: 4px;
         }
         #toastPanel {
-            padding: 0 1rem;
+            max-width: calc(var(--app-width) * .9);
         }
         #popupPanel {
             position: fixed;
@@ -647,7 +641,9 @@
                 </div>
 
                 <div class="side rightSide">
-                    <gmk-info-icon page="secret"></gmk-info-icon>
+                    <a class="sideIcon" href="/info-secret">
+                        <gmk-info-icon page="info-secret"></gmk-info-icon>
+                    </a>
                     <div class="sideIcon" sensitiveRemove off id="secretHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
