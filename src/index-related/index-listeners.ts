@@ -1,7 +1,7 @@
 import {IndexElements} from './index-elements.js';
-import {state} from "../state/state-holder.js"
 import {recallService} from "/src/services/recall-service.js";
 import {copyService} from "/src/services/copy-service.js"
+import {state} from "/src/state/initial-state.js"
 
 export class IndexListeners {
     public static initialize(){

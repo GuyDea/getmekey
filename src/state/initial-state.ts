@@ -1,5 +1,6 @@
 import {Persistence} from "/src/services/persistence.js";
 import {GmkState, UserPreferencesOptions} from "/src/state/gmk-state-type.js"
+import {StateHolder} from "/src/state/state-holder.js"
 
 const defaultUserPreferences: UserPreferencesOptions = {
     visibility: {
@@ -91,3 +92,13 @@ export const initState: GmkState = {
         enabledAlgos: ['SHA', 'PBKDF2', 'Scrypt']
     }
 }
+export const state = new StateHolder<GmkState>(initState, error => {
+    // If there is some error, it's probably caused by outdated format of local storage
+    // Makeshift solution for now is to just clear that up completely
+    if (Persistence.getFromStorage("USER_PREFERENCES")) {
+        Persistence.removeFromStorage("USER_PREFERENCES");
+        location.reload();
+    }
+
+    throw error
+});

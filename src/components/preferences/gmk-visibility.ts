@@ -2,8 +2,9 @@ import {comp, css, html} from "/src/utils/helper-functions.js";
 import '/src/components/gmk-title-panel.js';
 import '/src/components/gmk-info-icon.js';
 import {globalStyles} from "/src/styles/global-styles.js";
-import {state, Subscriber} from "/src/state/state-holder.js";
+import {Subscriber} from "/src/state/state-holder.js";
 import {GmkState} from "/src/state/gmk-state-type.js"
+import {state} from "/src/state/initial-state.js"
 
 export class GmkVisibility extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];

@@ -1,8 +1,9 @@
-import {state, StateHolder} from "/src/state/state-holder.js";
+import {StateHolder} from "/src/state/state-holder.js";
 import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
 import {ByteUtils} from "/src/hash-algos/byte-utils.js";
 import {GmkState, PasswordGenerationOptions} from "/src/state/gmk-state-type.js"
 import {stateSelectors} from "/src/state/state-selectors.js"
+import {state} from "/src/state/initial-state.js"
 
 type ObservedProps = {
     secret?: string;

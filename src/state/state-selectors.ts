@@ -1,5 +1,5 @@
-import {state} from "./state-holder.js"
 import {GmkState} from "/src/state/gmk-state-type.js"
+import {state} from "/src/state/initial-state.js"
 
 export class StateSelectors {
     private _getState: () => GmkState;

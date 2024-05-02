@@ -1,4 +1,4 @@
-import {DiffMatcher, state} from "/src/state/state-holder.js"
+import {DiffMatcher} from "/src/state/state-holder.js"
 import {GmkState, PasswordGenerationOptions} from "/src/state/gmk-state-type.js"
 import {ByteUtils} from "/src/hash-algos/byte-utils.js"
 import {decryptData, encryptData, generateRandomPassphrase} from "/src/utils/crypto-functions.js"
@@ -6,6 +6,7 @@ import {Persistence} from "/src/services/persistence.js"
 import {toastService} from "/src/services/toast-service.js"
 import {IndexElements} from "/src/index-related/index-elements.js"
 import {formatTime} from "/src/utils/helper-functions.js";
+import {state} from "/src/state/initial-state.js"
 
 export type RememberedSecret = {
     secret: string;

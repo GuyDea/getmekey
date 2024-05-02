@@ -1,5 +1,5 @@
-import {state} from "/src/state/state-holder.js"
 import {Persistence} from "/src/services/persistence.js"
+import {state} from "/src/state/initial-state.js"
 
 export class PreferencesService {
     public initialize(){

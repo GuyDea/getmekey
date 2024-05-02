@@ -6,9 +6,10 @@ import '/src/components/password-options/gmk-pbkdf2-options.js';
 import '/src/components/password-options/gmk-argon2-options.js';
 import '/src/components/password-options/gmk-scrypt-options.js';
 import {globalStyles} from "/src/styles/global-styles.js";
-import {state, Subscriber} from "/src/state/state-holder.js";
+import {Subscriber} from "/src/state/state-holder.js";
 import '/src/components/password-options/gmk-generation-duration.js';
 import {Algo, GmkState} from "/src/state/gmk-state-type.js"
+import {state} from "/src/state/initial-state.js"
 
 export class GmkAlgoSelection extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];

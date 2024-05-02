@@ -1,5 +1,6 @@
 import {toastService} from "/src/services/toast-service.js";
-import {state} from "/src/state/state-holder.js";
+
+import {state} from "/src/state/initial-state.js"
 
 export class CopyService {
     public initialize(){

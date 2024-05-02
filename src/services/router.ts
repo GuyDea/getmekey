@@ -1,9 +1,9 @@
 import {IndexElements} from "../index-related/index-elements.js"
 import {HistoryService} from "/src/services/history-service.js"
 import {popupService} from "/src/services/popup-service.js"
-import {state} from "/src/state/state-holder.js"
 import {GmkPopupConfirmationContent} from "/src/components/popup/gmk-popup-confirmation-content.js";
 import {html} from "/src/utils/helper-functions.js";
+import {state} from "/src/state/initial-state.js"
 
 export class Router {
     private static _routes: Route[] = [
