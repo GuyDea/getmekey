@@ -30,7 +30,7 @@ export class GmkToast extends HTMLElement {
                 }).finished.then(() => this._close())
         })
         this.addEventListener('pointerdown', () => this._fuze().getAnimations().forEach(a => a.cancel()));
-        this.addEventListener('click', () => {
+        this.addEventListener('pointerup', () => {
             this._fuze().style.setProperty('--fuze-ttl', '300ms');
             this.reset();
         })

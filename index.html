@@ -57,6 +57,7 @@
             text-overflow: ellipsis;
             white-space: nowrap;
             font-size: 13px;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .hideOverflow {
@@ -72,6 +73,11 @@
             flex-direction: column;
             min-width: var(--app-width);
         }
+
+        gmk-info-icon{
+            flex: 0 0 auto;
+        }
+
         #subPageContainer{
             width: var(--app-width);
         }
@@ -272,13 +278,6 @@
             text-decoration: underline;
             white-space: nowrap;
             cursor: pointer;
-        }
-
-        .appVersion {
-            font-size: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
 
         .withSides {
@@ -529,6 +528,13 @@
             background-color: var(--color-1);
         }
     </style>
+    <script>
+        window.buildInfo = {
+            version: '{{APP_VERSION}}',
+            vcHash: '{{GIT_COMMIT_ID}}',
+            buildAt: '{{BUILD_AT}}'
+        }
+    </script>
 </head>
 <body>
 <div id="toastPanel"></div>
@@ -742,8 +748,8 @@
             <strong>Disclaimer:</strong> Use GetMeKey At Own Risk
         </div>
         <div class="footer">
-            <div class="footerItem">About GetMeKey</div>
-            <div class="footerItem">Full Disclaimer</div>
+            <a class="footerItem" href="/about">About GetMeKey</a>
+            <a class="footerItem" href="/disclaimer">Full Disclaimer</a>
         </div>
         <div class="socialIcons">
             <a href="https://github.com/GuyDea/get-me-key" target="_blank">

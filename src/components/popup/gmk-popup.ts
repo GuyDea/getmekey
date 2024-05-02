@@ -22,6 +22,7 @@ export class GmkPopup extends HTMLElement {
         return css`
             :host{
                 animation: appear .1s forwards linear;
+                backdrop-filter: blur(10px);
             }
             @keyframes appear {
                 from{
@@ -48,7 +49,7 @@ export class GmkPopup extends HTMLElement {
             }
 
             .popupPanel {
-                background: rgba(var(--color-text-1-rgb-val), .7);
+                background: rgba(var(--color-text-1-rgb-val), .5);
                 padding: 1rem;
                 border-radius: 1rem;
                 box-shadow: var(--box-shadow-1), inset .5rem .5rem .5rem var(--color-text-1);

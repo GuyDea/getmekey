@@ -38,6 +38,14 @@ export class Router {
             path: '/why-strong-secret',
             component: () => import('/src/components/text-pages/gmk-why-strong-secret-page.js').then(() => document.createElement('gmk-why-strong-secret-page')),
         },
+        {
+            path: '/about',
+            component: () => import('/src/components/text-pages/gmk-about-page.js').then(() => document.createElement('gmk-about-page')),
+        },
+        {
+            path: '/disclaimer',
+            component: () => import('/src/components/text-pages/gmk-disclaimer-page.js').then(() => document.createElement('gmk-disclaimer-page')),
+        },
     ]
 
     public static initialize(){

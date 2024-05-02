@@ -7,19 +7,15 @@ export type InfoData = {
     content: string;
 }
 
-export const INFO_ENUM = {
-    secret: 'secret',
-    appName: 'appName'
-} as const;
-export type InfoEnum = keyof typeof INFO_ENUM;
-
 const infoValues: Map<string, InfoData> = new Map([
-    [INFO_ENUM.secret, {header: 'Your Secret Text', content: `
+    ['secret', {header: 'Your Secret Text', content: `
 <p>Your one-and-only secret that you have to remember</p>
 <p>It is used as a foundation for your generated passwords</p>
 <p>Make it as unique and strong as your memory allows you (<a href="${getOrigin()}/why-strong-secret" target="_blank">Why?</a>)</p>
 <p><b>Never Share it with anyone!</b></p>`}],
-    [INFO_ENUM.appName, {header: 'App Name', content: ''}],
+    ['appName', {header: 'App Name', content: `
+    <p>
+    `}],
 ])
 
 export class Infos {

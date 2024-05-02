@@ -3,6 +3,15 @@ import {stateSelectors} from "../state/state-selectors.js";
 import {state} from "/src/state/state-holder.js";
 import {setAttrIfTrue, setClassIfTrue, toggleDisabledPanel, toggleHiddenPanel} from "/src/utils/helper-functions.js";
 
+export type GmkWindow = Window & {
+    buildInfo: {
+        version: string,
+        vcHash: string,
+        buildAt: string
+    }
+}
+
+export const gmkWindow: GmkWindow = window as any;
 
 /**
  * Only place in the application that is meant to update DOM based on the current state
