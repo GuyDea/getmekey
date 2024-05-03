@@ -1,4 +1,8 @@
 # Third-party algorithm implementations
+There are two algorithms used in GetMeKey, that are not directly browser-supported:
+- Scrypt
+- Argon2 (deprecated due to a usage of binary file)
+
 Libraries used in the production build of this project are imported directly into it's file structure, instead of relying on package-manager. 
 
 As we are not using any bundler, it's just easier to fix import issues manually.

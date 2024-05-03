@@ -27,5 +27,5 @@ export const infoValues: Map<string, InfoData> = new Map([
                     <p>However, if your secret is long, unique, unpredictable with all kinds of symbols incorporated,
                     this would represent ~1 000 000 000 000 000 000 000 000 000 000 000 000 possibilities</p>
                     <p>In short, it would take Mr. Attacker and his supercomputer trillions upon trillions of years to find the match</p>
-                    <p><b>Lesson learned:</b> <i>Stop Mr. Attacker cold with secret that’s bold!</i></p>`}]
+                    <p><b>Just remember:</b> <i>Stop Mr. Attacker cold with secret that’s bold!</i></p>`}]
 ]);

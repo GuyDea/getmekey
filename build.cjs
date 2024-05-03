@@ -38,12 +38,12 @@ const destinationDirectory = `${__dirname}/dist/static`;
 
 async function addVersion() {
     const revision = execSync('git rev-parse --short HEAD').toString().trim();
-    const indexContent = await fs.readFile(`${__dirname}/dist/index.html`, 'utf8');
-    let replaced = indexContent
+    const metaContent = await fs.readFile(`${__dirname}/dist/src/meta.js`, 'utf8');
+    let replaced = metaContent
         .replaceAll('{{APP_VERSION}}', process.env.npm_package_version)
         .replaceAll('{{GIT_COMMIT_ID}}', revision)
         .replaceAll('{{BUILD_AT}}', formatDateTime(new Date()));
-    await fs.writeFile(`${__dirname}/dist/index.html`,replaced,{encoding:'utf8',flag:'w'});
+    await fs.writeFile(`${__dirname}/dist/src/meta.js`,replaced,{encoding:'utf8',flag:'w'});
 }
 
 copyDir(sourceDirectory, destinationDirectory)

@@ -295,6 +295,7 @@
 
         .rightSide {
             width: var(--right-side-width);
+            margin-left: .3rem;
         }
 
         .middle {
@@ -522,13 +523,6 @@
             background-color: var(--color-1);
         }
     </style>
-    <script>
-        window.buildInfo = {
-            version: '{{APP_VERSION}}',
-            vcHash: '{{GIT_COMMIT_ID}}',
-            buildAt: '{{BUILD_AT}}'
-        }
-    </script>
 </head>
 <body>
 <div id="toastPanel"></div>
@@ -641,9 +635,7 @@
                 </div>
 
                 <div class="side rightSide">
-                    <a class="sideIcon" href="/info-secret">
-                        <gmk-info-icon page="info-secret"></gmk-info-icon>
-                    </a>
+                    <gmk-info-icon page="info-secret"></gmk-info-icon>
                     <div class="sideIcon" sensitiveRemove off id="secretHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
