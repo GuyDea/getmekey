@@ -31,6 +31,7 @@ async function copyOtherAssets(){
     await fs.copyFile(`${__dirname}/package.json`, `${__dirname}/dist/package.json`);
     await fs.copyFile(`${__dirname}/index.html`, `${__dirname}/dist/index.html`);
     await fs.copyFile(`${__dirname}/manifest.json`, `${__dirname}/dist/manifest.json`);
+    await fs.copyFile(`${__dirname}/sw.js`, `${__dirname}/dist/sw.js`);
 }
 
 const sourceDirectory = `${__dirname}/static`;
@@ -46,10 +47,47 @@ async function addVersion() {
     await fs.writeFile(`${__dirname}/dist/src/meta.js`,replaced,{encoding:'utf8',flag:'w'});
 }
 
+async function listFilesRecursive(dir, relativeDir = '') {
+    let results = [];
+    const directoryPath = path.join(dir, relativeDir);
+
+    const files = await fs.readdir(directoryPath);
+
+    for (let file of files) {
+        const fullPath = path.join(directoryPath, file);
+        const relativePath = path.join(relativeDir, file);
+        const stat = await fs.stat(fullPath);
+
+        if (stat && stat.isDirectory()) {
+            results = results.concat(await listFilesRecursive(dir, relativePath));
+        } else {
+            results.push(relativePath);
+        }
+    }
+    return results;
+}
+
+async function setupSW() {
+    const folders = ['lib', 'src', 'static'];
+    let files = [];
+    for (const f of folders) {
+        files = files.concat(await listFilesRecursive(`${__dirname}/dist/`, `${f}`))
+    }
+    files.push('index.html');
+    const swContent = await fs.readFile(`${__dirname}/dist/sw.js`, 'utf8');
+    let replaced = swContent
+        .replaceAll('INJECT_ASSETS_TO_PRELOAD', files.map(f => `'${f}'`).join(',\n'))
+        .replaceAll('INJECT_TIMESTAMP', new Date().getTime().toString())
+    ;
+
+    await fs.writeFile(`${__dirname}/dist/sw.js`,replaced,{encoding:'utf8',flag:'w'});
+}
+
 copyDir(sourceDirectory, destinationDirectory)
     .then(() => copyDir(`${__dirname}/lib`, `${__dirname}/dist/lib`))
     .then(() => copyOtherAssets())
     .then(() => addVersion())
+    .then(() => setupSW())
     .then(() => console.log('Build finished successfully'))
     .catch(console.error);
 

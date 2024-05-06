@@ -66,7 +66,7 @@ export class GmkToast extends HTMLElement {
                 font-weight: lighter;
                 padding: .5rem 1rem;
                 border-radius: 1rem;
-                background: ${this._severity === "INFO" ? 'var(--color-2)' : 'hsl(var(--color-danger-hue-val), 100%, 80%)'};
+                background: var(--color-2);
                 box-shadow: var(--box-shadow-2);
                 position: relative;
                 box-sizing: border-box;

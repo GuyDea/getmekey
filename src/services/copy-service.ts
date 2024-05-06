@@ -15,7 +15,9 @@ export class CopyService {
         }, {
             diffMatcher: s => JSON.stringify({enabled: s.userPreferences.usability.autoCopy, password: s.passwordValue})
         })
-        this._tryAppNameInit().then();
+        if(state.value.userPreferences.usability.autoCopy){
+            this._tryAppNameInit().then();
+        }
     }
 
     private _isIpAddress(string: string) {

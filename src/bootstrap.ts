@@ -17,12 +17,18 @@ export class Bootstrap {
         IndexElements.secretInput().focus();
         IndexListeners.initialize();
         IndexRenderer.initialize();
-        copyService.initialize();
         await recallService.initialize();
+        copyService.initialize();
         HistoryService.initialize();
         Router.initialize();
         preferencesService.initialize();
         passwordGenerator.initialize();
+        setTimeout(() => {
+            navigator.serviceWorker?.register(window.location.origin + '/sw.js')
+                .then(reg => console.log('[sw] sw registered', reg))
+                .catch(err => console.error('[sw] sw failed to install', err));
+        }, 5000);
+
     }
 }
 
