@@ -1,4 +1,4 @@
-= GetMeKey
+= GetMeKey https://www.getmekey.com[.com]
 :toc: macro
 :toc-title: Contents
 
@@ -7,14 +7,14 @@ The only password manager you'll ever need
 - *xref:about_simple[]*: Remembering a single secret text is all you need.
 - *xref:about_secure[]*: Creates unique and unbreakable passwords for all your apps. GetMeKey NEVER transmits or shares any data.
 - *xref:about_accessible[]*: Use from any platform - even offline.
-- *xref:about_transparent[]*: Absolute transparency for a sake of privacy is at heart of GetMeKey
-- *xref:about_free[]*: No payments, subscriptions, etc. GetMeKey is, and always will be, 100% free
+- *xref:about_transparent[]*: Absolute transparency to ensure privacy is at heart of GetMeKey
+- *xref:about_free[]*: No payments, subscriptions, etc. GetMeKey is, and always will be 100% free
 
 toc::[]
 
 == About GetMeKey
 
-There are only two real dilemmas in life: "What password should I use?" and "What should be my second option in my opening quote?". GetMeKey tackles the former.
+There are only two dilemmas in life: "What password should I use?" and "What should I use as second option in my opening quote?". GetMeKey tackles the former.
 
 There is a countless ways how to manage your passwords. And all of them have some major drawbacks. Let's mention some of them.
 

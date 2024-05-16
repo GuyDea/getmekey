@@ -5,7 +5,7 @@ import {decryptData, encryptData, generateRandomPassphrase} from "/src/utils/cry
 import {Persistence} from "/src/services/persistence.js"
 import {toastService} from "/src/services/toast-service.js"
 import {IndexElements} from "/src/index-related/index-elements.js"
-import {formatTime} from "/src/utils/helper-functions.js";
+import {deepCopy, formatTime} from "/src/utils/helper-functions.js";
 import {state} from "/src/state/initial-state.js"
 
 export type RememberedSecret = {
@@ -54,6 +54,7 @@ export class RecallService {
             if(passwordGenerationOptions){
                 s1.passwordGeneration = passwordGenerationOptions;
             }
+            s1.recalledPasswordGeneration = deepCopy(s1.passwordGeneration);
             if(s1.userPreferences.recall.remember){
                 const expiryDate = new Date(new Date().getTime() + state.value.userPreferences.recall.rememberDurationM * 60 * 1000);
                 // const expiryDate = new Date(new Date().getTime() + 10 * 1000);

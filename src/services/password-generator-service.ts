@@ -25,14 +25,6 @@ export class PasswordGeneratorService {
 
     stateChangedInMeantime = (currentState: StateHolder<GmkState>) => this.lastObservedProps !== this.diffMatcher(currentState.value);
 
-    static {
-        setTimeout(() => {
-            console.log('[Password Generator] Started: Lazy loading algos');
-            state.value.internals.enabledAlgos.forEach(async a => await import((`/src/hash-algos/${a.toLowerCase()}-algo.js`)))
-            console.log('[Password Generator] Finished: Lazy loading algos');
-        }, 10_000);
-    }
-
     initialize(){
         state.subscribe(s => this._processSecret(), {
             diffMatcher: this.diffMatcher

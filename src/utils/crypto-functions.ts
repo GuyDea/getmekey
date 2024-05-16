@@ -114,9 +114,3 @@ export async function decryptData<T>(encryptedData: string, ...passphrases: stri
 export function generateRandomPassphrase(length: number){
     return arrayBufferToBase64(window.crypto.getRandomValues(new Uint8Array(length)));
 }
-
-// (async () => {
-//     let stringPromise = await encryptSecret("secret", "1", '2', '3');
-//     let newVar = await decryptSecret(stringPromise, "1", '2', '3');
-//     console.log('xxx', newVar)
-// })()

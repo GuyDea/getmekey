@@ -18,6 +18,7 @@ export type GmkState = {
     secretExpiryDate: Date | null;
     userPreferences: UserPreferencesOptions;
     passwordGeneration: PasswordGenerationOptions;
+    recalledPasswordGeneration?: PasswordGenerationOptions;
     internals: InternalOptions;
 }
 
@@ -26,6 +27,7 @@ export type UserPreferencesOptions = {
     recall: RecallOptions;
     usability: UsabilityOptions;
 }
+
 export type RecallOptions = {
     allowRecall: boolean;
     rememberDurationM: number;

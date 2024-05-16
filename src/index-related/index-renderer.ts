@@ -1,6 +1,12 @@
 import {IndexElements} from "./index-elements.js";
 import {stateSelectors} from "../state/state-selectors.js";
-import {setAttrIfTrue, setClassIfTrue, toggleDisabledPanel, toggleHiddenPanel} from "/src/utils/helper-functions.js";
+import {
+    deepCompareEquals,
+    setAttrIfTrue,
+    setClassIfTrue,
+    toggleDisabledPanel,
+    toggleHiddenPanel
+} from "/src/utils/helper-functions.js";
 import {state} from "/src/state/initial-state.js"
 
 export type GmkWindow = Window & {
@@ -28,10 +34,10 @@ export class IndexRenderer {
                     passwordValue: s.passwordValue,
                     saltValue: s.saltValue,
                     passwordGenerationError: s.passwordGenerationError,
-                    outputFormat: s.passwordGeneration.outputOptions,
-                    selectedAlgo: s.passwordGeneration.selectedAlgo,
                     userPreferences: s.userPreferences,
-                    recalled: s.secretRecalled
+                    recalled: s.secretRecalled,
+                    passwordGeneration: s.passwordGeneration,
+                    recalledPasswordGeneration: s.recalledPasswordGeneration,
                 })
             }});
     };
@@ -71,11 +77,22 @@ export class IndexRenderer {
         IndexElements.firstCharactersNote().innerHTML = state.value.passwordGeneration.outputOptions.takeFirst.toString();
         IndexElements.securityTextNote().innerHTML = state.value.passwordGeneration.outputOptions.securityText;
         IndexElements.securityTextPositionNote().innerHTML = state.value.passwordGeneration.outputOptions.securityTextPosition;
+
         document.body.querySelectorAll('[needRecalled][disabling]').forEach(e => toggleDisabledPanel(e, !state.value.secretRecalled));
         document.body.querySelectorAll('[needRecalled][hiding]').forEach(e => toggleHiddenPanel(e, !state.value.secretRecalled));
         document.body.querySelectorAll('[needValidForm]').forEach(e => toggleDisabledPanel(e, !formOk));
         document.body.querySelectorAll('[needValidSecret]').forEach(e => toggleDisabledPanel(e, !stateSelectors.isSecretOk()));
         document.body.querySelectorAll('[needValidPassword]').forEach(e => toggleDisabledPanel(e, !state.value.passwordValue));
         document.body.querySelectorAll('[needRecalledEnabled]').forEach(e => toggleHiddenPanel(e, !state.value.userPreferences.recall.allowRecall));
+        if(state.value.secretRecalled){
+            IndexElements.setRecalledButton().innerHTML = 'Update';
+            if(deepCompareEquals(state.value.passwordGeneration, state.value.recalledPasswordGeneration)){
+                toggleDisabledPanel(IndexElements.setRecalledButton(), true);
+            } else {
+                toggleDisabledPanel(IndexElements.setRecalledButton(), false);
+            }
+        } else {
+            IndexElements.setRecalledButton().innerHTML = 'Add';
+        }
     }
 }

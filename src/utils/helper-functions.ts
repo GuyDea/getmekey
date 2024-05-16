@@ -79,6 +79,10 @@ export function formatTime(milliseconds: number): string {
     return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
 }
 
-export function getOrigin(): string{
-    return origin.startsWith('http') ? origin : 'https://getmekey.com';
+export function deepCopy<T>(originalObject: T): T{
+    return structuredClone(originalObject) ?? JSON.parse(JSON.stringify(originalObject));
+}
+
+export function deepCompareEquals(object1: any, object2: any): boolean{
+    return JSON.stringify(object1) === JSON.stringify(object2);
 }
