@@ -17,10 +17,10 @@ export class GmkAlgoOutputFormat extends HTMLElement {
     }
 
     connectedCallback(){
-        const opts = () => state.value.passwordGeneration.outputOptions;
+        const opts = () => state.value.hashingOptions.outputOptions;
         this._subs.push(state.subscribe(s => {
         }, {
-            diffMatcher: s => JSON.stringify(s.passwordGeneration.outputOptions),
+            diffMatcher: s => JSON.stringify(s.hashingOptions.outputOptions),
             dispatchImmediately: true,
         }));
         comp<HTMLInputElement>(this, `#${opts().format}`)().setAttribute('checked', '');

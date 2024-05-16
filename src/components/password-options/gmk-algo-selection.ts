@@ -26,11 +26,11 @@ export class GmkAlgoSelection extends HTMLElement {
             const algoOptions = comp(this, '#algoOptions');
             comp(this, '#algoSelectionPanel')().addEventListener('change', ev => {
                 const selectedAlgo = (ev.target as HTMLInputElement).getAttribute('id')! as Algo;
-                state.value.passwordGeneration.selectedAlgo = selectedAlgo;
+                state.value.hashingOptions.selectedAlgo = selectedAlgo;
                 state.notifyChange();
                 algoOptions().setAttribute('show', selectedAlgo)
             });
-            setTimeout(() => comp<HTMLInputElement>(this, `#${state.value.passwordGeneration.selectedAlgo}`)().click());
+            setTimeout(() => comp<HTMLInputElement>(this, `#${state.value.hashingOptions.selectedAlgo}`)().click());
         }, {
             dispatchImmediately: true,
             diffMatcher: s => JSON.stringify(s.internals),

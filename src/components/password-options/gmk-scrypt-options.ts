@@ -21,7 +21,7 @@ export class GmkScryptOptions extends HTMLElement {
     }
 
     connectedCallback(){
-        const opts = () => state.value.passwordGeneration.algoOptions.scrypt;
+        const opts = () => state.value.hashingOptions.algoOptions.scrypt;
         this._subs.push(state.subscribe(s => {
             this._blockRangeComp().setAttribute('min', opts().minBlock.toString());
             this._blockRangeComp().setAttribute('max', opts().maxBlock.toString());
@@ -38,7 +38,7 @@ export class GmkScryptOptions extends HTMLElement {
             this._costPowComp().innerHTML = Math.pow(2, opts().cost).toString()
 
         }, {
-            diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.scrypt),
+            diffMatcher: s => JSON.stringify(s.hashingOptions.algoOptions.scrypt),
             dispatchImmediately: true
         }));
 

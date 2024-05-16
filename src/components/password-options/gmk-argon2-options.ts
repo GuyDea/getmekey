@@ -23,7 +23,7 @@ export class GmkArgon2Options extends HTMLElement {
     }
 
     connectedCallback(){
-        const opts = () => state.value.passwordGeneration.algoOptions.argon2;
+        const opts = () => state.value.hashingOptions.algoOptions.argon2;
         this._subs.push(state.subscribe(s => {
             this._iterationsRangeComp().setAttribute('min', opts().minIterations.toString());
             this._iterationsRangeComp().setAttribute('max', opts().maxIterations.toString());
@@ -43,7 +43,7 @@ export class GmkArgon2Options extends HTMLElement {
             this._lengthRangeComp().value = opts().length.toString();
 
         }, {
-            diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.argon2),
+            diffMatcher: s => JSON.stringify(s.hashingOptions.algoOptions.argon2),
             dispatchImmediately: true
         }));
         this._iterationsRangeComp().addEventListener('input', () => state.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));

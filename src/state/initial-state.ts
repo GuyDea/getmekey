@@ -34,7 +34,7 @@ export const initState: GmkState = {
     passwordGenerationError: null,
     generationSpeed: null,
     secretExpiryDate: null,
-    passwordGeneration: {
+    hashingOptions: {
         selectedAlgo: 'PBKDF2',
         outputOptions: {
             format: 'base64',

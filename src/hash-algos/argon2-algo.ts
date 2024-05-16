@@ -27,7 +27,7 @@ class Argon2Algo implements IHashAlgorithm<Argon2Options> {
         })
     }
     getOptions(state: GmkState): Argon2Options {
-        return state.passwordGeneration.algoOptions.argon2;
+        return state.hashingOptions.algoOptions.argon2;
     }
 }
 

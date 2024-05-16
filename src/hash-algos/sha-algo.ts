@@ -12,7 +12,7 @@ class ShaAlgo implements IHashAlgorithm<ShaOptions> {
         return new Uint8Array(await crypto.subtle.digest(options.version, new TextEncoder().encode(inputString)));
     }
     getOptions(state: GmkState): ShaOptions {
-        return state.passwordGeneration.algoOptions.sha;
+        return state.hashingOptions.algoOptions.sha;
     }
 
 }

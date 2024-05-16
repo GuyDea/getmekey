@@ -14,20 +14,20 @@ export class GmkShaOptions extends HTMLElement {
 
     connectedCallback(){
         comp(this, '#versionForm')().addEventListener('change', ev => {
-            state.value.passwordGeneration.algoOptions.sha.version = (ev.target as HTMLInputElement).getAttribute('id') as any;
+            state.value.hashingOptions.algoOptions.sha.version = (ev.target as HTMLInputElement).getAttribute('id') as any;
             state.notifyChange();
         });
         comp(this, '#positionForm')().addEventListener('change', ev => {
-            state.value.passwordGeneration.algoOptions.sha.saltPosition = (ev.target as HTMLInputElement).getAttribute('id') as any;
+            state.value.hashingOptions.algoOptions.sha.saltPosition = (ev.target as HTMLInputElement).getAttribute('id') as any;
             state.notifyChange();
         });
         this._subs.push(state.subscribe(s => {
-            const opts = s.passwordGeneration.algoOptions.sha;
+            const opts = s.hashingOptions.algoOptions.sha;
             comp(this,`#${opts.version}`)().setAttribute('checked', '');
             comp(this,`#${opts.saltPosition}`)().setAttribute('checked', '');
         }, {
             dispatchImmediately: true,
-            diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.sha)
+            diffMatcher: s => JSON.stringify(s.hashingOptions.algoOptions.sha)
         }))
     }
 

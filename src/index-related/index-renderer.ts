@@ -36,8 +36,8 @@ export class IndexRenderer {
                     passwordGenerationError: s.passwordGenerationError,
                     userPreferences: s.userPreferences,
                     recalled: s.secretRecalled,
-                    passwordGeneration: s.passwordGeneration,
-                    recalledPasswordGeneration: s.recalledPasswordGeneration,
+                    passwordGeneration: s.hashingOptions,
+                    recalledPasswordGeneration: s.recalledHashingOptions,
                 })
             }});
     };
@@ -73,10 +73,10 @@ export class IndexRenderer {
         setAttrIfTrue(state.value.passwordShow && !isTopSecret, IndexElements.finalPassword(), 'type', 'text', 'password');
         setAttrIfTrue(!state.value.passwordGenerating, IndexElements.dotLoader(), 'off');
         IndexElements.finalPassword().value = state.value.passwordValue;
-        IndexElements.algoTypeNote().innerHTML = state.value.passwordGeneration.selectedAlgo;
-        IndexElements.firstCharactersNote().innerHTML = state.value.passwordGeneration.outputOptions.takeFirst.toString();
-        IndexElements.securityTextNote().innerHTML = state.value.passwordGeneration.outputOptions.securityText;
-        IndexElements.securityTextPositionNote().innerHTML = state.value.passwordGeneration.outputOptions.securityTextPosition;
+        IndexElements.algoTypeNote().innerHTML = state.value.hashingOptions.selectedAlgo;
+        IndexElements.firstCharactersNote().innerHTML = state.value.hashingOptions.outputOptions.takeFirst.toString();
+        IndexElements.securityTextNote().innerHTML = state.value.hashingOptions.outputOptions.securityText;
+        IndexElements.securityTextPositionNote().innerHTML = state.value.hashingOptions.outputOptions.securityTextPosition;
 
         document.body.querySelectorAll('[needRecalled][disabling]').forEach(e => toggleDisabledPanel(e, !state.value.secretRecalled));
         document.body.querySelectorAll('[needRecalled][hiding]').forEach(e => toggleHiddenPanel(e, !state.value.secretRecalled));
@@ -85,11 +85,12 @@ export class IndexRenderer {
         document.body.querySelectorAll('[needValidPassword]').forEach(e => toggleDisabledPanel(e, !state.value.passwordValue));
         document.body.querySelectorAll('[needRecalledEnabled]').forEach(e => toggleHiddenPanel(e, !state.value.userPreferences.recall.allowRecall));
         if(state.value.secretRecalled){
-            IndexElements.setRecalledButton().innerHTML = 'Update';
-            if(deepCompareEquals(state.value.passwordGeneration, state.value.recalledPasswordGeneration)){
+            if(deepCompareEquals(state.value.hashingOptions, state.value.recalledHashingOptions)){
                 toggleDisabledPanel(IndexElements.setRecalledButton(), true);
+                IndexElements.setRecalledButton().innerHTML = 'Recalled';
             } else {
                 toggleDisabledPanel(IndexElements.setRecalledButton(), false);
+                IndexElements.setRecalledButton().innerHTML = 'Update';
             }
         } else {
             IndexElements.setRecalledButton().innerHTML = 'Add';

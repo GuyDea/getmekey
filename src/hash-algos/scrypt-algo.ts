@@ -30,7 +30,7 @@ class ScryptAlgo implements IHashAlgorithm<ScryptOptions> {
         })
     }
     getOptions(state: GmkState): ScryptOptions {
-        return state.passwordGeneration.algoOptions.scrypt;
+        return state.hashingOptions.algoOptions.scrypt;
     }
 }
 

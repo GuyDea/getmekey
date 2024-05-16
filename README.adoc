@@ -91,8 +91,8 @@ GetMeKey is also open-source under ISC license - anyone can use, copy or share t
 
 As with everything in life, nothing is perfect. But GetMeKey gets damn close! However, it's fair to mention also these parts.
 
-* You cannot decide what kind of symbols are included in the password. Depending on the output format that you choose, these symbols are `all alphanumeric characters` plus `+/=` for _Base64_ and  `0123456789abcdef` for _HEX_ format. If some application refuses to use any of these inside the password, you have to change it manually
-* God-forbid you reveal your secret and all hashing steps to someone - this someone could then generate all your passwords as would you. However, this is fundamental issue with any secured system, or password manager - if attacker knows what you know, you are out of luck.
+* You cannot choose, what characters your password consists of. Depending on the output format that you choose, these symbols are `all alphanumeric characters` plus `+/=` for _Base64_ and  `0123456789abcdef` for _HEX_ format. If some application refuses to use any of these inside the password, you have to change it manually.
+* God-forbid, you reveal your secret and all hashing steps to someone - this someone could then generate all your passwords as would you. However, this is fundamental issue with any secured system, or password manager - if attacker knows what you know, you are out of luck.
 
 
 == Third-Party Algorithm Implementations

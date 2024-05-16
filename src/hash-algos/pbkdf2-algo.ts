@@ -13,7 +13,7 @@ class Pbkdf2Algo implements IHashAlgorithm<Pbkdf2Options> {
     }
 
     getOptions(state: GmkState): Pbkdf2Options {
-        return state.passwordGeneration.algoOptions.pbkdf2;
+        return state.hashingOptions.algoOptions.pbkdf2;
     }
 
     private async _deriveKeyFromPassword(password: string, salt: string, options: Pbkdf2Options) {

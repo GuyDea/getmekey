@@ -1,5 +1,5 @@
 import {DiffMatcher} from "/src/state/state-holder.js"
-import {GmkState, PasswordGenerationOptions} from "/src/state/gmk-state-type.js"
+import {GmkState, HashingOptions} from "/src/state/gmk-state-type.js"
 import {ByteUtils} from "/src/hash-algos/byte-utils.js"
 import {decryptData, encryptData, generateRandomPassphrase} from "/src/utils/crypto-functions.js"
 import {Persistence} from "/src/services/persistence.js"
@@ -34,9 +34,9 @@ export class RecallService {
             const hashedSecret = await this._hashedSecret(oldSecret);
             const fromStorage = Persistence.getFromStorage<string>("RECALLED_SECRET", hashedSecret);
             if(fromStorage){
-                const passwordGenerationOptions = await decryptData<PasswordGenerationOptions>(fromStorage, oldSecret);
-                if(passwordGenerationOptions && oldData === diffMatcher(state.value)) {
-                    this._markSecretRecalled(oldSecret, passwordGenerationOptions);
+                const hashingOptions = await decryptData<HashingOptions>(fromStorage, oldSecret);
+                if(hashingOptions && oldData === diffMatcher(state.value)) {
+                    this._markSecretRecalled(oldSecret, hashingOptions);
                 }
             } else {
                 state.update(s1 => s1.secretRecalled = false);
@@ -48,13 +48,13 @@ export class RecallService {
         return this._trySecretRetrieve();
     }
 
-    private _markSecretRecalled(secret: string, passwordGenerationOptions?: PasswordGenerationOptions){
+    private _markSecretRecalled(secret: string, hashingOptions?: HashingOptions){
         state.update(s1 => {
             s1.secretRecalled = true;
-            if(passwordGenerationOptions){
-                s1.passwordGeneration = passwordGenerationOptions;
+            if(hashingOptions){
+                s1.hashingOptions = hashingOptions;
             }
-            s1.recalledPasswordGeneration = deepCopy(s1.passwordGeneration);
+            s1.recalledHashingOptions = deepCopy(s1.hashingOptions);
             if(s1.userPreferences.recall.remember){
                 const expiryDate = new Date(new Date().getTime() + state.value.userPreferences.recall.rememberDurationM * 60 * 1000);
                 // const expiryDate = new Date(new Date().getTime() + 10 * 1000);
@@ -147,7 +147,7 @@ export class RecallService {
 
     public async storeToRecalled(){
         const secret = state.value.secretValue;
-        const options = state.value.passwordGeneration;
+        const options = state.value.hashingOptions;
         const hashedSecret = await this._hashedSecret(secret);
         const encryptedSettings = await encryptData(options, secret);
         Persistence.addToStorage("RECALLED_SECRET", encryptedSettings, hashedSecret);

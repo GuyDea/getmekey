@@ -1,14 +1,14 @@
 import {StateHolder} from "/src/state/state-holder.js";
 import type {IHashAlgorithm} from "/src/hash-algos/hash-algo-types.js";
 import {ByteUtils} from "/src/hash-algos/byte-utils.js";
-import {GmkState, PasswordGenerationOptions} from "/src/state/gmk-state-type.js"
+import {GmkState, HashingOptions} from "/src/state/gmk-state-type.js"
 import {stateSelectors} from "/src/state/state-selectors.js"
 import {state} from "/src/state/initial-state.js"
 
 type ObservedProps = {
     secret?: string;
     salt?: string;
-    passwordOptions?: PasswordGenerationOptions;
+    passwordOptions?: HashingOptions;
     isUnrestricted?: boolean;
 }
 
@@ -19,7 +19,7 @@ export class PasswordGeneratorService {
         return JSON.stringify({
             secret: state.secretValue,
             salt: state.saltValue,
-            passwordOptions: state.passwordGeneration,
+            passwordOptions: state.hashingOptions,
         } as ObservedProps)
     }
 
@@ -83,7 +83,7 @@ export class PasswordGeneratorService {
     }
 
     public async generatePassword(state: GmkState): Promise<string> {
-        let passwordGeneration = state.passwordGeneration;
+        let passwordGeneration = state.hashingOptions;
         let outputOptions = passwordGeneration.outputOptions;
         let selectedAlgo: IHashAlgorithm<any> = await import((`/src/hash-algos/${passwordGeneration.selectedAlgo.toLowerCase()}-algo.js`)).then(m => m.default());
         let uint8Array = await selectedAlgo.encode(state.secretValue,state.saltValue, selectedAlgo.getOptions(state));

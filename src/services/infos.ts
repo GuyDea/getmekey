@@ -8,7 +8,7 @@ export const infoValues: Map<string, InfoData> = new Map([
 <p>Your one-and-only secret that you have to remember</p>
 <p>It is used as a foundation for your generated passwords</p>
 <p>Make it as unique and strong as your memory allows you (<a href="/why-strong-secret">Why?</a>)</p>
-<p><b>Never Share it with anyone!</b></p>`}],
+<p><b>NEVER SHARE IT WITH ANYONE!</b></p>`}],
     ['appName', {header: 'App Name', content: `
     <p>
     `}],
@@ -17,10 +17,10 @@ export const infoValues: Map<string, InfoData> = new Map([
                     <p>Good question! And the answer is simple - it significantly reduces possible brute-force attack</p>
                     <p>Imagine someone (let's call him Mr. Attacker), who wants to hack your accounts. Mr. Attacker was able to acquire one
                         of your generated passwords via <a href="https://en.wikipedia.org/wiki/Phishing" target="_blank">phishing site</a>. 
-                        Then, thanks to <a href="https://en.wikipedia.org/wiki/Social_engineering_(security)" target="_blank">social engineering</a>,
+                        and thanks to <a href="https://en.wikipedia.org/wiki/Social_engineering_(security)" target="_blank">social engineering</a>,
                         he was able to figure out, what algorithm you use to transform secret into password.
                     </p>
-                    <p>Now with full knowledge of how you generate your passwords, all that Mr. Attacker is missing is - your secret</p>
+                    <p>Now with full knowledge of how you generate your passwords, Mr. Attacker can use trial-error method to find the matching secret.</p>
                     <p>Let's do some napkin math with ballpark numbers</p>
                     <p>Also let's assume, that Mr. Attacker has access to a supercomputer, which can test 1 000 000 000 000 hash generations per second</p>
                     <p>If your password was weak, it would be cracked in seconds</p>

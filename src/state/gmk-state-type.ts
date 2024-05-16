@@ -17,8 +17,8 @@ export type GmkState = {
     passwordGenerationError: string | null;
     secretExpiryDate: Date | null;
     userPreferences: UserPreferencesOptions;
-    passwordGeneration: PasswordGenerationOptions;
-    recalledPasswordGeneration?: PasswordGenerationOptions;
+    hashingOptions: HashingOptions;
+    recalledHashingOptions?: HashingOptions;
     internals: InternalOptions;
 }
 
@@ -48,7 +48,7 @@ type UsabilityOptions = {
 
 export type Algo = 'SHA' | 'PBKDF2' | 'Argon2' | 'Scrypt';
 
-export type PasswordGenerationOptions = {
+export type HashingOptions = {
     selectedAlgo: Algo,
     algoOptions: {
         pbkdf2: Pbkdf2Options,

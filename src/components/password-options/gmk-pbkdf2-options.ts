@@ -16,7 +16,7 @@ export class GmkPbkdf2Options extends HTMLElement {
     }
 
     connectedCallback(){
-        const opts = () => state.value.passwordGeneration.algoOptions.pbkdf2;
+        const opts = () => state.value.hashingOptions.algoOptions.pbkdf2;
         this._subs.push(state.subscribe(s => {
             this._iterationsRangeComp().setAttribute('min', opts().minIterations.toString());
             this._iterationsRangeComp().setAttribute('max', opts().maxIterations.toString());
@@ -24,7 +24,7 @@ export class GmkPbkdf2Options extends HTMLElement {
             this._iterationsRangeComp().value = opts().iterations.toString();
             comp(this, `#${opts().hash}`)().setAttribute('checked', '');
         }, {
-            diffMatcher: s => JSON.stringify(s.passwordGeneration.algoOptions.pbkdf2),
+            diffMatcher: s => JSON.stringify(s.hashingOptions.algoOptions.pbkdf2),
             dispatchImmediately: true
         }));
         this._iterationsRangeComp().addEventListener('input', () => state.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
