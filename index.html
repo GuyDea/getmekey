@@ -211,17 +211,6 @@
             border-radius: var(--logo-height);
         }
 
-        .encodeManual {
-            border-radius: .5rem;
-            border: 1px solid var(--color-1);
-            padding: .5em;
-            text-align: center;
-            font-size: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: .3em;
-            position: relative;
-        }
 
         #jsError {
             position: fixed;
@@ -425,20 +414,22 @@
             display: none;
         }
         .generatesText {
-            position: absolute;
-            top: 0;
-            left: 0;
             color: var(--color-1);
-            height: 100%;
+            height: calc(2 * var(--input-height));
             width: 100%;
-            display: grid;
             place-items: center;
-        }
-        [sensitiveShow] {
-            display: none;
-        }
-        [topsecret] [sensitiveShow] {
-            display: grid;
+            padding: 0 .5rem;
+            box-sizing: border-box;
+            border-radius: .5rem;
+            border: 1px solid var(--color-1);
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+            position: relative;
+            gap: .5rem;
         }
         #passwordLengthIndicator {
             --_width: 0%;
@@ -691,29 +682,18 @@
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <div class="middle">
-                    <div needValidForm class="encodeManual disableable disabled">
-                        <div sensitiveHide>
-                            <div class="hideOverflow manualStep"><span class="color1">• </span>Runs <strong id="algoTypeNote" class="color1">PBKDF2</strong> hash to <strong class="color1">Base62</strong>
-                            </div>
-                            <div class="hideOverflow manualStep"><span class="color1">• </span>Takes first <strong id="firstCharactersNote"
-                                    class="color1">20</strong> characters
-                            </div>
-                            <div class="hideOverflow manualStep"><span class="color1">• </span>Adds <strong
-                                    class="color1" id="securityTextNote">#1A</strong> <span id="securityTextPositionNote">prefix</span>
-                            </div>
-                        </div>
-                        <div sensitiveShow class="generatesText">
-                            Generates your password
-                        </div>
+                    <div needValidForm class="generatesText disableable disabled">
+                        <span>Generates Password</span>
+                        <a id="hashSettingsButton" class="settingsIcon sideIcon disableable disabled" href="/hash-settings" needValidForm>
+                            <svg style="color: var(--color-1); width: 100%; height: 100%;">
+                                <use xlink:href="#settings-icon"></use>
+                            </svg>
+                        </a>
                     </div>
                 </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
-                    <a id="hashSettingsButton" class="settingsIcon sideIcon disableable disabled" href="/hash-settings" needValidForm>
-                        <svg style="color: var(--color-1); width: 100%; height: 100%;">
-                            <use xlink:href="#settings-icon"></use>
-                        </svg>
-                    </a>
+
                 </div>
             </div>
         </div>

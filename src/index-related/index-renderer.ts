@@ -73,10 +73,6 @@ export class IndexRenderer {
         setAttrIfTrue(!state.value.passwordShow || isTopSecret, IndexElements.finalPassword(), 'masking', 'password');
         setAttrIfTrue(!state.value.passwordGenerating, IndexElements.dotLoader(), 'off');
         IndexElements.finalPassword().value = state.value.passwordValue;
-        IndexElements.algoTypeNote().innerHTML = state.value.hashingOptions.selectedAlgo;
-        IndexElements.firstCharactersNote().innerHTML = state.value.hashingOptions.outputOptions.takeFirst.toString();
-        IndexElements.securityTextNote().innerHTML = state.value.hashingOptions.outputOptions.securityText;
-        IndexElements.securityTextPositionNote().innerHTML = state.value.hashingOptions.outputOptions.securityTextPosition;
 
         document.body.querySelectorAll('[needRecalled][disabling]').forEach(e => toggleDisabledPanel(e, !state.value.secretRecalled));
         document.body.querySelectorAll('[needRecalled][hiding]').forEach(e => toggleHiddenPanel(e, !state.value.secretRecalled));

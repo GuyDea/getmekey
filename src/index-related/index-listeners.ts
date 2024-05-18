@@ -19,7 +19,7 @@ export class IndexListeners {
         IndexElements.secretHideToggle().addEventListener('click', () => state.update(() => state.value.secretShow = !state.value.secretShow));
         IndexElements.saltHideToggle().addEventListener('click', () => state.update(() => state.value.saltShow = !state.value.saltShow));
         IndexElements.passwordHideToggle().addEventListener('click', () => state.update(() => state.value.passwordShow = !state.value.passwordShow));
-        IndexElements.copyButton().addEventListener('click', () => copyService.copy(state.value.passwordValue, 'Copied To Clipboard'));
+        IndexElements.copyButton().addEventListener('click', () => copyService.copy(IndexElements.finalPassword().value, 'Copied To Clipboard'));
         IndexElements.setRecalledButton().addEventListener('click', () => recallService.storeToRecalled());
         IndexElements.clearButton().addEventListener('click', () => recallService.removeRecalledByUser());
 

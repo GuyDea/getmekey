@@ -53,9 +53,9 @@ export const infoValues: Map<string, InfoData> = new Map([
     I came up with and idea, that ticked all the boxes. Idea that would be based on mixing single secret text with app name and hashing algorithm.</p>
     <p>This idea:</p>        
     <ul>
-      <li>Offers unbreakable passwords</li>  
-      <li>Desn't depend on any corporate service</li>
+      <li>Creates unbreakable passwords</li>  
       <li>Relies on remembering as few datapoints as possible</li>      
+      <li>Desn't depend on any specific service</li>      
       <li>Could not be hacked or stealed</li>
       <li>Could quickly provide needed password anywhere, on any device, even when offline</li>
       <li>Would use only well-known algorighms</li>
@@ -63,7 +63,7 @@ export const infoValues: Map<string, InfoData> = new Map([
     <p>Unfortunatelly, no service or implementation of this idea existed.</p>
     <p>Luckly, being an IT engineer, who developed secured, mission-critical systems for multiple international companies for more than a decade,
      gave me more than enough experience, to put first version togather in few hours.</p>
-    <p>This solution, with very original working title <i>"PasswordGenerator"</i> was very simple and ugly looking - yet worked perfectly!</p>
+    <p>This demo app, with very original working title <i>"PasswordGenerator"</i> was very simple and ugly looking - yet worked perfectly!</p>
     <p>As years went by, and I was adding more bells and whistles to it, I started to notice that password management is still open topic,
     even though many other applications exist already.</p>
     <p>Many people I talked to, found same flaws with these applications, as I did.</p>

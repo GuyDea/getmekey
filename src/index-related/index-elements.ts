@@ -22,10 +22,6 @@ export class IndexElements {
     public static clearButton = elById('clearButton');
     public static dotLoader = elById('dotLoader');
     public static dotsLoading = elById('dots-loading');
-    public static algoTypeNote = elById('algoTypeNote');
-    public static firstCharactersNote = elById('firstCharactersNote');
-    public static securityTextNote = elById('securityTextNote');
-    public static securityTextPositionNote = elById('securityTextPositionNote');
     public static toastPanel = elById('toastPanel');
     public static passReqLengthCount = elById('passReqLengthCount');
     public static passReqUppercaseCount = elById('passReqUppercaseCount');

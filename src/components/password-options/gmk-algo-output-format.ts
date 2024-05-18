@@ -57,7 +57,7 @@ export class GmkAlgoOutputFormat extends HTMLElement {
         return html`
             <style>${globalStyles}${this.styles}</style>
             <gmk-title-panel>
-                <span slot="title">Password Output</span>
+                <span slot="title">Password Format</span>
                 <div slot="content">
                     <form id="formatForm" class="line">
                         <span class="label">Encode to <strong>Base62</strong></span>
