@@ -74,8 +74,8 @@
         }
 
         input[masking='password']{
-            font-family: "password", "NotDef", sans-serif;
-            font-size: .4rem !important;
+            /*font-family: "password", "NotDef", sans-serif;*/
+            /*font-size: .4rem !important;*/
         }
 
         .hideOverflow {
@@ -597,7 +597,7 @@
     <noscript>
         <div id="jsError">You must have JavaScript enabled for this application to work</div>
     </noscript>
-    <div id="mainPage">
+    <form id="mainPage" autocomplete="off" autocorrect="off" autocapitalize="off">
         <a class="preferencesIcon uxSettings" href="/preferences">
             <svg style="color: var(--color-1); width: 100%; height: 100%;">
                 <use xlink:href="#preferences-icon"></use>
@@ -760,7 +760,7 @@
                 </div>
             </a>
         </div>
-    </div>
+    </form>
 
     <div id="subPageContainer">
     </div>
