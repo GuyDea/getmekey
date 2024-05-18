@@ -74,8 +74,8 @@
         }
 
         input[masking='password']{
-            /*font-family: "password", "NotDef", sans-serif;*/
-            /*font-size: .4rem !important;*/
+            font-family: "password", "NotDef", sans-serif;
+            font-size: .4rem !important;
         }
 
         .hideOverflow {
@@ -597,7 +597,7 @@
     <noscript>
         <div id="jsError">You must have JavaScript enabled for this application to work</div>
     </noscript>
-    <form id="mainPage" autocomplete="off" autocorrect="off" autocapitalize="off">
+    <form id="mainPage" autocomplete="one-time-code" autocorrect="off" autocapitalize="off">
         <a class="preferencesIcon uxSettings" href="/preferences">
             <svg style="color: var(--color-1); width: 100%; height: 100%;">
                 <use xlink:href="#preferences-icon"></use>
@@ -644,8 +644,8 @@
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <div style="position: relative; border-radius: var(--border-radius-1);"  class="middle inputPanel">
-                    <input id="secretInput" masking="password" value="" class="input"  placeholder="Make It Unique!" required
-                           autocomplete="off" autocorrect="off" autocapitalize="off" />
+                    <input id="secretInput" type="password" value="" class="input"  placeholder="Make It Unique!" required
+                           autocomplete="one-time-code" autocorrect="off" autocapitalize="off" />
                     <div id="passwordLengthIndicator"></div>
                 </div>
 
@@ -670,8 +670,8 @@
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <div class="inputPanel middle">
-                    <input id="saltInput" class="input" value="" masking="password" placeholder='To "Salt" Your Secret' required
-                           autocomplete="off" autocorrect="off" autocapitalize="off" />
+                    <input id="saltInput" class="input" value="" type="password" placeholder='To "Salt" Your Secret' required
+                           autocomplete="one-time-code" autocorrect="off" autocapitalize="off" />
                 </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
@@ -725,7 +725,7 @@
                             <use xlink:href="#dots-loading"></use>
                         </svg>
                     </div>
-                    <input id="finalPassword" masking="password" value="" autocomplete="off" autocorrect="off" autocapitalize="off"  class="disableable disabled" needValidForm/>
+                    <input id="finalPassword" type="password" value="" autocomplete="one-time-code" autocorrect="off" autocapitalize="off"  class="disableable disabled" needValidForm/>
                 </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
