@@ -23,7 +23,7 @@ export class GmkAlgoOutputFormat extends HTMLElement {
             diffMatcher: s => JSON.stringify(s.hashingOptions.outputOptions),
             dispatchImmediately: true,
         }));
-        comp<HTMLInputElement>(this, `#${opts().format}`)().setAttribute('checked', '');
+        // comp<HTMLInputElement>(this, `#${opts().format}`)().setAttribute('checked', '');
         comp<HTMLInputElement>(this, `#${opts().securityTextPosition}`)().setAttribute('checked', '');
         this._takeFirst().value = opts().takeFirst.toString();
         this._takeFirst().setAttribute('min', opts().minTakeFirst.toString());
@@ -60,11 +60,11 @@ export class GmkAlgoOutputFormat extends HTMLElement {
                 <span slot="title">Password Output</span>
                 <div slot="content">
                     <form id="formatForm" class="line">
-                        <span class="label">Format</span>
+                        <span class="label">Encode to <strong>Base62</strong></span>
                         <div class="lineRadios">
-                            <input type="radio" name="format" id="base62"/><label for="base62">Base62</label>
-                            <input type="radio" name="format" id="base64"/><label
-                            for="base64">Base64</label>
+<!--                            <input type="radio" name="format" id="base62"/><label for="base62">Base62</label>-->
+<!--                            <input type="radio" name="format" id="base64"/><label-->
+<!--                                for="base64">Base64</label>-->
                         </div>
                     </form>
                     <div class="line lineCenter">

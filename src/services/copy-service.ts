@@ -7,7 +7,7 @@ export class CopyService {
     public initialize(){
         state.subscribe(s => {
             if(s.userPreferences.usability.autoCopy && s.passwordValue){
-                this.copy(s.passwordValue, `Auto Copied${this._appNamePrefilled ? `: ${this._appNamePrefilled}` : ''}`);
+                this.copy(s.passwordValue, `<span style="font-size: .7em">Auto Copied${this._appNamePrefilled ? ` For:</span><br/><b>${s.saltValue}</b>` : ''}`);
                 if(this._appNamePrefilled){
                     this._appNamePrefilled = null;
                 }
