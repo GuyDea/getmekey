@@ -74,9 +74,11 @@
         }
 
         input[masking='password']{
+            /* Custom font using just dots with empty font as fallback - not working properly on Iphones */
+            /* It's printing NotDef characters instead of native dots */
+            /*font-family: "password", "NotDef", sans-serif;*/
+            /*font-size: .4rem !important;*/
             -webkit-text-security: disc;
-            font-family: "password", "NotDef", sans-serif;
-            font-size: .4rem !important;
         }
 
         .hideOverflow {
@@ -738,13 +740,13 @@
                 </div>
             </div>
             <div style="margin-top: 10px; display: flex; gap: .5rem;">
-                <button id="copyButton" class="gmkButton gmkButtonPrimary disableable disabled" needValidPassword disabled>Copy</button>
+                <button id="copyButton" type="button" class="gmkButton gmkButtonPrimary disableable disabled" needValidPassword disabled>Copy</button>
             </div>
             <div class="recallPanel" needRecalledEnabled style="display: none;">
                 Secret Recall
                 <div style="display: flex; gap: .5rem; justify-content: center; align-items: center">
-                    <button id="clearButton" class="gmkButton gmkButtonDanger disableable disabled" style="font-size: .9rem" disabled needRecalled disabling>Remove</button>
-                    <button id="setRecalledButton" class="gmkButton gmkButtonSecondary disableable disabled" style="font-size: .9rem" disabled needValidSecret>Add</button>
+                    <button type="button" id="clearButton" class="gmkButton gmkButtonDanger disableable disabled" style="font-size: .9rem" disabled needRecalled disabling>Remove</button>
+                    <button type="button" id="setRecalledButton" class="gmkButton gmkButtonSecondary disableable disabled" style="font-size: .9rem" disabled needValidSecret>Add</button>
                 </div>
             </div>
         </div>
