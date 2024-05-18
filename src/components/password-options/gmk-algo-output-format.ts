@@ -62,9 +62,9 @@ export class GmkAlgoOutputFormat extends HTMLElement {
                     <form id="formatForm" class="line">
                         <span class="label">Format</span>
                         <div class="lineRadios">
+                            <input type="radio" name="format" id="base62"/><label for="base62">Base-62</label>
                             <input type="radio" name="format" id="base64"/><label
-                                for="base64">Base-64</label>
-                            <input type="radio" name="format" id="hex"/><label for="hex">Hex</label>
+                            for="base64">Base-64</label>
                         </div>
                     </form>
                     <div class="line lineCenter">

@@ -37,7 +37,7 @@ export const initState: GmkState = {
     hashingOptions: {
         selectedAlgo: 'PBKDF2',
         outputOptions: {
-            format: 'base64',
+            format: 'base62',
             takeFirst: 20,
             minTakeFirst: 10,
             maxTakeFirst: 200,
