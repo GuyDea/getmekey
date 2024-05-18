@@ -74,6 +74,7 @@
         }
 
         input[masking='password']{
+            -webkit-text-security: disc;
             font-family: "password", "NotDef", sans-serif;
             font-size: .4rem !important;
         }
@@ -644,7 +645,7 @@
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <div style="position: relative; border-radius: var(--border-radius-1);"  class="middle inputPanel">
-                    <input id="secretInput" type="password" value="" class="input"  placeholder="Make It Unique!" required
+                    <input id="secretInput" masking="password" value="" class="input"  placeholder="Make It Unique!" required
                            autocomplete="one-time-code" autocorrect="off" autocapitalize="off" />
                     <div id="passwordLengthIndicator"></div>
                 </div>
@@ -670,7 +671,7 @@
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <div class="inputPanel middle">
-                    <input id="saltInput" class="input" value="" type="password" placeholder='To "Salt" Your Secret' required
+                    <input id="saltInput" class="input" value="" masking="password" placeholder='To "Salt" Your Secret' required
                            autocomplete="one-time-code" autocorrect="off" autocapitalize="off" />
                 </div>
                 <div class="side rightSide">
@@ -690,7 +691,7 @@
                 <div class="middle">
                     <div needValidForm class="encodeManual disableable disabled">
                         <div sensitiveHide>
-                            <div class="hideOverflow manualStep"><span class="color1">• </span>Runs <strong id="algoTypeNote" class="color1">PBKDF2</strong> hash
+                            <div class="hideOverflow manualStep"><span class="color1">• </span>Runs <strong id="algoTypeNote" class="color1">PBKDF2</strong> hash to <strong class="color1">Base62</strong>
                             </div>
                             <div class="hideOverflow manualStep"><span class="color1">• </span>Takes first <strong id="firstCharactersNote"
                                     class="color1">20</strong> characters
@@ -725,7 +726,7 @@
                             <use xlink:href="#dots-loading"></use>
                         </svg>
                     </div>
-                    <input id="finalPassword" type="password" value="" autocomplete="one-time-code" autocorrect="off" autocapitalize="off"  class="disableable disabled" needValidForm/>
+                    <input id="finalPassword" masking="password" value="" autocomplete="one-time-code" autocorrect="off" autocapitalize="off"  class="disableable disabled" needValidForm/>
                 </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
