@@ -53,7 +53,7 @@ export class IndexRenderer {
         setAttrIfTrue(state.value.secretRecalled, IndexElements.mainPage(), 'recalled');
         setAttrIfTrue(isTopSecret, IndexElements.mainPage(), 'topSecret');
         setAttrIfTrue(!state.value.secretShow, IndexElements.secretHideToggle(), 'off');
-        setAttrIfTrue(state.value.secretShow && !isTopSecret, IndexElements.secretInput(), 'type', 'text', 'password');
+        setAttrIfTrue(!state.value.secretShow || isTopSecret, IndexElements.secretInput(), 'masking', 'password');
         IndexElements.passReqLengthCount().innerHTML = stateSelectors.secretLengthOk() ? 'ok' : `${stateSelectors.secretLengthCount().toString()}/20`;
         IndexElements.passReqNumberCount().innerHTML = stateSelectors.secretContainsNumber() ? 'ok' :`${stateSelectors.secretNumberCount().toString()}/2`;
         IndexElements.passReqSpecialCount().innerHTML = stateSelectors.secretContainsSpecial() ? 'ok' :`${stateSelectors.secretSpecialCount().toString()}/2`;
@@ -65,12 +65,12 @@ export class IndexRenderer {
         setClassIfTrue(!stateSelectors.isSecretOk(), IndexElements.arrow1(), 'disabled');
 
         setAttrIfTrue(!state.value.saltShow, IndexElements.saltHideToggle(), 'off');
-        setAttrIfTrue(state.value.saltShow && !isTopSecret, IndexElements.saltInput(), 'type', 'text', 'password');
+        setAttrIfTrue(!state.value.saltShow || isTopSecret, IndexElements.saltInput(), 'masking', 'password');
 
         setAttrIfTrue(!state.value.passwordShow, IndexElements.passwordHideToggle(), 'off');
         setAttrIfTrue(!formOk, IndexElements.finalPassword(), 'disabled');
 
-        setAttrIfTrue(state.value.passwordShow && !isTopSecret, IndexElements.finalPassword(), 'type', 'text', 'password');
+        setAttrIfTrue(!state.value.passwordShow || isTopSecret, IndexElements.finalPassword(), 'masking', 'password');
         setAttrIfTrue(!state.value.passwordGenerating, IndexElements.dotLoader(), 'off');
         IndexElements.finalPassword().value = state.value.passwordValue;
         IndexElements.algoTypeNote().innerHTML = state.value.hashingOptions.selectedAlgo;

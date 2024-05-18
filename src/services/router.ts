@@ -35,16 +35,8 @@ export class Router {
             })
         },
         {
-            path: '/about',
-            component: () => import('/src/components/text-pages/gmk-about-page.js').then(() => document.createElement('gmk-about-page')),
-        },
-        {
-            path: '/disclaimer',
-            component: () => import('/src/components/text-pages/gmk-disclaimer-page.js').then(() => document.createElement('gmk-disclaimer-page')),
-        },
-        {
-            path: '/info-secret|/why-strong-secret',
-            component: (path: string) => import('/src/components/text-pages/gmk-info-page.js').then(m => new m.default(path.replace('/', '').split('?')[0])),
+            path: '/(info-secret|why-strong-secret|disclaimer|about)',
+            component: (path: string) => import('/src/components/gmk-info-page.js').then(m => new m.default(path.replace('/', '').split('?')[0])),
         },
     ]
 

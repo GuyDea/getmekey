@@ -14,6 +14,16 @@
             src: url(static/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf) format('truetype');
         }
 
+        @font-face {
+            font-family: 'NotDef';
+            src: url(static/fonts/NotDef.ttf) format('truetype');
+        }
+
+        @font-face {
+            font-family: 'password';
+            src: url(static/fonts/password.ttf) format('truetype');
+        }
+
         :root {
             --app-width: 400px;
             --color-1-hue-val: 255;
@@ -43,6 +53,7 @@
             --left-side-width: 60px;
             --color-disabled: #aaaaaa;
             --side-icon-width: 8;
+            --font: "Comfortaa", sans-serif;
         }
 
         @media (max-width: 400px) {
@@ -52,7 +63,7 @@
         }
 
         * {
-            font-family: "Comfortaa", sans-serif;
+            font-family: var(--font);
             font-optical-sizing: auto;
             box-sizing: border-box;
             text-overflow: ellipsis;
@@ -60,6 +71,11 @@
             font-size: 13px;
             -webkit-tap-highlight-color: transparent;
             -webkit-font-smoothing: antialiased;
+        }
+
+        input[masking='password']{
+            font-family: "password", "NotDef", sans-serif;
+            font-size: .4rem !important;
         }
 
         .hideOverflow {
@@ -161,7 +177,8 @@
             transition: transform .3s;
         }
 
-        input::placeholder {
+        ::placeholder {
+            font-family: var(--font);
             color: rgba(var(--color-text-2-rgb-val), .6);
             font-size: 1rem;
         }
@@ -192,7 +209,7 @@
         }
 
         .encodeManual {
-            border-radius: 10px;
+            border-radius: .5rem;
             border: 1px solid var(--color-1);
             padding: .5em;
             text-align: center;
@@ -225,7 +242,7 @@
             background: none;
             border: 1px solid black;
             text-align: center;
-            border-radius: 1em;
+            border-radius: .5rem;
             width: 100%;
             font-size: 11px;
             height: var(--input-height);
@@ -627,7 +644,7 @@
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <div style="position: relative; border-radius: var(--border-radius-1);"  class="middle inputPanel">
-                    <input id="secretInput" type="password" value="" class="input"  placeholder="Make It Unique!" required
+                    <input id="secretInput" masking="password" value="" class="input"  placeholder="Make It Unique!" required
                            autocomplete="new-password" />
                     <div id="passwordLengthIndicator"></div>
                 </div>
@@ -653,7 +670,7 @@
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <div class="inputPanel middle">
-                    <input id="saltInput" class="input" type="password" value="" placeholder='To "Salt" Your Secret' required
+                    <input id="saltInput" class="input" value="" masking="password" placeholder='To "Salt" Your Secret' required
                            autocomplete="new-password"/>
                 </div>
                 <div class="side rightSide">
@@ -708,7 +725,7 @@
                             <use xlink:href="#dots-loading"></use>
                         </svg>
                     </div>
-                    <input id="finalPassword" readonly type="password" value="" autocomplete="new-password"  class="disableable disabled" needValidForm/>
+                    <input id="finalPassword" readonly masking="password" value="" autocomplete="new-password"  class="disableable disabled" needValidForm/>
                 </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
@@ -732,7 +749,7 @@
         </div>
         <div class="footer">
             <a class="footerItem" href="/disclaimer">Disclaimer</a>
-            <a class="footerItem" href="/about">About GetMeKey</a>
+            <a class="footerItem" href="/about">About</a>
         </div>
         <div class="socialIcons">
             <a href="https://github.com/GuyDea/getmekey" target="_blank">
