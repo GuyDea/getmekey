@@ -72,7 +72,8 @@ export class RecallService {
             state.update(s => {
                 s.secretRemembered = true;
                 s.secretValue = stored.secret;
-                IndexElements.saltInput().focus()
+                // Not sure why, but without timeout it focuses on password input, instead of salt when there is no timeout
+                setTimeout(() => {IndexElements.saltInput().focus()}, 500);
             })
         } else {
             recallService.purgeRemembered()
