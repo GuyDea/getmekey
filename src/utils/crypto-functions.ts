@@ -114,3 +114,25 @@ export async function decryptData<T>(encryptedData: string, ...passphrases: stri
 export function generateRandomPassphrase(length: number){
     return arrayBufferToBase64(window.crypto.getRandomValues(new Uint8Array(length)));
 }
+
+export function encodeBase62(uint8Array: Uint8Array) {
+    const base62Chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let number = BigInt(0);
+
+    // Convert binary data from Uint8Array to a BigInt
+    for (let byte of uint8Array) {
+        number = (number << BigInt(8)) + BigInt(byte);
+    }
+
+    // Handle the special case for number 0
+    if (number === BigInt(0)) return '0';
+
+    let result = '';
+    while (number > 0) {
+        const index = Number(number % BigInt(62)); // Convert BigInt to Number for indexing
+        result = base62Chars[index] + result;
+        number = number / BigInt(62);
+    }
+
+    return result;
+}

@@ -4,6 +4,7 @@ import {ByteUtils} from "/src/hash-algos/byte-utils.js";
 import {GmkState, HashingOptions} from "/src/state/gmk-state-type.js"
 import {stateSelectors} from "/src/state/state-selectors.js"
 import {state} from "/src/state/initial-state.js"
+import {encodeBase62} from "/src/utils/crypto-functions.js";
 
 type ObservedProps = {
     secret?: string;
@@ -89,7 +90,7 @@ export class PasswordGeneratorService {
         let uint8Array = await selectedAlgo.encode(state.secretValue,state.saltValue, selectedAlgo.getOptions(state));
         const hashed = outputOptions.format === "base64" ?
             ByteUtils.uint8ArrayToBase64String(uint8Array) :
-            ByteUtils.uint8ArrayToHexString(uint8Array);
+            encodeBase62(uint8Array);
         const shortened = hashed.substring(0, outputOptions.takeFirst);
         let securityPosition = outputOptions.securityTextPosition;
         return securityPosition === "prefix" ? `${outputOptions.securityText}${shortened}` : `${shortened}${outputOptions.securityText}`;

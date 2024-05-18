@@ -645,7 +645,7 @@
                 <div class="side leftSide"></div>
                 <div style="position: relative; border-radius: var(--border-radius-1);"  class="middle inputPanel">
                     <input id="secretInput" masking="password" value="" class="input"  placeholder="Make It Unique!" required
-                           autocomplete="new-password" />
+                           autocomplete="off" autocorrect="off" autocapitalize="off" />
                     <div id="passwordLengthIndicator"></div>
                 </div>
 
@@ -671,7 +671,7 @@
                 <div class="side leftSide"></div>
                 <div class="inputPanel middle">
                     <input id="saltInput" class="input" value="" masking="password" placeholder='To "Salt" Your Secret' required
-                           autocomplete="new-password"/>
+                           autocomplete="off" autocorrect="off" autocapitalize="off" />
                 </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
@@ -725,7 +725,7 @@
                             <use xlink:href="#dots-loading"></use>
                         </svg>
                     </div>
-                    <input id="finalPassword" readonly masking="password" value="" autocomplete="new-password"  class="disableable disabled" needValidForm/>
+                    <input id="finalPassword" masking="password" value="" autocomplete="off" autocorrect="off" autocapitalize="off"  class="disableable disabled" needValidForm/>
                 </div>
                 <div class="side rightSide">
                     <gmk-info-icon></gmk-info-icon>
