@@ -54,7 +54,7 @@ export class GmkRecall extends HTMLElement {
     private _render() {
         return html`
             <style>${globalStyles}${this._styles()}</style>      
-            <gmk-title-panel>
+            <gmk-title-panel infopage="info-recall">
                 <span slot="title">Secret Recall</span>
                 <div slot="content" class="settingsColumn">
                     <div class="line lineCenter">

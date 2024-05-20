@@ -41,7 +41,8 @@ export class Router {
             })
         },
         {
-            path: '/(info-secret|why-strong-secret|disclaimer|about)',
+            path: `/(${['info-secret','why-strong-secret','disclaimer','about', 'info-user-interface', 'info-usability', 'info-recall', 'info-app-name',
+            'what-is-hash', 'info-password'].join('|')})`,
             component: (path: string) => import('/src/components/gmk-info-page.js').then(m => new m.default(path.replace('/', '').split('?')[0])),
         },
     ]

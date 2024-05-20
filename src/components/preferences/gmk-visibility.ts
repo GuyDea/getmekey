@@ -41,8 +41,8 @@ export class GmkVisibility extends HTMLElement {
     private _render() {
         return html`
             <style>${globalStyles}${this._styles()}</style>
-            <gmk-title-panel>
-                <span slot="title">Visibility</span>
+            <gmk-title-panel infopage="info-user-interface">
+                <span slot="title">User Interface</span>
                 <div slot="content" class="settingsColumn">
                     <div class="line lineCenter">
                         <input type="checkbox" id="topSecret"><label for="topSecret">Top-Secret

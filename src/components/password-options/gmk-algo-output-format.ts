@@ -53,7 +53,7 @@ export class GmkAlgoOutputFormat extends HTMLElement {
                 <span slot="title">Password Format</span>
                 <div slot="content">
                     <form id="formatForm" class="line">
-                        <span class="label">Encode hash to <strong><a href="https://en.wikipedia.org/wiki/Base62" target="_blank">Base62</a></strong> text</span>
+                        <span class="label">Hash encoded to <strong><a href="https://wikipedia.org/wiki/Base62" target="_blank">Base62</a></strong> text</span>
                     </form>
                     <div class="line lineCenter">
                         <label for="takeFirst" >Take First</label>

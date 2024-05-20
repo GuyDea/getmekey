@@ -9,7 +9,7 @@ export const infoValues: Map<string, InfoData> = new Map([
     ['info-secret', {header: 'Your Secret Text', content: `
 <p>Your one-and-only secret that you have to remember</p>
 <p>It is used as a foundation for your generated passwords</p>
-<p>Make it as unique and strong as your memory allows you (<a href="/why-strong-secret">Why?</a>)</p>
+<p>Make it as unique and strong as your memory allows you. Wondering <a href="/why-strong-secret">Why?</a></p>
 <p><b>NEVER SHARE IT WITH ANYONE!</b></p>`}],
     ['appName', {header: 'App Name', content: `
     <p>
@@ -18,8 +18,8 @@ export const infoValues: Map<string, InfoData> = new Map([
     <p>Are you wondering <i>"Why do I have to have strong secret, when generated password is super-strong anyway?"</i></p>
                     <p>Good question! And the answer is simple - it significantly reduces possible brute-force attack</p>
                     <p>Imagine someone (let's call him Mr. Attacker), who wants to hack your accounts. Mr. Attacker was able to acquire one
-                        of your generated passwords via <a href="https://en.wikipedia.org/wiki/Phishing" target="_blank">phishing site</a>. 
-                        and thanks to <a href="https://en.wikipedia.org/wiki/Social_engineering_(security)" target="_blank">social engineering</a>,
+                        of your generated passwords via <a href="https://wikipedia.org/wiki/Phishing" target="_blank">phishing site</a>. 
+                        and thanks to <a href="https://wikipedia.org/wiki/Social_engineering_(security)" target="_blank">social engineering</a>,
                         he was able to figure out, what algorithm you use to transform secret into password.
                     </p>
                     <p>Now with full knowledge of how you generate your passwords, Mr. Attacker can use trial-error method to find the matching secret.</p>
@@ -41,10 +41,7 @@ export const infoValues: Map<string, InfoData> = new Map([
     <h2>How GetMeKey Works</h2>
     <p>GetMeKey is tool, that allows you to have safe and unique passwords for all your applications, only by provideing it with your
     secret text and name of the desired application. This is achieved by putting these two pieces of information togather and running it through
-    cryptographic hash function. </p>
-    <p><a href="https://en.wikipedia.org/wiki/Hash_function" target="_blank">Hash function</a> is, simply put, process,
-    that takes some information as an input and outputs different information that looks totally random. However, for same input you always get the
-    same output. Also, there is no way how someone could deduce original input, only by seeing the output.</p>
+    cryptographic <a href="/what-is-hash">hash function</a>. </p>   
     <p>Using this approach you can quickly generate unique passwords on demand, on any device, even when offline. And if some compromised app leaks
     your password, it doesn't impact any other account that you have.</p>
     <h2>Story Of GetMeKey</h2>
@@ -75,6 +72,71 @@ export const infoValues: Map<string, InfoData> = new Map([
     <p class="appVersion">
         <div><strong>Version</strong> ${gmkWindow.buildInfo.version}.${gmkWindow.buildInfo.vcHash}</div>
         <div><strong>Build at</strong> ${gmkWindow.buildInfo.buildAt}</div>
-    </p>`}]
+    </p>`}],
+    ['info-user-interface', {header: 'User Interface Options', content: `
+    <h2>Top-Secret Mode</h2>
+    <p>This mode hides any visual clues, that might reveal hints how you generate passwords.</p>
+    <p>Useful for anyone, who might have display visible to other people - streamers, open-office, desktop tracking tools, etc.</p>
+    <h2>Hide Info Button</h2>
+    <p>Hides Info button for cleaner visual experience</p>
+    `}],
+    ['info-usability', {header: 'Usability Options', content: `
+    <h2>Auto Copy</h2>
+    <p>Automatically copies generated password to clipboard</p>
+    <h2>App Name Prefill</h2>
+    <p>When GetMeKey is open, it will try to prefill <strong>App Name</strong> based on the current</p>
+    <ul>
+        <li>URL (only for Browser extension)</li>
+        <li>Clipboard content</li>
+    </ul>
+    `}],
+    ['info-recall', {header: 'Secret Recall Options', content: `
+    <h2>Enable Secret Recall</h2>
+    <p>Shows option to store current valid secret as <strong>Recalled</strong></p>
+    <p>Marking secret as recalled has several benefits:</p>
+    <ul>
+        <li>Next time you enter your secret, you see that this secret has been entered before, letting you know you didn't do any typo</li>
+        <li>Your <a href="/hash-settings">Hash Settings</a> are encrypted and stored together with secret hash, so you don't have to specify them every time</li>
+        <li>Enables to use <strong>Remember Recalled Secret</strong> option</li>
+    </ul>
+    <p>When secret is marked as <strong>Recalled</strong>, it is not the secret that's stored on the device, but its hashed value.</p>
+    <p>This means, even if someone with full access to your device and knowledge of GetMeKey, could not reveal your secret.</p>
+    <h3>How It Works</h3>
+    <p>Every time you type something into the <strong>Secret</strong> field, GetMeKey calculates its hash value and compares it with all hash values of previous secrets marked as <strong>Recalled</strong>.
+    If there is match of hashes, GetMeKey knows it has been marked as <strong>Recalled</strong> before.</p>
+    <p>Then it can decrypt <a href="/hash-settings">Hash Settings</a>, that were stored together with hashed secret, in encrypted form, using the secret as a key.</p>
+    <h2>Remember Recalled Secret</h2>
+    <p>If you leave GetMeKey, while recalled secret is active, this secret will be remembered and prefilled next time you open GetMeKey</p>
+    <p><strong style="color: var(--color-danger)">Caution: </strong>During this period, secret itself is stored in encrypted format on the device. 
+    Someone with full access to your device and knowledge of GetMeKey could decrypt and reveal it!</p>    
+    `}],
+    ['info-app-name', {header: 'App Name', content: `
+    <p>This text is used as a value, that shuffles your secret (also called <i>"salt"</i> ), when using <a href="/what-is-hash">hash function</a>.</p>
+    <p>Using this value, you can generate new passwords specific to given application.</p>
+    <p>Be aware, that every modification of this value results in totally different password - e.g. "netflix" and "Netflix" are seen as different applications.</p>
+    <p>We recommend to stick to single principle of deducing application names.</p>
+    <p>For example - GetMeKey <a href="/info-usability">App Name Prefill</a> functionality uses the domain lowercase name 
+    as <i>App Name</i> value - e.g. https://mail.<strong>google</strong>.com is used as "<strong>google</strong>" <i>App Name</i>.</p>    
+    `}],
+    ['what-is-hash', {header: 'What Is Hashing?', content: `
+    <p>Hash function is simple in its principle.</p>
+    <p>It transforms given input into output that:</p>
+    <ul>
+        <li>Always returns</li>
+        <ul>
+            <li>same value for same input</li>
+            <li>different value for different input</li>
+        </ul>        
+        <li>Could not be traced back to original input</li>        
+    </ul>    
+    <p>This idea is very powerful and used widely in cryptography. Your device is using it every time you connect to internet, download files,
+    write private messages to friends etc.</p>   
+    <p>You can read more about hash functions <a href="https://wikipedia.org/wiki/Hash_function" target="_blank">here</a></p> 
+    `}],
+    ['info-password', {header: 'Generated Password', content: `
+    <p>Result of putting your secret together with app name and running it through <a href="/what-is-hash">hash function.</a></p> 
+    <p>To be usable as a password, result is shortened and prefixed with <strong>Security Prefix</strong> as defined in <a href="/hash-settings">Hash Settings</a>.</p>
+    `}]
+
 
 ]);

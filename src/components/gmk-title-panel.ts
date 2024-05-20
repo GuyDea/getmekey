@@ -4,7 +4,7 @@ import '/src/components/gmk-info-icon.js';
 export class GmkTitlePanel extends HTMLElement{
     private readonly _color= this.getAttribute('color') ?? 'var(--color-1)';
     private readonly _showBorder = this.getAttribute('showBorder') !== 'false';
-    private readonly _navigateTo = this.getAttribute('navigateTo');
+    private readonly _infoPage = this.getAttribute('infopage');
 
     constructor() {
         super();
@@ -26,6 +26,7 @@ export class GmkTitlePanel extends HTMLElement{
             justify-content: center;
             align-items: center;
             gap: .5rem;
+            height: 2rem;
         }
         .content {
             padding: ${this._showBorder ? '.5rem' : '.5rem 0'};
@@ -40,7 +41,7 @@ export class GmkTitlePanel extends HTMLElement{
             <div class="mainPanel">
                 <div class="title">
                     <slot name="title"></slot>   
-                    ${this._navigateTo ? html`<gmk-info-icon color="${this._color}"></gmk-info-icon>` : ''}
+                    ${this._infoPage ? html`<gmk-info-icon color="${this._color}" page="${this._infoPage}"></gmk-info-icon>` : ''}
                 </div>
                 <div class="content">
                     <slot name="content"></slot>
