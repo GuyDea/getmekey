@@ -7,7 +7,6 @@ import {state} from "/src/state/initial-state.js"
 export class GmkAlgoOutputFormat extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];
     private _formatForm = comp<HTMLInputElement>(this, '#formatForm');
-    private _positionForm = comp<HTMLInputElement>(this, '#positionForm');
     private _takeFirst = comp<HTMLInputElement>(this, '#takeFirst');
     private _securityText = comp<HTMLInputElement>(this, '#securityText');
 
@@ -23,8 +22,6 @@ export class GmkAlgoOutputFormat extends HTMLElement {
             diffMatcher: s => JSON.stringify(s.hashingOptions.outputOptions),
             dispatchImmediately: true,
         }));
-        // comp<HTMLInputElement>(this, `#${opts().format}`)().setAttribute('checked', '');
-        comp<HTMLInputElement>(this, `#${opts().securityTextPosition}`)().setAttribute('checked', '');
         this._takeFirst().value = opts().takeFirst.toString();
         this._takeFirst().setAttribute('min', opts().minTakeFirst.toString());
         this._takeFirst().setAttribute('max', opts().maxTakeFirst.toString());
@@ -33,10 +30,6 @@ export class GmkAlgoOutputFormat extends HTMLElement {
         this._securityText().addEventListener('input', () => state.update(() => opts().securityText = this._securityText().value))
         this._formatForm().addEventListener('change', ev => {
             opts().format = (ev.target as HTMLInputElement).getAttribute('id') as any;
-            state.notifyChange();
-        })
-        this._positionForm().addEventListener('change', ev => {
-            opts().securityTextPosition = (ev.target as HTMLInputElement).getAttribute('id') as any;
             state.notifyChange();
         })
     }
@@ -72,18 +65,9 @@ export class GmkAlgoOutputFormat extends HTMLElement {
                         <input type="number" class="short" id="takeFirst" maxlength="2" minlength="2"><span>Characters</span>
                     </div>
                     <div class="line lineCenter">
-                        <label for="securityText">Security Text</label>
+                        <label for="securityText">Security Prefix</label>
                         <input id="securityText" type="text" class="short">
                     </div>                    
-                    <div class="line">
-                        <span class="label">Text Position</span>
-                        <form id="positionForm" class="lineRadios">
-                            <input type="radio" name="securityPart" id="prefix"/><label
-                                for="prefix">Prefix</label>
-                            <input type="radio" name="securityPart" id="suffix"/><label for="suffix">Suffix</label>
-                        </form>
-                    </div>
-                    
                 </div>
             </gmk-title-panel>
         `

@@ -76,7 +76,7 @@ async function setupSW() {
     files.push('index.html');
     const swContent = await fs.readFile(`${__dirname}/dist/sw.js`, 'utf8');
     let replaced = swContent
-        .replaceAll('INJECT_ASSETS_TO_PRELOAD', files.map(f => `'${f}'`).join(',\n'))
+        .replaceAll('\'INJECT_ASSETS_TO_PRELOAD\'', files.map(f => `'${f}'`).join(',\n'))
         .replaceAll('INJECT_TIMESTAMP', new Date().getTime().toString())
     ;
 

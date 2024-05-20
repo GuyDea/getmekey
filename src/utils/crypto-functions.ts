@@ -117,6 +117,7 @@ export function generateRandomPassphrase(length: number){
 
 export function encodeBase62(uint8Array: Uint8Array) {
     const base62Chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const radix = base62Chars.length;
     let number = BigInt(0);
 
     // Convert binary data from Uint8Array to a BigInt
@@ -129,9 +130,9 @@ export function encodeBase62(uint8Array: Uint8Array) {
 
     let result = '';
     while (number > 0) {
-        const index = Number(number % BigInt(62)); // Convert BigInt to Number for indexing
+        const index = Number(number % BigInt(radix)); // Convert BigInt to Number for indexing
         result = base62Chars[index] + result;
-        number = number / BigInt(62);
+        number = number / BigInt(radix);
     }
 
     return result;

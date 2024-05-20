@@ -11,6 +11,7 @@ import {passwordGenerator} from "/src/services/password-generator-service.js";
 import {recallService} from "/src/services/recall-service.js";
 import {HistoryService} from "/src/services/history-service.js";
 import {copyService} from "/src/services/copy-service.js";
+import {serviceWorkerService} from "/src/services/service-worker-service.js"
 
 export class Bootstrap {
     public static async runBootstrap(){
@@ -23,12 +24,7 @@ export class Bootstrap {
         Router.initialize();
         preferencesService.initialize();
         passwordGenerator.initialize();
-        setTimeout(() => {
-            navigator.serviceWorker?.register(window.location.origin + '/sw.js')
-                .then(reg => console.log('[sw] sw registered', reg))
-                .catch(err => console.error('[sw] sw failed to install', err));
-        }, 5000);
-
+        serviceWorkerService.initialize();
     }
 }
 

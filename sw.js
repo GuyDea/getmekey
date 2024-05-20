@@ -1,5 +1,5 @@
 const CACHE_NAME = `gmk-cache-v_INJECT_TIMESTAMP`;
-const URLS_TO_CACHE = [INJECT_ASSETS_TO_PRELOAD];
+const URLS_TO_CACHE = ['INJECT_ASSETS_TO_PRELOAD'];
 
 self.addEventListener('fetch', async (fetchEvent) => {
     if (fetchEvent.request.mode === 'navigate') {
@@ -19,11 +19,7 @@ self.addEventListener('fetch', async (fetchEvent) => {
 });
 
 self.addEventListener('activate', (event) => {
-    event.waitUntil((async () => {
-        if (self.registration.navigationPreload) {
-            await self.registration.navigationPreload.enable();
-        }
-    })());
+    event.waitUntil((async () => await self.registration?.navigationPreload?.enable())());
 });
 
 self.addEventListener('install', (event) => {
@@ -35,3 +31,9 @@ self.addEventListener('install', (event) => {
     })());
 });
 
+self.addEventListener('message', async (event) => {
+    if (event.data.type === 'SKIP_WAIT') {
+        await self.skipWaiting();
+        event.source.postMessage({type: 'SKIP_WAITING_DONE'});
+    }
+});

@@ -83,7 +83,7 @@ export class GmkAlgoSelection extends HTMLElement {
                     </form>
                     <div id="algoOptions">
                         <gmk-sha-options type="SHA"></gmk-sha-options>
-                        <gmk-pbkdf2-options type="PBKDF2"></gmk-pbkdf2-options>
+                        <gmk-pbkdf2-options type="PBKDF2"></gmk-pbkdf2-options>                        
                         <gmk-argon2-options type="Argon2"></gmk-argon2-options>
                         <gmk-scrypt-options type="Scrypt"></gmk-scrypt-options>
                     </div>

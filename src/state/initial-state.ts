@@ -89,7 +89,7 @@ export const initState: GmkState = {
     },
     userPreferences: Persistence.getFromStorage("USER_PREFERENCES") ?? defaultUserPreferences,
     internals: {
-        enabledAlgos: ['SHA', 'PBKDF2', 'Scrypt']
+        enabledAlgos: ['PBKDF2', 'SHA', 'Scrypt']
     }
 }
 export const state = new StateHolder<GmkState>(initState, error => {
