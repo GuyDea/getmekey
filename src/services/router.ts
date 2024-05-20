@@ -16,17 +16,23 @@ export class Router {
             component: () => import('/src/components/password-options/gmk-password-options-page.js').then(() => document.createElement('gmk-password-options-page')),
             conditional: () => new Promise((resolve, reject) => {
                 if (state.value.userPreferences.visibility.topSecret) {
-                    popupService.open('Confirm', new GmkPopupConfirmationContent(html`
-                                <div style="text-align: center; font-size: 1.3rem; font-weight: lighter;"><span style="color: var(--color-danger)">You are in Top-Secret Mode</span><br/><br/>
-                                    Opening this window might reveal information related to your password generation<br/><br/>
-                                    Are you sure?</div>`,
-                        async () => {
+                    popupService.open('Confirm', new GmkPopupConfirmationContent({
+                        htmlText: html`
+                            <div style="text-align: center; font-size: 1.3rem; font-weight: lighter;"><span
+                                    style="color: var(--color-danger)">You are in Top-Secret Mode</span><br/><br/>
+                                Opening this window might reveal information related to your password
+                                generation<br/><br/>
+                                Are you sure?
+                            </div>`,
+                        yesCallback: async () => {
                             await popupService.close(false);
                             resolve();
-                        }, async () => {
+                        },
+                        noCallback: async () => {
                             await popupService.close(false);
                             reject();
-                        }), {
+                        }
+                    }), {
                         doOnDismiss: reject
                     });
                 } else {

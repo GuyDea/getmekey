@@ -18,14 +18,17 @@ export class ServiceWorkerService {
 
     private async _checkForUpdate(registration: ServiceWorkerRegistration){
         if(registration.waiting){
-            popupService.open('New Version', new GmkPopupConfirmationContent(html`
-                        <div style="text-align: center"><strong>New GetMeKey Version is available!</strong></div><br/>                        
-                        <div style="text-align: center">Do you want to update and reload the page?</div>`,
-                async () => {
+            popupService.open('GetMeKey Update', new GmkPopupConfirmationContent({
+                htmlText: html`
+                    <div style="text-align: center"><strong>New GetMeKey Version is available!</strong></div><br/>
+                    <div style="text-align: center">Would you like to update and reload the app?</div>`,
+                yesCallback: async () => {
                     this._sendMessageToSW({type: "SKIP_WAIT"}, registration.waiting!)
-                }, async () => {
+                },
+                noCallback: async () => {
                     await popupService.close(false);
-                }))
+                }
+            }))
         }
     }
 

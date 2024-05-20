@@ -53,12 +53,7 @@ export class GmkAlgoOutputFormat extends HTMLElement {
                 <span slot="title">Password Format</span>
                 <div slot="content">
                     <form id="formatForm" class="line">
-                        <span class="label">Encode to <strong>Base62</strong></span>
-                        <div class="lineRadios">
-<!--                            <input type="radio" name="format" id="base62"/><label for="base62">Base62</label>-->
-<!--                            <input type="radio" name="format" id="base64"/><label-->
-<!--                                for="base64">Base64</label>-->
-                        </div>
+                        <span class="label">Encode hash to <strong><a href="https://en.wikipedia.org/wiki/Base62" target="_blank">Base62</a></strong> text</span>
                     </form>
                     <div class="line lineCenter">
                         <label for="takeFirst" >Take First</label>

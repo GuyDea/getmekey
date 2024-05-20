@@ -44,7 +44,7 @@ export const infoValues: Map<string, InfoData> = new Map([
     cryptographic hash function. </p>
     <p><a href="https://en.wikipedia.org/wiki/Hash_function" target="_blank">Hash function</a> is, simply put, process,
     that takes some information as an input and outputs different information that looks totally random. However, for same input you always get the
-    same output. Also, besides trial-and-error approach, there is no way how someone could deduce original input, only by seeing the output.</p>
+    same output. Also, there is no way how someone could deduce original input, only by seeing the output.</p>
     <p>Using this approach you can quickly generate unique passwords on demand, on any device, even when offline. And if some compromised app leaks
     your password, it doesn't impact any other account that you have.</p>
     <h2>Story Of GetMeKey</h2>
@@ -58,7 +58,6 @@ export const infoValues: Map<string, InfoData> = new Map([
       <li>Desn't depend on any specific service</li>      
       <li>Could not be hacked or stealed</li>
       <li>Could quickly provide needed password anywhere, on any device, even when offline</li>
-      <li>Would use only well-known algorighms</li>
     </ul>
     <p>Unfortunatelly, no service or implementation of this idea existed.</p>
     <p>Luckly, being an IT engineer, who developed secured, mission-critical systems for multiple international companies for more than a decade,
@@ -67,7 +66,7 @@ export const infoValues: Map<string, InfoData> = new Map([
     <p>As years went by, and I was adding more bells and whistles to it, I started to notice that password management is still open topic,
     even though many other applications exist already.</p>
     <p>Many people I talked to, found same flaws with these applications, as I did.</p>
-    <p>That's when I decided to make <i>PasswordGenerator</i> open to everyone - <i>GetMeKey</i> was born.</p>
+    <p>That's when I decided to make <i>PasswordGenerator</i> open to everyone. After some tweeks and updates <i>GetMeKey</i> was born.</p>
     <h2>Afterword</h2>
     <p>I certainly hope you will find GetMeKey useful. If so, please let me know - any feedback, good or bad, is always appreciated!</p>
     <p>Have fun and - <b>be safe!</b></p>

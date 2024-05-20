@@ -17,19 +17,24 @@ export class GmkPreferencesPage extends HTMLElement {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
         comp(this, '#purgeAllButton')().addEventListener('click', () => {
-            popupService.open('Confirm', new GmkPopupConfirmationContent(html`
-                        <div style="text-align: center">This will remove all locally stored data</div><br/>
-                        <div style="text-align: center">GetMeKey will be reloaded afterwards</div><br/>
-                        <div style="text-align: center">Are you sure?</div>`,
-                async () => {
+            popupService.open('Confirm', new GmkPopupConfirmationContent({
+                htmlText: html`
+                    <div style="text-align: center">This will remove all locally stored data</div><br/>
+                    <div style="text-align: center">GetMeKey will be reloaded afterwards</div><br/>
+                    <div style="text-align: center">Are you sure?</div>`,
+                yesCallback: async () => {
                     await popupService.close(false);
                     Persistence.deleteAllCookies();
                     Persistence.removeAllStorage();
-                    toastService.addToast(html`<div style="text-align: center">Cleanup Successful</div><br/><div style="text-align: center">Reloading GetMeKey</div>`, undefined, 2000);
+                    toastService.addToast(html`
+                        <div style="text-align: center">Cleanup Successful</div><br/>
+                        <div style="text-align: center">Reloading GetMeKey</div>`, undefined, 2000);
                     setTimeout(() => location.reload(), 2000);
-                }, async () => {
+                },
+                noCallback: async () => {
                     await popupService.close(false);
-                }))
+                }
+            }))
         })
     }
 
