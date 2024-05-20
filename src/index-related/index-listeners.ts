@@ -7,7 +7,7 @@ export class IndexListeners {
     public static initialize(){
         IndexElements.secretInput().addEventListener('focus', () => state.update(() => {
                 if(state.value.secretRemembered){
-                    recallService.removeRecalledSecret(true);
+                    recallService.unmarkSecretAsRecalled(true);
                 }
             })
         );

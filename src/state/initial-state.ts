@@ -41,7 +41,7 @@ export const initState: GmkState = {
             takeFirst: 20,
             minTakeFirst: 10,
             maxTakeFirst: 200,
-            securityText: 'A1#',
+            securityText: 'Ab1#',
             securityTextPosition: 'prefix'
         },
         algoOptions: {

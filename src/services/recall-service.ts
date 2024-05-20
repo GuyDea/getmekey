@@ -22,11 +22,11 @@ export class RecallService {
             settings: s.userPreferences
         });
         state.subscribe(async s => {
-            if(!s.userPreferences.recall.remember){
+            if(!s.userPreferences.recall.allowRecall || !s.userPreferences.recall.remember){
                 this.purgeRemembered();
             }
-            if(!s.userPreferences.recall.allowRecall){
-               this.removeRecalledSecret(s.secretRemembered);
+            if(!s.userPreferences.recall.allowRecall) {
+                this.unmarkSecretAsRecalled(s.secretRemembered);
                 return;
             }
             const oldData = diffMatcher(s);
@@ -88,13 +88,13 @@ export class RecallService {
             if (diff > 0) {
                 return diff;
             } else {
-                this.removeRecalledSecret(true);
+                this.unmarkSecretAsRecalled(true);
             }
         }
         return null;
     }
 
-    public removeRecalledSecret(removeSecretItself: boolean) {
+    public unmarkSecretAsRecalled(removeSecretItself: boolean) {
         if(state.value.secretRecalled) {
             state.update(s => {
                 s.secretRemembered = false;
@@ -164,7 +164,7 @@ export class RecallService {
         Persistence.removeFromStorage("RECALLED_SECRET", hashedSecret);
         toastService.addToast('Recalled Secret Removed');
         if(state.value.secretValue === secret){
-            this.removeRecalledSecret(true);
+            this.unmarkSecretAsRecalled(true);
         }
     }
 }

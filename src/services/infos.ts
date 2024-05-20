@@ -41,9 +41,9 @@ export const infoValues: Map<string, InfoData> = new Map([
     <h2>How GetMeKey Works</h2>
     <p>GetMeKey is tool, that allows you to have safe and unique passwords for all your applications, only by provideing it with your
     secret text and name of the desired application. This is achieved by putting these two pieces of information togather and running it through
-    cryptographic <a href="/what-is-hash">hash function</a>. </p>   
+    cryptographic <a href="/what-is-hash">hash function</a>. All steps are described in-depth <a href="/generation-steps">here</a>.</p>   
     <p>Using this approach you can quickly generate unique passwords on demand, on any device, even when offline. And if some compromised app leaks
-    your password, it doesn't impact any other account that you have.</p>
+    your password, it doesn't impact any other account that you have.</p>    
     <h2>Story Of GetMeKey</h2>
     <p><i>GetMeKey</i> is successor of a personal tool, that I created for my own needs.</p>
     <p>After years of trying to find the best way how to manage hundrets of passwords and testing dozens of solutions along the way, 
@@ -106,8 +106,9 @@ export const infoValues: Map<string, InfoData> = new Map([
     If there is match of hashes, GetMeKey knows it has been marked as <strong>Recalled</strong> before.</p>
     <p>Then it can decrypt <a href="/hash-settings">Hash Settings</a>, that were stored together with hashed secret, in encrypted form, using the secret as a key.</p>
     <h2>Remember Recalled Secret</h2>
-    <p>If you leave GetMeKey, while recalled secret is active, this secret will be remembered and prefilled next time you open GetMeKey</p>
-    <p><strong style="color: var(--color-danger)">Caution: </strong>During this period, secret itself is stored in encrypted format on the device. 
+    <p>If you leave GetMeKey, while recalled secret is active, this secret will be remembered and prefilled next time you open GetMeKey.</p>
+    <p>As security measure, an attempt to reveal the secret after the reload, will cause secret to be discarded.</p>    
+    <p><strong style="color: var(--color-danger)">Caution: </strong>During remembering period, secret itself is stored in encrypted format on the device. 
     Someone with full access to your device and knowledge of GetMeKey could decrypt and reveal it!</p>    
     `}],
     ['info-app-name', {header: 'App Name', content: `
@@ -136,7 +137,48 @@ export const infoValues: Map<string, InfoData> = new Map([
     ['info-password', {header: 'Generated Password', content: `
     <p>Result of putting your secret together with app name and running it through <a href="/what-is-hash">hash function.</a></p> 
     <p>To be usable as a password, result is shortened and prefixed with <strong>Security Prefix</strong> as defined in <a href="/hash-settings">Hash Settings</a>.</p>
+    `}],
+    ['info-hash-selection', {header: 'Hash Algorithm', content: `
+        <p>You can select, which hash function to use for password generation. Each function has respective properties,
+        that can configure it further.</p>
+        <h2><a href="https://wikipedia.org/wiki/PBKDF2" target="_blank">PBKDF2</a></h2>
+        <p>PBKDF2 (Password-Based Key Derivation Function 2) enhances security by using a salt to prevent rainbow table 
+        attacks and applying a pseudorandom function like HMAC (using SHA in the process) multiple times to the password and salt to increase 
+        computational effort, thwarting brute-force attacks.</p>
+        <p>This algorithm is selected as default for GetMeKey, due to its iterative properties and being implemented directly in the browser.</p>
+        <p>Number of iterations is adjustable and defaults to 1 000 000 - offering the best ratio of security and speed.</p>        
+        <h2><a href="https://wikipedia.org/wiki/Secure_Hash_Algorithms" target="_blank">SHA</a></h2>
+        <p>SHA (Secure Hash Algorithm) is a family of cryptographic hash functions designed to provide a fixed-size 
+        hash value from variable-length input data, ensuring data integrity. SHA is fast and efficient, which also 
+        makes it more prone to be cracked with brute-force attack.</p>
+        <p>SHA doesn't provide in-built salting mechanism. GetMeKey can achieve this effect, by (pre/su)fixing the secret
+        with <string>App Name</string> value.</p>
+        <h2><a href="https://wikipedia.org/wiki/Scrypt" target="_blank">Scrypt</a></h2>
+        <p>Scrypt is a password-based key derivation function designed to make it costly both in terms of time and 
+        memory to perform large-scale custom hardware attacks. It achieves this by using a large amount of memory 
+        compared to other key derivation functions like PBKDF2. It allows for the tuning of memory usage, 
+        processing time, and parallelism to adapt to different security requirements.</p>        
+    `}],
+    ['info-password-format', {header: 'Password Format', content: `
+    <h2>Password Text Encoding</h2>
+    <p>Used hash functions are binary based, which means that the hashing is done by first transforming the text to its binary form and
+    then applying binary transformations.</p>
+    <p>The result is also binary - just long list of pseudo-randomly ordered 1s and 0s.</p>
+    <p>To transform this into the text password, we can use <a href="https://wikipedia.org/wiki/Base62" target="_blank">Base62</a> encoding algorithm.
+    Base 62 generates text using only letters and numbers and no special characters.</p>
+    <h2>Take First Characters</h2>
+    <p>Resulting text can be very long - not really suitable for password yet. So GetMeKey takes only first X characters.
+    20 by default, but can be adjusted.</p>
+    <h2>Security Prefix</h2>
+    <p>Lastly, this password doesn't contain any special character and could be generated, by chance, without any uppercase, lowercase or number characters.</p>
+    <p>It's common password requirement to have these conditions met. Therefore, GetMeKey prefixes the password with constant text - " <i>Ab1#</i> " by default.</p>
+    `}],
+    ['generation-steps', {header: 'Password Generation Step-By-Step', content: `
+    
     `}]
+
+
+
 
 
 ]);

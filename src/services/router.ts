@@ -42,7 +42,7 @@ export class Router {
         },
         {
             path: `/(${['info-secret','why-strong-secret','disclaimer','about', 'info-user-interface', 'info-usability', 'info-recall', 'info-app-name',
-            'what-is-hash', 'info-password'].join('|')})`,
+            'what-is-hash', 'info-password', 'info-hash-selection', 'info-password-format', 'generation-steps'].join('|')})`,
             component: (path: string) => import('/src/components/gmk-info-page.js').then(m => new m.default(path.replace('/', '').split('?')[0])),
         },
     ]

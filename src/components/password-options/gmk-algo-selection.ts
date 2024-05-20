@@ -70,8 +70,8 @@ export class GmkAlgoSelection extends HTMLElement {
         return html`
             <style>${globalStyles}${this.styles}</style>
 
-            <gmk-title-panel>
-                <span slot="title">Algorithm Selection</span>
+            <gmk-title-panel infopage="info-hash-selection">
+                <span slot="title">Hash Function</span>
                 <div slot="content" class="mainContent">
                     <form id="algoSelectionPanel">
                         ${
