@@ -88,9 +88,12 @@ export class PasswordGeneratorService {
         let outputOptions = passwordGeneration.outputOptions;
         let selectedAlgo: IHashAlgorithm<any> = await import((`/src/hash-algos/${passwordGeneration.selectedAlgo.toLowerCase()}-algo.js`)).then(m => m.default());
         let uint8Array = await selectedAlgo.encode(state.secretValue,state.saltValue, selectedAlgo.getOptions(state));
-        const hashed = outputOptions.format === "base64" ?
-            ByteUtils.uint8ArrayToBase64String(uint8Array) :
-            encodeBase62(uint8Array);
+        let hashed;
+        switch (outputOptions.format){
+            case "hex": hashed = ByteUtils.uint8ArrayToHexString(uint8Array); break;
+            case "base62": hashed = encodeBase62(uint8Array); break;
+            case "base64": hashed = ByteUtils.uint8ArrayToBase64String(uint8Array); break;
+        }
         const shortened = hashed.substring(0, outputOptions.takeFirst);
         let securityPosition = outputOptions.securityTextPosition;
         return securityPosition === "prefix" ? `${outputOptions.securityText}${shortened}` : `${shortened}${outputOptions.securityText}`;

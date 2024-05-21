@@ -41,7 +41,7 @@ export const initState: GmkState = {
             takeFirst: 20,
             minTakeFirst: 10,
             maxTakeFirst: 200,
-            securityText: 'Ab1#',
+            securityText: 'Ab1!',
             securityTextPosition: 'prefix'
         },
         algoOptions: {
@@ -52,9 +52,9 @@ export const initState: GmkState = {
             pbkdf2: {
                 iterations: 1000000,
                 hash: "SHA-256",
-                length: 256,
+                length: 128,
                 minIterations: 1,
-                maxIterations: 1000000
+                maxIterations: 1000000,
             },
             argon2: {
                 iterations: 1,
@@ -75,11 +75,11 @@ export const initState: GmkState = {
                 cost: 1,
                 block: 1,
                 parallel: 1,
-                length: 256,
+                length: 128,
                 minCost: 1,
                 minBlock: 1,
                 minParallel: 1,
-                minLength: 16,
+                minLength: 128,
                 maxCost: 8,
                 maxBlock: 128,
                 maxParallel: 128,

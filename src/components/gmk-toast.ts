@@ -73,7 +73,6 @@ export class GmkToast extends HTMLElement {
                 overflow: hidden;
             }
             .message {
-                white-space: pre-wrap;
                 text-align: center;
             }
             #fuze {

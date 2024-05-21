@@ -7,6 +7,8 @@ import {state} from "/src/state/initial-state.js"
 export class GmkScryptOptions extends HTMLElement {
     private _blockComp = comp<HTMLInputElement>(this, '#block');
     private _blockRangeComp = comp<HTMLInputElement>(this, '#blockRange');
+    private _lengthComp = comp<HTMLInputElement>(this, '#length');
+    private _lengthRangeComp = comp<HTMLInputElement>(this, '#lengthRange');
     private _parallelComp = comp<HTMLInputElement>(this, '#parallel');
     private _parallelRangeComp = comp<HTMLInputElement>(this, '#parallelRange');
     private _costComp = comp<HTMLInputElement>(this, '#cost');
@@ -31,6 +33,10 @@ export class GmkScryptOptions extends HTMLElement {
             this._parallelRangeComp().setAttribute('max', opts().maxParallel.toString());
             this._parallelComp().value = opts().parallel.toString();
             this._parallelRangeComp().value = opts().parallel.toString();
+            this._lengthRangeComp().setAttribute('min', opts().minLength.toString());
+            this._lengthRangeComp().setAttribute('max', opts().maxLength.toString());
+            this._lengthComp().value = opts().length.toString();
+            this._lengthRangeComp().value = opts().length.toString();
             this._costRangeComp().setAttribute('min', opts().minCost.toString());
             this._costRangeComp().setAttribute('max', opts().maxCost.toString());
             this._costComp().value = opts().cost.toString();
@@ -48,6 +54,8 @@ export class GmkScryptOptions extends HTMLElement {
         this._parallelComp().addEventListener('change', () => state.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())));
         this._costRangeComp().addEventListener('input', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costRangeComp())));
         this._costComp().addEventListener('change', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())));
+        this._lengthRangeComp().addEventListener('input', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthRangeComp())));
+        this._lengthComp().addEventListener('change', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
     }
 
     disconnectedCallback() {
@@ -74,9 +82,14 @@ export class GmkScryptOptions extends HTMLElement {
                 <span slot="title">Scrypt Options</span>
                 <div slot="content" class="mainContent">
                     <div class="line lineCenter">
-                        <label for="cost">Cost (2<span style="position: relative; bottom: .5em;">x</span> = <span id="costPow"></span>)</label>
+                        <label for="cost">CPU (2<span style="position: relative; bottom: .5em;">x</span> = <span id="costPow"></span>)</label>
                         <input id="cost" type="number" class="short">
                         <input id="costRange" type="range">
+                    </div>
+                    <div class="line lineCenter">
+                        <label for="block">Memory</label>
+                        <input id="block" type="number" class="short">
+                        <input id="blockRange" type="range">
                     </div>
                     <div class="line lineCenter">
                         <label for="parallel">Parallel</label>
@@ -84,9 +97,9 @@ export class GmkScryptOptions extends HTMLElement {
                         <input id="parallelRange" type="range">
                     </div>
                     <div class="line lineCenter">
-                        <label for="block">Block</label>
-                        <input id="block" type="number" class="short">
-                        <input id="blockRange" type="range">
+                        <label for="parallel">Length</label>
+                        <input id="length" type="number" class="short">
+                        <input id="lengthRange" type="range">
                     </div>
                 </div>
             </gmk-title-panel>

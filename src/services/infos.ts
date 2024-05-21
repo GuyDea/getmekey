@@ -114,9 +114,8 @@ export const infoValues: Map<string, InfoData> = new Map([
     ['info-app-name', {header: 'App Name', content: `
     <p>This text is used as a value, that shuffles your secret (also called <i>"salt"</i> ), when using <a href="/what-is-hash">hash function</a>.</p>
     <p>Using this value, you can generate new passwords specific to given application.</p>
-    <p>Be aware, that every modification of this value results in totally different password - e.g. "netflix" and "Netflix" are seen as different applications.</p>
-    <p>We recommend to stick to single principle of deducing application names.</p>
-    <p>For example - GetMeKey <a href="/info-usability">App Name Prefill</a> functionality uses the domain lowercase name 
+    <p>To avoid confusion, only lowercase letters and " - " are allowed, as any minor modification of this value would result in totally different password - e.g. "netflix" and "Netflix" would be seen as different applications.</p>    
+    <p>Also, GetMeKey <a href="/info-usability">App Name Prefill</a> functionality uses the domain lowercase name 
     as <i>App Name</i> value - e.g. https://mail.<strong>google</strong>.com is used as "<strong>google</strong>" <i>App Name</i>.</p>    
     `}],
     ['what-is-hash', {header: 'What Is Hashing?', content: `
@@ -171,14 +170,16 @@ export const infoValues: Map<string, InfoData> = new Map([
     20 by default, but can be adjusted.</p>
     <h2>Security Prefix</h2>
     <p>Lastly, this password doesn't contain any special character and could be generated, by chance, without any uppercase, lowercase or number characters.</p>
-    <p>It's common password requirement to have these conditions met. Therefore, GetMeKey prefixes the password with constant text - " <i>Ab1#</i> " by default.</p>
+    <p>It's common password requirement to have these conditions met. Therefore, GetMeKey prefixes the password with constant text - " <i>Ab1!</i> " by default.</p>
     `}],
-    ['generation-steps', {header: 'Password Generation Step-By-Step', content: `
+    ['generation-steps', {header: 'Password Step-By-Step', content: `
+        <p>These are all steps taken by GetMeKey to generate password from your <i>Secret</i> and <i>App Name</i></p>
+        <ol>
+            <li></li>
+            <li></li>
+        </ol>
+    `}],
+    ['generate-outside', {header: 'Generate Password Without GetMeKey', content: `
     
     `}]
-
-
-
-
-
 ]);

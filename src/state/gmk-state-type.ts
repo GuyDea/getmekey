@@ -59,7 +59,7 @@ export type HashingOptions = {
     outputOptions: PasswordOutputOptions;
 }
 export type PasswordOutputOptions = {
-    format: 'base64' | 'base62',
+    format: 'base64' | 'base62' | 'hex',
     takeFirst: number,
     minTakeFirst: number,
     maxTakeFirst: number,

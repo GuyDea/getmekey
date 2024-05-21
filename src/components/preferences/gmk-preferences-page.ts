@@ -27,7 +27,7 @@ export class GmkPreferencesPage extends HTMLElement {
                     Persistence.deleteAllCookies();
                     Persistence.removeAllStorage();
                     toastService.addToast(html`
-                        <div style="text-align: center">Cleanup Successful</div><br/>
+                        <div style="text-align: center">Cleanup Successful</div>
                         <div style="text-align: center">Reloading GetMeKey</div>`, undefined, 2000);
                     setTimeout(() => location.reload(), 2000);
                 },

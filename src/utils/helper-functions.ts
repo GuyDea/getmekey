@@ -86,3 +86,10 @@ export function deepCopy<T>(originalObject: T): T{
 export function deepCompareEquals(object1: any, object2: any): boolean{
     return JSON.stringify(object1) === JSON.stringify(object2);
 }
+
+export function normalizeText(text: string){
+    return text.normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^A-Za-z0-9-]/g, '')
+        .toLowerCase();
+}
