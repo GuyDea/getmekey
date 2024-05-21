@@ -173,10 +173,14 @@ export const infoValues: Map<string, InfoData> = new Map([
     <p>It's common password requirement to have these conditions met. Therefore, GetMeKey prefixes the password with constant text - " <i>Ab1!</i> " by default.</p>
     `}],
     ['generation-steps', {header: 'Password Step-By-Step', content: `
-        <p>These are all steps taken by GetMeKey to generate password from your <i>Secret</i> and <i>App Name</i></p>
+        <p>These are steps taken by GetMeKey to generate password from your <i>Secret</i>, <i>App Name</i> and 
+        <i><a href="/hash-settings">Hash Settings</a></i></p>
         <ol>
-            <li></li>
-            <li></li>
+            <li>Both <i>Secret</i> and <i>App Name</i> are transformed to binary representation as UTF-8 characters.</li>
+            <li>Hash function takes this as an input and using selected parameters runs hashing algorithm.</li>
+            <li>Result is binary array that is then transformed to text using Base62 encoding algorithm.</li>
+            <li>This text is shortened to first X number of characters (20 by default).</li>
+            <li>Finally, fixed text (" Ab1! " as default) is prefixed to the result, to match general expected criteria of passwords.</li>            
         </ol>
     `}],
     ['generate-outside', {header: 'Generate Password Without GetMeKey', content: `

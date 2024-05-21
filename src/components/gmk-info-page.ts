@@ -25,7 +25,11 @@ export default class GmkInfoPage extends HTMLElement {
             * {
                 white-space: normal;
             }
-    `
+
+            li {
+                margin-bottom: 1rem;
+            }
+        `
     }
 
     private _render() {

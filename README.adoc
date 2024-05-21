@@ -10,8 +10,7 @@ The only password manager you'll ever need
 - *xref:about_transparent[]*: Absolute transparency to ensure privacy is at heart of GetMeKey
 - *xref:about_free[]*: No payments, subscriptions, etc. GetMeKey is, and always will be 100% free
 
-[align="center"]
-image::https://getmekey.com/static/screenshot.png[Screenshot,200,100]
+image::https://getmekey.com/static/screenshot.png[Screenshot,220,300]
 
 toc::[]
 
@@ -63,17 +62,17 @@ These functions are widely used and very well known. You can select from a bunch
 === Simple
 To generate passwords using GetMeKey, all you need, is to remember your secret phrase. Type it in, add what app you want to get a password for and optionally, select different hashing algorithm.
 
-These steps can be speed up even more by enabling recall, remember or app name prefill functionalities.
+These steps can be speed up even more by enabling *Recall*, *Remember* or *App Name Prefill* functionalities.
 
 [[about_secure]]
 === Secure
 Generated password is created by combining your secret with an app name and running it through hash function. Result is long pseudorandom text. This text cannot be traced back to the original input. This means, that if one of your generated passwords is leaked, it has no impact on security of your other accounts.
 
-Anything you write into GetMeKey never leaves your device - every password is generated directly on it. There is absolutely no communication with outside world - no tracking or analytics.
+Anything you write into GetMeKey never leaves your device - every password is generated directly on it. There is absolutely no communication with outside world, no tracking, no analytics.
 
 [[about_accessible]]
 === Accessible
-GetMeKey runs in any browser and there is no backend infrastructure - everything is done right in the browser.
+GetMeKey runs in any browser and there is no backend infrastructure - everything is done directly in the browser.
 
 As long as you have a browser at hand, you can get to any of your passwords. Works even offline, after first time you open it.
 
