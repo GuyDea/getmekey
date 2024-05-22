@@ -76,7 +76,7 @@ export class GmkPopup extends HTMLElement {
             <div class="popupPanel">
                 <div class="header">
                     <div class="headerText">${this._header}</div>
-                    <button class="gmkButton" id="closeButton">
+                    <button aria-label="Close" class="gmkButton" id="closeButton">
                         <svg xmlns="http://www.w3.org/2000/svg" class="svgIcon" viewBox="0 0 1000 1000"
                              stroke-linecap="round" >
                             <path d="M 97,902 902,97 m -805,0 805,805" stroke-width="60" stroke="currentColor"/>

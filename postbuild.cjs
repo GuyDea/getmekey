@@ -28,10 +28,10 @@ function formatDateTime (date){
 }
 
 async function copyOtherAssets(){
-    await fs.copyFile(`${__dirname}/package.json`, `${__dirname}/dist/package.json`);
-    await fs.copyFile(`${__dirname}/index.html`, `${__dirname}/dist/index.html`);
-    await fs.copyFile(`${__dirname}/manifest.json`, `${__dirname}/dist/manifest.json`);
-    await fs.copyFile(`${__dirname}/sw.js`, `${__dirname}/dist/sw.js`);
+    const assets = ['package.json', 'index.html', 'manifest.json', 'sw.js', 'robots.txt'];
+    for (let i = 0; i < assets.length; i++) {
+        await fs.copyFile(`${__dirname}/${assets[i]}`, `${__dirname}/dist/${assets[i]}`);
+    }
 }
 
 const sourceDirectory = `${__dirname}/static`;
@@ -45,6 +45,12 @@ async function addVersion() {
         .replaceAll('{{GIT_COMMIT_ID}}', revision)
         .replaceAll('{{BUILD_AT}}', formatDateTime(new Date()));
     await fs.writeFile(`${__dirname}/dist/src/meta.js`,replaced,{encoding:'utf8',flag:'w'});
+}
+
+async function updateSitemap() {
+    const content = await fs.readFile(`${__dirname}/dist/static/sitemap.xml`, 'utf8');
+    let replaced = content.replaceAll('{{TIMESTAMP}}', new Date().toISOString());
+    await fs.writeFile(`${__dirname}/dist/static/sitemap.xml`,replaced,{encoding:'utf8',flag:'w'});
 }
 
 async function listFilesRecursive(dir, relativeDir = '') {
@@ -87,6 +93,7 @@ copyDir(sourceDirectory, destinationDirectory)
     .then(() => copyDir(`${__dirname}/lib`, `${__dirname}/dist/lib`))
     .then(() => copyOtherAssets())
     .then(() => addVersion())
+    .then(() => updateSitemap())
     .then(() => setupSW())
     .then(() => console.log('Build finished successfully'))
     .catch(console.error);

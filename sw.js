@@ -19,13 +19,15 @@ self.addEventListener('fetch', async (fetchEvent) => {
 });
 
 self.addEventListener('activate', (event) => {
-    event.waitUntil((async () => await self.registration?.navigationPreload?.enable())());
+    event.waitUntil((async () => {
+        const cacheNames = await caches.keys();
+        await Promise.all(cacheNames.filter(n => n !== CACHE_NAME).map((cacheName) => caches.delete(cacheName)));
+        await self.registration?.navigationPreload?.enable();
+    })());
 });
 
 self.addEventListener('install', (event) => {
     event.waitUntil((async () => {
-        const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName)));
         const cache = await caches.open(CACHE_NAME);
         await cache.addAll(URLS_TO_CACHE);
     })());

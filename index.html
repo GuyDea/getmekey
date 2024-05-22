@@ -4,7 +4,9 @@
     <meta charset="UTF-8"/>
     <link rel="icon" type="image/svg+xml" href="/static/icons/gmk_icon.svg"/>
     <meta name="viewport"
-          content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+          content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes"/>
+    <link rel="manifest" href="/static/manifest_web.json">
+    <meta name="theme-color" content="#c8b6ff">
     <title>GetMeKey</title>
     <meta name="description" content="The only password manager you’ll ever need">
     <link rel="stylesheet" href="/static/interactions.css">
@@ -592,7 +594,7 @@
         <div id="jsError">You must have JavaScript enabled for this application to work</div>
     </noscript>
     <form id="mainPage" autocomplete="one-time-code" autocorrect="off" autocapitalize="off">
-        <a class="preferencesIcon uxSettings" href="/preferences">
+        <a aria-label="Preferences" class="preferencesIcon uxSettings" href="/preferences">
             <svg style="color: var(--color-1); width: 100%; height: 100%;">
                 <use xlink:href="#preferences-icon"></use>
             </svg>
@@ -684,7 +686,7 @@
                 <div class="middle">
                     <div needValidForm class="generatesText disableable disabled">
                         <span>Generates Password</span>
-                        <a id="hashSettingsButton" class="settingsIcon sideIcon disableable disabled" href="/hash-settings" needValidForm>
+                        <a aria-label="Hash Settings"id="hashSettingsButton" class="settingsIcon sideIcon disableable disabled" href="/hash-settings" needValidForm>
                             <svg style="color: var(--color-1); width: 100%; height: 100%;">
                                 <use xlink:href="#settings-icon"></use>
                             </svg>
@@ -718,7 +720,7 @@
                 </div>
             </div>
             <div style="margin-top: 10px; display: flex; gap: .5rem;">
-                <button id="copyButton" type="button" class="gmkButton gmkButtonPrimary disableable disabled" needValidPassword disabled>Copy</button>
+                <button aria-label="Back" id="copyButton" type="button" class="gmkButton gmkButtonPrimary disableable disabled" needValidPassword disabled>Copy</button>
             </div>
             <div class="recallPanel" needRecalledEnabled style="display: none;">
                 Secret Recall
@@ -729,11 +731,11 @@
             </div>
         </div>
         <div class="footer">
-            <a class="footerItem" href="/disclaimer">Disclaimer</a>
-            <a class="footerItem" href="/about">About</a>
+            <a aria-label="Disclaimer" class="footerItem" href="/disclaimer">Disclaimer</a>
+            <a aria-label="About" class="footerItem" href="/about">About</a>
         </div>
         <div class="socialIcons">
-            <a href="https://github.com/GuyDea/getmekey" target="_blank">
+            <a aria-label="Github" href="https://github.com/GuyDea/getmekey" target="_blank">
                 <div class="socialIcon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
                         <path d="M50.5 0a49.8 49.8 0 0 0-15.7 97.2c2.3.5 4.2-2 4.2-4.1v-6.7c-13.9 3-18.2-6.7-18.2-6.7a15 15 0 0 0-5.1-7.3c-4.6-3.3.2-3 .2-3a10 10 0 0 1 7.6 4.6c4 6.7 12.7 6 15.5 4.8a12.4 12.4 0 0 1 1.1-6.7C24.5 69.4 16 60.1 16 47.7a24.7 24.7 0 0 1 6.7-17.5 14.3 14.3 0 0 1 .7-14.8A20.5 20.5 0 0 1 38 22.1a34.8 34.8 0 0 1 12.5-1.8 39.4 39.4 0 0 1 12.4 1.6 20.7 20.7 0 0 1 14.8-6.5 15 15 0 0 1 .9 14.8 24.7 24.7 0 0 1 6.5 17.5c0 12.4-8.6 21.7-24.2 24.4a12.4 12.4 0 0 1 1.1 6.7v14.3a4.1 4.1 0 0 0 4.4 4.1A50 50 0 0 0 50.4 0Z"/>

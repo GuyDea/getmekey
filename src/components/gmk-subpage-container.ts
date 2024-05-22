@@ -69,7 +69,7 @@ export class GmkSubpageContainer extends HTMLElement{
             <style>${this.styles}${globalStyles}</style>
             <div class="mainContainer">
                 <div class="header">
-                    <button class="iconButton" id="backButton">
+                    <button aria-label="Back" class="iconButton" id="backButton">
                         <svg viewBox="0 0 100 100">
                             <path style="fill: var(--color-1)"
                                   d="M99.8 73.6c-3.8-16.3-15.7-39-51.6-43.8V15.5a7.4 7.4 0 0 0-12.7-5.3L3 43.1a9.8 9.8 0 0 0 0 13.8l32.6 32.9a7.4 7.4 0 0 0 12.7-5.3V70.6c12.2 0 30 1.7 42.5 9.5a6 6 0 0 0 9.1-6.5z"/>

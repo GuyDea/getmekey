@@ -34,7 +34,7 @@ export class GmkInfoPopupContent extends HTMLElement {
             <style>${globalStyles}${this._styles()}</style>   
             <div id="content"></div>
             <div style="display: grid; place-items: center;">
-                <button id="closeButton" class="gmkButton gmkButtonPrimary">Got it!</button>
+                <button aria-label="Close" id="closeButton" class="gmkButton gmkButtonPrimary">Got it!</button>
             </div>
             
         `

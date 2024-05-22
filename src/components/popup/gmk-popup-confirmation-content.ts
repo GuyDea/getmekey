@@ -50,8 +50,8 @@ export class GmkPopupConfirmationContent extends HTMLElement {
                 ${this._htmlText}
                 </div>
                 <div class="buttons">
-                    ${this._noCallback ? html`<button id="noButton" class="gmkButton gmkButtonSecondary">No</button>` : ''}
-                    <button id="yesButton" class="gmkButton gmkButtonPrimary"></button>
+                    ${this._noCallback ? html`<button aria-label="No" id="noButton" class="gmkButton gmkButtonSecondary">No</button>` : ''}
+                    <button aria-label="Yes" id="yesButton" class="gmkButton gmkButtonPrimary"></button>
                 </div>
             </div>
         `
