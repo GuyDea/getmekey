@@ -80,6 +80,7 @@ async function setupSW() {
         files = files.concat(await listFilesRecursive(`${__dirname}/dist/`, `${f}`))
     }
     files.push('index.html');
+    files.push('manifest.json');
     const swContent = await fs.readFile(`${__dirname}/dist/sw.js`, 'utf8');
     let replaced = swContent
         .replaceAll('\'INJECT_ASSETS_TO_PRELOAD\'', files.map(f => `'${f}'`).join(',\n'))

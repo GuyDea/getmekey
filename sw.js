@@ -4,13 +4,6 @@ const URLS_TO_CACHE = ['INJECT_ASSETS_TO_PRELOAD'];
 self.addEventListener('fetch', async (fetchEvent) => {
     if (fetchEvent.request.mode === 'navigate') {
         fetchEvent.respondWith((async () => {
-            try {
-                const preloadResponse = await fetchEvent.preloadResponse;
-                if (preloadResponse) {
-                    return preloadResponse;
-                }
-            } catch (e) {
-            }
             return (await caches.open(CACHE_NAME)).match('index.html');
         })(),)
     } else if (fetchEvent.request.method === 'GET' && URLS_TO_CACHE.some((regex) => fetchEvent.request.url.match(regex))) {
@@ -22,7 +15,8 @@ self.addEventListener('activate', (event) => {
     event.waitUntil((async () => {
         const cacheNames = await caches.keys();
         await Promise.all(cacheNames.filter(n => n !== CACHE_NAME).map((cacheName) => caches.delete(cacheName)));
-        await self.registration?.navigationPreload?.enable();
+        // We don't want to use downloaded index.html - always use what is cached to prevent inconsistencies
+        await self.registration?.navigationPreload?.disable();
     })());
 });
 
