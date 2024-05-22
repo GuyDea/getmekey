@@ -1,29 +1,47 @@
 {
   "name": "GetMeKey",
+  "short_name": "GMK",
   "description": "The only password manager you'll ever need",
   "version": "1.0.0",
   "manifest_version": 3,
   "permissions": [],
   "action": {
     "default_title": "GetMeKey",
-    "default_icon": "icons/gmk_icon_128.png"
+    "default_icon": "/static/icons/gmk_icon_128.png"
   },
   "icons": [
     {
-      "src": "icons/gmk_icon_512.png",
+      "src": "/static/icons/gmk_icon_512.png",
       "type": "image/png",
       "sizes": "512x512"
     },
     {
-      "src": "icons/gmk_icon_512_maskable.png",
+      "src": "/static/icons/gmk_icon_512_maskable.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
     }
   ],
-  "start_url": "index.html",
+  "screenshots" : [
+    {
+      "src": "/static/images/screenshot_1280x720.jpg",
+      "sizes": "1280x720",
+      "type": "image/jpg",
+      "form_factor": "wide",
+      "label": "Main screen - wide"
+    },
+    {
+      "src": "/static/images/screenshot_720x1280.jpg",
+      "sizes": "720x1280",
+      "type": "image/jpg",
+      "form_factor": "narrow",
+      "label": "Main screen - narrow"
+    }
+  ],
+  "start_url": "/index.html",
   "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "theme_color": "#E2D9FC",
   "background_color": "#E2D9FC"
 }
