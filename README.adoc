@@ -94,7 +94,7 @@ GetMeKey is also open-source under ISC license - anyone can use, copy or share t
 As with everything in life, nothing is perfect. But GetMeKey gets damn close! However, it's fair to mention also these parts.
 
 * Password always have the same format - fixed security prefix consisting of uppercase, lowercase, number and special characters, followed by the password using only alphanumeric characters. If app does not support this format, you'll have to update the password manually.
-* You have to be precise and consistent with the names of the apps that you use. If just one of the letters is off, totally different password will be generated.
+* You have to be precise and consistent with the names of the apps that you use. If just one of the letters is off, totally different password will be generated. If given application is known under multiple names, you have to choose one - eg. *x* or *twitter*?
 * God-forbid, you reveal your secret and all hashing steps to someone - this someone could then generate all your passwords as would you. However, this is fundamental issue with any secured system, or password manager - if attacker knows what you know, you are out of luck.
 
 
