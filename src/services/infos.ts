@@ -7,29 +7,28 @@ export type InfoData = {
 
 export const infoValues: Map<string, InfoData> = new Map([
     ['info-secret', {header: 'Your Secret Text', content: `
-<p>Your one-and-only secret that you have to remember</p>
-<p>It is used as a foundation for your generated passwords</p>
-<p>Make it as unique and strong as your memory allows you. Wondering <a href="/why-strong-secret">Why?</a></p>
+<p>Your one-and-only secret that you have to remember.</p>
+<p>It is used as a foundation for your generated passwords.</p>
+<p>Make it as unique and strong as your memory allows you. Wondering <a href="/why-strong-secret">why?</a></p>
 <p><b>NEVER SHARE IT WITH ANYONE!</b></p>`}],
-    ['appName', {header: 'App Name', content: `
-    <p>
-    `}],
     ['why-strong-secret', {header: 'Why Do I Need Strong Secret?', content: `
     <p>Are you wondering <i>"Why do I have to have strong secret, when generated password is super-strong anyway?"</i></p>
-                    <p>Good question! And the answer is simple - it significantly reduces possible brute-force attack</p>
-                    <p>Imagine someone (let's call him Mr. Attacker), who wants to hack your accounts. Mr. Attacker was able to acquire one
+                    <p>Good question! And the answer is simple - it significantly reduces effectiveness of possible brute-force attacks.</p>
+                    <p>Imagine someone, let's call him Mr. Attacker, who wants to hack your accounts. Mr. Attackers goal is to find your secret.</p>
+                    <p>Mr. Attacker was able to acquire one
                         of your generated passwords via <a href="https://wikipedia.org/wiki/Phishing" target="_blank">phishing site</a>. 
                         and thanks to <a href="https://wikipedia.org/wiki/Social_engineering_(security)" target="_blank">social engineering</a>,
-                        he was able to figure out, what algorithm you use to transform secret into password.
+                        he was able to figure out, that you use hash function to generate passwords based on your secret.
                     </p>
-                    <p>Now with full knowledge of how you generate your passwords, Mr. Attacker can use trial-error method to find the matching secret.</p>
-                    <p>Let's do some napkin math with ballpark numbers</p>
-                    <p>Also let's assume, that Mr. Attacker has access to a supercomputer, which can test 1 000 000 000 000 hash generations per second</p>
-                    <p>If your password was weak, it would be cracked in seconds</p>
-                    <p>However, if your secret is long, unique, unpredictable with all kinds of symbols incorporated,
-                    this would represent ~1 000 000 000 000 000 000 000 000 000 000 000 000 possibilities</p>
-                    <p>In short, it would take Mr. Attacker and his supercomputer trillions upon trillions of years to find the match</p>
-                    <p><b>Just remember:</b> <i>Stop Mr. Attacker cold with secret that’s bold!</i></p>`}],
+                    <p>Now, with one of your passwords Mr. Attacker can start generating random texts, over which he will apply your hash function, with hopes,
+                    that one of these texts will match the stolen password. Thus finding out the original secret at random - just by using many trial-and-error runs.</p>
+                    <p>Let's do some napkin math.</p>
+                    <p>We assume, that Mr. Attacker has access to a supercomputer, which can test 1 000 000 000 000 hash generations per second</p>
+                    <p>If your secret is weak, with this many trial-and-errors, it would be cracked in seconds.</p>
+                    <p>However, if your secret is long, unique, unpredictable with all kinds of symbols,
+                    this would represent ~1 000 000 000 000 000 000 000 000 000 000 000 000 possibilities, he would need to test against.</p>
+                    <p>Put otherwise, it would take Mr. Attacker and his supercomputer trillions upon trillions of years to find the match.</p>
+                    <p><b>So just remember:</b> <i>Stop Mr. Attacker cold with secret that’s bold!</i></p>`}],
     ['disclaimer', {header: 'Disclaimer', content: `    
     <p>GetMeKey is designed to help you generate secure passwords using cryptographic methods.</p>
     <p>While we have taken all necessary measures to ensure the security and reliability of our service, we cannot guarantee absolute security.</p> 
@@ -112,11 +111,12 @@ export const infoValues: Map<string, InfoData> = new Map([
     Someone with full access to your device and knowledge of GetMeKey could decrypt and reveal it!</p>    
     `}],
     ['info-app-name', {header: 'App Name', content: `
-    <p>This text is used as a value, that shuffles your secret (also called <i>"salt"</i> ), when using <a href="/what-is-hash">hash function</a>.</p>
+    <p><a>This text is used as a value, that shuffles your secret, when using <a href="/what-is-hash">hash function</a>. It's also known as <a href="https://wikipedia.org/wiki/Salt_(cryptography)" target="_blank">"salt"</a> in cryptography.</p>
     <p>Using this value, you can generate new passwords specific to given application.</p>
-    <p>To avoid confusion, only lowercase letters and " - " are allowed, as any minor modification of this value would result in totally different password - e.g. "netflix" and "Netflix" would be seen as different applications.</p>    
-    <p>Also, GetMeKey <a href="/info-usability">App Name Prefill</a> functionality uses the domain lowercase name 
-    as <i>App Name</i> value - e.g. https://mail.<strong>google</strong>.com is used as "<strong>google</strong>" <i>App Name</i>.</p>    
+    <p>To prevent typos and app-naming-conundrums, only lowercase letters and " - " are allowed, as any minor modification of this value would result in totally different password. E.g. "netflix" and "Netflix" would be seen as different applications.</p>
+    <p>We recommend to use the main domain name as an app name.</p>
+    <p>E.g. https://mail.<strong>google</strong>.com can be used as "<strong>google</strong>".</p>    
+    <p>GetMeKey <a href="/info-usability">App Name Prefill</a> functionality also uses this approach.</p>    
     `}],
     ['what-is-hash', {header: 'What Is Hashing?', content: `
     <p>Hash function is simple in its principle.</p>
