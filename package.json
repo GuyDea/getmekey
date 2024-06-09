@@ -1,7 +1,7 @@
 {
   "name": "getmekey",
   "author": "GuyDea",
-  "description": "Tool for quick generation of unique and reproducible passwords",
+  "description": "The only password assistant you’ll ever need",
   "private": false,
   "homepage": "https://getmekey.com",
   "version": "1.0.0",
@@ -10,7 +10,7 @@
   "scripts": {
     "build": "node prebuild.cjs && tsc -b && node postbuild.cjs",
     "serve": "npm run build && live-server --port=9000 ./dist --entry-file=index.html",
-    "serve:ssl": "npm run build && live-server  --https=https.config.cjs --port=9000 ./dist --entry-file=index.html",
+    "serve:ssl": "npm run build && live-server --https=https.config.cjs --port=9000 ./dist --entry-file=index.html",
     "watch": "chokidar src static lib index.html postbuild.cjs sw.js prebuild.cjs manifest.json -c 'npm run build'",
     "dev": "concurrently --kill-others 'npm run watch' 'npm run serve'",
     "dev:ssl": "concurrently --kill-others 'npm run watch' 'npm run serve:ssl'"

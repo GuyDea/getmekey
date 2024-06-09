@@ -2,23 +2,23 @@
 :toc: macro
 :toc-title: Contents
 
-The only password manager you'll ever need
+The only password assistant you'll ever need
 
 image::https://getmekey.com/static/images/screenshot_default.png[Screenshot,220,300]
 
 - *xref:about_simple[]*: Remembering a single secret text is all you need.
 - *xref:about_secure[]*: Creates unique and unbreakable passwords for all your apps. GetMeKey NEVER transmits or shares any data.
-- *xref:about_accessible[]*: Use from any platform - even offline.
-- *xref:about_transparent[]*: Absolute transparency to ensure privacy is at heart of GetMeKey
-- *xref:about_free[]*: No payments, subscriptions, etc. GetMeKey is, and always will be 100% free
+- *xref:about_accessible[]*: Use from any platform, even offline.
+- *xref:about_transparent[]*: Absolute transparency to ensure privacy is at the heart of GetMeKey.
+- *xref:about_free[]*: No payments, subscriptions, etc. GetMeKey is, and always will be, 100% free.
 
 toc::[]
 
 == About GetMeKey
 
-There are only two dilemmas in life: "What password should I use?" and "What should I use as second option in my opening quote?". GetMeKey tackles the former.
+There are only two dilemmas in life: "What password should I use?" and "What should I use as a second option in my opening quote?". GetMeKey tackles the former.
 
-There is a countless ways how to manage your passwords. And all of them have some major drawbacks. Let's mention some of them.
+There are a bunch of ways to manage your passwords. And all of them have some major drawbacks. Let's mention some of them.
 
 * Have one single password for everything
 ** Single compromised site is all it takes to hack all your accounts
@@ -31,8 +31,8 @@ There is a countless ways how to manage your passwords. And all of them have som
 * Use paid password management service
 ** Do you really trust these companies?
 ** You are being hostage to their subscription plans
-* Derive password out of the app name
-** Similar to having single password - with few more steps to crack it open
+* Derive a password out of the app name
+** Similar to having a single password - with few more steps to crack it open
 
 GetMeKey is inspired by the last option - with additional cryptographic steps.
 
@@ -44,48 +44,48 @@ Deducing password from app names, in a style of `MyNetflixPassword123` is solid 
 * You don't need to write it down anywhere
 * You can deduce it immediately, anywhere you are
 
-Problem is, if some compromised or just careless app leaks it - it takes just few tries, depending on how creative you were, to reverse-engineer it.
+The problem is, if some compromised or just careless app leaks it, it takes just a few tries, depending on how creative you were, to reverse-engineer it.
 
-That's where GetMeKey comes in. Combining your secret phrase with the name of the given application and running cryptographic hash function on top of it, you get password that:
+That's where GetMeKey comes in. Combining your secret phrase with the name of the given application and running a cryptographic hash function on top of it, you get a password that:
 
 * Looks totally random
 * Cannot be reverse-engineered to get the original secret
 * Always gives you same result for the same secret and app combination
 
-Cryptographic hash function is a mathematical algorithm, that you use hundreds of times every day: to establish your banking connection, verify downloaded file, talk privately to your friends in messaging app etc.
+Cryptographic hash function is a mathematical algorithm, that you use hundreds of times every day: to establish your banking connection, verify downloaded file, talk privately to your friends in a messaging app, etc.
 
-These functions are widely used and very well known. You can select from a bunch of them inside the GetMeKey. Once you know how all this fits together, you don't even need GetMeKey to figure out your password - you can use any tool online that deals with cryptography (e.g. https://www.dcode.fr, https://monocalc.com, https://tools.keycdn.com ...) to do so.
+These functions are widely used and very well known. You can select from a bunch of them inside the GetMeKey. Once you know how all this fits together, you don't even need GetMeKey to figure out your password - you can use any tool online that deals with cryptography (e.g. https://www.dcode.fr, https://monocalc.com, https://tools.keycdn.com, etc.) to do so.
 
 == Why Use GetMeKey
 
 [[about_simple]]
 === Simple
-To generate passwords using GetMeKey, all you need is to remember your secret phrase. Type it in, add what app you want to get a password for and optionally, select different hashing algorithm.
+To generate passwords using GetMeKey, all you need to do is remember your secret phrase. Type it in, add what app you want to get a password for, and, optionally, select a different hashing algorithm.
 
-These steps can be speed up even more by enabling *Recall*, *Remember* or *App Name Prefill* functionalities.
+These steps can be sped up even more by enabling the *Recall*, *Remember*, or *App Name Prefill* functionalities.
 
 [[about_secure]]
 === Secure
-Generated password is created by combining your secret with an app name and running it through hash function. Result is long pseudorandom text. This text cannot be traced back to the original input. This means, that if one of your generated passwords is leaked, it has no impact on security of your other accounts.
+A generated password is created by combining your secret with an app name and running it through a hash function. The result is a long pseudorandom text. This text cannot be traced back to the original input. This means, that if one of your generated passwords is leaked, it has no impact on the security of your other accounts.
 
-Anything you write into GetMeKey never leaves your device - every password is generated directly on it. There is absolutely no communication with outside world, no tracking, no analytics.
+Anything you write into GetMeKey never leaves your device - every password is generated directly on it. There is absolutely no communication with the outside world, no tracking, and no analytics.
 
 [[about_accessible]]
 === Accessible
-GetMeKey runs in any browser and there is no backend infrastructure - everything is done directly in the browser.
+GetMeKey runs in any browser, and there is no backend infrastructure - everything is done directly in the browser.
 
-As long as you have a browser at hand, you can get to any of your passwords. Works even offline, after first time you open it.
+As long as you have a browser at hand, you can get to any of your passwords. It works even offline, after the first time you open it.
 
 
 [[about_transparent]]
 === Transparent
-GetMeKey is build and served in a way, that anyone can see and review what it is doing. Every other application minimizes and packs its source code as tight as possible, so it loads faster, but code became unreadable in the process.
+GetMeKey is built and served in such a way that anyone can see and review what it is doing. Every other application minimizes and packs its source code as tight as possible, so it loads faster, but the code becomes unreadable in the process.
 
-GetMeKey works differently - it serves its source code without minimizing or repackaging, so anyone can review it in any DevTools. As the GetMeKey is fairly lightweight, increased package size negligible.
+GetMeKey works differently - it serves its source code without minimizing or repackaging, so anyone can review it in any DevTools. As the GetMeKey is fairly lightweight, the increased package size is negligible.
 
 [[about_free]]
 === Free
-Whole idea of the GetMeKey is to provide user-friendly way to hash your secret together with the app name. GetMeKey runs solely on your device and doesn't need anything else to function. So there is no need for heavy infrastructure - meaning no expenses, no reason to monetize.
+The whole idea of GetMeKey is to provide a user-friendly way to hash your secret together with the app name. GetMeKey runs solely on your device and doesn't need anything else to function. So there is no need for heavy infrastructure - meaning no expenses, no reason to monetize.
 
 GetMeKey is also open-source under ISC license - anyone can use, copy or share the whole code-base for no cost.
 
@@ -93,9 +93,9 @@ GetMeKey is also open-source under ISC license - anyone can use, copy or share t
 
 As with everything in life, nothing is perfect. But GetMeKey gets damn close! However, it's fair to mention also these parts.
 
-* Password always have the same format - fixed security prefix consisting of uppercase, lowercase, number and special characters, followed by the password using only alphanumeric characters. If app does not support this format, you'll have to update the password manually.
-* You have to be precise and consistent with the names of the apps that you use. If just one of the letters is off, totally different password will be generated. If given application is known under multiple names, you have to choose one - eg. *x* or *twitter*?
-* God-forbid, you reveal your secret and all hashing steps to someone - this someone could then generate all your passwords as would you. However, this is fundamental issue with any secured system, or password manager - if attacker knows what you know, you are out of luck.
+* Passwords always have the same format: a fixed security prefix consisting of uppercase, lowercase, numbers, and special characters, followed by the password using only alphanumeric characters. If the app does not support this format, you'll have to update the password manually.
+* You have to be precise and consistent with the names of the apps that you use. If just one of the letters is off, totally different password will be generated. If a given application is known by multiple names, you have to choose one - eg. *x* or *twitter*?
+* God forbid, you reveal your secret and all hashing steps to someone - this someone could then generate all your passwords as would you. However, this is a fundamental issue with any secured system or password manager: if an attacker knows what you know, you are out of luck.
 
 
 == Third-Party Algorithm Implementations

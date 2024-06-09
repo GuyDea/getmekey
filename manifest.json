@@ -1,6 +1,6 @@
 {
   "name": "GetMeKey",
-  "description": "The only password manager you'll ever need",
+  "description": "The only password assistant you'll ever need",
   "version": "1.0.0",
   "manifest_version": 3,
   "permissions": ["clipboardWrite", "clipboardRead", "activeTab"],

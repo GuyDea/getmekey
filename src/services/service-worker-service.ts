@@ -3,12 +3,28 @@ import {GmkPopupConfirmationContent} from "/src/components/popup/gmk-popup-confi
 import {html} from "/src/utils/helper-functions.js"
 
 export class ServiceWorkerService {
+    private _canRequestPwaInstall = false;
+    private _pwaInstallPrompt?: {prompt: () => void};
+
     public initialize(){
         setTimeout(async () => {
             const registration = await this._loadSw();
             this._setupSwListeners();
             await this._checkForUpdate(registration);
         }, 3000);
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            this._canRequestPwaInstall = true;
+            this._pwaInstallPrompt = e as unknown as (typeof this._pwaInstallPrompt);
+        });
+    }
+
+    canRequestPwaInstall() {
+        return this._canRequestPwaInstall;
+    }
+
+    promptPwaInstall(){
+        this._pwaInstallPrompt?.prompt()
     }
 
     private async _loadSw(){

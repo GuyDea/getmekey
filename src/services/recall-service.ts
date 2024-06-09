@@ -68,7 +68,7 @@ export class RecallService {
     private async _trySecretRetrieve() {
         const stored = await this.retrieveSecret();
         if (stored) {
-            toastService.addToast(`<span style="font-size: .8em">Remembered ${formatTime(new Date().getTime() - stored.storedAt.getTime())} Ago</span>`, "INFO", 5_000)
+            toastService.addToast(`Remembered ${formatTime(new Date().getTime() - stored.storedAt.getTime())} Ago`, "INFO", 5_000)
             state.update(s => {
                 s.secretRemembered = true;
                 s.secretValue = stored.secret;

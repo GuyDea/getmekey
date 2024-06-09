@@ -3,19 +3,15 @@ import {toastService} from "/src/services/toast-service.js";
 import {state} from "/src/state/initial-state.js"
 
 export class CopyService {
-    private _appNamePrefilled: 'Clipboard' | 'URL' | null = null;
     public initialize(){
         state.subscribe(s => {
             if(s.userPreferences.usability.autoCopy && s.passwordValue){
-                this.copy(s.passwordValue, `<span style="font-size: .7em">Auto Copied${this._appNamePrefilled ? ` For:</span><br/><b>${s.saltValue}</b>` : ''}`);
-                if(this._appNamePrefilled){
-                    this._appNamePrefilled = null;
-                }
+                this.copy(s.passwordValue, `Auto Copied`);
             }
         }, {
             diffMatcher: s => JSON.stringify({enabled: s.userPreferences.usability.autoCopy, password: s.passwordValue})
         })
-        if(state.value.userPreferences.usability.autoCopy){
+        if(state.value.userPreferences.usability.appPrefill){
             this._tryAppNameInit().then();
         }
     }
@@ -75,13 +71,12 @@ export class CopyService {
         let appNameFromClipboard = this._getAppNameFromString(clipboard);
         let appName: string | null = null;
         if(appNameFromUrl){
-            this._appNamePrefilled = 'URL';
             appName = appNameFromUrl;
         } else if(appNameFromClipboard) {
-            this._appNamePrefilled = 'Clipboard';
             appName = appNameFromClipboard;
         }
         if(typeof appName === 'string') {
+            toastService.addToast(`App: <b>${appName}</b>`);
             state.update(s => s.saltValue = (appName as string));
             return
         }

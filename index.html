@@ -8,7 +8,7 @@
     <link rel="manifest" href="/static/manifest_web.json">
     <meta name="theme-color" content="#c8b6ff">
     <title>GetMeKey</title>
-    <meta name="description" content="The only password manager you’ll ever need">
+    <meta name="description" content="The only password assistant you’ll ever need">
     <link rel="stylesheet" href="/static/interactions.css">
     <style>
         @font-face {
@@ -79,8 +79,12 @@
             /* Custom font using just dots with empty font as fallback - not working properly on Iphones in combination with -webkit-text-security */
             /* It's printing NotDef characters instead of native dots */
             font-family: "password", "NotDef", sans-serif;
-            font-size: .6rem !important;
+            font-size: .5rem !important;
             /*-webkit-text-security: disc;*/
+        }
+
+        [topSecret] input[masking='password'] {
+            font-size: 1px !important;
         }
 
         .hideOverflow {
@@ -478,6 +482,8 @@
             border-radius: .7rem;
             padding: .5em 1em;
             transition: opacity .3s, transform .3s;
+            text-decoration: none;
+            box-sizing: border-box;
         }
         .gmkButton:not([disabled]) {
             cursor: pointer;
@@ -651,12 +657,12 @@
                 </div>
 
                 <div class="side rightSide">
-                    <gmk-info-icon page="info-secret"></gmk-info-icon>
                     <div class="sideIcon" sensitiveRemove off id="secretHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
                         </svg>
                     </div>
+                    <gmk-info-icon page="info-secret"></gmk-info-icon>
                 </div>
             </div>
             <div sensitiveHide class="reqPanel">
@@ -675,12 +681,12 @@
                            autocomplete="one-time-code" autocorrect="off" autocapitalize="off" />
                 </div>
                 <div class="side rightSide">
-                    <gmk-info-icon page="info-app-name"></gmk-info-icon>
                     <div class="sideIcon" sensitiveRemove off id="saltHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
                         </svg>
                     </div>
+                    <gmk-info-icon page="info-app-name"></gmk-info-icon>
                 </div>
             </div>
         </div>
@@ -716,12 +722,12 @@
                     <input id="finalPassword" masking="password" value="" autocomplete="one-time-code" autocorrect="off" autocapitalize="off"  class="disableable disabled" needValidForm/>
                 </div>
                 <div class="side rightSide">
-                    <gmk-info-icon page="info-password"></gmk-info-icon>
                     <div class="sideIcon" sensitiveRemove off id="passwordHideToggle">
                         <svg>
                             <use xlink:href="#icon-eye"></use>
                         </svg>
                     </div>
+                    <gmk-info-icon page="info-password"></gmk-info-icon>
                 </div>
             </div>
             <div style="margin-top: 10px; display: flex; gap: .5rem;">
@@ -738,6 +744,7 @@
         <div class="footer">
             <a aria-label="Disclaimer" class="footerItem" href="/disclaimer">Disclaimer</a>
             <a aria-label="About" class="footerItem" href="/about">About</a>
+            <a aria-label="Install" class="footerItem" href="/install">Install</a>
             <a aria-label="Policy" class="footerItem" href="/policy">Policy</a>
         </div>
         <div class="socialIcons">

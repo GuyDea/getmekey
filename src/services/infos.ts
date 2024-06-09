@@ -39,10 +39,10 @@ export const infoValues: Map<string, InfoData> = new Map([
     `}],
     ['about', {header: 'About GetMeKey', content: `
     <h2>How GetMeKey Works</h2>
-    <p>GetMeKey is tool, that allows you to have safe and unique passwords for all your applications, only by provideing it with your
+    <p>GetMeKey is tool, that allows you to have safe and unique passwords for all your applications, only by providing it with your
     secret text and name of the desired application. This is achieved by putting these two pieces of information togather and running it through
     cryptographic <a href="/what-is-hash">hash function</a>. All steps are described in-depth <a href="/generation-steps">here</a>.</p>   
-    <p>Using this approach you can quickly generate unique passwords on demand, on any device, even when offline. And if some compromised app leaks
+    <p>Using this approach you can quickly recreate your passwords on demand, on any device, even when offline. And if some compromised app leaks
     your password, it doesn't impact any other account that you have.</p>    
     <h2>Story Of GetMeKey</h2>
     <p><i>GetMeKey</i> is successor of a personal tool, that I created for my own needs.</p>
@@ -70,8 +70,8 @@ export const infoValues: Map<string, InfoData> = new Map([
                        
     <h2>Version</h2>                       
     <p class="appVersion">
-        <div><strong>Version</strong> ${gmkWindow.buildInfo.version}.${gmkWindow.buildInfo.vcHash}</div>
-        <div><strong>Build at</strong> ${gmkWindow.buildInfo.buildAt}</div>
+        <div><strong>Build</strong> ${gmkWindow.buildInfo.version}.${gmkWindow.buildInfo.vcHash}</div>
+        <div><strong>At</strong> ${gmkWindow.buildInfo.buildAt}</div>
     </p>`}],
     ['info-user-interface', {header: 'User Interface Options', content: `
     <h2>Top-Secret Mode</h2>
@@ -227,6 +227,6 @@ export const infoValues: Map<string, InfoData> = new Map([
     <h2>Contact Us</h2>
     <p>If you have any questions about this Privacy Policy, please contact us at:</p>
     <p><b>Email:</b> <a href="mailto:info@getmekey.com" target="_blank">info@getmekey.com</a></p>
-    <p><b>X:</b> <a href="https://x.com/GetMeKeyApp" target="_blank">x.com/GetMeKeyApp</a></p>
+    <p><b>X:</b> <a href="https://x.com/getmekeyapp" target="_blank">x.com/getmekeyapp</a></p>
 `}]
 ]);

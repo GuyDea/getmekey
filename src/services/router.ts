@@ -45,6 +45,10 @@ export class Router {
             'what-is-hash', 'info-password', 'info-hash-selection', 'info-password-format', 'generation-steps', 'policy'].join('|')})`,
             component: (path: string) => import('/src/components/gmk-info-page.js').then(m => new m.default(path.replace('/', '').split('?')[0])),
         },
+        {
+            path: '/install',
+            component: () => import('/src/components/subpages/gmk-install-options.js').then(m => document.createElement('gmk-install-options')),
+        },
     ]
 
     public static initialize(){

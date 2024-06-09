@@ -59,10 +59,10 @@ export class GmkToast extends HTMLElement {
                 width: fit-content;
                 margin-bottom: 1rem;
                 animation: appear .3s forwards linear;
-                --fuze-ttl: ${this._ttl}ms;
+                --fuze-ttl: ${this._ttl}ms;                
             }
             .mainPanel{
-                font-size: 1.3rem;
+                font-size: 1rem;
                 font-weight: lighter;
                 padding: .5rem 1rem;
                 border-radius: 1rem;
