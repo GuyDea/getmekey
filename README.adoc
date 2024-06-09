@@ -2,7 +2,7 @@
 :toc: macro
 :toc-title: Contents
 
-The only password assistant you'll ever need
+Your ultimate password assistant
 
 image::https://getmekey.com/static/images/screenshot_default.png[Screenshot,220,300]
 
