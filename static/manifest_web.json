@@ -2,7 +2,7 @@
   "name": "GetMeKey",
   "short_name": "GetMeKey",
   "description": "The only password assistant you'll ever need",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifest_version": 3,
   "permissions": [],
   "action": {

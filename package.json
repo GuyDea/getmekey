@@ -4,7 +4,7 @@
   "description": "The only password assistant you’ll ever need",
   "private": false,
   "homepage": "https://getmekey.com",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "index.html",
   "scripts": {
