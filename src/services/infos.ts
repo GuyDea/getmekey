@@ -111,7 +111,7 @@ export const infoValues: Map<string, InfoData> = new Map([
     Someone with full access to your device and knowledge of GetMeKey could decrypt and reveal it!</p>    
     `}],
     ['info-app-name', {header: 'App Name', content: `
-    <p><a>This text is used as a value, that shuffles your secret, when using <a href="/what-is-hash">hash function</a>. It's also known as <a href="https://wikipedia.org/wiki/Salt_(cryptography)" target="_blank">"salt"</a> in cryptography.</p>
+    <p><a>This text is used as a value, that shuffles your secret, when using <a href="/what-is-hash">hash function</a>.
     <p>Using this value, you can generate new passwords specific to given application.</p>
     <p>To prevent typos and app-naming-conundrums, only lowercase letters and " - " are allowed, as any minor modification of this value would result in totally different password. E.g. "netflix" and "Netflix" would be seen as different applications.</p>
     <p>We recommend to use the main domain name as an app name.</p>

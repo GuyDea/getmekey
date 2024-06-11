@@ -1,6 +1,6 @@
 {
   "name": "GetMeKey",
-  "description": "Your ultimate password assistant",
+  "description": "Your Ultimate Password Assistant",
   "version": "1.0.1",
   "manifest_version": 3,
   "permissions": ["clipboardWrite", "clipboardRead", "activeTab"],
