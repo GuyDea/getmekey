@@ -216,6 +216,9 @@
             transition: transform .5s, box-shadow .5s;
             border-radius: var(--logo-height);
         }
+        #logoSvg{
+            height: var(--logo-height);
+        }
 
 
         #jsError {
@@ -628,11 +631,13 @@
             </div>
         </div>
         <div class="logoPanel">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="logo">
-                <circle cx="50" cy="50" r="50" fill="#fe00fe" style="fill:var(--color-1);fill-opacity:1"/>
-                <path d="M33.27 21.75a28.4 28.4 0 0 0-13.63 3.86A28.54 28.54 0 0 0 6.6 58.48a28.54 28.54 0 0 0 55.4-2.58h6.31V63a4.5 4.5 0 0 0 4.5 4.5 4.5 4.5 0 0 0 4.5-4.5v-7.1h2.4v3.2a4.5 4.5 0 0 0 4.5 4.5 4.5 4.5 0 0 0 4.5-4.5v-3.2h.3a4.5 4.5 0 0 0 4.5-4.5 4.5 4.5 0 0 0-4.5-4.5H45.8a4.5 4.5 0 0 0-4.5 4.5 4.5 4.5 0 0 0 4.5 4.5h6.93a19.45 19.45 0 0 1-17.75 14h-.02a19.46 19.46 0 0 1-19.74-13.97v-.01l-.01-.02a19.46 19.46 0 0 1 8.94-22.5l.02-.01a19.46 19.46 0 0 1 23.88 3.33 4.5 4.5 0 0 0 6.37.12 4.5 4.5 0 0 0 .12-6.36 28.51 28.51 0 0 0-21.27-8.73z"
-                      style="fill:#fff;"/>
-            </svg>
+            <a class="logo" href="https://getmekey.com" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" id="logoSvg">
+                    <circle cx="50" cy="50" r="50" fill="#fe00fe" style="fill:var(--color-1);fill-opacity:1"/>
+                    <path d="M33.27 21.75a28.4 28.4 0 0 0-13.63 3.86A28.54 28.54 0 0 0 6.6 58.48a28.54 28.54 0 0 0 55.4-2.58h6.31V63a4.5 4.5 0 0 0 4.5 4.5 4.5 4.5 0 0 0 4.5-4.5v-7.1h2.4v3.2a4.5 4.5 0 0 0 4.5 4.5 4.5 4.5 0 0 0 4.5-4.5v-3.2h.3a4.5 4.5 0 0 0 4.5-4.5 4.5 4.5 0 0 0-4.5-4.5H45.8a4.5 4.5 0 0 0-4.5 4.5 4.5 4.5 0 0 0 4.5 4.5h6.93a19.45 19.45 0 0 1-17.75 14h-.02a19.46 19.46 0 0 1-19.74-13.97v-.01l-.01-.02a19.46 19.46 0 0 1 8.94-22.5l.02-.01a19.46 19.46 0 0 1 23.88 3.33 4.5 4.5 0 0 0 6.37.12 4.5 4.5 0 0 0 .12-6.36 28.51 28.51 0 0 0-21.27-8.73z"
+                          style="fill:#fff;"/>
+                </svg>
+            </a>
             <div>
                 <div style="font-weight: bolder; color: var(--color-1); font-size: 1.5rem;">GetMeKey
                 </div>
@@ -666,10 +671,10 @@
                 </div>
             </div>
             <div sensitiveHide class="reqPanel">
-                <div class="req" id="passReqLength"><div>length</div><div id="passReqLengthCount">0/20</div></div>
-                <div class="req" id="passReqUppercase"><div>uppercase</div><div id="passReqUppercaseCount">0/2</div></div>
-                <div class="req" id="passReqSpecial"><div>special</div><div id="passReqSpecialCount">0/2</div></div>
-                <div class="req" id="passReqNumber"><div>number</div><div id="passReqNumberCount">0/2</div></div>
+                <div class="req" id="passReqLength"><div>length</div><div id="passReqLengthCount">0/15</div></div>
+                <div class="req" id="passReqUppercase"><div>uppercase</div><div id="passReqUppercaseCount">0/1</div></div>
+                <div class="req" id="passReqSpecial"><div>special</div><div id="passReqSpecialCount">0/1</div></div>
+                <div class="req" id="passReqNumber"><div>number</div><div id="passReqNumberCount">0/1</div></div>
             </div>
         </div>
         <div class="labelInput">

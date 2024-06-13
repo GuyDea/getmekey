@@ -26,6 +26,5 @@ export class IndexListeners {
         IndexElements.copyButton().addEventListener('click', () => copyService.copy(IndexElements.finalPassword().value, 'Copied To Clipboard'));
         IndexElements.setRecalledButton().addEventListener('click', () => recallService.storeToRecalled());
         IndexElements.clearButton().addEventListener('click', () => recallService.removeRecalledByUser());
-
     }
 }

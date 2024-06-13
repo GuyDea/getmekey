@@ -16,10 +16,10 @@ export class StateSelectors {
     public secretNumberCount = () => this._getState().secretValue.match(this.numberRegx)?.length ?? 0;
     public secretSpecialCount = () => this._getState().secretValue.match(this.specialRegx)?.length ?? 0;
     public secretUppercaseCount = () => this._getState().secretValue.match(this.uppercaseRegx)?.length ?? 0;
-    public secretLengthOk = () => this.secretLengthCount() >= 20;
-    public secretContainsNumber = () => this.secretNumberCount() > 1;
-    public secretContainsSpecial = () => this.secretSpecialCount() > 1;
-    public secretContainsUppercase = () => this.secretUppercaseCount() > 1;
+    public secretLengthOk = () => this.secretLengthCount() >= 15;
+    public secretContainsNumber = () => this.secretNumberCount() >= 1;
+    public secretContainsSpecial = () => this.secretSpecialCount() >= 1;
+    public secretContainsUppercase = () => this.secretUppercaseCount() >= 1;
     public isSecretOk = () => this.secretLengthOk() && this.secretContainsNumber() && this.secretContainsSpecial() && this.secretContainsUppercase();
 
     public isSaltOk = () => this._getState().saltValue.length > 0;

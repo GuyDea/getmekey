@@ -54,10 +54,10 @@ export class IndexRenderer {
         setAttrIfTrue(isTopSecret, IndexElements.mainPage(), 'topSecret');
         setAttrIfTrue(!state.value.secretShow, IndexElements.secretHideToggle(), 'off');
         setAttrIfTrue(!state.value.secretShow || isTopSecret, IndexElements.secretInput(), 'masking', 'password');
-        IndexElements.passReqLengthCount().innerHTML = stateSelectors.secretLengthOk() ? 'ok' : `${stateSelectors.secretLengthCount().toString()}/20`;
-        IndexElements.passReqNumberCount().innerHTML = stateSelectors.secretContainsNumber() ? 'ok' :`${stateSelectors.secretNumberCount().toString()}/2`;
-        IndexElements.passReqSpecialCount().innerHTML = stateSelectors.secretContainsSpecial() ? 'ok' :`${stateSelectors.secretSpecialCount().toString()}/2`;
-        IndexElements.passReqUppercaseCount().innerHTML = stateSelectors.secretContainsUppercase() ? 'ok' :`${stateSelectors.secretUppercaseCount().toString()}/2`;
+        IndexElements.passReqLengthCount().innerHTML = stateSelectors.secretLengthOk() ? 'ok' : `${stateSelectors.secretLengthCount().toString()}/15`;
+        IndexElements.passReqNumberCount().innerHTML = stateSelectors.secretContainsNumber() ? 'ok' :`${stateSelectors.secretNumberCount().toString()}/1`;
+        IndexElements.passReqSpecialCount().innerHTML = stateSelectors.secretContainsSpecial() ? 'ok' :`${stateSelectors.secretSpecialCount().toString()}/1`;
+        IndexElements.passReqUppercaseCount().innerHTML = stateSelectors.secretContainsUppercase() ? 'ok' :`${stateSelectors.secretUppercaseCount().toString()}/1`;
         setAttrIfTrue(stateSelectors.secretLengthOk(), IndexElements.passReqLength(), 'ok');
         setAttrIfTrue(stateSelectors.secretContainsNumber(), IndexElements.passReqNumber(), 'ok');
         setAttrIfTrue(stateSelectors.secretContainsUppercase(), IndexElements.passReqUppercase(), 'ok');
