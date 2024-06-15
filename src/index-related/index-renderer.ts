@@ -46,7 +46,7 @@ export class IndexRenderer {
         const formOk = stateSelectors.formOk();
         const isTopSecret = state.value.userPreferences.visibility.topSecret;
         const remembered = state.value.secretRemembered;
-        IndexElements.passwordLengthIndicator().style.setProperty('--_width', isTopSecret ? '0%' : `${Math.min(100, (state.value.secretValue.length/20) * 100)}%`)
+        IndexElements.passwordLengthIndicator().style.setProperty('--_width', isTopSecret ? '0%' : `${Math.min(100, (state.value.secretValue.length/15) * 100)}%`)
         IndexElements.saltInput().value = state.value.saltValue;
         IndexElements.secretInput().value = remembered ? '' : state.value.secretValue;
         IndexElements.secretInput().setAttribute('placeholder', remembered ? 'Remembered' : 'Make It Unique!');
