@@ -4,7 +4,7 @@
   "description": "Your Ultimate Password Assistant",
   "private": false,
   "homepage": "https://getmekey.com",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "main": "index.html",
   "scripts": {
