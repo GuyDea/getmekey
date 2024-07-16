@@ -183,8 +183,14 @@ export const infoValues: Map<string, InfoData> = new Map([
             <li>Finally, fixed text (" Ab1! " as default) is prefixed to the result, to match general expected criteria of passwords.</li>            
         </ol>
     `}],
-    ['generate-outside', {header: 'Generate Password Without GetMeKey', content: `
-    
+    ['info-review-steps', {header: 'Review Steps', content: `
+    <p>GetMeKey is just a shorthand tool for generating passwords via well-known cryptographic hash functions.
+    This button allows you to see exactly how your passwords are generated, using tool that is independent of GetMeKey.</p>
+    <p>This 3rd party tool is called <a href="https://github.com/gchq/CyberChef" target="_blank">CyberChef</a> and allows to dynamically chain cryptographic functions
+    via nice user interface. Development and team working on CyberChef is totally unrelated to GetMeKey.</p>
+    <p>This means you don't need to rely on GetMeKey to be your only option, how to easily recreate your passwords.</p>
+    <p><b>Huge shout-out to <a href="https://github.com/gchq/CyberChef/graphs/contributors" target="_blank">CyberChef Team</a>.</b>
+    Tool they created is really powerful and valuable contribution to open-source community!</p>    
     `}],
     ['policy', {header: 'GetMeKey Policy', content: `
     <h1>Privacy Policy</h1>

@@ -35,10 +35,10 @@ export const initState: GmkState = {
     generationSpeed: null,
     secretExpiryDate: null,
     hashingOptions: {
-        selectedAlgo: 'PBKDF2',
+        selectedAlgo: 'SHA',
         outputOptions: {
             format: 'base62',
-            takeFirst: 20,
+            takeFirst: 15,
             minTakeFirst: 10,
             maxTakeFirst: 200,
             securityText: 'Ab1!',
@@ -89,7 +89,7 @@ export const initState: GmkState = {
     },
     userPreferences: Persistence.getFromStorage("USER_PREFERENCES") ?? defaultUserPreferences,
     internals: {
-        enabledAlgos: ['PBKDF2', 'SHA', 'Scrypt']
+        enabledAlgos: ['SHA', 'PBKDF2', 'Scrypt']
     }
 }
 export const state = new StateHolder<GmkState>(initState, error => {
@@ -97,7 +97,7 @@ export const state = new StateHolder<GmkState>(initState, error => {
     // Makeshift solution for now is to just clear that up completely
     if (Persistence.getFromStorage("USER_PREFERENCES")) {
         Persistence.removeFromStorage("USER_PREFERENCES");
-        location.reload();
+        // location.reload();
     }
 
     throw error

@@ -54,7 +54,7 @@ That's where GetMeKey comes in. Combining your secret phrase with the name of th
 
 Cryptographic hash function is a mathematical algorithm, that you use hundreds of times every day: to establish your banking connection, verify downloaded file, talk privately to your friends in a messaging app, etc.
 
-These functions are widely used and very well known. You can select from a bunch of them inside the GetMeKey. Once you know how all this fits together, you don't even need GetMeKey to figure out your password - you can use any tool online that deals with cryptography (e.g. https://www.dcode.fr, https://monocalc.com, https://tools.keycdn.com, etc.) to do so.
+These functions are widely used and well-known. You can select from a bunch of them inside the GetMeKey. Once you know how all this fits together, you don't even need GetMeKey to figure out your password - you can use any tool online that deals with cryptography (e.g. https://www.dcode.fr, https://monocalc.com, https://tools.keycdn.com, etc.) to do so.
 
 == Why Use GetMeKey
 
