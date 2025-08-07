@@ -63,6 +63,7 @@ export class IndexRenderer {
         setAttrIfTrue(stateSelectors.secretContainsUppercase(), IndexElements.passReqUppercase(), 'ok');
         setAttrIfTrue(stateSelectors.secretContainsSpecial(), IndexElements.passReqSpecial(), 'ok');
         setClassIfTrue(!stateSelectors.isSecretOk(), IndexElements.arrow1(), 'disabled');
+        setClassIfTrue(!state.value.secretValue, IndexElements.reqPanel(), 'opacity0');
 
         setAttrIfTrue(!state.value.saltShow, IndexElements.saltHideToggle(), 'off');
         setAttrIfTrue(!state.value.saltShow || isTopSecret, IndexElements.saltInput(), 'masking', 'password');

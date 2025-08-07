@@ -29,5 +29,6 @@ export class IndexElements {
     public static passReqNumberCount = elById('passReqNumberCount');
     public static popupPanel = elById('popupPanel');
     public static passwordLengthIndicator = elById('passwordLengthIndicator');
+    public static reqPanel = elById('reqPanel');
 
 }

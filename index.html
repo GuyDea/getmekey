@@ -462,10 +462,7 @@
             justify-content: center;
             align-items: center;
         }
-        .hidden {
-            display: none;
-        }
-        .invisible {
+        .opacity0 {
             opacity: 0;
         }
         label, a {
@@ -670,7 +667,7 @@
                     <gmk-info-icon page="info-secret"></gmk-info-icon>
                 </div>
             </div>
-            <div sensitiveHide class="reqPanel">
+            <div sensitiveHide class="reqPanel opacity0" id="reqPanel">
                 <div class="req" id="passReqLength"><div>length</div><div id="passReqLengthCount">0/15</div></div>
                 <div class="req" id="passReqUppercase"><div>uppercase</div><div id="passReqUppercaseCount">0/1</div></div>
                 <div class="req" id="passReqSpecial"><div>special</div><div id="passReqSpecialCount">0/1</div></div>

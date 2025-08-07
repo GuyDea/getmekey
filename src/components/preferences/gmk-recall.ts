@@ -21,6 +21,10 @@ export class GmkRecall extends HTMLElement {
     }
 
     connectedCallback() {
+        const clearPassword = () => {
+            state.value.secretValue = '';
+            state.value.secretRemembered = false;
+        };
         const opts = () => state.value.userPreferences.recall;
         this._remember().addEventListener('input', () => state.update(s => opts().remember = this._remember().checked));
         this._allowRecall().addEventListener('input', () => state.update(s => opts().allowRecall = this._allowRecall().checked));
@@ -37,8 +41,14 @@ export class GmkRecall extends HTMLElement {
             diffMatcher: s => JSON.stringify(s.userPreferences.recall),
             dispatchImmediately: true
         }));
-        this._minutesRange().addEventListener('input', () => state.update(s => opts().rememberDurationM = Number(this._minutesRange().value)));
-        this._minutes().addEventListener('change', () => state.update(s => opts().rememberDurationM = fixVal(opts().minRememberDurationM, opts().maxRememberDurationM, this._minutes())));
+        this._minutesRange().addEventListener('input', () => state.update(s => {
+            opts().rememberDurationM = Number(this._minutesRange().value);
+            clearPassword();
+        }));
+        this._minutes().addEventListener('change', () => state.update(s => {
+            opts().rememberDurationM = fixVal(opts().minRememberDurationM, opts().maxRememberDurationM, this._minutes());
+            clearPassword();
+        }));
 
     }
 
