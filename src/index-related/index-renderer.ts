@@ -24,6 +24,7 @@ export const gmkWindow: GmkWindow = window as any;
  */
 export class IndexRenderer {
     public static initialize(){
+
         state.subscribe(() => this._render(), {dispatchImmediately: true, diffMatcher: s => {
                 return JSON.stringify({
                     secretValue: s.secretValue,
@@ -53,7 +54,7 @@ export class IndexRenderer {
         setAttrIfTrue(state.value.secretRecalled, IndexElements.mainPage(), 'recalled');
         setAttrIfTrue(isTopSecret, IndexElements.mainPage(), 'topSecret');
         setAttrIfTrue(!state.value.secretShow, IndexElements.secretHideToggle(), 'off');
-        setAttrIfTrue(!state.value.secretShow || isTopSecret, IndexElements.secretInput(), 'masking', 'password');
+        setAttrIfTrue(!state.value.secretShow || isTopSecret, IndexElements.secretInput(), 'type', 'password', 'text');
         IndexElements.passReqLengthCount().innerHTML = stateSelectors.secretLengthOk() ? 'ok' : `${stateSelectors.secretLengthCount().toString()}/15`;
         IndexElements.passReqNumberCount().innerHTML = stateSelectors.secretContainsNumber() ? 'ok' :`${stateSelectors.secretNumberCount().toString()}/1`;
         IndexElements.passReqSpecialCount().innerHTML = stateSelectors.secretContainsSpecial() ? 'ok' :`${stateSelectors.secretSpecialCount().toString()}/1`;
@@ -66,12 +67,12 @@ export class IndexRenderer {
         setClassIfTrue(!state.value.secretValue, IndexElements.reqPanel(), 'opacity0');
 
         setAttrIfTrue(!state.value.saltShow, IndexElements.saltHideToggle(), 'off');
-        setAttrIfTrue(!state.value.saltShow || isTopSecret, IndexElements.saltInput(), 'masking', 'password');
+        setAttrIfTrue(!state.value.saltShow || isTopSecret, IndexElements.saltInput(), 'type', 'password', 'text');
 
         setAttrIfTrue(!state.value.passwordShow, IndexElements.passwordHideToggle(), 'off');
         setAttrIfTrue(!formOk, IndexElements.finalPassword(), 'disabled');
 
-        setAttrIfTrue(!state.value.passwordShow || isTopSecret, IndexElements.finalPassword(), 'masking', 'password');
+        setAttrIfTrue(!state.value.passwordShow || isTopSecret, IndexElements.finalPassword(), 'type', 'password', 'text');
         setAttrIfTrue(!state.value.passwordGenerating, IndexElements.dotLoader(), 'off');
         IndexElements.finalPassword().value = state.value.passwordValue;
 

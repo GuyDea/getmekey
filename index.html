@@ -16,16 +16,6 @@
             src: url(/static/fonts/Comfortaa/Comfortaa-VariableFont_wght.ttf) format('truetype');
         }
 
-        @font-face {
-            font-family: 'NotDef';
-            src: url(/static/fonts/NotDef.ttf) format('truetype');
-        }
-
-        @font-face {
-            font-family: 'password';
-            src: url(/static/fonts/password.ttf) format('truetype');
-        }
-
         :root {
             --app-width: 400px;
             --color-1-hue-val: 255;
@@ -75,15 +65,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        input[masking='password']{
-            /* Custom font using just dots with empty font as fallback - not working properly on Iphones in combination with -webkit-text-security */
-            /* It's printing NotDef characters instead of native dots */
-            font-family: "password", "NotDef", sans-serif;
-            font-size: .5rem !important;
-            /*-webkit-text-security: disc;*/
-        }
-
-        [topSecret] input[masking='password'] {
+        [topSecret] {
             font-size: 1px !important;
         }
 
@@ -245,7 +227,6 @@
             text-align: center;
             border-radius: .5rem;
             width: 100%;
-            font-size: 11px;
             height: var(--input-height);
         }
 
@@ -546,6 +527,7 @@
         }
     </style>
 </head>
+
 <body>
 <div id="toastPanel"></div>
 <div id="popupPanel" style="display: none;"></div>
@@ -653,8 +635,23 @@
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <div style="position: relative; border-radius: var(--border-radius-1);"  class="middle inputPanel">
-                    <input id="secretInput" masking="password" value="" class="input"  placeholder="Make It Unique!" required
-                           autocomplete="one-time-code" autocorrect="off" autocapitalize="off" />
+                    <input id="secretInput"
+                           value=""
+                           type="password"
+                           name="pwd"
+                           autocomplete="off"
+                           autocapitalize="off"
+                           autocorrect="off"
+                           spellcheck="false"
+                           data-1p-ignore
+                           data-lpignore="true"
+                           data-bwignore
+                           data-dashlane-disabled-on-field="true"
+                           readonly
+                           class="input"
+                           placeholder="Make It Unique!"
+                           required
+                            />
                     <div id="passwordLengthIndicator"></div>
                 </div>
 
@@ -679,8 +676,26 @@
             <div class="withSides">
                 <div class="side leftSide"></div>
                 <div class="inputPanel middle">
-                    <input id="saltInput" pattern="[a-z0-9\-]" class="input" value="" masking="password" placeholder='To "Shuffle" Your Secret' required
-                           autocomplete="one-time-code" autocorrect="off" autocapitalize="off" />
+                    <input
+                            id="saltInput"
+                            pattern="[a-z0-9\-]"
+                            class="input"
+                            value=""
+                            type="password"
+                            placeholder='To "Shuffle" Your Secret'
+                            required
+
+                            name="pwd"
+                            autocomplete="off"
+                            autocapitalize="off"
+                            autocorrect="off"
+                            spellcheck="false"
+                            data-1p-ignore
+                            data-lpignore="true"
+                            data-bwignore
+                            data-dashlane-disabled-on-field="true"
+                            readonly
+                    />
                 </div>
                 <div class="side rightSide">
                     <div class="sideIcon" sensitiveRemove off id="saltHideToggle">
@@ -721,7 +736,24 @@
                             <use xlink:href="#dots-loading"></use>
                         </svg>
                     </div>
-                    <input id="finalPassword" masking="password" value="" autocomplete="one-time-code" autocorrect="off" autocapitalize="off"  class="disableable disabled" needValidForm/>
+                    <input
+                            id="finalPassword"
+                            type="password"
+                            value=""
+                            class="disableable disabled"
+                            needValidForm
+
+                            name="pwd"
+                            autocomplete="off"
+                            autocapitalize="off"
+                            autocorrect="off"
+                            spellcheck="false"
+                            data-1p-ignore
+                            data-lpignore="true"
+                            data-bwignore
+                            data-dashlane-disabled-on-field="true"
+                            readonly
+                    />
                 </div>
                 <div class="side rightSide">
                     <div class="sideIcon" sensitiveRemove off id="passwordHideToggle">

@@ -6,19 +6,25 @@ import {normalizeText} from "/src/utils/helper-functions.js"
 
 export class IndexListeners {
     public static initialize(){
-        IndexElements.secretInput().addEventListener('focus', () => state.update(() => {
-                if(state.value.secretRemembered){
+        IndexElements.secretInput().addEventListener('focus', () => {
+            IndexElements.secretInput().removeAttribute('readonly');
+            state.update(() => {
+                if (state.value.secretRemembered) {
                     recallService.unmarkSecretAsRecalled(true);
                 }
             })
-        );
+        });
         IndexElements.secretInput().addEventListener('input', () => state.update(() => {
             state.value.secretValue = IndexElements.secretInput().value;
             state.value.secretRemembered = false;
         }));
+        IndexElements.finalPassword().addEventListener('focus', () => IndexElements.finalPassword().removeAttribute('readonly'));
         IndexElements.saltInput().addEventListener('input', () => {
+            IndexElements.saltInput().removeAttribute('readonly');
             IndexElements.saltInput().value = normalizeText(IndexElements.saltInput().value);
-            state.update(() => state.value.saltValue = IndexElements.saltInput().value);
+            state.update(() => {
+                state.value.saltValue = IndexElements.saltInput().value
+            });
         });
         IndexElements.secretHideToggle().addEventListener('click', () => state.update(() => state.value.secretShow = !state.value.secretShow));
         IndexElements.saltHideToggle().addEventListener('click', () => state.update(() => state.value.saltShow = !state.value.saltShow));
