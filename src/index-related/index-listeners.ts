@@ -18,9 +18,9 @@ export class IndexListeners {
             state.value.secretValue = IndexElements.secretInput().value;
             state.value.secretRemembered = false;
         }));
+        IndexElements.saltInput().addEventListener('focus', () => IndexElements.saltInput().removeAttribute('readonly'));
         IndexElements.finalPassword().addEventListener('focus', () => IndexElements.finalPassword().removeAttribute('readonly'));
         IndexElements.saltInput().addEventListener('input', () => {
-            IndexElements.saltInput().removeAttribute('readonly');
             IndexElements.saltInput().value = normalizeText(IndexElements.saltInput().value);
             state.update(() => {
                 state.value.saltValue = IndexElements.saltInput().value
