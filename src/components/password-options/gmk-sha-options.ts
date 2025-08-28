@@ -13,8 +13,8 @@ export class GmkShaOptions extends HTMLElement {
     }
 
     connectedCallback(){
-        comp(this, '#versionForm')().addEventListener('change', ev => {
-            state.value.hashingOptions.algoOptions.sha.version = (ev.target as HTMLInputElement).getAttribute('id') as any;
+        comp(this, '#shaVersionForm')().addEventListener('change', ev => {
+            state.value.hashingOptions.algoOptions.sha.version = (ev.target as HTMLInputElement).getAttribute('value') as any;
             state.notifyChange();
         });
         comp(this, '#positionForm')().addEventListener('change', ev => {
@@ -56,13 +56,13 @@ export class GmkShaOptions extends HTMLElement {
                 <div slot="content" class="mainContent">
                     <div class="line" >
                         <span class="label">Version</span>
-                        <form id="versionForm" class="lineRadios">
+                        <form id="shaVersionForm" class="lineRadios">
                             <span>
-                                <input type="radio" name="version" id="SHA-256"/><label
+                                <input type="radio" name="version" id="SHA-256" value="SHA-256"/><label
                                 for="SHA-256">SHA-256</label>
                             </span>
                             <span>
-                                <input type="radio" name="version" id="SHA-512"/><label
+                                <input type="radio" name="version" id="SHA-512" value="SHA-512"/><label
                                     for="SHA-512">SHA-512</label>
                             </span>
                         </form>

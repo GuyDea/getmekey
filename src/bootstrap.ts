@@ -15,7 +15,7 @@ import {serviceWorkerService} from "/src/services/service-worker-service.js"
 
 export class Bootstrap {
     public static async runBootstrap(){
-        IndexElements.secretInput().focus();
+        setTimeout(() => IndexElements.secretInput().focus(), 500);
         IndexListeners.initialize();
         IndexRenderer.initialize();
         await recallService.initialize();

@@ -22,7 +22,7 @@ export class GmkPbkdf2Options extends HTMLElement {
             this._iterationsRangeComp().setAttribute('max', opts().maxIterations.toString());
             this._iterationsComp().value = opts().iterations.toString();
             this._iterationsRangeComp().value = opts().iterations.toString();
-            comp(this, `#${opts().hash}`)().setAttribute('checked', '');
+            comp(this, `#pbkdf${opts().hash}`)().setAttribute('checked', '');
             comp(this, `#length${opts().length}`)().setAttribute('checked', '');
         }, {
             diffMatcher: s => JSON.stringify(s.hashingOptions.algoOptions.pbkdf2),
@@ -58,16 +58,16 @@ export class GmkPbkdf2Options extends HTMLElement {
                         <label>Hash</label>
                         <form id="shaForm" class="lineRadios">
                             <span>
-                                <input type="radio" name="sha" id="SHA-256" value="SHA-256"/><label
-                                    for="SHA-256">SHA-256</label>
+                                <input type="radio" name="sha" id="pbkdfSHA-256" value="SHA-256"/><label
+                                    for="pbkdfSHA-256">SHA-256</label>
                             </span>
                                 <span>
-                                <input type="radio" name="sha" id="SHA-384" value="SHA-384"/><label
-                                        for="SHA-384">SHA-384</label>
+                                <input type="radio" name="sha" id="pbkdfSHA-384" value="SHA-384"/><label
+                                        for="pbkdfSHA-384">SHA-384</label>
                             </span>
                                 <span>
-                                <input type="radio" name="sha" id="SHA-512" value="SHA-512"/><label
-                                        for="SHA-512">SHA-512</label>
+                                <input type="radio" name="sha" id="pbkdfSHA-512" value="SHA-512"/><label
+                                        for="pbkdfSHA-512">SHA-512</label>
                             </span>
                         </form>
                     </div>

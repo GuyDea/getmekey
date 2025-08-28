@@ -54,7 +54,7 @@ export class GmkArgon2Options extends HTMLElement {
         this._costComp().addEventListener('input', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())));
         this._lengthRangeComp().addEventListener('input', () => state.update(s => opts().length = Number(this._lengthRangeComp().value)));
         this._lengthComp().addEventListener('input', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
-        comp(this, '#versionForm')().addEventListener('change', (ev) => {
+        comp(this, '#argonVersionForm')().addEventListener('change', (ev) => {
             opts().version = (ev.target as HTMLInputElement).getAttribute('id') as any;
             state.notifyChange();
         })
@@ -97,7 +97,7 @@ export class GmkArgon2Options extends HTMLElement {
                     </div>                    
                     <div class="line">
                         <label>Version</label>
-                        <form id="versionForm" class="lineRadios">
+                        <form id="argonVersionForm" class="lineRadios">
                             <span>
                                 <input type="radio" name="version" id="2iRadio" checked/><label
                                     for="2iRadio">Argon2i</label>

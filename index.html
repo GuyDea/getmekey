@@ -405,7 +405,6 @@
         }
         .generatesText {
             color: var(--color-1);
-            height: calc(2 * var(--input-height));
             width: 100%;
             place-items: center;
             padding: 0 .5rem;
@@ -421,6 +420,11 @@
             position: relative;
             gap: .5rem;
         }
+
+        .generatesPasswordPanel{
+            margin: calc(var(--input-height) / 2) 0;
+        }
+
         #passwordLengthIndicator {
             --_width: 0%;
             position: absolute;
@@ -707,7 +711,7 @@
                 </div>
             </div>
         </div>
-        <div class="labelInput">
+        <div class="labelInput generatesPasswordPanel">
             <div style="color: var(--color-1)" class="label disableable disabled" needValidForm>GetMeKey</div>
             <div class="withSides">
                 <div class="side leftSide"></div>
