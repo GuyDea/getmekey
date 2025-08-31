@@ -7,7 +7,6 @@ import {normalizeText} from "/src/utils/helper-functions.js"
 export class IndexListeners {
     public static initialize(){
         IndexElements.secretInput().addEventListener('focus', () => {
-            IndexElements.secretInput().removeAttribute('readonly');
             state.update(() => {
                 if (state.value.secretRemembered) {
                     recallService.unmarkSecretAsRecalled(true);

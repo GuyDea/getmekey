@@ -12,10 +12,19 @@ import {recallService} from "/src/services/recall-service.js";
 import {HistoryService} from "/src/services/history-service.js";
 import {copyService} from "/src/services/copy-service.js";
 import {serviceWorkerService} from "/src/services/service-worker-service.js"
+import {state} from "/src/state/initial-state.js";
 
 export class Bootstrap {
     public static async runBootstrap(){
-        setTimeout(() => IndexElements.secretInput().focus(), 500);
+        setTimeout(() => {
+            IndexElements.secretInput().removeAttribute('readonly');
+            IndexElements.saltInput().removeAttribute('readonly');
+            if(state.value.secretRemembered) {
+                IndexElements.saltInput().focus();
+            } else {
+                IndexElements.secretInput().focus();
+            }
+        }, 500);
         IndexListeners.initialize();
         IndexRenderer.initialize();
         await recallService.initialize();
