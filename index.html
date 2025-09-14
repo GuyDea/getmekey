@@ -126,6 +126,7 @@
             width: var(--arrow-width);
             color: var(--color-1);
             right: 10px;
+            filter: drop-shadow(0 0 10px hsl(var(--color-1-hue-val), 100%, 30%));
         }
 
         #arrow1 {
@@ -138,6 +139,11 @@
 
         #arrow3 {
             top: calc(var(--arrow-top-start) + ((var(--arrow-height) + var(--arrow-gap)) * 2));
+        }
+
+        .arrow.disabled {
+            opacity: 0.2;
+            filter: drop-shadow(0 0 0 #000000) grayscale(1);
         }
 
         .labelInput {
