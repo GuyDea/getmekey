@@ -4,6 +4,7 @@ import {globalStyles} from "/src/styles/global-styles.js";
 import {Subscriber} from "/src/state/state-holder.js"
 import {GmkState} from "/src/state/gmk-state-type.js"
 import {state} from "/src/state/initial-state.js"
+import {recallService} from "/src/services/recall-service.js";
 
 export class GmkRecall extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];
@@ -21,10 +22,7 @@ export class GmkRecall extends HTMLElement {
     }
 
     connectedCallback() {
-        const clearPassword = () => {
-            state.value.secretValue = '';
-            state.value.secretRemembered = false;
-        };
+        const clearPassword = () => recallService.unmarkSecretAsRecalled(true);
         const opts = () => state.value.userPreferences.recall;
         this._remember().addEventListener('input', () => state.update(s => opts().remember = this._remember().checked));
         this._allowRecall().addEventListener('input', () => state.update(s => opts().allowRecall = this._allowRecall().checked));

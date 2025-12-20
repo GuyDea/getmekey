@@ -98,7 +98,7 @@ export const infoValues: Map<string, InfoData> = new Map([
         <li>Your <a href="/hash-settings">Hash Settings</a> are encrypted and stored together with secret hash, so you don't have to specify them every time</li>
         <li>Enables to use <strong>Remember Recalled Secret</strong> option</li>
     </ul>
-    <p>When secret is marked as <strong>Recalled</strong>, it is not the secret that's stored on the device, but its hashed value.</p>
+    <p>When secret is marked as <strong>Recalled</strong>, only its hashed value is stored, not the secret itself.</p>
     <p>This means, even if someone with full access to your device and knowledge of GetMeKey, could not reveal your secret.</p>
     <h3>How It Works</h3>
     <p>Every time you type something into the <strong>Secret</strong> field, GetMeKey calculates its hash value and compares it with all hash values of previous secrets marked as <strong>Recalled</strong>.

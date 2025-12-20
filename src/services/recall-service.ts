@@ -4,8 +4,7 @@ import {ByteUtils} from "/src/hash-algos/byte-utils.js"
 import {decryptData, encryptData, generateRandomPassphrase} from "/src/utils/crypto-functions.js"
 import {Persistence} from "/src/services/persistence.js"
 import {toastService} from "/src/services/toast-service.js"
-import {IndexElements} from "/src/index-related/index-elements.js"
-import {deepCopy, formatTime} from "/src/utils/helper-functions.js";
+import {deepCopy} from "/src/utils/helper-functions.js";
 import {state} from "/src/state/initial-state.js"
 
 export type RememberedSecret = {
@@ -17,61 +16,59 @@ export type RememberedSecret = {
 export class RecallService {
 
     public async initialize(){
-        const diffMatcher: DiffMatcher<GmkState> = s => JSON.stringify({
+        const secretAndSettingsDiffer: DiffMatcher<GmkState> = s => JSON.stringify({
             secret: s.secretValue,
             settings: s.userPreferences
         });
         state.subscribe(async s => {
             if(!s.userPreferences.recall.allowRecall || !s.userPreferences.recall.remember){
                 this.purgeRemembered();
+                this.unmarkSecretAsRecalled(true);
             }
             if(!s.userPreferences.recall.allowRecall) {
                 this.unmarkSecretAsRecalled(s.secretRemembered);
                 return;
             }
-            const oldData = diffMatcher(s);
-            const oldSecret = state.value.secretValue;
-            const hashedSecret = await this._hashedSecret(oldSecret);
-            const fromStorage = Persistence.getFromStorage<string>("RECALLED_SECRET", hashedSecret);
-            if(fromStorage){
-                const hashingOptions = await decryptData<HashingOptions>(fromStorage, oldSecret);
-                if(hashingOptions && oldData === diffMatcher(state.value)) {
-                    this._markSecretRecalled(oldSecret, hashingOptions);
+            const oldData = secretAndSettingsDiffer(s);
+            const currentSecret = state.value.secretValue;
+            const hashedSecret = await this._hashedSecret(currentSecret);
+            const encryptedSettingsFromStorage = Persistence.getFromStorage<string>("ENCRYPTED_SETTINGS_FOR_SECRET", hashedSecret);
+            if(encryptedSettingsFromStorage){
+                const hashingOptions = await decryptData<HashingOptions>(encryptedSettingsFromStorage, currentSecret);
+                const stateDidntChangeInMeantime = oldData === secretAndSettingsDiffer(state.value);
+                if(hashingOptions && stateDidntChangeInMeantime) {
+                    this._markSecretRecalled(currentSecret);
+                    s.hashingOptions = hashingOptions;
                 }
             } else {
                 state.update(s1 => s1.secretRecalled = false);
                 this.purgeRemembered();
             }
         }, {
-            diffMatcher
+            diffMatcher: secretAndSettingsDiffer
         });
-        return this._trySecretRetrieve();
+        this._tryInitialSecretRetrieve().then();
     }
 
-    private _markSecretRecalled(secret: string, hashingOptions?: HashingOptions){
-        state.update(s1 => {
-            s1.secretRecalled = true;
-            if(hashingOptions){
-                s1.hashingOptions = hashingOptions;
-            }
-            s1.recalledHashingOptions = deepCopy(s1.hashingOptions);
-            if(s1.userPreferences.recall.remember){
-                const expiryDate = new Date(new Date().getTime() + state.value.userPreferences.recall.rememberDurationM * 60 * 1000);
-                // const expiryDate = new Date(new Date().getTime() + 10 * 1000);
-                s1.secretExpiryDate = expiryDate;
-                this._storeSecret(secret, expiryDate)
+    private _markSecretRecalled(secret: string){
+        state.update(s => {
+            const newExpiryDate = new Date(new Date().getTime() + state.value.userPreferences.recall.rememberDurationM * 60 * 1000);
+            s.secretRecalled = true;
+            s.recalledHashingOptions = deepCopy(s.hashingOptions);
+            s.secretExpiryDate = s.secretExpiryDate ?? newExpiryDate;
+            if(s.userPreferences.recall.remember){
+                this._storeSecret(secret, s.secretExpiryDate)
             }
         });
-
     }
 
-    private async _trySecretRetrieve() {
+    private async _tryInitialSecretRetrieve() {
         const stored = await this.retrieveSecret();
         if (stored) {
-            toastService.addToast(`Remembered ${formatTime(new Date().getTime() - stored.storedAt.getTime())} Ago`, "INFO", 5_000)
             state.update(s => {
                 s.secretRemembered = true;
                 s.secretValue = stored.secret;
+                s.secretExpiryDate = stored.expiry;
             })
         } else {
             recallService.purgeRemembered()
@@ -141,7 +138,6 @@ export class RecallService {
                 s.secretValue = '';
             }
         })
-
     }
 
     public async storeToRecalled(){
@@ -149,17 +145,17 @@ export class RecallService {
         const options = state.value.hashingOptions;
         const hashedSecret = await this._hashedSecret(secret);
         const encryptedSettings = await encryptData(options, secret);
-        Persistence.addToStorage("RECALLED_SECRET", encryptedSettings, hashedSecret);
+        Persistence.addToStorage("ENCRYPTED_SETTINGS_FOR_SECRET", encryptedSettings, hashedSecret);
         toastService.addToast('Added To Recalled');
         if(state.value.secretValue === secret){
-            this._markSecretRecalled(secret)
+            this._markSecretRecalled(secret);
         }
     }
 
     public async removeRecalledByUser(){
         const secret = state.value.secretValue;
         const hashedSecret = await this._hashedSecret(secret);
-        Persistence.removeFromStorage("RECALLED_SECRET", hashedSecret);
+        Persistence.removeFromStorage("ENCRYPTED_SETTINGS_FOR_SECRET", hashedSecret);
         toastService.addToast('Recalled Secret Removed');
         if(state.value.secretValue === secret){
             this.unmarkSecretAsRecalled(true);
