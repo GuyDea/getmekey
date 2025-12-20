@@ -37,8 +37,8 @@ export class RecallService {
                 const hashingOptions = await decryptData<HashingOptions>(encryptedSettingsFromStorage, currentSecret);
                 const stateDidntChangeInMeantime = oldData === secretAndSettingsDiffer(state.value);
                 if(hashingOptions && stateDidntChangeInMeantime) {
-                    this._markSecretRecalled(currentSecret);
                     s.hashingOptions = hashingOptions;
+                    this._markSecretRecalled(currentSecret);
                 }
             } else {
                 state.update(s1 => s1.secretRecalled = false);

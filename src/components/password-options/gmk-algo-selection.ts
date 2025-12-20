@@ -26,8 +26,7 @@ export class GmkAlgoSelection extends HTMLElement {
             const algoOptions = comp(this, '#algoOptions');
             comp(this, '#algoSelectionPanel')().addEventListener('change', ev => {
                 const selectedAlgo = (ev.target as HTMLInputElement).getAttribute('id')! as Algo;
-                state.value.hashingOptions.selectedAlgo = selectedAlgo;
-                state.notifyChange();
+                state.update(s => s.hashingOptions.selectedAlgo = selectedAlgo);
                 algoOptions().setAttribute('show', selectedAlgo)
             });
             setTimeout(() => comp<HTMLInputElement>(this, `#${state.value.hashingOptions.selectedAlgo}`)().click());
