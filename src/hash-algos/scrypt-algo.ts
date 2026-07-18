@@ -10,9 +10,15 @@ export default function create() {
 
 class ScryptAlgo implements IHashAlgorithm<ScryptOptions> {
     async encode(secret: string, salt: string, options: ScryptOptions): Promise<Uint8Array> {
+        // Pre-encode with TextEncoder: the vendored lib's own string encoder mishandles
+        // BMP code points >= U+D800 (e.g. U+E000-U+FFFF). Byte arrays pass through the
+        // lib unmodified, and TextEncoder matches its encoding for all valid strings.
+        const encoder = new TextEncoder();
+        const secretBytes = encoder.encode(secret);
+        const saltBytes = encoder.encode(salt);
         return new Promise((resolve, reject) => {
             try {
-                scrypt(secret, salt, {
+                scrypt(secretBytes, saltBytes, {
                     N: Math.pow(2, options.cost),
                     r: options.block,
                     p: options.parallel,

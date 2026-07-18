@@ -15,6 +15,7 @@ export type GmkState = {
     passwordGenerating: boolean;
     generationSpeed: number | null;
     passwordGenerationError: string | null;
+    passwordShorterThanRequested: boolean;
     secretExpiryDate: Date | null;
     userPreferences: UserPreferencesOptions;
     hashingOptions: HashingOptions;

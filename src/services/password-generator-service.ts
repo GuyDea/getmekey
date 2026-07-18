@@ -13,6 +13,11 @@ type ObservedProps = {
     isUnrestricted?: boolean;
 }
 
+export type GeneratedPassword = {
+    password: string;
+    truncated: boolean;
+}
+
 export class PasswordGeneratorService {
     lastObservedProps?: string;
 
@@ -42,15 +47,15 @@ export class PasswordGeneratorService {
                 state.notifyChange();
                 const start = new Date().getTime();
                 this.generatePassword(state.value)
-                    .then(generatedPassword => {
+                    .then(generationResult => {
                         if(state.value.userPreferences.visibility.topSecret) {
                             const now = new Date().getTime();
-                            return new Promise(resolve => setTimeout(() => resolve(generatedPassword), 500 - (now - start)))
+                            return new Promise<GeneratedPassword>(resolve => setTimeout(() => resolve(generationResult), 500 - (now - start)))
                         } else {
-                            return generatedPassword;
+                            return generationResult;
                         }
                     })
-                    .then(generatedPassword => {
+                    .then(generationResult => {
                         state.value.generationSpeed = new Date().getTime() - start;
                         state.value.passwordGenerating = false;
                         state.value.passwordGenerationError = null;
@@ -59,7 +64,8 @@ export class PasswordGeneratorService {
                             // If state changed, restart process - can skip notif here, as we want to keep uncut loading indication
                             this._processSecret();
                         } else {
-                            state.value.passwordValue = generatedPassword as string;
+                            state.value.passwordValue = generationResult.password;
+                            state.value.passwordShorterThanRequested = generationResult.truncated;
                             state.notifyChange();
                         }
                     })
@@ -70,6 +76,7 @@ export class PasswordGeneratorService {
                             this._processSecret();
                         } else {
                             state.value.passwordValue = '';
+                            state.value.passwordShorterThanRequested = false;
                             state.value.passwordGenerationError = typeof e === 'string' ? e : e instanceof Error ? e.message : JSON.stringify(e);
                             state.notifyChange();
                         }
@@ -78,12 +85,13 @@ export class PasswordGeneratorService {
                 state.value.generationSpeed = null;
                 state.value.passwordValue = '';
                 state.value.passwordGenerationError = null;
+                state.value.passwordShorterThanRequested = false;
                 state.notifyChange();
             }
         }
     }
 
-    public async generatePassword(state: GmkState): Promise<string> {
+    public async generatePassword(state: GmkState): Promise<GeneratedPassword> {
         let passwordGeneration = state.hashingOptions;
         let outputOptions = passwordGeneration.outputOptions;
         let selectedAlgo: IHashAlgorithm<any> = await import((`/src/hash-algos/${passwordGeneration.selectedAlgo.toLowerCase()}-algo.js`)).then(m => m.default());
@@ -96,7 +104,10 @@ export class PasswordGeneratorService {
         }
         const shortened = hashed.substring(0, outputOptions.takeFirst);
         let securityPosition = outputOptions.securityTextPosition;
-        return securityPosition === "prefix" ? `${outputOptions.securityText}${shortened}` : `${shortened}${outputOptions.securityText}`;
+        return {
+            password: securityPosition === "prefix" ? `${outputOptions.securityText}${shortened}` : `${shortened}${outputOptions.securityText}`,
+            truncated: shortened.length < outputOptions.takeFirst
+        };
     }
 }
 

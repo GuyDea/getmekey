@@ -10,6 +10,7 @@ import {GmkPopupConfirmationContent} from "/src/components/popup/gmk-popup-confi
 export class GmkGenerationDuration extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];
     private _error = comp(this, '#error');
+    private _truncatedWarning = comp(this, '#truncatedWarning');
     private _duration = comp(this, '#duration');
     private _loader = comp(this, '#loader');
     private _noInfo = comp(this, '#noInfo');
@@ -44,13 +45,24 @@ export class GmkGenerationDuration extends HTMLElement {
             if(s.userPreferences.visibility.topSecret && typeof s.generationSpeed === 'number'){
                 this._delayInfo().style.display = 'block';
             }
+            if(s.passwordShorterThanRequested && !s.passwordGenerating && s.passwordValue){
+                const outputOptions = s.hashingOptions.outputOptions;
+                const producedLength = s.passwordValue.length - outputOptions.securityText.length;
+                this._truncatedWarning().innerHTML = `Note: output is only ${producedLength} characters — the selected hash cannot fill Take First = ${outputOptions.takeFirst}`;
+                this._truncatedWarning().style.display = 'block';
+            } else {
+                this._truncatedWarning().style.display = 'none';
+            }
         }, {
             dispatchImmediately: true,
             diffMatcher: s => JSON.stringify({
                 error: s.passwordGenerationError,
                 duration: s.generationSpeed,
                 generating: s.passwordGenerating,
-                topSecret: s.userPreferences.visibility.topSecret
+                topSecret: s.userPreferences.visibility.topSecret,
+                truncated: s.passwordShorterThanRequested,
+                passwordLength: s.passwordValue.length,
+                takeFirst: s.hashingOptions.outputOptions.takeFirst
             })
         }));
         this._delayInfo().addEventListener('click', () => {
@@ -80,7 +92,13 @@ export class GmkGenerationDuration extends HTMLElement {
             #error {
                 color: var(--color-danger);
                 font-weight: bolder;
-            }         
+            }
+            #truncatedWarning {
+                color: var(--color-danger);
+                font-size: .8em;
+                text-align: center;
+                display: none;
+            }
             .content{
                 display: flex;
                 align-items: center;
@@ -103,6 +121,7 @@ export class GmkGenerationDuration extends HTMLElement {
                 <div id="noInfo">No Password Generated Yet</div>
                 <gmk-info-icon id="delayInfo" color="var(--color-danger)"></gmk-info-icon>
             </div>
+            <div id="truncatedWarning"></div>
         `
     }
 }

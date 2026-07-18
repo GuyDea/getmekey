@@ -125,8 +125,15 @@ export function encodeBase62(uint8Array: Uint8Array) {
         number = (number << BigInt(8)) + BigInt(byte);
     }
 
-    // Handle the special case for number 0
-    if (number === BigInt(0)) return '0';
+    // Count leading zero bytes - they are not representable in the BigInt and
+    // would otherwise be silently dropped from the encoding
+    let leadingZeroBytes = 0;
+    while (leadingZeroBytes < uint8Array.length && uint8Array[leadingZeroBytes] === 0) {
+        leadingZeroBytes++;
+    }
+
+    // All-zero input (including empty) encodes as one '0' per zero byte
+    if (number === BigInt(0)) return '0'.repeat(uint8Array.length);
 
     let result = '';
     while (number > 0) {
@@ -135,5 +142,6 @@ export function encodeBase62(uint8Array: Uint8Array) {
         number = number / BigInt(radix);
     }
 
-    return result;
+    // Preserve leading zero bytes as leading '0' characters
+    return '0'.repeat(leadingZeroBytes) + result;
 }

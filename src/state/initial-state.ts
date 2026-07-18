@@ -41,6 +41,7 @@ export const initState: GmkState = {
     passwordValue: '',
     passwordGenerating: false,
     passwordGenerationError: null,
+    passwordShorterThanRequested: false,
     generationSpeed: null,
     secretExpiryDate: null,
     hashingOptions: {
