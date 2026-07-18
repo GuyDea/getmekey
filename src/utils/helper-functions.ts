@@ -24,7 +24,7 @@ export function comp<T extends HTMLElement | SVGElement>(parent: HTMLElement, se
 
 export function fixVal(min: number, max: number, inputComponent: HTMLInputElement, validateFn?: (number: number) => boolean, replaceInvalidFn?: (number: number) => number): number {
     let number = Number(inputComponent.value);
-    number = Number.isNaN(number) ? min : number;
+    number = Number.isNaN(number) ? min : Math.round(number);
     let corrected = Math.min(Math.max(number, min), max);
     if(validateFn && !validateFn?.(corrected)){
         corrected = replaceInvalidFn?.(corrected) ?? corrected;

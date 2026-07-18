@@ -1,7 +1,9 @@
+import {Router} from "/src/services/router.js"
+
 export class HistoryService {
     private static _historyMap: Map<number, HistoryNavigationFns> = new Map();
     private static _initialized = false;
-    private static _lastStateId: number;
+    private static _lastStateId?: number;
     private static _viewSeq = 0;
     private static _goBackResolveFn: () => void;
     private static _usedBrowserNavigation = true;
@@ -18,23 +20,37 @@ export class HistoryService {
                 this._usedBrowserNavigation = true;
                 const currentHistoryId = history.state;
                 const previousStateId = this._lastStateId;
+                this._lastStateId = currentHistoryId;
+                if (previousStateId === undefined) {
+                    // After a reload the previous state is unknown - re-route the current location instead
+                    Router.handleRoute(location.pathname, false).then();
+                    return;
+                }
                 const isBack = currentHistoryId < previousStateId;
                 const isForward = currentHistoryId > previousStateId;
-                this._lastStateId = currentHistoryId;
                 // There are cases where previousStateId === currentHistoryId - ignore these
                 if (isBack) {
                     this._goBackResolveFn?.();
-                    HistoryService._historyMap.get(previousStateId)!.back({wasNativeNavigation, payload: navigationPayload});
+                    const previousEntry = HistoryService._historyMap.get(previousStateId);
+                    if (previousEntry) {
+                        previousEntry.back({wasNativeNavigation, payload: navigationPayload});
+                    } else {
+                        Router.handleRoute(location.pathname, false).then();
+                    }
                 } else if (isForward) {
-                    const forwardFn = HistoryService._historyMap.get(currentHistoryId)!.forward;
-                    HistoryService._historyMap.set(currentHistoryId, {forward: forwardFn, back: forwardFn()});
+                    const forwardEntry = HistoryService._historyMap.get(currentHistoryId);
+                    if (forwardEntry) {
+                        HistoryService._historyMap.set(currentHistoryId, {forward: forwardEntry.forward, back: forwardEntry.forward()});
+                    } else {
+                        Router.handleRoute(location.pathname, false).then();
+                    }
                 }
             });
         }
     }
 
     static canGoBack(): boolean {
-        return this._lastStateId > 0;
+        return (this._lastStateId ?? 0) > 0;
     }
 
     static goBack(payload?: any): Promise<void> {

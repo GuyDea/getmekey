@@ -66,8 +66,8 @@ export class Router {
     }
 
     public static async handleRoute(route: string, addHistory?: boolean) {
-        let currentRoute = this._routes.find(r => location.pathname.match(r.path));
-        let newRoute = this._routes.find(r => route.match(r.path));
+        let currentRoute = this._routes.find(r => this._matchesPath(location.pathname, r.path));
+        let newRoute = this._routes.find(r => this._matchesPath(route, r.path));
         let previousComponent = currentRoute?.component ? await currentRoute.component(location.pathname) : undefined;
         let newComponent = newRoute?.component ? await newRoute.component(route) : undefined;
         if(newRoute?.conditional){
@@ -85,6 +85,10 @@ export class Router {
         } else {
             this._display(newComponent);
         }
+    }
+
+    private static _matchesPath(path: string, routePath: string): boolean {
+        return new RegExp(`^${routePath}$`).test(path.split('?')[0]);
     }
 
     private static _display(component?: HTMLElement){

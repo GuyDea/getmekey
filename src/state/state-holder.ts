@@ -77,14 +77,18 @@ export class StateHolder<T> {
     public notifyChange() {
         setTimeout(() => {
             this.subscribers.forEach(s => {
-                if(s.options?.diffMatcher){
-                    let currentMatcherResult = s.options?.diffMatcher(this.value);
-                    if(currentMatcherResult !== s.previousDiffValue){
-                        s.previousDiffValue = currentMatcherResult;
+                try {
+                    if(s.options?.diffMatcher){
+                        let currentMatcherResult = s.options?.diffMatcher(this.value);
+                        if(currentMatcherResult !== s.previousDiffValue){
+                            s.previousDiffValue = currentMatcherResult;
+                            s.callback(this.value);
+                        }
+                    } else {
                         s.callback(this.value);
                     }
-                } else {
-                    s.callback(this.value);
+                } catch (e) {
+                    console.error('[StateHolder] Subscriber failed during notifyChange', e);
                 }
             });
         })

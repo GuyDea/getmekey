@@ -15,6 +15,7 @@ export class GmkScryptOptions extends HTMLElement {
     private _costRangeComp = comp<HTMLInputElement>(this, '#costRange');
     private _costPowComp = comp<HTMLInputElement>(this, '#costPow');
     private _subs: Subscriber<GmkState>[] = [];
+    private _abort?: AbortController;
 
     constructor() {
         super();
@@ -23,6 +24,7 @@ export class GmkScryptOptions extends HTMLElement {
     }
 
     connectedCallback(){
+        this._abort = new AbortController();
         const opts = () => state.value.hashingOptions.algoOptions.scrypt;
         this._subs.push(state.subscribe(s => {
             this._blockRangeComp().setAttribute('min', opts().minBlock.toString());
@@ -48,18 +50,20 @@ export class GmkScryptOptions extends HTMLElement {
             dispatchImmediately: true
         }));
 
-        this._blockRangeComp().addEventListener('input', () => state.update(s => opts().block = Number(this._blockRangeComp().value)));
-        this._blockComp().addEventListener('change', () => state.update(s => opts().block = fixVal(opts().minBlock, opts().maxBlock, this._blockComp())));
-        this._parallelRangeComp().addEventListener('input', () => state.update(s => opts().parallel = Number(this._parallelRangeComp().value)));
-        this._parallelComp().addEventListener('change', () => state.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())));
-        this._costRangeComp().addEventListener('input', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costRangeComp())));
-        this._costComp().addEventListener('change', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())));
-        this._lengthRangeComp().addEventListener('input', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthRangeComp())));
-        this._lengthComp().addEventListener('change', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
+        this._blockRangeComp().addEventListener('input', () => state.update(s => opts().block = Number(this._blockRangeComp().value)), {signal: this._abort.signal});
+        this._blockComp().addEventListener('change', () => state.update(s => opts().block = fixVal(opts().minBlock, opts().maxBlock, this._blockComp())), {signal: this._abort.signal});
+        this._parallelRangeComp().addEventListener('input', () => state.update(s => opts().parallel = Number(this._parallelRangeComp().value)), {signal: this._abort.signal});
+        this._parallelComp().addEventListener('change', () => state.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())), {signal: this._abort.signal});
+        this._costRangeComp().addEventListener('input', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costRangeComp())), {signal: this._abort.signal});
+        this._costComp().addEventListener('change', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())), {signal: this._abort.signal});
+        this._lengthRangeComp().addEventListener('input', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthRangeComp())), {signal: this._abort.signal});
+        this._lengthComp().addEventListener('change', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())), {signal: this._abort.signal});
     }
 
     disconnectedCallback() {
         this._subs.forEach(s => state.unsubscribe(s));
+        this._subs = [];
+        this._abort?.abort();
     }
 
     private styles = css`
@@ -97,7 +101,7 @@ export class GmkScryptOptions extends HTMLElement {
                         <input id="parallelRange" type="range">
                     </div>
                     <div class="line lineCenter">
-                        <label for="parallel">Length</label>
+                        <label for="length">Length</label>
                         <input id="length" type="number" class="short">
                         <input id="lengthRange" type="range">
                     </div>

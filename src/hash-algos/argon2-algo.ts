@@ -20,10 +20,10 @@ class Argon2Algo implements IHashAlgorithm<Argon2Options> {
                 mem: options.cost,
                 hashLen: options.length,
                 parallelism: options.parallel,
-                type: options.version
+                type: {Argon2d: 0, Argon2i: 1, Argon2id: 2}[options.version]
             })
                 .then((h: any) => resolve(h.hash))
-                .catch((e: any) => reject(e.code === -14 ? 'Cost is too small' : 'Unknown error'))
+                .catch((e: any) => reject(e.code === -14 ? 'Cost is too small' : e.code === -6 ? 'Salt is too short' : (e.message ?? 'Unknown error')))
         })
     }
     getOptions(state: GmkState): Argon2Options {

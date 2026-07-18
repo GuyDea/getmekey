@@ -89,6 +89,10 @@ export class CopyService {
     }
 
     public copy(text: string, message: string){
+        if(!navigator.clipboard){
+            toastService.addToast('Failed To Copy', "ERROR");
+            return;
+        }
         navigator.clipboard.writeText(text)
             .then(() => message ? toastService.addToast(message) : null)
             .catch(() => toastService.addToast('Failed To Copy', "ERROR"));

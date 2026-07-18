@@ -4,11 +4,13 @@ import '/src/components/gmk-title-panel.js';
 import {Subscriber} from "/src/state/state-holder.js";
 import {GmkState} from "/src/state/gmk-state-type.js"
 import {state} from "/src/state/initial-state.js"
+import type {Pbkdf2Options} from "/src/hash-algos/pbkdf2-algo.js"
 
 export class GmkPbkdf2Options extends HTMLElement {
     private _iterationsComp = comp<HTMLInputElement>(this, '#iterations');
     private _iterationsRangeComp = comp<HTMLInputElement>(this, '#iterationsRange');
     private _subs: Subscriber<GmkState>[] = [];
+    private _abort?: AbortController;
 
     constructor() {
         super();
@@ -16,26 +18,31 @@ export class GmkPbkdf2Options extends HTMLElement {
     }
 
     connectedCallback(){
+        this._abort = new AbortController();
         const opts = () => state.value.hashingOptions.algoOptions.pbkdf2;
         this._subs.push(state.subscribe(s => {
             this._iterationsRangeComp().setAttribute('min', opts().minIterations.toString());
             this._iterationsRangeComp().setAttribute('max', opts().maxIterations.toString());
             this._iterationsComp().value = opts().iterations.toString();
             this._iterationsRangeComp().value = opts().iterations.toString();
-            comp(this, `#pbkdf${opts().hash}`)().setAttribute('checked', '');
-            comp(this, `#length${opts().length}`)().setAttribute('checked', '');
+            this.shadowRoot!.querySelectorAll<HTMLInputElement>('#shaForm input[type="radio"]')
+                .forEach(r => r.checked = r.id === `pbkdf${opts().hash}`);
+            this.shadowRoot!.querySelectorAll<HTMLInputElement>('#lengthForm input[type="radio"]')
+                .forEach(r => r.checked = r.id === `length${opts().length}`);
         }, {
             diffMatcher: s => JSON.stringify(s.hashingOptions.algoOptions.pbkdf2),
             dispatchImmediately: true
         }));
-        this._iterationsRangeComp().addEventListener('input', () => state.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
-        this._iterationsComp().addEventListener('change', () => state.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
-        comp(this, '#shaForm')().addEventListener('change', (ev) => state.update(() => opts().hash = (ev.target as HTMLInputElement).getAttribute('value') as any));
-        comp(this, '#lengthForm')().addEventListener('change', (ev) => state.update(() => opts().length = (ev.target as HTMLInputElement).getAttribute('value') as any));
+        this._iterationsRangeComp().addEventListener('input', () => state.update(s => opts().iterations = Number(this._iterationsRangeComp().value)), {signal: this._abort.signal});
+        this._iterationsComp().addEventListener('change', () => state.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())), {signal: this._abort.signal});
+        comp(this, '#shaForm')().addEventListener('change', (ev) => state.update(() => opts().hash = (ev.target as HTMLInputElement).getAttribute('value') as any), {signal: this._abort.signal});
+        comp(this, '#lengthForm')().addEventListener('change', (ev) => state.update(() => opts().length = Number((ev.target as HTMLInputElement).getAttribute('value')) as Pbkdf2Options['length']), {signal: this._abort.signal});
     }
 
     disconnectedCallback() {
         this._subs.forEach(s => state.unsubscribe(s));
+        this._subs = [];
+        this._abort?.abort();
     }
 
     private _styles() {

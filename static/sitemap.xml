@@ -1,91 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>preferences</loc>
+        <loc>https://getmekey.com/</loc>
+        <lastmod>{{TIMESTAMP}}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://getmekey.com/preferences</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>hash-settings</loc>
+        <loc>https://getmekey.com/hash-settings</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>info-secret</loc>
+        <loc>https://getmekey.com/info-secret</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>why-strong-secret</loc>
+        <loc>https://getmekey.com/why-strong-secret</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>disclaimer</loc>
+        <loc>https://getmekey.com/disclaimer</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>about</loc>
+        <loc>https://getmekey.com/about</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>info-user-interface</loc>
+        <loc>https://getmekey.com/info-user-interface</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>info-usability</loc>
+        <loc>https://getmekey.com/info-usability</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>info-recall</loc>
+        <loc>https://getmekey.com/info-recall</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>info-app-name</loc>
+        <loc>https://getmekey.com/info-app-name</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>what-is-hash</loc>
+        <loc>https://getmekey.com/what-is-hash</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>info-password</loc>
+        <loc>https://getmekey.com/info-password</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>info-hash-selection</loc>
+        <loc>https://getmekey.com/info-hash-selection</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>info-password-format</loc>
+        <loc>https://getmekey.com/info-password-format</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>generation-steps</loc>
+        <loc>https://getmekey.com/generation-steps</loc>
+        <lastmod>{{TIMESTAMP}}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://getmekey.com/policy</loc>
+        <lastmod>{{TIMESTAMP}}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://getmekey.com/info-review-steps</loc>
+        <lastmod>{{TIMESTAMP}}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    <url>
+        <loc>https://getmekey.com/install</loc>
         <lastmod>{{TIMESTAMP}}</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.5</priority>

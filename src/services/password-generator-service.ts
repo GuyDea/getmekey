@@ -70,7 +70,7 @@ export class PasswordGeneratorService {
                             this._processSecret();
                         } else {
                             state.value.passwordValue = '';
-                            state.value.passwordGenerationError = typeof e === 'string' ? e : JSON.stringify(e);
+                            state.value.passwordGenerationError = typeof e === 'string' ? e : e instanceof Error ? e.message : JSON.stringify(e);
                             state.notifyChange();
                         }
                     })

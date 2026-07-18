@@ -47,7 +47,10 @@ export class RecallService {
         }, {
             diffMatcher: secretAndSettingsDiffer
         });
-        this._tryInitialSecretRetrieve().then();
+        this._tryInitialSecretRetrieve().catch(e => {
+            console.error('Failed to retrieve remembered secret', e);
+            this.purgeRemembered();
+        });
     }
 
     private _markSecretRecalled(secret: string){
@@ -133,8 +136,9 @@ export class RecallService {
         Persistence.removeFromStorage("ENCRYPTED_SECRET");
         Persistence.deleteAllCookies();
         state.update(s => {
+            const wasRemembered = s.secretRemembered;
             s.secretRemembered = false;
-            if(state.value.secretRemembered){
+            if(wasRemembered){
                 s.secretValue = '';
             }
         })

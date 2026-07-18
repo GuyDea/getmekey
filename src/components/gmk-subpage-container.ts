@@ -4,15 +4,22 @@ import {globalStyles} from "/src/styles/global-styles.js";
 import {HistoryService} from "/src/services/history-service.js";
 
 export class GmkSubpageContainer extends HTMLElement{
+    private _abort?: AbortController;
+
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this.render();
     }
 
     connectedCallback() {
+        this._abort = new AbortController();
         this.shadowRoot!.querySelector('#backButton')!.addEventListener('click', () => {
             HistoryService.canGoBack() ? HistoryService.goBack() : Router.handleRoute('', true)
-        })
+        }, {signal: this._abort.signal})
+    }
+
+    disconnectedCallback() {
+        this._abort?.abort();
     }
 
     private styles = css`

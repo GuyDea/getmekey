@@ -18,13 +18,13 @@ class ScryptAlgo implements IHashAlgorithm<ScryptOptions> {
                     p: options.parallel,
                     dkLen: options.length,
                     encoding: 'binary',
-                    interruptStep: 1
+                    interruptStep: 1024
                 }, (h: any) => resolve(h));
             } catch (e){
                 if((e as Error).message === 'scrypt: N is not a power of 2'){
                     reject('Cost must be a power of 2');
                 } else {
-                    reject('Unknown error');
+                    reject((e as Error).message ?? 'Unknown error');
                 }
             }
         })

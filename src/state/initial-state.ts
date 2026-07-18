@@ -21,6 +21,15 @@ const defaultUserPreferences: UserPreferencesOptions = {
     }
 }
 
+// Preferences stored by older app versions may miss newer fields - merge them over the defaults
+// so any missing field falls back to its default value
+const storedUserPreferences = Persistence.getFromStorage<Partial<UserPreferencesOptions>>("USER_PREFERENCES");
+const userPreferences: UserPreferencesOptions = {
+    visibility: {...defaultUserPreferences.visibility, ...storedUserPreferences?.visibility},
+    usability: {...defaultUserPreferences.usability, ...storedUserPreferences?.usability},
+    recall: {...defaultUserPreferences.recall, ...storedUserPreferences?.recall}
+}
+
 export const initState: GmkState = {
     secretValue: '',
     secretShow: false,
@@ -58,13 +67,13 @@ export const initState: GmkState = {
             },
             argon2: {
                 iterations: 1,
-                cost: 1,
+                cost: 16384,
                 length: 16,
                 parallel: 1,
                 version: "Argon2d",
                 minIterations: 1,
                 minParallel: 1,
-                minCost: 1,
+                minCost: 8,
                 minLength: 16,
                 maxIterations: 16,
                 maxParallel: 1024,
@@ -87,18 +96,11 @@ export const initState: GmkState = {
             }
         }
     },
-    userPreferences: Persistence.getFromStorage("USER_PREFERENCES") ?? defaultUserPreferences,
+    userPreferences: userPreferences,
     internals: {
         enabledAlgos: ['SHA', 'PBKDF2', 'Scrypt']
     }
 }
 export const state = new StateHolder<GmkState>(initState, error => {
-    // If there is some error, it's probably caused by outdated format of local storage
-    // Makeshift solution for now is to just clear that up completely
-    if (Persistence.getFromStorage("USER_PREFERENCES")) {
-        Persistence.removeFromStorage("USER_PREFERENCES");
-        // location.reload();
-    }
-
-    throw error
+    console.error('[State] Subscriber error', error);
 });

@@ -2,7 +2,7 @@
   "name": "GetMeKey",
   "short_name": "GetMeKey",
   "description": "Your Ultimate Password Assistant",
-  "version": "1.0.4",
+  "version": "1.0.12",
   "manifest_version": 3,
   "permissions": [],
   "action": {
@@ -26,14 +26,14 @@
     {
       "src": "/static/images/screenshot_1280x720.jpg",
       "sizes": "1280x720",
-      "type": "image/jpg",
+      "type": "image/jpeg",
       "form_factor": "wide",
       "label": "Main screen - wide"
     },
     {
       "src": "/static/images/screenshot_720x1280.jpg",
       "sizes": "720x1280",
-      "type": "image/jpg",
+      "type": "image/jpeg",
       "form_factor": "narrow",
       "label": "Main screen - narrow"
     }

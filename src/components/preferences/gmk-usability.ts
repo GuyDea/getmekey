@@ -9,6 +9,7 @@ export class GmkUsability extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];
     private _appPrefill = comp<HTMLInputElement>(this,'#appPrefill');
     private _autoCopy = comp<HTMLInputElement>(this,'#autoCopy');
+    private _abort?: AbortController;
 
 
     constructor() {
@@ -17,21 +18,24 @@ export class GmkUsability extends HTMLElement {
     }
 
     connectedCallback() {
+        this._abort = new AbortController();
         const opts = () => state.value.userPreferences.usability;
         this._subs.push(state.subscribe(s => {
             this._appPrefill().checked = opts().appPrefill;
             this._autoCopy().checked = opts().autoCopy;
         }, {
-            diffMatcher: s => JSON.stringify(s.userPreferences.recall),
+            diffMatcher: s => JSON.stringify(s.userPreferences.usability),
             dispatchImmediately: true
         }));
-        this._appPrefill().addEventListener('input', () => state.update(s => opts().appPrefill = this._appPrefill().checked));
-        this._autoCopy().addEventListener('input', () => state.update(s => opts().autoCopy = this._autoCopy().checked));
+        this._appPrefill().addEventListener('input', () => state.update(s => opts().appPrefill = this._appPrefill().checked), {signal: this._abort.signal});
+        this._autoCopy().addEventListener('input', () => state.update(s => opts().autoCopy = this._autoCopy().checked), {signal: this._abort.signal});
 
     }
 
     disconnectedCallback() {
         this._subs.forEach(s => state.unsubscribe(s));
+        this._subs = [];
+        this._abort?.abort();
     }
 
     private _styles() {

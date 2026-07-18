@@ -21,6 +21,7 @@ async function clearDirectoryExcept(directoryPath, keepFiles) {
         }
     } catch (error) {
         console.error('Error clearing directory:', error);
+        throw error;
     }
 }
 
@@ -28,6 +29,9 @@ const directoryPath = `${__dirname}/dist`;
 const keepFiles = ['index.html'];
 clearDirectoryExcept(directoryPath, keepFiles)
     .then(() => console.log(`Directory "/dist" cleared except for index.html`))
-    .catch(console.error);
+    .catch((error) => {
+        console.error(error);
+        process.exitCode = 1;
+    });
 
 

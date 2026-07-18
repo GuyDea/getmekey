@@ -6,6 +6,7 @@ import {state} from "/src/state/initial-state.js"
 
 export class GmkShaOptions extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];
+    private _abort?: AbortController;
 
     constructor() {
         super();
@@ -13,18 +14,21 @@ export class GmkShaOptions extends HTMLElement {
     }
 
     connectedCallback(){
+        this._abort = new AbortController();
         comp(this, '#shaVersionForm')().addEventListener('change', ev => {
             state.value.hashingOptions.algoOptions.sha.version = (ev.target as HTMLInputElement).getAttribute('value') as any;
             state.notifyChange();
-        });
+        }, {signal: this._abort.signal});
         comp(this, '#positionForm')().addEventListener('change', ev => {
             state.value.hashingOptions.algoOptions.sha.saltPosition = (ev.target as HTMLInputElement).getAttribute('id') as any;
             state.notifyChange();
-        });
+        }, {signal: this._abort.signal});
         this._subs.push(state.subscribe(s => {
             const opts = s.hashingOptions.algoOptions.sha;
-            comp(this,`#${opts.version}`)().setAttribute('checked', '');
-            comp(this,`#${opts.saltPosition}`)().setAttribute('checked', '');
+            this.shadowRoot!.querySelectorAll<HTMLInputElement>('#shaVersionForm input[type="radio"]')
+                .forEach(r => r.checked = r.id === opts.version);
+            this.shadowRoot!.querySelectorAll<HTMLInputElement>('#positionForm input[type="radio"]')
+                .forEach(r => r.checked = r.id === opts.saltPosition);
         }, {
             dispatchImmediately: true,
             diffMatcher: s => JSON.stringify(s.hashingOptions.algoOptions.sha)
@@ -33,6 +37,8 @@ export class GmkShaOptions extends HTMLElement {
 
     disconnectedCallback() {
         this._subs.forEach(s => state.unsubscribe(s));
+        this._subs = [];
+        this._abort?.abort();
     }
 
     private styles = css`

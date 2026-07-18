@@ -10,16 +10,18 @@ export class GmkVisibility extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];
     private _topSecret = comp<HTMLInputElement>(this,'#topSecret');
     private _hideInfo = comp<HTMLInputElement>(this,'#hideInfo');
-    
+    private _abort?: AbortController;
+
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
     }
 
     connectedCallback() {
+        this._abort = new AbortController();
         const opts = () => state.value.userPreferences.visibility;
-        this._topSecret().addEventListener('input', () => state.update(s => opts().topSecret = this._topSecret().checked));
-        this._hideInfo().addEventListener('input', () => state.update(s => opts().hideInfo = this._hideInfo().checked));
+        this._topSecret().addEventListener('input', () => state.update(s => opts().topSecret = this._topSecret().checked), {signal: this._abort.signal});
+        this._hideInfo().addEventListener('input', () => state.update(s => opts().hideInfo = this._hideInfo().checked), {signal: this._abort.signal});
         this._subs.push(state.subscribe(s => {
             this._topSecret().checked = opts().topSecret;
             this._hideInfo().checked = opts().hideInfo;
@@ -31,6 +33,8 @@ export class GmkVisibility extends HTMLElement {
 
     disconnectedCallback() {
         this._subs.forEach(s => state.unsubscribe(s));
+        this._subs = [];
+        this._abort?.abort();
     }
 
     private _styles() {

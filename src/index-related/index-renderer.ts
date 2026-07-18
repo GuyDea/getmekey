@@ -37,6 +37,7 @@ export class IndexRenderer {
                     passwordGenerationError: s.passwordGenerationError,
                     userPreferences: s.userPreferences,
                     recalled: s.secretRecalled,
+                    remembered: s.secretRemembered,
                     passwordGeneration: s.hashingOptions,
                     recalledPasswordGeneration: s.recalledHashingOptions,
                 })

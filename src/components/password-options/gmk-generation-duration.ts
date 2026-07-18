@@ -14,6 +14,7 @@ export class GmkGenerationDuration extends HTMLElement {
     private _loader = comp(this, '#loader');
     private _noInfo = comp(this, '#noInfo');
     private _delayInfo = comp(this, '#delayInfo');
+    private _abort?: AbortController;
 
     constructor() {
         super();
@@ -22,6 +23,7 @@ export class GmkGenerationDuration extends HTMLElement {
     }
 
     connectedCallback(){
+        this._abort = new AbortController();
         this._subs.push(state.subscribe(s => {
             this._error().style.display = 'none';
             this._duration().style.display = 'none';
@@ -47,7 +49,8 @@ export class GmkGenerationDuration extends HTMLElement {
             diffMatcher: s => JSON.stringify({
                 error: s.passwordGenerationError,
                 duration: s.generationSpeed,
-                generating: s.passwordGenerating
+                generating: s.passwordGenerating,
+                topSecret: s.userPreferences.visibility.topSecret
             })
         }));
         this._delayInfo().addEventListener('click', () => {
@@ -55,19 +58,21 @@ export class GmkGenerationDuration extends HTMLElement {
                 htmlText: html`
                     <div style="text-align: center">You are in <strong style="color: var(--color-danger)">Top-Secret
                         Mode</strong></div><br/>
-                    <div style="text-align: center">Password generation is artificially capped down to 500ms, not to
-                        reveal complexity of your hash function
+                    <div style="text-align: center">Password generation is artificially padded to 500 ms so as not to
+                        reveal the complexity of your hash function
                     </div>`,
                 yesCallback: async () => {
                     popupService.close();
                 },
                 yesButtonName: 'OK'
             }));
-        })
+        }, {signal: this._abort.signal})
     }
 
     disconnectedCallback() {
         this._subs.forEach(s => state.unsubscribe(s));
+        this._subs = [];
+        this._abort?.abort();
     }
 
     private _styles() {

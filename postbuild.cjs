@@ -47,6 +47,15 @@ async function addVersion() {
     await fs.writeFile(`${__dirname}/dist/src/meta.js`,replaced,{encoding:'utf8',flag:'w'});
 }
 
+async function updateManifestVersions() {
+    const manifests = [`${__dirname}/dist/manifest.json`, `${__dirname}/dist/static/manifest_web.json`];
+    for (const manifest of manifests) {
+        const content = await fs.readFile(manifest, 'utf8');
+        const replaced = content.replace(/"version":\s*"[^"]*"/, `"version": "${process.env.npm_package_version}"`);
+        await fs.writeFile(manifest, replaced, {encoding: 'utf8', flag: 'w'});
+    }
+}
+
 async function updateSitemap() {
     const content = await fs.readFile(`${__dirname}/dist/static/sitemap.xml`, 'utf8');
     let replaced = content.replaceAll('{{TIMESTAMP}}', new Date().toISOString());
@@ -67,7 +76,7 @@ async function listFilesRecursive(dir, relativeDir = '') {
         if (stat && stat.isDirectory()) {
             results = results.concat(await listFilesRecursive(dir, relativePath));
         } else {
-            results.push(relativePath);
+            results.push(relativePath.split(path.sep).join('/'));
         }
     }
     return results;
@@ -94,10 +103,14 @@ copyDir(sourceDirectory, destinationDirectory)
     .then(() => copyDir(`${__dirname}/lib`, `${__dirname}/dist/lib`))
     .then(() => copyOtherAssets())
     .then(() => addVersion())
+    .then(() => updateManifestVersions())
     .then(() => updateSitemap())
     .then(() => setupSW())
     .then(() => console.log('Build finished successfully'))
-    .catch(console.error);
+    .catch((error) => {
+        console.error(error);
+        process.exitCode = 1;
+    });
 
 
 

@@ -14,6 +14,7 @@ export class GmkRecall extends HTMLElement {
     private _minutesRange = comp<HTMLInputElement>(this, '#minutesRange');
     private _minutesPanel = comp(this, '#minutesPanel');
     private _rememberAndCopyPanel = comp(this, '#rememberAndCopyPanel');
+    private _abort?: AbortController;
 
 
     constructor() {
@@ -22,10 +23,11 @@ export class GmkRecall extends HTMLElement {
     }
 
     connectedCallback() {
+        this._abort = new AbortController();
         const clearPassword = () => recallService.unmarkSecretAsRecalled(true);
         const opts = () => state.value.userPreferences.recall;
-        this._remember().addEventListener('input', () => state.update(s => opts().remember = this._remember().checked));
-        this._allowRecall().addEventListener('input', () => state.update(s => opts().allowRecall = this._allowRecall().checked));
+        this._remember().addEventListener('input', () => state.update(s => opts().remember = this._remember().checked), {signal: this._abort.signal});
+        this._allowRecall().addEventListener('input', () => state.update(s => opts().allowRecall = this._allowRecall().checked), {signal: this._abort.signal});
         this._subs.push(state.subscribe(s => {
             this._remember().checked = opts().remember;
             this._minutesRange().setAttribute('min', opts().minRememberDurationM.toString());
@@ -42,16 +44,18 @@ export class GmkRecall extends HTMLElement {
         this._minutesRange().addEventListener('input', () => state.update(s => {
             opts().rememberDurationM = Number(this._minutesRange().value);
             clearPassword();
-        }));
+        }), {signal: this._abort.signal});
         this._minutes().addEventListener('change', () => state.update(s => {
             opts().rememberDurationM = fixVal(opts().minRememberDurationM, opts().maxRememberDurationM, this._minutes());
             clearPassword();
-        }));
+        }), {signal: this._abort.signal});
 
     }
 
     disconnectedCallback() {
         this._subs.forEach(s => state.unsubscribe(s));
+        this._subs = [];
+        this._abort?.abort();
     }
 
     private _styles() {

@@ -38,7 +38,7 @@ GetMeKey is inspired by the last option - with additional cryptographic steps.
 
 == How It Works
 
-Deducing password from app names, in a style of `MyNetflixPassword123` is solid idea.
+Deducing password from app names, in a style of `MyNetflixPassword123` is a solid idea.
 
 * You just need to remember how you put it together
 * You don't need to write it down anywhere
@@ -54,7 +54,7 @@ That's where GetMeKey comes in. Combining your secret phrase with the name of th
 
 Cryptographic hash function is a mathematical algorithm, that you use hundreds of times every day: to establish your banking connection, verify downloaded file, talk privately to your friends in a messaging app, etc.
 
-These functions are widely used and well-known. You can select from a bunch of them inside the GetMeKey. Once you know how all this fits together, you don't even need GetMeKey to figure out your password - you can use any tool online that deals with cryptography (e.g. https://www.dcode.fr, https://monocalc.com, https://tools.keycdn.com, etc.) to do so.
+These functions are widely used and well-known. You can select from a bunch of them inside GetMeKey. Once you know how all this fits together, you don't even need GetMeKey to figure out your password - you can use any tool online that deals with cryptography (e.g. https://www.dcode.fr, https://monocalc.com, https://tools.keycdn.com, etc.) to do so.
 
 == Why Use GetMeKey
 
@@ -81,21 +81,21 @@ As long as you have a browser at hand, you can get to any of your passwords. It 
 === Transparent
 GetMeKey is built and served in such a way that anyone can see and review what it is doing. Every other application minimizes and packs its source code as tight as possible, so it loads faster, but the code becomes unreadable in the process.
 
-GetMeKey works differently - it serves its source code without minimizing or repackaging, so anyone can review it in any DevTools. As the GetMeKey is fairly lightweight, the increased package size is negligible.
+GetMeKey works differently - it serves its source code without minimizing or repackaging, so anyone can review it in any DevTools. As GetMeKey is fairly lightweight, the increased package size is negligible.
 
 [[about_free]]
 === Free
 The whole idea of GetMeKey is to provide a user-friendly way to hash your secret together with the app name. GetMeKey runs solely on your device and doesn't need anything else to function. So there is no need for heavy infrastructure - meaning no expenses, no reason to monetize.
 
-GetMeKey is also open-source under ISC license - anyone can use, copy or share the whole code-base for no cost.
+GetMeKey is also open-source under the ISC license - anyone can use, copy or share the whole code-base for no cost.
 
 == GetMeKey Drawbacks
 
 As with everything in life, nothing is perfect. But GetMeKey gets damn close! However, it's fair to mention also these parts.
 
 * Passwords always have the same format: a fixed security prefix consisting of uppercase, lowercase, numbers, and special characters, followed by the password using only alphanumeric characters. If the app does not support this format, you'll have to update the password manually.
-* You have to be precise and consistent with the names of the apps that you use. If just one of the letters is off, totally different password will be generated. If a given application is known by multiple names, you have to choose one - eg. *x* or *twitter*?
-* God forbid, you reveal your secret and all hashing steps to someone - this someone could then generate all your passwords as would you. However, this is a fundamental issue with any secured system or password manager: if an attacker knows what you know, you are out of luck.
+* You have to be precise and consistent with the names of the apps that you use. If just one of the letters is off, a totally different password will be generated. If a given application is known by multiple names, you have to choose one - e.g. *x* or *twitter*?
+* God forbid, you reveal your secret and all hashing steps to someone - this someone could then generate all your passwords as you would. However, this is a fundamental issue with any secured system or password manager: if an attacker knows what you know, you are out of luck.
 
 
 == Third-Party Algorithm Implementations
@@ -105,7 +105,7 @@ There are two algorithms used in GetMeKey, that are not natively supported in mo
 - Scrypt
 - Argon2 (deprecated)
 
-Libraries used in the production build of this project are imported directly into its file structure, instead of relying on package-manager.
+Libraries used in the production build of this project are imported directly into its file structure, instead of relying on a package manager.
 
 As we are not using any bundler, it's just easier to fix import issues manually.
 

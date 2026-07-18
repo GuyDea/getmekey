@@ -6,9 +6,9 @@ import {state} from "/src/state/initial-state.js"
 
 export class GmkAlgoOutputFormat extends HTMLElement {
     private _subs: Subscriber<GmkState>[] = [];
-    private _formatForm = comp<HTMLInputElement>(this, '#formatForm');
     private _takeFirst = comp<HTMLInputElement>(this, '#takeFirst');
     private _securityText = comp<HTMLInputElement>(this, '#securityText');
+    private _abort?: AbortController;
 
     constructor() {
         super();
@@ -16,26 +16,26 @@ export class GmkAlgoOutputFormat extends HTMLElement {
     }
 
     connectedCallback(){
+        this._abort = new AbortController();
         const opts = () => state.value.hashingOptions.outputOptions;
         this._subs.push(state.subscribe(s => {
+            const outputOptions = s.hashingOptions.outputOptions;
+            this._takeFirst().setAttribute('min', outputOptions.minTakeFirst.toString());
+            this._takeFirst().setAttribute('max', outputOptions.maxTakeFirst.toString());
+            this._takeFirst().value = outputOptions.takeFirst.toString();
+            this._securityText().value = outputOptions.securityText;
         }, {
             diffMatcher: s => JSON.stringify(s.hashingOptions.outputOptions),
             dispatchImmediately: true,
         }));
-        this._takeFirst().value = opts().takeFirst.toString();
-        this._takeFirst().setAttribute('min', opts().minTakeFirst.toString());
-        this._takeFirst().setAttribute('max', opts().maxTakeFirst.toString());
-        this._takeFirst().addEventListener('change', () => state.update(() => opts().takeFirst = fixVal(opts().minTakeFirst, opts().maxTakeFirst, this._takeFirst())));
-        this._securityText().value = opts().securityText;
-        this._securityText().addEventListener('input', () => state.update(() => opts().securityText = this._securityText().value))
-        this._formatForm().addEventListener('change', ev => {
-            opts().format = (ev.target as HTMLInputElement).getAttribute('id') as any;
-            state.notifyChange();
-        })
+        this._takeFirst().addEventListener('change', () => state.update(() => opts().takeFirst = fixVal(opts().minTakeFirst, opts().maxTakeFirst, this._takeFirst())), {signal: this._abort.signal});
+        this._securityText().addEventListener('input', () => state.update(() => opts().securityText = this._securityText().value), {signal: this._abort.signal})
     }
 
     disconnectedCallback() {
         this._subs.forEach(s => state.unsubscribe(s));
+        this._subs = [];
+        this._abort?.abort();
     }
 
     private styles = css`

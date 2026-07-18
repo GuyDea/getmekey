@@ -4,6 +4,7 @@ import '/src/components/gmk-title-panel.js';
 import {Subscriber} from "/src/state/state-holder.js";
 import {GmkState} from "/src/state/gmk-state-type.js"
 import {state} from "/src/state/initial-state.js"
+import type {Argon2Options} from "/src/hash-algos/argon2-algo.js"
 
 export class GmkArgon2Options extends HTMLElement {
     private _iterationsComp = comp<HTMLInputElement>(this, '#iterations');
@@ -15,7 +16,8 @@ export class GmkArgon2Options extends HTMLElement {
     private _lengthComp = comp<HTMLInputElement>(this, '#length');
     private _lengthRangeComp = comp<HTMLInputElement>(this, '#lengthRange');
     private _subs: Subscriber<GmkState>[] = [];
-    
+    private _abort?: AbortController;
+
     constructor() {
         super();
         this.attachShadow({mode: 'open'}).innerHTML = this._render();
@@ -23,6 +25,7 @@ export class GmkArgon2Options extends HTMLElement {
     }
 
     connectedCallback(){
+        this._abort = new AbortController();
         const opts = () => state.value.hashingOptions.algoOptions.argon2;
         this._subs.push(state.subscribe(s => {
             this._iterationsRangeComp().setAttribute('min', opts().minIterations.toString());
@@ -41,27 +44,31 @@ export class GmkArgon2Options extends HTMLElement {
             this._lengthRangeComp().setAttribute('max', opts().maxLength.toString());
             this._lengthComp().value = opts().length.toString();
             this._lengthRangeComp().value = opts().length.toString();
+            this.shadowRoot!.querySelectorAll<HTMLInputElement>('#argonVersionForm input[type="radio"]')
+                .forEach(r => r.checked = r.value === opts().version);
 
         }, {
             diffMatcher: s => JSON.stringify(s.hashingOptions.algoOptions.argon2),
             dispatchImmediately: true
         }));
-        this._iterationsRangeComp().addEventListener('input', () => state.update(s => opts().iterations = Number(this._iterationsRangeComp().value)));
-        this._iterationsComp().addEventListener('input', () => state.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())));
-        this._parallelRangeComp().addEventListener('input', () => state.update(s => opts().parallel = Number(this._parallelRangeComp().value)));
-        this._parallelComp().addEventListener('input', () => state.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())));
-        this._costRangeComp().addEventListener('input', () => state.update(s => opts().cost = Number(this._costRangeComp().value)));
-        this._costComp().addEventListener('input', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())));
-        this._lengthRangeComp().addEventListener('input', () => state.update(s => opts().length = Number(this._lengthRangeComp().value)));
-        this._lengthComp().addEventListener('input', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())));
+        this._iterationsRangeComp().addEventListener('input', () => state.update(s => opts().iterations = Number(this._iterationsRangeComp().value)), {signal: this._abort.signal});
+        this._iterationsComp().addEventListener('input', () => state.update(s => opts().iterations = fixVal(opts().minIterations, opts().maxIterations, this._iterationsComp())), {signal: this._abort.signal});
+        this._parallelRangeComp().addEventListener('input', () => state.update(s => opts().parallel = Number(this._parallelRangeComp().value)), {signal: this._abort.signal});
+        this._parallelComp().addEventListener('input', () => state.update(s => opts().parallel = fixVal(opts().minParallel, opts().maxParallel, this._parallelComp())), {signal: this._abort.signal});
+        this._costRangeComp().addEventListener('input', () => state.update(s => opts().cost = Number(this._costRangeComp().value)), {signal: this._abort.signal});
+        this._costComp().addEventListener('input', () => state.update(s => opts().cost = fixVal(opts().minCost, opts().maxCost, this._costComp())), {signal: this._abort.signal});
+        this._lengthRangeComp().addEventListener('input', () => state.update(s => opts().length = Number(this._lengthRangeComp().value)), {signal: this._abort.signal});
+        this._lengthComp().addEventListener('input', () => state.update(s => opts().length = fixVal(opts().minLength, opts().maxLength, this._lengthComp())), {signal: this._abort.signal});
         comp(this, '#argonVersionForm')().addEventListener('change', (ev) => {
-            opts().version = (ev.target as HTMLInputElement).getAttribute('id') as any;
+            opts().version = (ev.target as HTMLInputElement).value as Argon2Options['version'];
             state.notifyChange();
-        })
+        }, {signal: this._abort.signal})
     }
 
     disconnectedCallback() {
         this._subs.forEach(s => state.unsubscribe(s));
+        this._subs = [];
+        this._abort?.abort();
     }
 
     private _styles() {
@@ -99,15 +106,15 @@ export class GmkArgon2Options extends HTMLElement {
                         <label>Version</label>
                         <form id="argonVersionForm" class="lineRadios">
                             <span>
-                                <input type="radio" name="version" id="2iRadio" checked/><label
+                                <input type="radio" name="version" id="2iRadio" value="Argon2i"/><label
                                     for="2iRadio">Argon2i</label>
                             </span>
                                 <span>
-                                <input type="radio" name="version" id="2dRadio"/><label
+                                <input type="radio" name="version" id="2dRadio" value="Argon2d" checked/><label
                                         for="2dRadio">Argon2d</label>
                             </span>
                                 <span>
-                                <input type="radio" name="version" id="2idRadio"/><label
+                                <input type="radio" name="version" id="2idRadio" value="Argon2id"/><label
                                         for="2idRadio">Argon2id</label>
                             </span>
                         </form>
